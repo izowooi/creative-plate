@@ -30,8 +30,10 @@ def images_are_similar(img1, img2, threshold) -> bool:
     print(f"이미지 유사도: {diff_score}")
     return diff_score < threshold
 
+target_size=(640, 640)
+
 # 스크린샷 촬영 함수
-def take_screenshots_during_execution(output_folder, duration=10, interval=1, diff_score_threshold=5):
+def take_screenshots_during_execution(output_folder, duration=10, interval=0.5, diff_score_threshold=5):
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
@@ -40,7 +42,9 @@ def take_screenshots_during_execution(output_folder, duration=10, interval=1, di
 
     while time.time() - start_time < duration:
         # 스크린샷 촬영
-        screenshot = pyautogui.screenshot()
+        screenshot_origin = pyautogui.screenshot()
+        # YOLO에 맞춰 리사이즈
+        screenshot = screenshot_origin.resize(target_size, Image.NEAREST)
 
         # 중복 여부 확인
         # if previous_screenshot:
@@ -57,7 +61,7 @@ def take_screenshots_during_execution(output_folder, duration=10, interval=1, di
             timestamp = time.strftime("%Y%m%d_%H%M%S")
             screenshot_path = os.path.join(output_folder, f"screenshot_{timestamp}.png")
             screenshot.save(screenshot_path)
-            print(f"스크린샷 저장: {screenshot_path}")
+            #print(f"스크린샷 저장: {screenshot_path}")
 
             # 현재 스크린샷을 이전 스크린샷으로 저장
             previous_screenshot = screenshot
@@ -68,7 +72,7 @@ def take_screenshots_during_execution(output_folder, duration=10, interval=1, di
 
 if __name__ == "__main__":
     recording_duration_sec = 30
-    recording_interval_sec = 1
+    recording_interval_sec = 0.5
     launch_time_sec = 5
 
     bundle_id = "com.haoplay.game.ios.exilium"
