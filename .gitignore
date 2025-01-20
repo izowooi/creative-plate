@@ -172,3 +172,4 @@ cython_debug/
 auto_play/python_proj/screenshots/
 *.mp4
 *.srt
+*.mp3

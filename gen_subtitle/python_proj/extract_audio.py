@@ -56,13 +56,18 @@ if __name__ == "__main__":
     start_time_sec = args.start_time
     end_time_sec = args.end_time
 
+    # audio_file = 'audio_0_end.mp3'
+    # end_time_sec = 0 * 60 #0분
+
     print(f'Input video: {original_video}, Output audio: {audio_file}')
     print(f'Start time: {start_time_sec}')
     print(f'End time: {end_time_sec}')
 
-    trim_video(original_video, trimmed_video, start_time_sec=start_time_sec, end_time_sec=end_time_sec)
+    if end_time_sec > 0:
+        trim_video(original_video, trimmed_video, start_time_sec=start_time_sec, end_time_sec=end_time_sec)
+        extract_audio_to_mp3(trimmed_video, audio_file)
+        print(f"잘라낸 영상: {trimmed_video}")
+    else:
+        extract_audio_to_mp3(original_video, audio_file)
 
-    extract_audio_to_mp3(trimmed_video, audio_file)
-
-    print(f"잘라낸 영상: {trimmed_video}")
     print(f"추출된 오디오 파일(mp3): {audio_file}")
