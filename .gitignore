@@ -170,3 +170,5 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 auto_play/python_proj/screenshots/
+*.mp4
+*.srt
