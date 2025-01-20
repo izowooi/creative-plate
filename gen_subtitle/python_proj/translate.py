@@ -3,6 +3,8 @@ import os
 import re
 import requests
 from dotenv import load_dotenv
+from translation_config import TranslationConfig
+
 load_dotenv(verbose=True)
 
 DEEPL_AUTH_KEY = os.getenv('DEEPL_AUTH_KEY')
@@ -10,14 +12,15 @@ input_file_path = "960_audio.srt"
 output_file_path = "960_audio_translated.srt"
 
 
-def translate_request_deepl(text: str, source_lang: str = 'EN', target_lang: str = 'KO' ) -> str:
+#def translate_request_deepl(text: str, source_lang: str = 'EN', target_lang: str = 'KO' ) -> str:
+def translate_request_deepl(text: str, config: TranslationConfig) -> str:
     #return text  # 테스트용: 번역 API 호출을 건너뛰고 원문 그대로 반환
     url_for_deepl = 'https://api-free.deepl.com/v2/translate'
     params = {
         'auth_key': DEEPL_AUTH_KEY,
         'text': text,
-        'source_lang': source_lang,
-        'target_lang': target_lang
+        'source_lang': config.source_lang,
+        'target_lang': config.target_lang
     }
     result = requests.post(url_for_deepl, data=params, verify=True)
     # DeepL 응답에서 번역 결과 부분만 추출
@@ -104,7 +107,7 @@ def parse_srt_blocks(lines):
 - 블록 내 모든 대사를 합쳐서(deepl에) 한 번 번역하고,
 - 다시 줄 단위로 쪼개며 [참석자 ...]도 재삽입.
 """
-def translate_block_text(block):
+def translate_block_text(block, config: TranslationConfig):
     cleaned_lines = []
     bracket_map = []
 
@@ -116,7 +119,7 @@ def translate_block_text(block):
     original_text_block = "\n".join(cleaned_lines)
 
     if original_text_block.strip():
-        translated_text_block = translate_request_deepl(original_text_block)
+        translated_text_block = translate_request_deepl(original_text_block, config)
     else:
         translated_text_block = ""
 
@@ -171,8 +174,15 @@ if __name__ == "__main__":
     source_lang = args.source_lang
     target_lang = args.target_lang
     auth_key = args.auth_key
+
+    input_file_path = "audio_0_30.srt"
+    output_file_path = "audio_0_30_translated.srt"
+    source_lang = 'JA'
+
     print(f"Translating {input_file_path} from {source_lang} to {target_lang}...")
     print(f"Output will be saved to {output_file_path}")
+
+    config = TranslationConfig(input_file_path, output_file_path, source_lang, target_lang, auth_key)
 
     with open(input_file_path, 'r', encoding='utf-8') as f:
         srt_lines = f.readlines()
@@ -180,7 +190,7 @@ if __name__ == "__main__":
     blocks = parse_srt_blocks(srt_lines)
 
     for b in blocks:
-        translate_block_text(b)
+        translate_block_text(b, config)
 
     translated_srt_lines = rebuild_srt_content(blocks)
 
