@@ -1,12 +1,16 @@
+import argparse
 import subprocess
 import os
 
 
-def trim_video(input_path, output_path, start_time_sec=0, duration_sec=300):
-    # 1. 동영상에서 특정 구간(예: 앞 5분)만 잘라내기
+def trim_video(input_path, output_path, start_time_sec=0, end_time_sec=None):
     if os.path.exists(output_path):
         os.remove(output_path)
 
+    if end_time_sec is None:
+        end_time_sec = start_time_sec + 300
+
+    duration_sec = end_time_sec - start_time_sec
     command = [
         "ffmpeg",
         "-i", input_path,
@@ -38,16 +42,26 @@ def extract_audio_to_mp3(input_path, output_audio_path):
 
 
 if __name__ == "__main__":
-    # 예시 사용
-    original_video = "960.mp4"
-    trimmed_video = "960_trimmed.mp4"
-    audio_file = "960_audio.mp3"
+    parser = argparse.ArgumentParser(description='Extract audio from video')
+    parser.add_argument('--input_video', required=True, help='Input video file path')
+    parser.add_argument('--output_audio', required=True, help='Output audio file path')
+    parser.add_argument('--start_time', type=int, default=0, help='Start time in seconds')
+    parser.add_argument('--end_time', type=int, default=300, help='End time in seconds')
 
-    print(f"원본 영상: {original_video}")
-    # (1) 동영상 앞 5분만 추출
-    trim_video(original_video, trimmed_video, start_time_sec=0, duration_sec=300)
+    args = parser.parse_args()
 
-    # (2) 잘라낸 영상에서 오디오 추출 (mp3 형식)
+    original_video = args.input_video
+    trimmed_video = 'trimmed_' + original_video
+    audio_file = args.output_audio
+    start_time_sec = args.start_time
+    end_time_sec = args.end_time
+
+    print(f'Input video: {original_video}, Output audio: {audio_file}')
+    print(f'Start time: {start_time_sec}')
+    print(f'End time: {end_time_sec}')
+
+    trim_video(original_video, trimmed_video, start_time_sec=start_time_sec, end_time_sec=end_time_sec)
+
     extract_audio_to_mp3(trimmed_video, audio_file)
 
     print(f"잘라낸 영상: {trimmed_video}")
