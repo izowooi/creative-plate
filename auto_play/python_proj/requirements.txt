@@ -1,2 +1,4 @@
 PyAutoGUI==0.9.54
 pillow==11.1.0
+ultralytics==8.3.65
+scikit-learn==1.6.1
