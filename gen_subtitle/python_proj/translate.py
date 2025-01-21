@@ -1,9 +1,21 @@
 import argparse
 import os
 import re
+import time
+import logging
 import requests
 from dotenv import load_dotenv
 from translation_config import TranslationConfig
+
+logging.basicConfig(
+    level=logging.DEBUG,  # 로그 레벨 (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+    format='%(asctime)s - %(levelname)s - %(message)s',  # 로그 포맷
+    datefmt='%Y-%m-%d %H:%M:%S',  # 날짜/시간 포맷
+    handlers = [
+        logging.FileHandler("translate_processing.log"),  # 파일 출력
+        logging.StreamHandler()  # 콘솔 출력
+    ]
+)
 
 load_dotenv(verbose=True)
 
@@ -14,7 +26,8 @@ output_file_path = "960_audio_translated.srt"
 
 #def translate_request_deepl(text: str, source_lang: str = 'EN', target_lang: str = 'KO' ) -> str:
 def translate_request_deepl(text: str, config: TranslationConfig) -> str:
-    #return text  # 테스트용: 번역 API 호출을 건너뛰고 원문 그대로 반환
+    return text  # 테스트용: 번역 API 호출을 건너뛰고 원문 그대로 반환
+    logging.debug("Sending text to DeepL API for translation.")
     url_for_deepl = 'https://api-free.deepl.com/v2/translate'
     params = {
         'auth_key': DEEPL_AUTH_KEY,
@@ -22,15 +35,22 @@ def translate_request_deepl(text: str, config: TranslationConfig) -> str:
         'source_lang': config.source_lang,
         'target_lang': config.target_lang
     }
-    result = requests.post(url_for_deepl, data=params, verify=True)
-    # DeepL 응답에서 번역 결과 부분만 추출
-    return result.json()['translations'][0]["text"]
+    try:
+        result = requests.post(url_for_deepl, data=params, verify=True)
+        result.raise_for_status()
+        translated_text = result.json()['translations'][0]["text"]
+        logging.debug("Translation successful.")
+        return translated_text
+    except Exception as e:
+        logging.error(f"Error during translation: {e}", exc_info=True)
+        return text
 
 
 def remove_bracketed_participants(line: str):
     pattern = r'(\[참석자\s*\d+\])'
     found = re.findall(pattern, line)  # 예: ["[참석자 2]"]
     line_cleaned = re.sub(pattern, '', line)  # 대사에서 제거
+    logging.debug(f"Processed line: '{line}' -> '{line_cleaned}', brackets: {found}")
     return line_cleaned.strip(), found  # (정리된 대사, [참석자들] 리스트)
 
 
@@ -98,6 +118,7 @@ def parse_srt_blocks(lines):
     if current_block['index'] or current_block['time'] or current_block['text_lines']:
         blocks.append(current_block)
 
+    logging.info(f"Parsed {len(blocks)} blocks from the SRT file.")
     return blocks
 
 
@@ -140,22 +161,70 @@ def translate_block_text(block, config: TranslationConfig):
         final_lines.append(new_line)
 
     block['text_lines'] = final_lines
+    logging.debug(f"Translated block {block['index']}.")
     return block
+
+
+"""
+"HH:MM:SS,mmm" 형태의 문자열을 파싱하여
+shift_seconds (초)를 더한 뒤 동일 포맷으로 반환
+"""
+def shift_timestamp(timestamp: str, shift_seconds: int) -> str:
+    # "00:00:00,000" -> hours=00, minutes=00, seconds_milli=00,000
+    hours, minutes, seconds_milli = timestamp.split(':')
+    seconds, milliseconds = seconds_milli.split(',')
+
+    total_seconds = int(hours) * 3600 + int(minutes) * 60 + int(seconds)
+    total_milliseconds = total_seconds * 1000 + int(milliseconds)
+
+    new_total_milliseconds = total_milliseconds + shift_seconds * 1000
+
+    if new_total_milliseconds < 0:
+        new_total_milliseconds = 0
+
+    new_hours = new_total_milliseconds // 3600000
+    remainder = new_total_milliseconds % 3600000
+    new_minutes = remainder // 60000
+    remainder = remainder % 60000
+    new_seconds = remainder // 1000
+    new_milliseconds = remainder % 1000
+
+    return f"{new_hours:02d}:{new_minutes:02d}:{new_seconds:02d},{new_milliseconds:03d}"
+
+
+def shift_time_range(time_line: str, shift_seconds: int) -> str:
+    """
+    "HH:MM:SS,mmm --> HH:MM:SS,mmm" 형태의 문자열을
+    각각 shift_timestamp 함수를 통해 변환
+    """
+    start_str, end_str = time_line.split('-->')
+    start_str = start_str.strip()
+    end_str = end_str.strip()
+
+    shifted_start = shift_timestamp(start_str, shift_seconds)
+    shifted_end = shift_timestamp(end_str, shift_seconds)
+
+    return f"{shifted_start} --> {shifted_end}"
 
 
 """
 translate_block_text로 업데이트된 blocks를
 다시 SRT 포맷(문자열 리스트)으로 만들어 반환.
 """
-def rebuild_srt_content(blocks):
+def rebuild_srt_content(blocks, shift_seconds):
     output_lines = []
     for b in blocks:
         if b['index'] and b['time']:
             output_lines.append(b['index'] + "\n")  # 인덱스
-            output_lines.append(b['time'] + "\n")  # 타임라인
+
+            shifted_time_line = shift_time_range(b['time'], shift_seconds)
+
+            output_lines.append(shifted_time_line + "\n")  # 타임라인
             for line in b['text_lines']:
                 output_lines.append(line + "\n")
             output_lines.append("\n")  # 블록 구분용 빈 줄
+
+    logging.info(f"Rebuilt SRT content with {len(blocks)} blocks.")
     return output_lines
 
 
@@ -166,6 +235,7 @@ if __name__ == "__main__":
     parser.add_argument('--source_lang', default='EN', help='Source language (default: EN)')
     parser.add_argument('--target_lang', default='KO', help='Target language (default: KO)')
     parser.add_argument('--auth_key', default=DEEPL_AUTH_KEY, help='DeepL API authentication key')
+    parser.add_argument('--time_shift', type=int, default=0, help='Shift subtitle timing by N seconds (default: 0)')
 
     args = parser.parse_args()
 
@@ -174,27 +244,38 @@ if __name__ == "__main__":
     source_lang = args.source_lang
     target_lang = args.target_lang
     auth_key = args.auth_key
+    time_shift = args.time_shift
 
     input_file_path = "audio_0_30.srt"
     output_file_path = "audio_0_30_translated.srt"
     source_lang = 'JA'
 
-    print(f"Translating {input_file_path} from {source_lang} to {target_lang}...")
-    print(f"Output will be saved to {output_file_path}")
+    time_shift = 30
+    source_lang = 'JA'
 
     config = TranslationConfig(input_file_path, output_file_path, source_lang, target_lang, auth_key)
 
-    with open(input_file_path, 'r', encoding='utf-8') as f:
-        srt_lines = f.readlines()
+    logging.info(f"Starting translation of {input_file_path} from {source_lang} to {target_lang}...")
 
-    blocks = parse_srt_blocks(srt_lines)
+    start_time = time.perf_counter()
 
-    for b in blocks:
-        translate_block_text(b, config)
+    try:
+        with open(input_file_path, 'r', encoding='utf-8') as f:
+            srt_lines = f.readlines()
 
-    translated_srt_lines = rebuild_srt_content(blocks)
+        blocks = parse_srt_blocks(srt_lines)
 
-    with open(output_file_path, 'w', encoding='utf-8') as f:
-        f.writelines(translated_srt_lines)
+        for b in blocks:
+            translate_block_text(b, config)
 
-    print("Translation complete. Output saved to:", output_file_path)
+        translated_srt_lines = rebuild_srt_content(blocks, time_shift)
+
+        with open(output_file_path, 'w', encoding='utf-8') as f:
+            f.writelines(translated_srt_lines)
+
+        end_time = time.perf_counter()
+        elapsed_time = end_time - start_time
+        logging.info(f"Translation complete. Output saved to: {output_file_path}")
+        logging.info(f"Time taken: {elapsed_time:.2f} seconds")
+    except Exception as e:
+        logging.error(f"An error occurred: {e}", exc_info=True)
