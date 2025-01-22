@@ -24,9 +24,29 @@ input_file_path = "960_audio.srt"
 output_file_path = "960_audio_translated.srt"
 
 
-#def translate_request_deepl(text: str, source_lang: str = 'EN', target_lang: str = 'KO' ) -> str:
+def translate_list_deepl(text_list: list[str], config: TranslationConfig) -> list[str]:
+    logging.debug("Sending text to DeepL API for translation.")
+    url_for_deepl = 'https://api-free.deepl.com/v2/translate'
+    params = {
+        'auth_key': DEEPL_AUTH_KEY,
+        'text': text_list,
+        'source_lang': config.source_lang,
+        'target_lang': config.target_lang
+    }
+    try:
+        result = requests.post(url_for_deepl, data=params, verify=True)
+        result.raise_for_status()
+        #translated_text = result.json()['translations'][0]["text"]
+        translated_text = [ item['text'] for item in result.json()['translations'] ]
+        logging.debug("Translation successful.")
+        return translated_text
+    except Exception as e:
+        logging.error(f"Error during translation: {e}", exc_info=True)
+        return text_list
+
+
 def translate_request_deepl(text: str, config: TranslationConfig) -> str:
-    return text  # 테스트용: 번역 API 호출을 건너뛰고 원문 그대로 반환
+#    return text  # 테스트용: 번역 API 호출을 건너뛰고 원문 그대로 반환
     logging.debug("Sending text to DeepL API for translation.")
     url_for_deepl = 'https://api-free.deepl.com/v2/translate'
     params = {
@@ -128,41 +148,55 @@ def parse_srt_blocks(lines):
 - 블록 내 모든 대사를 합쳐서(deepl에) 한 번 번역하고,
 - 다시 줄 단위로 쪼개며 [참석자 ...]도 재삽입.
 """
-def translate_block_text(block, config: TranslationConfig):
-    cleaned_lines = []
-    bracket_map = []
+def translate_block_text(blocks, config: TranslationConfig):
+    """
+    SRT 블록 리스트를 한 번에 번역하는 함수.
+    각 블록의 텍스트를 리스트로 만들어 translate_list_deepl로 번역한 뒤 결과를 반영.
+    """
+    # 1) 모든 블록에서 번역할 텍스트를 수집
+    text_list = []
+    bracket_map_list = []
 
-    for line in block['text_lines']:
-        line_no_bracket, found_brackets = remove_bracketed_participants(line)
-        cleaned_lines.append(line_no_bracket)
-        bracket_map.append(found_brackets)
+    for block in blocks:
+        cleaned_lines = []
+        bracket_map = []
 
-    original_text_block = "\n".join(cleaned_lines)
+        for line in block['text_lines']:
+            line_no_bracket, found_brackets = remove_bracketed_participants(line)
+            cleaned_lines.append(line_no_bracket)
+            bracket_map.append(found_brackets)
 
-    if original_text_block.strip():
-        translated_text_block = translate_request_deepl(original_text_block, config)
-    else:
-        translated_text_block = ""
+        # 블록 텍스트를 합쳐 번역 요청 리스트에 추가
+        text_list.append("\n".join(cleaned_lines))
+        bracket_map_list.append(bracket_map)
 
-    translated_lines = translated_text_block.splitlines()
+    # 2) DeepL API로 한 번에 번역 요청
+    translated_text_blocks = translate_list_deepl(text_list, config)
 
-    if len(translated_lines) < len(cleaned_lines):
-        translated_lines += [""] * (len(cleaned_lines) - len(translated_lines))
-    elif len(translated_lines) > len(cleaned_lines):
-        translated_lines = translated_lines[:len(cleaned_lines)]
+    # 3) 번역 결과를 블록에 다시 반영
+    for block, translated_text_block, bracket_map in zip(blocks, translated_text_blocks, bracket_map_list):
+        translated_lines = translated_text_block.splitlines()
+        final_lines = []
 
-    final_lines = []
-    for i, t_line in enumerate(translated_lines):
-        if bracket_map[i]:
-            bracket_text = " ".join(bracket_map[i])
-            new_line = bracket_text + " " + t_line
-        else:
-            new_line = t_line
-        final_lines.append(new_line)
+        # 원본 줄 수와 번역 결과 줄 수를 맞춤
+        if len(translated_lines) < len(bracket_map):
+            translated_lines += [""] * (len(bracket_map) - len(translated_lines))
+        elif len(translated_lines) > len(bracket_map):
+            translated_lines = translated_lines[:len(bracket_map)]
 
-    block['text_lines'] = final_lines
-    logging.debug(f"Translated block {block['index']}.")
-    return block
+        # [참석자 ...]을 번역 결과에 재삽입
+        for i, t_line in enumerate(translated_lines):
+            if bracket_map[i]:
+                bracket_text = " ".join(bracket_map[i])
+                new_line = f"{bracket_text} {t_line}"
+            else:
+                new_line = t_line
+            final_lines.append(new_line)
+
+        block['text_lines'] = final_lines
+        logging.debug(f"Translated block {block['index']} with {len(block['text_lines'])} lines.")
+
+    return blocks
 
 
 """
@@ -246,12 +280,9 @@ if __name__ == "__main__":
     auth_key = args.auth_key
     time_shift = args.time_shift
 
-    input_file_path = "audio_0_30.srt"
-    output_file_path = "audio_0_30_translated.srt"
-    source_lang = 'JA'
-
-    time_shift = 30
-    source_lang = 'JA'
+    input_file_path = "test.srt"
+    output_file_path = "test_translated.srt"
+    source_lang = 'EN'
 
     config = TranslationConfig(input_file_path, output_file_path, source_lang, target_lang, auth_key)
 
@@ -265,8 +296,7 @@ if __name__ == "__main__":
 
         blocks = parse_srt_blocks(srt_lines)
 
-        for b in blocks:
-            translate_block_text(b, config)
+        translate_block_text(blocks, config)
 
         translated_srt_lines = rebuild_srt_content(blocks, time_shift)
 
