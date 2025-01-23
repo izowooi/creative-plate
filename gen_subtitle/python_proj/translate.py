@@ -6,6 +6,7 @@ import logging
 import requests
 from dotenv import load_dotenv
 from translation_config import TranslationConfig
+from transformer_ja_ko import translate_list_gpt2
 
 DEEPL_LIMIT = 500000  # DeepL API 사용량 제한 (문자 수)
 
@@ -187,7 +188,10 @@ def translate_block_text(blocks, config: TranslationConfig):
     is_exceed = sum(len(s) for s in text_list) + usage > DEEPL_LIMIT
     if usage < 0 or is_exceed:
         logging.info(f"Skipping DeepL API translation due to usage limit or excessive text. Usage: {usage}")
-        translated_text_blocks = text_list
+        if config.source_lang == 'JA' and config.target_lang == 'KO':
+            translated_text_blocks = translate_list_gpt2(text_list)
+        else:
+            translated_text_blocks = text_list
     else:
         # 2) DeepL API로 한 번에 번역 요청
         translated_text_blocks = translate_list_deepl(text_list, config)
