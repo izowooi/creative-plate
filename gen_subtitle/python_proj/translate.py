@@ -7,6 +7,8 @@ import requests
 from dotenv import load_dotenv
 from translation_config import TranslationConfig
 
+DEEPL_LIMIT = 500000  # DeepL API 사용량 제한 (문자 수)
+
 logging.basicConfig(
     level=logging.DEBUG,  # 로그 레벨 (DEBUG, INFO, WARNING, ERROR, CRITICAL)
     format='%(asctime)s - %(levelname)s - %(message)s',  # 로그 포맷
@@ -141,6 +143,18 @@ def parse_srt_blocks(lines):
     logging.info(f"Parsed {len(blocks)} blocks from the SRT file.")
     return blocks
 
+def deepl_usage() -> int:
+    url_for_deepl = 'https://api-free.deepl.com/v2/usage'
+    try:
+        result = requests.post(url_for_deepl, data={'auth_key': DEEPL_AUTH_KEY}, verify=True)
+        result.raise_for_status()
+        usage = result.json()['character_count']
+        logging.info(f"Usage: {usage}")
+        return int(usage)
+    except Exception as e:
+        logging.error(f"Error during usage check: {e}", exc_info=True)
+        return -1
+
 
 """
 하나의 블록에 대해,
@@ -166,12 +180,15 @@ def translate_block_text(blocks, config: TranslationConfig):
             cleaned_lines.append(line_no_bracket)
             bracket_map.append(found_brackets)
 
-        # 블록 텍스트를 합쳐 번역 요청 리스트에 추가
         text_list.append("\n".join(cleaned_lines))
         bracket_map_list.append(bracket_map)
 
-    # 2) DeepL API로 한 번에 번역 요청
-    translated_text_blocks = translate_list_deepl(text_list, config)
+    usage = deepl_usage()
+    is_exceed = sum(len(s) for s in text_list) + usage > DEEPL_LIMIT
+    if usage < 0 or is_exceed:
+        logging.info(f"Skipping DeepL API translation due to usage limit or excessive text. Usage: {usage}")
+        translated_text_blocks = text_list
+    else:
 
     # 3) 번역 결과를 블록에 다시 반영
     for block, translated_text_block, bracket_map in zip(blocks, translated_text_blocks, bracket_map_list):
