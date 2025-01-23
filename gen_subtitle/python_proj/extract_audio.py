@@ -64,7 +64,7 @@ if __name__ == "__main__":
     parser.add_argument('--input_video', required=True, help='Input video file path')
     parser.add_argument('--output_audio', required=True, help='Output audio file path')
     parser.add_argument('--start_time', type=int, default=0, help='Start time in seconds')
-    parser.add_argument('--end_time', type=int, default=300, help='End time in seconds')
+    parser.add_argument('--end_time', type=int, default=0, help='End time in seconds')
 
     args = parser.parse_args()
 
