@@ -189,6 +189,8 @@ def translate_block_text(blocks, config: TranslationConfig):
         logging.info(f"Skipping DeepL API translation due to usage limit or excessive text. Usage: {usage}")
         translated_text_blocks = text_list
     else:
+        # 2) DeepL API로 한 번에 번역 요청
+        translated_text_blocks = translate_list_deepl(text_list, config)
 
     # 3) 번역 결과를 블록에 다시 반영
     for block, translated_text_block, bracket_map in zip(blocks, translated_text_blocks, bracket_map_list):
