@@ -4,3 +4,4 @@ torch==2.5.1
 transformers==4.48.1
 fugashi==1.4.0
 unidic-lite==1.0.8
+gradio==5.13.1
