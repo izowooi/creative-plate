@@ -9,6 +9,7 @@ from translation_config import TranslationConfig
 from transformer_ja_ko import translate_list_gpt2
 
 DEEPL_LIMIT = 500000  # DeepL API 사용량 제한 (문자 수)
+config = TranslationConfig("", "", "", "", "")
 
 logging.basicConfig(
     level=logging.DEBUG,  # 로그 레벨 (DEBUG, INFO, WARNING, ERROR, CRITICAL)
@@ -20,18 +21,12 @@ logging.basicConfig(
     ]
 )
 
-load_dotenv(verbose=True)
-
-DEEPL_AUTH_KEY = os.getenv('DEEPL_AUTH_KEY')
-input_file_path = "960_audio.srt"
-output_file_path = "960_audio_translated.srt"
-
-
-def translate_list_deepl(text_list: list[str], config: TranslationConfig) -> list[str]:
+def translate_list_deepl(text_list: list[str]) -> list[str]:
+    global config
     logging.debug("Sending text to DeepL API for translation.")
     url_for_deepl = 'https://api-free.deepl.com/v2/translate'
     params = {
-        'auth_key': DEEPL_AUTH_KEY,
+        'auth_key': config.auth_key,
         'text': text_list,
         'source_lang': config.source_lang,
         'target_lang': config.target_lang
@@ -48,12 +43,13 @@ def translate_list_deepl(text_list: list[str], config: TranslationConfig) -> lis
         return text_list
 
 
-def translate_request_deepl(text: str, config: TranslationConfig) -> str:
+def translate_request_deepl(text: str) -> str:
 #    return text  # 테스트용: 번역 API 호출을 건너뛰고 원문 그대로 반환
+    global config
     logging.debug("Sending text to DeepL API for translation.")
     url_for_deepl = 'https://api-free.deepl.com/v2/translate'
     params = {
-        'auth_key': DEEPL_AUTH_KEY,
+        'auth_key': config.auth_key,
         'text': text,
         'source_lang': config.source_lang,
         'target_lang': config.target_lang
@@ -145,9 +141,10 @@ def parse_srt_blocks(lines):
     return blocks
 
 def deepl_usage() -> int:
+    global config
     url_for_deepl = 'https://api-free.deepl.com/v2/usage'
     try:
-        result = requests.post(url_for_deepl, data={'auth_key': DEEPL_AUTH_KEY}, verify=True)
+        result = requests.post(url_for_deepl, data={'auth_key': config.auth_key}, verify=True)
         result.raise_for_status()
         usage = result.json()['character_count']
         logging.info(f"Usage: {usage}")
@@ -163,7 +160,8 @@ def deepl_usage() -> int:
 - 블록 내 모든 대사를 합쳐서(deepl에) 한 번 번역하고,
 - 다시 줄 단위로 쪼개며 [참석자 ...]도 재삽입.
 """
-def translate_block_text(blocks, config: TranslationConfig):
+def translate_block_text(blocks):
+    global config
     """
     SRT 블록 리스트를 한 번에 번역하는 함수.
     각 블록의 텍스트를 리스트로 만들어 translate_list_deepl로 번역한 뒤 결과를 반영.
@@ -194,7 +192,7 @@ def translate_block_text(blocks, config: TranslationConfig):
             translated_text_blocks = text_list
     else:
         # 2) DeepL API로 한 번에 번역 요청
-        translated_text_blocks = translate_list_deepl(text_list, config)
+        translated_text_blocks = translate_list_deepl(text_list)
 
     # 3) 번역 결과를 블록에 다시 반영
     for block, translated_text_block, bracket_map in zip(blocks, translated_text_blocks, bracket_map_list):
@@ -285,28 +283,8 @@ def rebuild_srt_content(blocks, shift_seconds):
     return output_lines
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Translate SRT file using DeepL API')
-    parser.add_argument('--input_file', required=True, help='Input SRT file path')
-    parser.add_argument('--output_file', required=True, help='Output SRT file path')
-    parser.add_argument('--source_lang', default='EN', help='Source language (default: EN)')
-    parser.add_argument('--target_lang', default='KO', help='Target language (default: KO)')
-    parser.add_argument('--auth_key', default=DEEPL_AUTH_KEY, help='DeepL API authentication key')
-    parser.add_argument('--time_shift', type=int, default=0, help='Shift subtitle timing by N seconds (default: 0)')
-
-    args = parser.parse_args()
-
-    input_file_path = args.input_file
-    output_file_path = args.output_file
-    source_lang = args.source_lang
-    target_lang = args.target_lang
-    auth_key = args.auth_key
-    time_shift = args.time_shift
-
-    input_file_path = "test.srt"
-    output_file_path = "test_translated.srt"
-    source_lang = 'EN'
-
+def translate_srt_file(input_file_path, output_file_path, source_lang, target_lang, time_shift, auth_key):
+    global config
     config = TranslationConfig(input_file_path, output_file_path, source_lang, target_lang, auth_key)
 
     logging.info(f"Starting translation of {input_file_path} from {source_lang} to {target_lang}...")
@@ -319,7 +297,7 @@ if __name__ == "__main__":
 
         blocks = parse_srt_blocks(srt_lines)
 
-        translate_block_text(blocks, config)
+        translate_block_text(blocks)
 
         translated_srt_lines = rebuild_srt_content(blocks, time_shift)
 
@@ -332,3 +310,33 @@ if __name__ == "__main__":
         logging.info(f"Time taken: {elapsed_time:.2f} seconds")
     except Exception as e:
         logging.error(f"An error occurred: {e}", exc_info=True)
+
+
+if __name__ == "__main__":
+    load_dotenv(verbose=True)
+
+    parser = argparse.ArgumentParser(description='Translate SRT file using DeepL API')
+    parser.add_argument('--input_file', required=True, help='Input SRT file path')
+    parser.add_argument('--output_file', required=True, help='Output SRT file path')
+    parser.add_argument('--source_lang', default='EN', help='Source language (default: EN)')
+    parser.add_argument('--target_lang', default='KO', help='Target language (default: KO)')
+    parser.add_argument('--auth_key', default=None, help='DeepL API authentication key')
+    parser.add_argument('--time_shift', type=int, default=0, help='Shift subtitle timing by N seconds (default: 0)')
+
+    args = parser.parse_args()
+
+    input_file_path = args.input_file
+    output_file_path = args.output_file
+    source_lang = args.source_lang
+    target_lang = args.target_lang
+    auth_key = args.auth_key if args.auth_key else os.getenv('DEEPL_AUTH_KEY')
+    time_shift = args.time_shift
+
+    #input_file_path = "/Users/izowooi/Downloads/NIMA-047.srt"
+    #output_file_path = "/Volumes/Completed/NIMA-047/NIMA-047.srt"
+    input_file_path = "test.srt"
+    output_file_path = "test_translated.srt"
+    source_lang = 'JA'
+
+    translate_srt_file(input_file_path, output_file_path, source_lang, target_lang, time_shift, auth_key)
+
