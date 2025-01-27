@@ -1,12 +1,18 @@
 import os
-import time
 import logging
 import gradio as gr
-import tempfile
-from dotenv import load_dotenv
-
-from translation_config import TranslationConfig
 from translate import translate_srt_file as translate_srt
+
+# logging 설정
+logging.basicConfig(
+    level=logging.DEBUG,  # 로그 레벨 (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+    format='%(asctime)s - %(levelname)s - %(message)s',  # 로그 포맷
+    datefmt='%Y-%m-%d %H:%M:%S',  # 날짜/시간 포맷
+    handlers=[
+        logging.FileHandler("gradio_processing.log"),  # 파일 출력
+        logging.StreamHandler()                       # 콘솔 출력
+    ]
+)
 
 
 def build_gradio_interface():
@@ -66,18 +72,31 @@ def build_gradio_interface():
 
     return demo
 
-def translate_srt_file(srt_file, output_file_path, source_lang, target_lang, time_shift, auth_key):
-    translate_srt(srt_file, output_file_path, source_lang, target_lang, time_shift, auth_key)
+def translate_srt_file(srt_file, source_lang, target_lang, time_shift, auth_key):
+    if srt_file is None:
+        msg = "[오류] SRT 파일이 없습니다."
+        logging.error(msg)
+        return msg, None
+
+    src_file_path = srt_file.name
+    base_name = os.path.basename(src_file_path)
+    dir_name = os.path.dirname(src_file_path)
+    output_file_path = os.path.join(dir_name, f"translated_{base_name}")
+
+    logging.info(f"입력 SRT 파일: {src_file_path}")
+    logging.info(f"출력 SRT 파일: {output_file_path}")
+    logging.info(f"소스 언어: {source_lang}")
+    logging.info(f"타겟 언어: {target_lang}")
+    logging.info(f"타임 시프트: {time_shift}")
+    logging.info(f"인증키: {auth_key}")
+
+    result_log = translate_srt(src_file_path, output_file_path, source_lang, target_lang, time_shift, auth_key)
+
+    final_log = f"번역이 완료되었습니다.\n\n자세한 내용은 로그 파일(gradio_processing.log)과 콘솔을 확인하세요.\n\n{result_log or ''}"
+
+    return final_log, output_file_path
 
 
 if __name__ == "__main__":
     demo = build_gradio_interface()
     demo.launch()
-    # input_file_path = "test.srt"
-    # output_file_path = "test_translated.srt"
-    # source_lang = 'JA'
-    # load_dotenv(verbose=True)
-    #
-    # DEEPL_AUTH_KEY = os.getenv('DEEPL_AUTH_KEY')
-    #
-    # translate_srt_file(input_file_path, output_file_path, source_lang, 'KO', 0, DEEPL_AUTH_KEY)

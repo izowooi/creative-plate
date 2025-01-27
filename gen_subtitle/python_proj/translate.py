@@ -283,7 +283,7 @@ def rebuild_srt_content(blocks, shift_seconds):
     return output_lines
 
 
-def translate_srt_file(input_file_path, output_file_path, source_lang, target_lang, time_shift, auth_key):
+def translate_srt_file(input_file_path, output_file_path, source_lang, target_lang, time_shift, auth_key) -> str:
     global config
     config = TranslationConfig(input_file_path, output_file_path, source_lang, target_lang, auth_key)
 
@@ -308,8 +308,11 @@ def translate_srt_file(input_file_path, output_file_path, source_lang, target_la
         elapsed_time = end_time - start_time
         logging.info(f"Translation complete. Output saved to: {output_file_path}")
         logging.info(f"Time taken: {elapsed_time:.2f} seconds")
+        return "[translate success]"
     except Exception as e:
         logging.error(f"An error occurred: {e}", exc_info=True)
+
+    return "[translate failed]"
 
 
 if __name__ == "__main__":
@@ -332,8 +335,6 @@ if __name__ == "__main__":
     auth_key = args.auth_key if args.auth_key else os.getenv('DEEPL_AUTH_KEY')
     time_shift = args.time_shift
 
-    #input_file_path = "/Users/izowooi/Downloads/NIMA-047.srt"
-    #output_file_path = "/Volumes/Completed/NIMA-047/NIMA-047.srt"
     input_file_path = "test.srt"
     output_file_path = "test_translated.srt"
     source_lang = 'JA'
