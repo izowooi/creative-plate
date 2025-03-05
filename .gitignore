@@ -173,9 +173,9 @@ auto_play/python_proj/screenshots/
 *.mp4
 *.srt
 *.mp3
-*.png
 test_whisper/.idea/vcs.xml
 test_whisper/.idea/test_whisper.iml
 test_whisper/.idea/modules.xml
 test_whisper/.idea/misc.xml
 test_whisper/.idea/inspectionProfiles/profiles_settings.xml
+auto_play/**/*.png
