@@ -11,7 +11,7 @@
 3. OCR 실행
 
 # 실행화면
-<img src="https://github.com/izowooi/creative-plate/tree/main/vision-pudding/pic/main_screen.png" width="90%">
+<img src="https://github.com/izowooi/creative-plate/blob/main/vision-pudding/pic/main_screen.png?raw=true" width="90%">
 
 # requirements
 
