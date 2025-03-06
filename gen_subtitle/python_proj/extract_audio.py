@@ -4,6 +4,8 @@ import os
 import time
 import logging
 
+from extract_audio_core import trim_video, extract_audio_to_mp3
+
 logging.basicConfig(
     level=logging.DEBUG,  # 로그 레벨 (DEBUG, INFO, WARNING, ERROR, CRITICAL)
     format='%(asctime)s - %(levelname)s - %(message)s',  # 로그 포맷
@@ -14,58 +16,15 @@ logging.basicConfig(
     ]
 )
 
-def trim_video(input_path, output_path, start_time_sec=0, end_time_sec=None):
-    if os.path.exists(output_path):
-        os.remove(output_path)
-        logging.info(f"기존에 존재하던 파일 삭제: {output_path}")
+logger = logging.getLogger(__name__)
 
-    if end_time_sec is None:
-        end_time_sec = start_time_sec + 300
-
-    duration_sec = end_time_sec - start_time_sec
-    command = [
-        "ffmpeg",
-        "-i", input_path,
-        "-ss", str(start_time_sec),
-        "-t", str(duration_sec),
-        "-c", "copy",
-        output_path
-    ]
-    logging.info(f"동영상 자르기: {input_path} -> {output_path}")
-    logging.debug(f"FFmpeg 명령어: {' '.join(command)}")
-    subprocess.run(command, check=True)
-    logging.info(f"동영상 자르기 완료: {output_path}")
-    return output_path
-
-
-def extract_audio_to_mp3(input_path, output_audio_path):
-    if os.path.exists(output_audio_path):
-        os.remove(output_audio_path)
-        logging.info(f"기존에 존재하던 파일 삭제: {output_audio_path}")
-
-    command = [
-        "ffmpeg",
-        "-i", input_path,
-        "-vn",
-        "-ar", "44100",
-        "-ac", "2",
-        "-b:a", "192k",
-        output_audio_path
-    ]
-    logging.info(f"오디오 추출 시작: {input_path} -> {output_audio_path}")
-    logging.debug(f"FFmpeg 명령어: {' '.join(command)}")
-    subprocess.run(command, check=True)
-    logging.info(f"오디오 추출 완료: {output_audio_path}")
-    return output_audio_path
-
-
-if __name__ == "__main__":
+# 4시간짜리 영상은 대략 4분 정도 소요됨
+def main():
     parser = argparse.ArgumentParser(description='Extract audio from video')
     parser.add_argument('--input_video', required=True, help='Input video file path')
     parser.add_argument('--output_audio', required=True, help='Output audio file path')
     parser.add_argument('--start_time', type=int, default=0, help='Start time in seconds')
     parser.add_argument('--end_time', type=int, default=0, help='End time in seconds')
-
     args = parser.parse_args()
 
     original_video = args.input_video
@@ -93,3 +52,7 @@ if __name__ == "__main__":
 
     logging.info(f"추출된 오디오 파일(mp3): {audio_file}")
     logging.info(f"소요된 시간: {elapsed_time:.2f} seconds")
+
+
+if __name__ == "__main__":
+    main()
