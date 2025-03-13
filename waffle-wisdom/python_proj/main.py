@@ -1,7 +1,15 @@
 from openai import OpenAI
+import pickle
+
+def load_pickle(pickle_filename):
+    with open (pickle_filename, "rb") as f:
+        data = pickle.load(f)
+        return data["openai_api_key"]
+
+open_api_key = load_pickle('secret.pkl')
 
 # OpenAI 클라이언트 초기화
-client = OpenAI(api_key="YOUR_OPENAI_API_KEY")
+client = OpenAI(api_key=open_api_key)
 
 # 1. 질문의 민감도를 평가하는 함수
 def determine_question_level(question):
