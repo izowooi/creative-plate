@@ -10,8 +10,9 @@ def determine_question_level(question):
     """
     prompt = f"다음 질문의 논쟁성을 1(전혀 논쟁적이지 않음)부터 10(매우 논쟁적임)으로 평가하세요.\n질문: {question}\n논쟁성(숫자만 답하세요):"
 
+    MODEL = "gpt-4o-mini"
     response = client.chat.completions.create(
-        model="gpt-4o",  # 최신 모델 사용
+        model=MODEL,
         messages=[
             {"role": "system", "content": "너는 질문의 논쟁성을 평가하는 AI야."},
             {"role": "user", "content": prompt}
