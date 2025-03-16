@@ -1,0 +1,8 @@
+python_proj/.idea/
+python_proj/secret.pkl
+flutter_proj/windows/
+flutter_proj/macos/
+flutter_proj/web/
+flutter_proj/linux/
+flutter_proj/ios/
+flutter_proj/android/
