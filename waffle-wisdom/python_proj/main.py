@@ -14,7 +14,7 @@ def get_secret(secret_name="waffle_wisdom_open_ai", project_id="fresh-mint-63c38
     response = client.access_secret_version(request={"name": secret_path})
     secret_value = response.payload.data.decode("UTF-8")
 
-    return secret_value[:10]  # 앞 5글자만 반환
+    return secret_value  # 앞 5글자만 반환
 
 app = Flask(__name__)
 # OpenAI API 키 가져오기
@@ -22,7 +22,6 @@ openai_api_key = get_secret()
 
 # PersonaAI 객체 생성
 persona_ai = PersonaAI(openai_api_key)
-
 
 @app.route("/", methods=["POST"])
 def hello_http(*args):
@@ -44,7 +43,9 @@ def hello_http(*args):
         if not question:
             return jsonify({"error": "question 필드가 필요합니다."}), 400
 
-        return jsonify({"message": f"Hello {question} World!"})
+        response = persona_ai.process_question(question)
+
+        return jsonify({"message": f"Hello {response} World"})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
