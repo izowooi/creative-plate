@@ -30,3 +30,21 @@ gcloud auth application-default login
 ```bash
 functions-framework --target=hello_http --debug
 ```
+
+## Build
+아래 명령어는 Cloud Run 에서 실행될 애플리케이션을 로컬에서 실행하고 디버깅할 수 있도록 지원하는 Google Cloud의 베타 기능입니다.
+```bash
+gcloud beta code dev 
+```
+
+## Deploy
+아래 명령어를 실행하여 Cloud Run에 서비스를 배포합니다.
+```bash
+gcloud run deploy secret-test-function \
+  --source . \
+  --region us-central1 \
+  --platform managed \
+  --allow-unauthenticated \
+  --project fresh-mint-63c38 \
+  --clear-base-image
+```
