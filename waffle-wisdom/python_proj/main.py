@@ -29,11 +29,12 @@ def hello_http(*args):
         # Cloud Functions 환경일 경우, request 객체를 args[0]으로 받음
         req = args[0] if args else request
         question = req.form.get("question")
-
+        is_test = req.form.get("is_test", "true").lower() == "true"
+        print(f"question: {question}, is_test: {is_test}")
         if not question:
             return jsonify({"error": "question 필드가 필요합니다."}), 400
 
-        response = persona_ai.process_question(question, True)
+        response = persona_ai.process_question(question, is_test)
 
         return jsonify({"message": f"Hello {response} World"})
 
