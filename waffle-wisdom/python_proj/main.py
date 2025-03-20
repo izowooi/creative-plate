@@ -23,8 +23,8 @@ openai_api_key = get_secret()
 # PersonaAI 객체 생성
 persona_ai = PersonaAI(openai_api_key)
 
-@app.route("/", methods=["POST"])
-def hello_http(*args):
+@app.route("/persona/response", methods=["POST"])
+def generate_persona_response(*args):
     try:
         # Cloud Functions 환경일 경우, request 객체를 args[0]으로 받음
         req = args[0] if args else request
@@ -36,7 +36,7 @@ def hello_http(*args):
 
         response = persona_ai.process_question(question, is_test)
 
-        return jsonify({"message": f"Hello {response} World"})
+        return jsonify(response)
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
