@@ -10,7 +10,12 @@ class PersonaAI:
         """
         self.client = OpenAI(api_key=openai_api_key)
 
-    def generate_persona_response(self, question, persona):
+    def generate_persona_response(self, question, persona, is_test=False):
+        if is_test:
+            return json.dumps({
+                "opinion_agreement": True,
+                "persona_response": f"(테스트 모드) {persona['name']}의 대답: '{question}'에 대한 가상 응답"
+            }, ensure_ascii=False)
         """
         특정 페르소나의 관점에서 질문에 대한 응답을 생성
         """
@@ -49,7 +54,8 @@ class PersonaAI:
 
         return response.choices[0].message.content.strip()
 
-    def process_question(self, question):
+
+    def process_question(self, question, is_test=False):
         """
         질문을 처리하여 페르소나별 의견을 생성
         """
@@ -76,10 +82,11 @@ class PersonaAI:
 
         responses = []
         for persona in personas:
-            opinion = self.generate_persona_response(question, persona)
+            opinion = self.generate_persona_response(question, persona, is_test)
             responses.append({
                 "persona": persona["name"],
                 "response": opinion
             })
 
         return json.dumps(responses, indent=4, ensure_ascii=False)
+
