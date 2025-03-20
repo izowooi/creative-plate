@@ -25,25 +25,15 @@ persona_ai = PersonaAI(openai_api_key)
 
 @app.route("/", methods=["POST"])
 def hello_http(*args):
-    """Flask API 엔드포인트"""
-    # Cloud Functions 환경일 경우, request 객체를 args[0]으로 받음
-    if args:
-        req = args[0]
-    else:
-        req = request  # Flask에서는 기본 request 객체 사용
-    """Flask API 엔드포인트"""
     try:
-        # JSON 요청 확인
-        request_data = req.get_json()
+        # Cloud Functions 환경일 경우, request 객체를 args[0]으로 받음
+        req = args[0] if args else request
+        question = req.form.get("question")
 
-        if not request_data:
-            return jsonify({"error": "잘못된 요청입니다. JSON 데이터를 포함해야 합니다."}), 400
-
-        question = request_data.get("question", "")
         if not question:
             return jsonify({"error": "question 필드가 필요합니다."}), 400
 
-        response = persona_ai.process_question(question)
+        response = persona_ai.process_question(question, True)
 
         return jsonify({"message": f"Hello {response} World"})
 
