@@ -180,7 +180,6 @@ test_whisper/.idea/misc.xml
 test_whisper/.idea/inspectionProfiles/profiles_settings.xml
 auto_play/**/*.png
 vision-pudding/python_proj/*.png
-fluffy-qr/**/*.png
 waffle-wisdom/python_proj/.idea/
 waffle-wisdom/python_proj/secret.pkl
 waffle-wisdom/python_proj/fresh-mint-63c38-80e4bf25501d.json
