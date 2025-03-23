@@ -2,9 +2,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_proj/widget/empty_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:waffle_wisdom/widget/empty_widget.dart';
+import 'package:waffle_wisdom/widget/login_view.dart';
 
 final sceneNameProvider = StateProvider<String>((ref) {
   return "";
@@ -17,7 +17,7 @@ final navigationIndexProvider = StateProvider<int>((ref) {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // 바인딩 초기화
-  //await Firebase.initializeApp();
+  await Firebase.initializeApp();
   
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((_) {
@@ -57,7 +57,7 @@ class MainApp extends ConsumerWidget {
           index: currentPageIndex,
           children: [
             EmptyWidget(),
-            EmptyWidget(),
+            LoginView(),
             EmptyWidget(),
             EmptyWidget(),
           ],
