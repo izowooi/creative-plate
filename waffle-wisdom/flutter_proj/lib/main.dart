@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:waffle_wisdom/widget/empty_widget.dart';
 import 'package:waffle_wisdom/widget/login_view.dart';
 import 'package:waffle_wisdom/widget/ask_and_reply_view.dart';
+import 'package:waffle_wisdom/widget/my_question_history_view.dart';
 
 final sceneNameProvider = StateProvider<String>((ref) {
   return "";
@@ -59,7 +60,7 @@ class MainApp extends ConsumerWidget {
           children: [
             AskAndReplyView(),
             LoginView(),
-            EmptyWidget(),
+            MyQuestionHistoryView(),
             EmptyWidget(),
           ],
         ),
