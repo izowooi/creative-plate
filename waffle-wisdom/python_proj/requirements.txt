@@ -1,3 +1,4 @@
 openai==1.66.2
 google-cloud-secret-manager==2.23.2
 Flask==3.1.0
+litellm==1.64.1
