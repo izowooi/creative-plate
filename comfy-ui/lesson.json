@@ -1,8 +1,8 @@
 {
   "id": "53e979c0-a14a-448c-8312-0d270bfa7729",
   "revision": 0,
-  "last_node_id": 206,
-  "last_link_id": 292,
+  "last_node_id": 227,
+  "last_link_id": 324,
   "nodes": [
     {
       "id": 12,
@@ -66,7 +66,7 @@
         46
       ],
       "flags": {},
-      "order": 76,
+      "order": 86,
       "mode": 4,
       "inputs": [
         {
@@ -144,7 +144,7 @@
         278.45001220703125
       ],
       "flags": {},
-      "order": 102,
+      "order": 116,
       "mode": 4,
       "inputs": [
         {
@@ -173,7 +173,7 @@
         82
       ],
       "flags": {},
-      "order": 89,
+      "order": 102,
       "mode": 4,
       "inputs": [
         {
@@ -217,7 +217,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 37,
+      "order": 42,
       "mode": 4,
       "inputs": [
         {
@@ -299,7 +299,7 @@
         262
       ],
       "flags": {},
-      "order": 113,
+      "order": 128,
       "mode": 4,
       "inputs": [
         {
@@ -338,7 +338,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        123487412751095,
+        883114391904669,
         "randomize",
         25,
         7,
@@ -359,7 +359,7 @@
         46
       ],
       "flags": {},
-      "order": 120,
+      "order": 136,
       "mode": 4,
       "inputs": [
         {
@@ -401,7 +401,7 @@
         186
       ],
       "flags": {},
-      "order": 103,
+      "order": 117,
       "mode": 4,
       "inputs": [
         {
@@ -503,7 +503,7 @@
         262
       ],
       "flags": {},
-      "order": 114,
+      "order": 129,
       "mode": 4,
       "inputs": [
         {
@@ -542,7 +542,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        410980658843814,
+        426453905692971,
         "randomize",
         25,
         7,
@@ -563,7 +563,7 @@
         46
       ],
       "flags": {},
-      "order": 121,
+      "order": 137,
       "mode": 4,
       "inputs": [
         {
@@ -640,7 +640,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 38,
+      "order": 43,
       "mode": 4,
       "inputs": [
         {
@@ -683,7 +683,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 36,
+      "order": 41,
       "mode": 4,
       "inputs": [
         {
@@ -727,7 +727,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 39,
+      "order": 44,
       "mode": 4,
       "inputs": [
         {
@@ -768,7 +768,7 @@
         186
       ],
       "flags": {},
-      "order": 104,
+      "order": 118,
       "mode": 4,
       "inputs": [
         {
@@ -837,7 +837,7 @@
         262
       ],
       "flags": {},
-      "order": 63,
+      "order": 71,
       "mode": 4,
       "inputs": [
         {
@@ -878,7 +878,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        300121695553439,
+        115914226939317,
         "randomize",
         25,
         7,
@@ -899,7 +899,7 @@
         433.1313781738281
       ],
       "flags": {},
-      "order": 88,
+      "order": 101,
       "mode": 4,
       "inputs": [
         {
@@ -928,7 +928,7 @@
         428.63641357421875
       ],
       "flags": {},
-      "order": 125,
+      "order": 141,
       "mode": 4,
       "inputs": [
         {
@@ -957,7 +957,7 @@
         433.1313781738281
       ],
       "flags": {},
-      "order": 126,
+      "order": 142,
       "mode": 4,
       "inputs": [
         {
@@ -986,7 +986,7 @@
         26
       ],
       "flags": {},
-      "order": 40,
+      "order": 45,
       "mode": 4,
       "inputs": [
         {
@@ -1021,7 +1021,7 @@
         180.6060791015625
       ],
       "flags": {},
-      "order": 42,
+      "order": 47,
       "mode": 4,
       "inputs": [
         {
@@ -1130,7 +1130,7 @@
         46
       ],
       "flags": {},
-      "order": 77,
+      "order": 87,
       "mode": 4,
       "inputs": [
         {
@@ -1222,7 +1222,7 @@
         164.31304931640625
       ],
       "flags": {},
-      "order": 41,
+      "order": 46,
       "mode": 4,
       "inputs": [
         {
@@ -1298,7 +1298,7 @@
         46
       ],
       "flags": {},
-      "order": 78,
+      "order": 88,
       "mode": 4,
       "inputs": [
         {
@@ -1341,7 +1341,7 @@
         82
       ],
       "flags": {},
-      "order": 79,
+      "order": 89,
       "mode": 4,
       "inputs": [
         {
@@ -1381,7 +1381,7 @@
         180.6060791015625
       ],
       "flags": {},
-      "order": 44,
+      "order": 49,
       "mode": 4,
       "inputs": [
         {
@@ -1456,7 +1456,7 @@
         256.0462341308594
       ],
       "flags": {},
-      "order": 91,
+      "order": 104,
       "mode": 4,
       "inputs": [
         {
@@ -1485,7 +1485,7 @@
         46
       ],
       "flags": {},
-      "order": 105,
+      "order": 119,
       "mode": 4,
       "inputs": [
         {
@@ -1576,7 +1576,7 @@
         26
       ],
       "flags": {},
-      "order": 43,
+      "order": 48,
       "mode": 4,
       "inputs": [
         {
@@ -1612,7 +1612,7 @@
         164.31304931640625
       ],
       "flags": {},
-      "order": 45,
+      "order": 50,
       "mode": 4,
       "inputs": [
         {
@@ -1653,7 +1653,7 @@
         262
       ],
       "flags": {},
-      "order": 92,
+      "order": 105,
       "mode": 4,
       "inputs": [
         {
@@ -1713,7 +1713,7 @@
         262
       ],
       "flags": {},
-      "order": 65,
+      "order": 73,
       "mode": 4,
       "inputs": [
         {
@@ -1775,7 +1775,7 @@
         262
       ],
       "flags": {},
-      "order": 64,
+      "order": 72,
       "mode": 4,
       "inputs": [
         {
@@ -1815,7 +1815,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        857201701791023,
+        886538558560975,
         "randomize",
         20,
         8,
@@ -1836,7 +1836,7 @@
         527.4169921875
       ],
       "flags": {},
-      "order": 90,
+      "order": 103,
       "mode": 4,
       "inputs": [
         {
@@ -1866,7 +1866,7 @@
         527.4169921875
       ],
       "flags": {},
-      "order": 115,
+      "order": 130,
       "mode": 4,
       "inputs": [
         {
@@ -2015,7 +2015,7 @@
         200
       ],
       "flags": {},
-      "order": 46,
+      "order": 51,
       "mode": 4,
       "inputs": [
         {
@@ -2054,7 +2054,7 @@
         200
       ],
       "flags": {},
-      "order": 47,
+      "order": 52,
       "mode": 4,
       "inputs": [
         {
@@ -2093,7 +2093,7 @@
         262
       ],
       "flags": {},
-      "order": 80,
+      "order": 90,
       "mode": 4,
       "inputs": [
         {
@@ -2132,7 +2132,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        836562761689536,
+        1094102519142610,
         "randomize",
         30,
         8,
@@ -2153,7 +2153,7 @@
         46
       ],
       "flags": {},
-      "order": 93,
+      "order": 106,
       "mode": 4,
       "inputs": [
         {
@@ -2195,7 +2195,7 @@
         537.2011108398438
       ],
       "flags": {},
-      "order": 106,
+      "order": 120,
       "mode": 4,
       "inputs": [
         {
@@ -2299,7 +2299,7 @@
         46
       ],
       "flags": {},
-      "order": 48,
+      "order": 53,
       "mode": 4,
       "inputs": [
         {
@@ -2341,7 +2341,7 @@
         78
       ],
       "flags": {},
-      "order": 66,
+      "order": 74,
       "mode": 4,
       "inputs": [
         {
@@ -2386,7 +2386,7 @@
         46
       ],
       "flags": {},
-      "order": 81,
+      "order": 91,
       "mode": 4,
       "inputs": [
         {
@@ -2428,7 +2428,7 @@
         246
       ],
       "flags": {},
-      "order": 94,
+      "order": 107,
       "mode": 4,
       "inputs": [
         {
@@ -2457,7 +2457,7 @@
         537.2011108398438
       ],
       "flags": {},
-      "order": 116,
+      "order": 131,
       "mode": 4,
       "inputs": [
         {
@@ -2486,7 +2486,7 @@
         46
       ],
       "flags": {},
-      "order": 107,
+      "order": 121,
       "mode": 4,
       "inputs": [
         {
@@ -2569,7 +2569,7 @@
         46
       ],
       "flags": {},
-      "order": 67,
+      "order": 75,
       "mode": 4,
       "inputs": [
         {
@@ -2611,7 +2611,7 @@
         200
       ],
       "flags": {},
-      "order": 82,
+      "order": 92,
       "mode": 4,
       "inputs": [
         {
@@ -2658,7 +2658,7 @@
         218
       ],
       "flags": {},
-      "order": 49,
+      "order": 54,
       "mode": 4,
       "inputs": [
         {
@@ -2713,7 +2713,7 @@
         283.4523620605469
       ],
       "flags": {},
-      "order": 50,
+      "order": 55,
       "mode": 4,
       "inputs": [
         {
@@ -2758,7 +2758,7 @@
         200
       ],
       "flags": {},
-      "order": 51,
+      "order": 56,
       "mode": 4,
       "inputs": [
         {
@@ -2797,7 +2797,7 @@
         262
       ],
       "flags": {},
-      "order": 95,
+      "order": 108,
       "mode": 4,
       "inputs": [
         {
@@ -2836,7 +2836,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        409548458478774,
+        583071534846644,
         "randomize",
         30,
         8,
@@ -2938,7 +2938,7 @@
         282.0714111328125
       ],
       "flags": {},
-      "order": 69,
+      "order": 77,
       "mode": 4,
       "inputs": [
         {
@@ -2985,7 +2985,7 @@
         246
       ],
       "flags": {},
-      "order": 68,
+      "order": 76,
       "mode": 4,
       "inputs": [
         {
@@ -3014,7 +3014,7 @@
         200
       ],
       "flags": {},
-      "order": 71,
+      "order": 79,
       "mode": 4,
       "inputs": [
         {
@@ -3061,7 +3061,7 @@
         82
       ],
       "flags": {},
-      "order": 97,
+      "order": 110,
       "mode": 4,
       "inputs": [
         {
@@ -3101,7 +3101,7 @@
         200
       ],
       "flags": {},
-      "order": 52,
+      "order": 57,
       "mode": 4,
       "inputs": [
         {
@@ -3141,7 +3141,7 @@
         200
       ],
       "flags": {},
-      "order": 53,
+      "order": 58,
       "mode": 4,
       "inputs": [
         {
@@ -3188,7 +3188,7 @@
         262
       ],
       "flags": {},
-      "order": 84,
+      "order": 94,
       "mode": 4,
       "inputs": [
         {
@@ -3228,7 +3228,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        766636501213288,
+        613541028998541,
         "randomize",
         20,
         8,
@@ -3283,7 +3283,7 @@
         46
       ],
       "flags": {},
-      "order": 98,
+      "order": 111,
       "mode": 4,
       "inputs": [
         {
@@ -3360,7 +3360,7 @@
         652.7429809570312
       ],
       "flags": {},
-      "order": 110,
+      "order": 124,
       "mode": 4,
       "inputs": [
         {
@@ -3389,7 +3389,7 @@
         645.9865112304688
       ],
       "flags": {},
-      "order": 122,
+      "order": 138,
       "mode": 4,
       "inputs": [
         {
@@ -3418,7 +3418,7 @@
         262
       ],
       "flags": {},
-      "order": 109,
+      "order": 123,
       "mode": 4,
       "inputs": [
         {
@@ -3457,7 +3457,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        138267255688284,
+        488593123638738,
         "randomize",
         20,
         8,
@@ -3478,7 +3478,7 @@
         46
       ],
       "flags": {},
-      "order": 117,
+      "order": 132,
       "mode": 4,
       "inputs": [
         {
@@ -3566,7 +3566,7 @@
         58
       ],
       "flags": {},
-      "order": 58,
+      "order": 63,
       "mode": 4,
       "inputs": [
         {
@@ -3644,7 +3644,7 @@
         200
       ],
       "flags": {},
-      "order": 56,
+      "order": 61,
       "mode": 4,
       "inputs": [
         {
@@ -3683,7 +3683,7 @@
         200
       ],
       "flags": {},
-      "order": 57,
+      "order": 62,
       "mode": 4,
       "inputs": [
         {
@@ -3722,7 +3722,7 @@
         46
       ],
       "flags": {},
-      "order": 54,
+      "order": 59,
       "mode": 4,
       "inputs": [
         {
@@ -3841,7 +3841,7 @@
         46
       ],
       "flags": {},
-      "order": 70,
+      "order": 78,
       "mode": 4,
       "inputs": [
         {
@@ -3883,7 +3883,7 @@
         46
       ],
       "flags": {},
-      "order": 96,
+      "order": 109,
       "mode": 4,
       "inputs": [
         {
@@ -3925,7 +3925,7 @@
         262
       ],
       "flags": {},
-      "order": 83,
+      "order": 93,
       "mode": 4,
       "inputs": [
         {
@@ -3964,7 +3964,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        115010155499302,
+        119405202407792,
         "randomize",
         25,
         8,
@@ -4031,7 +4031,7 @@
         533.3479614257812
       ],
       "flags": {},
-      "order": 55,
+      "order": 60,
       "mode": 4,
       "inputs": [
         {
@@ -4060,7 +4060,7 @@
         529.2808837890625
       ],
       "flags": {},
-      "order": 108,
+      "order": 122,
       "mode": 4,
       "inputs": [
         {
@@ -4134,7 +4134,7 @@
         26
       ],
       "flags": {},
-      "order": 73,
+      "order": 81,
       "mode": 4,
       "inputs": [
         {
@@ -4170,7 +4170,7 @@
         46
       ],
       "flags": {},
-      "order": 118,
+      "order": 133,
       "mode": 4,
       "inputs": [
         {
@@ -4245,7 +4245,7 @@
         200
       ],
       "flags": {},
-      "order": 85,
+      "order": 95,
       "mode": 4,
       "inputs": [
         {
@@ -4410,7 +4410,7 @@
         26
       ],
       "flags": {},
-      "order": 72,
+      "order": 80,
       "mode": 4,
       "inputs": [
         {
@@ -4446,7 +4446,7 @@
         571.5418090820312
       ],
       "flags": {},
-      "order": 123,
+      "order": 139,
       "mode": 4,
       "inputs": [
         {
@@ -4475,7 +4475,7 @@
         262
       ],
       "flags": {},
-      "order": 99,
+      "order": 112,
       "mode": 4,
       "inputs": [
         {
@@ -4535,7 +4535,7 @@
         262
       ],
       "flags": {},
-      "order": 111,
+      "order": 125,
       "mode": 4,
       "inputs": [
         {
@@ -4595,7 +4595,7 @@
         200
       ],
       "flags": {},
-      "order": 86,
+      "order": 96,
       "mode": 4,
       "inputs": [
         {
@@ -4635,7 +4635,7 @@
         78
       ],
       "flags": {},
-      "order": 59,
+      "order": 64,
       "mode": 4,
       "inputs": [
         {
@@ -4679,7 +4679,7 @@
         78
       ],
       "flags": {},
-      "order": 60,
+      "order": 65,
       "mode": 4,
       "inputs": [
         {
@@ -4746,7 +4746,7 @@
         555.779052734375
       ],
       "flags": {},
-      "order": 124,
+      "order": 140,
       "mode": 0,
       "inputs": [
         {
@@ -4777,7 +4777,7 @@
         46
       ],
       "flags": {},
-      "order": 119,
+      "order": 134,
       "mode": 0,
       "inputs": [
         {
@@ -4887,7 +4887,7 @@
         26
       ],
       "flags": {},
-      "order": 87,
+      "order": 97,
       "mode": 0,
       "inputs": [
         {
@@ -4979,7 +4979,7 @@
         126
       ],
       "flags": {},
-      "order": 75,
+      "order": 83,
       "mode": 0,
       "inputs": [
         {
@@ -5028,7 +5028,7 @@
         66
       ],
       "flags": {},
-      "order": 74,
+      "order": 82,
       "mode": 0,
       "inputs": [
         {
@@ -5087,7 +5087,7 @@
         58
       ],
       "flags": {},
-      "order": 62,
+      "order": 67,
       "mode": 0,
       "inputs": [
         {
@@ -5127,7 +5127,7 @@
         262
       ],
       "flags": {},
-      "order": 112,
+      "order": 126,
       "mode": 0,
       "inputs": [
         {
@@ -5187,7 +5187,7 @@
         200
       ],
       "flags": {},
-      "order": 101,
+      "order": 114,
       "mode": 0,
       "inputs": [
         {
@@ -5226,7 +5226,7 @@
         200
       ],
       "flags": {},
-      "order": 100,
+      "order": 113,
       "mode": 0,
       "inputs": [
         {
@@ -5265,7 +5265,7 @@
         342
       ],
       "flags": {},
-      "order": 61,
+      "order": 66,
       "mode": 0,
       "inputs": [
         {
@@ -5353,6 +5353,669 @@
       },
       "widgets_values": [
         "ghostmix_v20Bakedvae.safetensors"
+      ]
+    },
+    {
+      "id": 215,
+      "type": "ControlNetLoader",
+      "pos": [
+        2863.684326171875,
+        4177.08984375
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CONTROL_NET",
+          "type": "CONTROL_NET",
+          "links": [
+            299
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "ControlNetLoader"
+      },
+      "widgets_values": [
+        "controlnet11Models_canny.safetensors"
+      ]
+    },
+    {
+      "id": 209,
+      "type": "CLIPTextEncode",
+      "pos": [
+        2439.30712890625,
+        3764.996826171875
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 69,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 294
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            311
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "femail warrier, digital painting, standing in a medival village, highly detailed, masterpiece"
+      ]
+    },
+    {
+      "id": 210,
+      "type": "CLIPTextEncode",
+      "pos": [
+        2431.489990234375,
+        4014.039794921875
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 70,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 295
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            312
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "ugly, defomed"
+      ]
+    },
+    {
+      "id": 211,
+      "type": "LoadImage",
+      "pos": [
+        2170.3876953125,
+        4472.58984375
+      ],
+      "size": [
+        289.20233154296875,
+        552.3211669921875
+      ],
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            322
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "스크린샷 2025-04-03 오후 11.47.35.png",
+        "image",
+        ""
+      ]
+    },
+    {
+      "id": 226,
+      "type": "Image Resize",
+      "pos": [
+        2492.3037109375,
+        4285.4326171875
+      ],
+      "size": [
+        315,
+        178
+      ],
+      "flags": {},
+      "order": 68,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 322
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            319,
+            321
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "was-node-suite-comfyui",
+        "ver": "1.0.2",
+        "Node name for S&R": "Image Resize"
+      },
+      "widgets_values": [
+        "resize",
+        "true",
+        "lanczos",
+        2,
+        512,
+        768
+      ]
+    },
+    {
+      "id": 225,
+      "type": "PreviewImage",
+      "pos": [
+        2479.65185546875,
+        4545.67822265625
+      ],
+      "size": [
+        295.0950622558594,
+        482.5334167480469
+      ],
+      "flags": {},
+      "order": 135,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 316
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 214,
+      "type": "ControlNetApplyAdvanced",
+      "pos": [
+        3317.2685546875,
+        4040.17236328125
+      ],
+      "size": [
+        315,
+        186
+      ],
+      "flags": {},
+      "order": 98,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 311
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 312
+        },
+        {
+          "name": "control_net",
+          "type": "CONTROL_NET",
+          "link": 299
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 298
+        },
+        {
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": 324
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            313
+          ]
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            314
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "ControlNetApplyAdvanced"
+      },
+      "widgets_values": [
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 227,
+      "type": "EmptyLatentImage",
+      "pos": [
+        3312.47119140625,
+        4291.4228515625
+      ],
+      "size": [
+        315,
+        106
+      ],
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            323
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        512,
+        768,
+        1
+      ]
+    },
+    {
+      "id": 221,
+      "type": "PreviewImage",
+      "pos": [
+        3553.359130859375,
+        4467.15625
+      ],
+      "size": [
+        210,
+        246
+      ],
+      "flags": {},
+      "order": 99,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 309
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 207,
+      "type": "KSampler",
+      "pos": [
+        3742.21435546875,
+        4004.668212890625
+      ],
+      "size": [
+        315,
+        262
+      ],
+      "flags": {},
+      "order": 115,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 293
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 313
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 314
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 323
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            315
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        698388965595037,
+        "fixed",
+        20,
+        8,
+        "euler_ancestral",
+        "normal",
+        1
+      ]
+    },
+    {
+      "id": 224,
+      "type": "VAEDecode",
+      "pos": [
+        4149.02490234375,
+        4300.11865234375
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 127,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 315
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 317
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            316
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 218,
+      "type": "VAELoader",
+      "pos": [
+        3815.565673828125,
+        4479.3291015625
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            317,
+            324
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "vae-ft-mse-840000-ema-pruned.safetensors"
+      ]
+    },
+    {
+      "id": 208,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        2045.0833740234375,
+        3819.718994140625
+      ],
+      "size": [
+        315,
+        98
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            293
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            294,
+            295
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "dreamshaper_8.safetensors"
+      ]
+    },
+    {
+      "id": 213,
+      "type": "AV_ControlNetPreprocessor",
+      "pos": [
+        2859.253662109375,
+        4306.87548828125
+      ],
+      "size": [
+        315,
+        150
+      ],
+      "flags": {},
+      "order": 84,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 319
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            298,
+            309
+          ]
+        },
+        {
+          "name": "CNET_NAME",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-art-venture",
+        "ver": "1.0.6",
+        "Node name for S&R": "AV_ControlNetPreprocessor"
+      },
+      "widgets_values": [
+        "canny",
+        "sd15",
+        512,
+        "None"
+      ]
+    },
+    {
+      "id": 219,
+      "type": "CannyEdgePreprocessor",
+      "pos": [
+        2854.271728515625,
+        4530.05029296875
+      ],
+      "size": [
+        315,
+        106
+      ],
+      "flags": {},
+      "order": 85,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 321
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            308
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_controlnet_aux",
+        "ver": "1.0.7",
+        "Node name for S&R": "CannyEdgePreprocessor"
+      },
+      "widgets_values": [
+        50,
+        150,
+        512
+      ]
+    },
+    {
+      "id": 220,
+      "type": "PreviewImage",
+      "pos": [
+        3292.1162109375,
+        4472.06201171875
+      ],
+      "size": [
+        210,
+        246
+      ],
+      "flags": {},
+      "order": 100,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 308
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [
+        ""
       ]
     }
   ],
@@ -6700,6 +7363,158 @@
       197,
       0,
       "MODEL"
+    ],
+    [
+      293,
+      208,
+      0,
+      207,
+      0,
+      "MODEL"
+    ],
+    [
+      294,
+      208,
+      1,
+      209,
+      0,
+      "CLIP"
+    ],
+    [
+      295,
+      208,
+      1,
+      210,
+      0,
+      "CLIP"
+    ],
+    [
+      298,
+      213,
+      0,
+      214,
+      3,
+      "IMAGE"
+    ],
+    [
+      299,
+      215,
+      0,
+      214,
+      2,
+      "CONTROL_NET"
+    ],
+    [
+      308,
+      219,
+      0,
+      220,
+      0,
+      "IMAGE"
+    ],
+    [
+      309,
+      213,
+      0,
+      221,
+      0,
+      "IMAGE"
+    ],
+    [
+      311,
+      209,
+      0,
+      214,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      312,
+      210,
+      0,
+      214,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      313,
+      214,
+      0,
+      207,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      314,
+      214,
+      1,
+      207,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      315,
+      207,
+      0,
+      224,
+      0,
+      "LATENT"
+    ],
+    [
+      316,
+      224,
+      0,
+      225,
+      0,
+      "IMAGE"
+    ],
+    [
+      317,
+      218,
+      0,
+      224,
+      1,
+      "VAE"
+    ],
+    [
+      319,
+      226,
+      0,
+      213,
+      0,
+      "IMAGE"
+    ],
+    [
+      321,
+      226,
+      0,
+      219,
+      0,
+      "IMAGE"
+    ],
+    [
+      322,
+      211,
+      0,
+      226,
+      0,
+      "IMAGE"
+    ],
+    [
+      323,
+      227,
+      0,
+      207,
+      3,
+      "LATENT"
+    ],
+    [
+      324,
+      218,
+      0,
+      214,
+      4,
+      "VAE"
     ]
   ],
   "groups": [
@@ -6819,15 +7634,28 @@
       "color": "#3f789e",
       "font_size": 24,
       "flags": {}
+    },
+    {
+      "id": 11,
+      "title": "Lesson9",
+      "bounding": [
+        1953.5286865234375,
+        3549.976318359375,
+        2514.21142578125,
+        1586.2244873046875
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
     }
   ],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.37974983358324127,
+      "scale": 0.6115909044841481,
       "offset": [
-        -2331.655180576566,
-        -3279.758194985843
+        -1587.9064159327902,
+        -3541.241149795382
       ]
     }
   },
