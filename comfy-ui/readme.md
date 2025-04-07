@@ -38,6 +38,9 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 - Comfyroll Studio
 - WAS Node Suite
 - comfyui_controlnet_aux
+- ComfyUI_UltimateSDUpscale
+
+https://github.com/kaibioinfo/ComfyUI_AdvancedRefluxControl
 
 # ComfyUI 실행 및 종료
 ```bash
@@ -48,6 +51,8 @@ deactivate
 
 
 # 참고 자료
+[Comfyui-wiki](https://comfyui-wiki.com/ko/tutorial)
+
 [openart](https://openart.ai/workflows/academy)
 
 [조피디 연구소](https://www.youtube.com/playlist?list=PLdWJCXJ7ciCCNbybpTPLq8RdDUSXPjI10)
