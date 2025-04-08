@@ -39,7 +39,6 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 - WAS Node Suite
 - comfyui_controlnet_aux
 - ComfyUI_UltimateSDUpscale
-
 https://github.com/kaibioinfo/ComfyUI_AdvancedRefluxControl
 
 # ComfyUI 실행 및 종료
@@ -51,8 +50,10 @@ deactivate
 
 
 # 참고 자료
-[Comfyui-wiki](https://comfyui-wiki.com/ko/tutorial)
+- [Comfyui-wiki](https://comfyui-wiki.com/ko/tutorial)
 
-[openart](https://openart.ai/workflows/academy)
+- [pixaroma](https://www.youtube.com/@pixaroma/videos)
 
-[조피디 연구소](https://www.youtube.com/playlist?list=PLdWJCXJ7ciCCNbybpTPLq8RdDUSXPjI10)
+- [openart](https://openart.ai/workflows/academy)
+
+- [조피디 연구소](https://www.youtube.com/playlist?list=PLdWJCXJ7ciCCNbybpTPLq8RdDUSXPjI10)
