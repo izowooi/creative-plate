@@ -57,3 +57,5 @@ deactivate
 - [openart](https://openart.ai/workflows/academy)
 
 - [조피디 연구소](https://www.youtube.com/playlist?list=PLdWJCXJ7ciCCNbybpTPLq8RdDUSXPjI10)
+
+- [ComfyUI Blog](https://blog.comfy.org/)
