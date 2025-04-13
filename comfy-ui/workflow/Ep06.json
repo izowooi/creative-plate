@@ -1,0 +1,764 @@
+{
+  "id": "54ffc213-8a1e-4efb-afa4-7f778929ad9c",
+  "revision": 0,
+  "last_node_id": 18,
+  "last_link_id": 136,
+  "nodes": [
+    {
+      "id": 18,
+      "type": "workflow>juggernaut_reborn_style",
+      "pos": [
+        -121.62732696533203,
+        161.84234619140625
+      ],
+      "size": [
+        485.3570251464844,
+        874.500732421875
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            136
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "workflow>juggernaut_reborn_style"
+      },
+      "widgets_values": [
+        "juggernaut_reborn.safetensors",
+        "young woman in a stylish boho outfit",
+        "Instant Photo, Bohemian chic, layered necklaces, (soulful eyes, radiant complexion, distinctive facial features), rustic wooden backdrop, lush foliage, intriguing composition, dappled sunlight, soft shadows, shallow depth of field, mesmerizing bokeh, vibrant details, high-resolution, captivating scene. portrait photography,",
+        "Photography | Fine Art",
+        493749837811776,
+        "fixed",
+        35,
+        7,
+        "dpmpp_2m",
+        "karras",
+        1,
+        512,
+        768,
+        1
+      ]
+    },
+    {
+      "id": 11,
+      "type": "PreviewImage",
+      "pos": [
+        393.3866882324219,
+        163.19976806640625
+      ],
+      "size": [
+        502.1448974609375,
+        866.4182739257812
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "images",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 136
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [
+      136,
+      18,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.826446280991736,
+      "offset": [
+        896.4006062377885,
+        20.125658718029978
+      ]
+    },
+    "groupNodes": {
+      "juggernaut_reborn_style": {
+        "nodes": [
+          {
+            "id": -1,
+            "type": "CheckpointLoaderSimple",
+            "pos": [
+              -121.62732696533203,
+              170.0349884033203
+            ],
+            "size": [
+              315,
+              98
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "localized_name": "MODEL",
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": []
+              },
+              {
+                "localized_name": "CLIP",
+                "name": "CLIP",
+                "type": "CLIP",
+                "links": []
+              },
+              {
+                "localized_name": "VAE",
+                "name": "VAE",
+                "type": "VAE",
+                "links": []
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.3.27",
+              "Node name for S&R": "CheckpointLoaderSimple"
+            },
+            "widgets_values": [
+              "juggernaut_reborn.safetensors"
+            ],
+            "index": 0
+          },
+          {
+            "id": -1,
+            "type": "CLIPTextEncode",
+            "pos": [
+              415,
+              186
+            ],
+            "size": [
+              422.84503173828125,
+              164.31304931640625
+            ],
+            "flags": {},
+            "order": 3,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "clip",
+                "name": "clip",
+                "type": "CLIP",
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "CONDITIONING",
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "slot_index": 0,
+                "links": []
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.3.27",
+              "Node name for S&R": "CLIPTextEncode"
+            },
+            "widgets_values": [
+              "young woman in a stylish boho outfit"
+            ],
+            "index": 1
+          },
+          {
+            "id": -1,
+            "type": "CLIPTextEncode",
+            "pos": [
+              411.59710693359375,
+              420.27288818359375
+            ],
+            "size": [
+              422.84503173828125,
+              164.31304931640625
+            ],
+            "flags": {},
+            "order": 4,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "clip",
+                "name": "clip",
+                "type": "CLIP",
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "CONDITIONING",
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "slot_index": 0,
+                "links": []
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.3.27",
+              "Node name for S&R": "CLIPTextEncode"
+            },
+            "widgets_values": [
+              "Instant Photo, Bohemian chic, layered necklaces, (soulful eyes, radiant complexion, distinctive facial features), rustic wooden backdrop, lush foliage, intriguing composition, dappled sunlight, soft shadows, shallow depth of field, mesmerizing bokeh, vibrant details, high-resolution, captivating scene. portrait photography,"
+            ],
+            "index": 2
+          },
+          {
+            "id": -1,
+            "type": "CLIPTextEncode",
+            "pos": [
+              408.6687927246094,
+              650.1366577148438
+            ],
+            "size": [
+              422.84503173828125,
+              164.31304931640625
+            ],
+            "flags": {},
+            "order": 5,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "clip",
+                "name": "clip",
+                "type": "CLIP",
+                "link": null
+              },
+              {
+                "name": "text",
+                "type": "STRING",
+                "widget": {
+                  "name": "text"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "CONDITIONING",
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "slot_index": 0,
+                "links": []
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.3.27",
+              "Node name for S&R": "CLIPTextEncode"
+            },
+            "widgets_values": [
+              "35mm film, 35mm film, natural blurry"
+            ],
+            "index": 3
+          },
+          {
+            "id": -1,
+            "type": "CLIPTextEncode",
+            "pos": [
+              408.5689392089844,
+              887.3687744140625
+            ],
+            "size": [
+              425.27801513671875,
+              180.6060791015625
+            ],
+            "flags": {},
+            "order": 6,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "clip",
+                "name": "clip",
+                "type": "CLIP",
+                "link": null
+              },
+              {
+                "name": "text",
+                "type": "STRING",
+                "widget": {
+                  "name": "text"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "CONDITIONING",
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "slot_index": 0,
+                "links": []
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.3.27",
+              "Node name for S&R": "CLIPTextEncode"
+            },
+            "widgets_values": [
+              "ugly"
+            ],
+            "index": 4
+          },
+          {
+            "id": -1,
+            "type": "Load Styles CSV",
+            "pos": [
+              -87.46551513671875,
+              420.169677734375
+            ],
+            "size": [
+              315,
+              78
+            ],
+            "flags": {},
+            "order": 2,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "localized_name": "positive prompt",
+                "name": "positive prompt",
+                "type": "STRING",
+                "links": []
+              },
+              {
+                "localized_name": "negative prompt",
+                "name": "negative prompt",
+                "type": "STRING",
+                "links": []
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfyui-styles_csv_loader",
+              "ver": "1.0.0",
+              "Node name for S&R": "Load Styles CSV"
+            },
+            "widgets_values": [
+              "3D | Character > Cartoon"
+            ],
+            "index": 5
+          },
+          {
+            "id": -1,
+            "type": "ConditioningConcat",
+            "pos": [
+              891.8218994140625,
+              285.5757141113281
+            ],
+            "size": [
+              380.4000244140625,
+              46
+            ],
+            "flags": {},
+            "order": 7,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "conditioning_to",
+                "name": "conditioning_to",
+                "type": "CONDITIONING",
+                "link": null
+              },
+              {
+                "localized_name": "conditioning_from",
+                "name": "conditioning_from",
+                "type": "CONDITIONING",
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "CONDITIONING",
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": []
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.3.27",
+              "Node name for S&R": "ConditioningConcat"
+            },
+            "index": 6
+          },
+          {
+            "id": -1,
+            "type": "ConditioningConcat",
+            "pos": [
+              964.9985961914062,
+              466.3108215332031
+            ],
+            "size": [
+              380.4000244140625,
+              46
+            ],
+            "flags": {},
+            "order": 8,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "conditioning_to",
+                "name": "conditioning_to",
+                "type": "CONDITIONING",
+                "link": null
+              },
+              {
+                "localized_name": "conditioning_from",
+                "name": "conditioning_from",
+                "type": "CONDITIONING",
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "CONDITIONING",
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": []
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.3.27",
+              "Node name for S&R": "ConditioningConcat"
+            },
+            "index": 7
+          },
+          {
+            "id": -1,
+            "type": "KSampler",
+            "pos": [
+              1418.6259765625,
+              161.84234619140625
+            ],
+            "size": [
+              315,
+              262
+            ],
+            "flags": {},
+            "order": 9,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "model",
+                "name": "model",
+                "type": "MODEL",
+                "link": null
+              },
+              {
+                "localized_name": "positive",
+                "name": "positive",
+                "type": "CONDITIONING",
+                "link": null
+              },
+              {
+                "localized_name": "negative",
+                "name": "negative",
+                "type": "CONDITIONING",
+                "link": null
+              },
+              {
+                "localized_name": "latent_image",
+                "name": "latent_image",
+                "type": "LATENT",
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "LATENT",
+                "name": "LATENT",
+                "type": "LATENT",
+                "slot_index": 0,
+                "links": []
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.3.27",
+              "Node name for S&R": "KSampler"
+            },
+            "widgets_values": [
+              493749837811776,
+              "fixed",
+              35,
+              7,
+              "dpmpp_2m",
+              "karras",
+              1
+            ],
+            "index": 8
+          },
+          {
+            "id": -1,
+            "type": "VAEDecode",
+            "pos": [
+              1402.725830078125,
+              608.2422485351562
+            ],
+            "size": [
+              210,
+              46
+            ],
+            "flags": {},
+            "order": 10,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "samples",
+                "name": "samples",
+                "type": "LATENT",
+                "link": null
+              },
+              {
+                "localized_name": "vae",
+                "name": "vae",
+                "type": "VAE",
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "IMAGE",
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "slot_index": 0,
+                "links": []
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.3.27",
+              "Node name for S&R": "VAEDecode"
+            },
+            "index": 9
+          },
+          {
+            "id": -1,
+            "type": "EmptyLatentImage",
+            "pos": [
+              974.56884765625,
+              897.269287109375
+            ],
+            "size": [
+              315,
+              106
+            ],
+            "flags": {},
+            "order": 1,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "localized_name": "LATENT",
+                "name": "LATENT",
+                "type": "LATENT",
+                "slot_index": 0,
+                "links": []
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.3.27",
+              "Node name for S&R": "EmptyLatentImage"
+            },
+            "widgets_values": [
+              512,
+              768,
+              1
+            ],
+            "index": 10
+          }
+        ],
+        "links": [
+          [
+            0,
+            1,
+            1,
+            0,
+            12,
+            "CLIP"
+          ],
+          [
+            0,
+            1,
+            2,
+            0,
+            12,
+            "CLIP"
+          ],
+          [
+            0,
+            1,
+            3,
+            0,
+            12,
+            "CLIP"
+          ],
+          [
+            5,
+            0,
+            3,
+            1,
+            15,
+            "STRING"
+          ],
+          [
+            0,
+            1,
+            4,
+            0,
+            12,
+            "CLIP"
+          ],
+          [
+            5,
+            1,
+            4,
+            1,
+            15,
+            "STRING"
+          ],
+          [
+            1,
+            0,
+            6,
+            0,
+            5,
+            "CONDITIONING"
+          ],
+          [
+            2,
+            0,
+            6,
+            1,
+            17,
+            "CONDITIONING"
+          ],
+          [
+            6,
+            0,
+            7,
+            0,
+            7,
+            "CONDITIONING"
+          ],
+          [
+            3,
+            0,
+            7,
+            1,
+            6,
+            "CONDITIONING"
+          ],
+          [
+            0,
+            0,
+            8,
+            0,
+            12,
+            "MODEL"
+          ],
+          [
+            7,
+            0,
+            8,
+            1,
+            13,
+            "CONDITIONING"
+          ],
+          [
+            4,
+            0,
+            8,
+            2,
+            14,
+            "CONDITIONING"
+          ],
+          [
+            10,
+            0,
+            8,
+            3,
+            8,
+            "LATENT"
+          ],
+          [
+            8,
+            0,
+            9,
+            0,
+            16,
+            "LATENT"
+          ],
+          [
+            0,
+            2,
+            9,
+            1,
+            12,
+            "VAE"
+          ]
+        ],
+        "external": [
+          [
+            null,
+            0,
+            "IMAGE"
+          ]
+        ],
+        "config": {
+          "0": {},
+          "1": {
+            "input": {
+              "text": {
+                "name": ""
+              }
+            }
+          },
+          "2": {},
+          "3": {},
+          "4": {},
+          "5": {},
+          "6": {},
+          "7": {},
+          "8": {},
+          "9": {},
+          "10": {}
+        }
+      }
+    }
+  },
+  "version": 0.4
+}

@@ -39,6 +39,8 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 - WAS Node Suite
 - comfyui_controlnet_aux
 - ComfyUI_UltimateSDUpscale
+- ComfyUI-Styles_CSV_Loader
+- ComfyUI-Easy-Use
 https://github.com/kaibioinfo/ComfyUI_AdvancedRefluxControl
 
 # ComfyUI 실행 및 종료
