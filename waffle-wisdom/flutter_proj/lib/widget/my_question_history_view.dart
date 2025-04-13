@@ -22,7 +22,7 @@ class MyQuestionHistoryView extends StatelessWidget {
           onTap: () {
             // 나중에 상세보기로 이동
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('질문 상세 보기 기능은 아직 구현되지 않았습니다.')),
+              const SnackBar(content: Text('질문 상세 보기 기능은 아직 구현되지 않았습니다.')),
             );
           },
         );

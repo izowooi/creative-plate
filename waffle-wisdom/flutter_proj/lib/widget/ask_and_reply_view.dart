@@ -1,5 +1,7 @@
 // view/ask_and_reply_view.dart
 import 'package:flutter/material.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+
 
 class AskAndReplyView extends StatefulWidget {
   const AskAndReplyView({super.key});
@@ -31,13 +33,27 @@ class _AskAndReplyViewState extends State<AskAndReplyView> {
             ),
           ),
           const SizedBox(height: 12),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                question = _controller.text;
-              });
-            },
-            child: const Text('전송'),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    question = _controller.text;
+                    final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
+                  });
+                },
+                child: const Text('전송'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    question = _controller.text;
+                    final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
+                  });
+                },
+                child: const Text('Feel Good'),
+              ),
+            ]
           ),
           const SizedBox(height: 20),
           if (question.isNotEmpty)

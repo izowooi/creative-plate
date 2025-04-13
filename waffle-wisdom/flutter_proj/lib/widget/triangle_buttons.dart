@@ -131,6 +131,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 class TriangleButtons extends StatelessWidget {
+  const TriangleButtons({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -155,17 +157,17 @@ class TriangleButtons extends StatelessWidget {
             Positioned(
               left: center.dx - 25,
               top: center.dy - 25,
-              child: PersonaButton("1"),
+              child: const PersonaButton("1"),
             ),
             Positioned(
               left: bottomLeft.dx - 25,
               top: bottomLeft.dy - 25,
-              child: PersonaButton("2"),
+              child: const PersonaButton("2"),
             ),
             Positioned(
               left: bottomRight.dx - 25,
               top: bottomRight.dy - 25,
-              child: PersonaButton("3"),
+              child: const PersonaButton("3"),
             ),
           ],
         );
@@ -176,18 +178,18 @@ class TriangleButtons extends StatelessWidget {
 
 class PersonaButton extends StatelessWidget {
   final String label;
-  const PersonaButton(this.label);
+  const PersonaButton(this.label, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {},
       style: ElevatedButton.styleFrom(
-        shape: CircleBorder(),
-        padding: EdgeInsets.all(20),
+        shape: const CircleBorder(),
+        padding: const EdgeInsets.all(20),
         backgroundColor: Colors.blue,
       ),
-      child: Text(label, style: TextStyle(color: Colors.white)),
+      child: Text(label, style: const TextStyle(color: Colors.white)),
     );
   }
 }

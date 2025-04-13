@@ -41,11 +41,11 @@ class MainApp extends ConsumerWidget {
       home: Builder(builder: (context){
         return Scaffold(
         bottomNavigationBar: NavigationBar(
-        destinations: [
-          NavigationDestination(icon: const Icon(Icons.home), label: 'scene_1'),
-          NavigationDestination(icon: const Icon(Icons.favorite), label: 'scene_2'),
-          NavigationDestination(icon: const Icon(Icons.trending_up), label: 'scene_3'),
-          NavigationDestination(icon: const Icon(Icons.settings), label: 'scene_4'),
+        destinations: const [
+          NavigationDestination(icon: Icon(Icons.home), label: 'scene_1'),
+          NavigationDestination(icon: Icon(Icons.favorite), label: 'scene_2'),
+          NavigationDestination(icon: Icon(Icons.trending_up), label: 'scene_3'),
+          NavigationDestination(icon: Icon(Icons.settings), label: 'scene_4'),
         ],
         selectedIndex: currentPageIndex,
         onDestinationSelected: (index) {
@@ -57,7 +57,7 @@ class MainApp extends ConsumerWidget {
         //drawer: LeftDrawerWidget(),
         body: IndexedStack(
           index: currentPageIndex,
-          children: [
+          children: const [
             AskAndReplyView(),
             LoginView(),
             MyQuestionHistoryView(),
