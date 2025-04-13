@@ -41,6 +41,7 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 - ComfyUI_UltimateSDUpscale
 - ComfyUI-Styles_CSV_Loader
 - ComfyUI-Easy-Use
+- Searge-LLM for ComfyUI v1.0
 https://github.com/kaibioinfo/ComfyUI_AdvancedRefluxControl
 
 # ComfyUI 실행 및 종료
@@ -61,3 +62,8 @@ deactivate
 - [조피디 연구소](https://www.youtube.com/playlist?list=PLdWJCXJ7ciCCNbybpTPLq8RdDUSXPjI10)
 
 - [ComfyUI Blog](https://blog.comfy.org/)
+
+## Models
+- https://comfyanonymous.github.io/ComfyUI_examples/flux/
+- https://huggingface.co/xinsir/controlnet-union-sdxl-1.0
+
