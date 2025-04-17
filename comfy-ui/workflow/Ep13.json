@@ -1,0 +1,559 @@
+{
+  "id": "8d7da8df-7781-44fe-84cd-cd21380e1356",
+  "revision": 0,
+  "last_node_id": 19,
+  "last_link_id": 22,
+  "nodes": [
+    {
+      "id": 6,
+      "type": "VAEDecode",
+      "pos": [
+        4285.4560546875,
+        574.7911987304688
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 3
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            18
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 10,
+      "type": "CLIPTextEncode",
+      "pos": [
+        3424.63037109375,
+        861.3290405273438
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "ugly, deformed, embedding:easynegative"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "VAELoader",
+      "pos": [
+        3923.283935546875,
+        910.0309448242188
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "vae-ft-mse-840000-ema-pruned.safetensors"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "KSampler",
+      "pos": [
+        3908.48291015625,
+        558.8427734375
+      ],
+      "size": [
+        315,
+        262
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 10
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 11
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 12
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 22
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        995825313342028,
+        "randomize",
+        30,
+        8,
+        "euler_ancestral",
+        "normal",
+        0.7800000000000001
+      ]
+    },
+    {
+      "id": 19,
+      "type": "EmptyLatentImage",
+      "pos": [
+        3459.805908203125,
+        1161.2596435546875
+      ],
+      "size": [
+        315,
+        106
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        512,
+        768,
+        1
+      ]
+    },
+    {
+      "id": 18,
+      "type": "PreviewImage",
+      "pos": [
+        4534.154296875,
+        566.5562744140625
+      ],
+      "size": [
+        355.1247253417969,
+        576.4430541992188
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 18
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 5,
+      "type": "OllamaGenerateAdvance",
+      "pos": [
+        2146.82421875,
+        796.3756103515625
+      ],
+      "size": [
+        400,
+        498
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "context",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "context"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "response",
+          "type": "STRING",
+          "links": [
+            2
+          ]
+        },
+        {
+          "name": "context",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-ollama",
+        "ver": "2.0.1",
+        "Node name for S&R": "OllamaGenerateAdvance"
+      },
+      "widgets_values": [
+        "Please create a 2D female warrior in a fantasy setting.\n- Strong, courageous warrior atmosphere\n- Medium-length dark brown hair, wearing leather gear combined with some metal armor\n- A large claymore on her back\n- Tense pose as if just before battle\n- Background: an ancient ruin with dust and light merging into a mysterious ambience",
+        false,
+        "http://127.0.0.1:11434",
+        "gemma3:12b-it-q4_K_M",
+        "You are an image‑prompt generator.  \nWhen the user describes a fantasy 2‑D female character, answer with **one single English sentence‑block prompt** that begins immediately with the scene description (e.g., A 2D illustration …) and ends at the final period that completes the visual description.  \n\nFormatting rules  \n1. Output nothing except that prompt block—no prefaces, no labels, no “Prompt:” header, no bullet points, no “Notes,” and **no quotation marks**.  \n2. Fold all requested details (appearance, attire, pose, background, style) into the prompt in natural prose.  \n3. Keep it concise—roughly 90 ± 20 words—and stop after the first complete sentence‑block ending in a period.  \n4. Use vivid, specific adjectives but avoid exclamations or narrative commentary.  ",
+        1140395836,
+        "randomize",
+        40,
+        0.9,
+        0.8,
+        -1,
+        1,
+        5,
+        false,
+        "text",
+        ""
+      ]
+    },
+    {
+      "id": 13,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        2998.074462890625,
+        600.8343505859375
+      ],
+      "size": [
+        315,
+        98
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            10
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            5,
+            9
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "dreamshaper_8.safetensors"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        3425.677001953125,
+        609.7160034179688
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 5
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 21
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "giant battle mech, city in the background ((masterpiece, best quality))"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "easy showAnything",
+      "pos": [
+        2587.099609375,
+        797.9951171875
+      ],
+      "size": [
+        341.9864196777344,
+        277.9195251464844
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "shape": 7,
+          "type": "*",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.2.8",
+        "Node name for S&R": "easy showAnything"
+      },
+      "widgets_values": [
+        "A 2D illustration depicts a strong female warrior with medium-length dark brown hair, clad in worn leather armor accented with polished steel plates, standing within the crumbling arches of an ancient ruin, a massive claymore strapped to her back, her posture tense and poised as if anticipating an imminent battle, dust motes dancing in the shafts of light filtering through the decaying stonework, creating a mysterious and courageous ambience."
+      ]
+    }
+  ],
+  "links": [
+    [
+      2,
+      5,
+      0,
+      4,
+      0,
+      "*"
+    ],
+    [
+      3,
+      11,
+      0,
+      6,
+      0,
+      "LATENT"
+    ],
+    [
+      4,
+      12,
+      0,
+      6,
+      1,
+      "VAE"
+    ],
+    [
+      5,
+      13,
+      1,
+      7,
+      0,
+      "CLIP"
+    ],
+    [
+      9,
+      13,
+      1,
+      10,
+      0,
+      "CLIP"
+    ],
+    [
+      10,
+      13,
+      0,
+      11,
+      0,
+      "MODEL"
+    ],
+    [
+      11,
+      7,
+      0,
+      11,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      12,
+      10,
+      0,
+      11,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      18,
+      6,
+      0,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      21,
+      4,
+      0,
+      7,
+      1,
+      "STRING"
+    ],
+    [
+      22,
+      19,
+      0,
+      11,
+      3,
+      "LATENT"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Group",
+      "bounding": [
+        2988.074462890625,
+        485.2427673339844,
+        1911.204345703125,
+        792.016845703125
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.4736244074476706,
+      "offset": [
+        -1674.1020178769513,
+        -66.03376169748424
+      ]
+    }
+  },
+  "version": 0.4
+}
