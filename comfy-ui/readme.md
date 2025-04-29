@@ -42,6 +42,8 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 - ComfyUI-Styles_CSV_Loader
 - ComfyUI-Easy-Use
 - Searge-LLM for ComfyUI v1.0
+- ComfyUI-iTools
+- ComfyUI-seamless-tiling
 https://github.com/kaibioinfo/ComfyUI_AdvancedRefluxControl
 
 # ComfyUI 실행 및 종료
