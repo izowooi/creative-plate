@@ -1,0 +1,9 @@
+[project]
+name = "aesthetics-score"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "gradio>=5.41.1",
+    "simple-aesthetics-predictor>=0.1.2",
+]
