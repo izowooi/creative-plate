@@ -2,19 +2,48 @@ from __future__ import annotations
 
 import os
 import tempfile
+from typing import Dict, List, Optional
+
 import gradio as gr
-from typing import Dict, List
 
 from app.services.aesthetic_scorer import AestheticScorer
 from app.usecases.score_single import score_single_image, score_directory_average
-from app.usecases.score_hierarchical_sample import sample_folder_scores, results_to_json
+from app.usecases.score_hierarchical_sample import (
+    sample_folder_scores,
+    results_to_json,
+)
 
 
 scorer = AestheticScorer()
 
 
-def ui_score_single(image_path: str) -> float:
-    return score_single_image(image_path, scorer)
+def _get_path_from_file_like(file_like: object | None) -> Optional[str]:
+    """Try to extract filesystem path from various Gradio file-like return types.
+
+    Supports:
+    - Newer Gradio dataclasses with `.path`
+    - Dict with `{"path": str}`
+    - Raw string path
+    """
+    if file_like is None:
+        return None
+    if isinstance(file_like, str):
+        return file_like
+    path = getattr(file_like, "path", None)
+    if isinstance(path, str):
+        return path
+    if isinstance(file_like, dict) and isinstance(file_like.get("path"), str):
+        return file_like["path"]
+    return None
+
+
+def ui_score_single_mixed(image_path_text: str, image_upload_path: object | None) -> float:
+    """Accept either a text path or an uploaded image path (drag-and-drop)."""
+    upload_path = _get_path_from_file_like(image_upload_path)
+    target_path = upload_path or (image_path_text or None)
+    if not target_path:
+        return 0.0
+    return score_single_image(target_path, scorer)
 
 
 def ui_score_directory(dir_path: str):
@@ -56,10 +85,11 @@ with gr.Blocks(title="Aesthetic Score") as demo:
     """)
 
     with gr.Tab("단일 이미지"):
-        inp = gr.Textbox(label="이미지 경로")
+        inp_text = gr.Textbox(label="이미지 경로 (텍스트)")
+        inp_upload = gr.Image(type="filepath", label="이미지 업로드 (드래그앤드롭)")
         btn = gr.Button("점수 계산")
         out = gr.Number(label="점수 (0~10)")
-        btn.click(ui_score_single, inputs=inp, outputs=out, queue=True)
+        btn.click(ui_score_single_mixed, inputs=[inp_text, inp_upload], outputs=out, queue=True)
 
     with gr.Tab("폴더 평균"):
         dir_inp = gr.Textbox(label="폴더 경로")
