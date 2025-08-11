@@ -1,13 +1,29 @@
-## Aesthetic Score
+## Aesthetic Score ✨
 
 그라디오(Gradio) UI로 이미지의 미적 점수를 예측하고, 폴더 평균 및 하위 폴더(아티스트)별 샘플링 평균을 계산하는 프로젝트입니다. 내부적으로 CLIP 기반 미적 점수 예측 모델을 사용합니다.
 
-### 주요 기능
+### 데모 🚀
+- **Hugging Face Space**: [aesthetics_score 바로가기](https://huggingface.co/spaces/izowooi/aesthetics_score)
+
+### 주요 기능 🎯
 - **단일 이미지 점수**: 이미지 파일을 드롭하거나 경로를 입력해 0~10 범위의 점수 예측
 - **폴더 평균 점수**: 폴더 경로를 입력해 포함된 이미지들의 평균 점수 계산(스트리밍 진행률/부분 평균 표시)
 - **하위 폴더 샘플링 평균**: 베이스 폴더의 각 하위 폴더에서 지정 개수만큼 이미지를 샘플링해 평균 점수 계산 및 JSON 다운로드
 
-### 디렉터리 구조
+### 스크린샷 🖼️
+- 단일 이미지 점수
+
+  ![단일 이미지 점수](https://raw.githubusercontent.com/izowooi/creative-plate/main/aesthetics_score/image/01.png)
+
+- 폴더 평균 점수
+
+  ![폴더 평균 점수](https://raw.githubusercontent.com/izowooi/creative-plate/main/aesthetics_score/image/02.png)
+
+- 하위 폴더 샘플링 평균
+
+  ![하위 폴더 샘플링 평균](https://raw.githubusercontent.com/izowooi/creative-plate/main/aesthetics_score/image/03.png)
+
+### 디렉터리 구조 🗂️
 ```
 aesthetics_score/
   app/
@@ -15,7 +31,7 @@ aesthetics_score/
     usecases/score_single.py            # 단일/폴더 평균 계산 로직
     usecases/score_hierarchical_sample.py # 하위 폴더 샘플링 평균 계산 로직
     utils/fs.py                         # 파일 시스템 유틸(이미지/하위 폴더 나열)
-  main.py                               # Gradio UI 진입점
+  app.py                                # Gradio UI 진입점
   pyproject.toml                        # 의존성(Gradio, predictor)
 ```
 
@@ -24,7 +40,7 @@ aesthetics_score/
 - macOS, Linux, Windows 지원
 - 기본은 CPU로 동작하며, 가능 시 GPU(CUDA) 또는 macOS의 MPS 가속을 자동 선택합니다
 
-### 설치
+### 설치 🧰
 `uv` 기반 설치(권장) 또는 `pip`를 사용할 수 있습니다.
 
 #### uv 사용
@@ -60,17 +76,17 @@ pip install gradio simple-aesthetics-predictor
 
 참고: `gradio`가 설치되지 않으면 `ModuleNotFoundError: No module named 'gradio'`가 발생합니다. 위 단계로 동기화/설치를 먼저 수행하세요.
 
-### 실행
+### 실행 ▶️
 ```bash
 # uv로 실행
-uv run python main.py
+uv run python app.py
 
 # 또는 활성화된 가상환경에서 직접 실행
-python main.py
+python app.py
 ```
 실행 후 콘솔에 표시되는 로컬 URL을 브라우저로 열면 UI를 사용할 수 있습니다.
 
-### 사용 방법
+### 사용 방법 📘
 - **단일 이미지**
   - 텍스트 박스에 로컬 이미지 경로 입력 또는 이미지 파일 드래그앤드롭
   - [점수 계산] 클릭 → 0~10 범위의 점수 출력
@@ -108,11 +124,11 @@ for prog, partial in sample_folder_scores("/path/to/base_dir", scorer, sample_si
         print(results_to_json(partial))
 ```
 
-### 모델/성능
+### 모델/성능 ⚙️
 - 기본 CLIP 기반 미적 점수 예측 모델: `shunk031/aesthetics-predictor-v1-vit-large-patch14`
 - 가능한 경우 GPU(CUDA) 또는 macOS MPS를 자동 사용합니다. 메모리 여유가 부족하면 CPU로 전환하세요.
 
-### 문제 해결(Troubleshooting)
+### 문제 해결(Troubleshooting) 🧪
 - `No module named 'gradio'`: `pip install gradio` 실행
 - 모델 다운로드가 느림: 네트워크 상태를 확인하거나 사전 다운로드/캐시를 활용
 - 폴더 평균/샘플링 결과가 0: 폴더 내 이미지 확장자(`.jpg/.jpeg/.png/.bmp/.tiff/.webp`) 확인
