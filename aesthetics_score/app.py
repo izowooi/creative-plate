@@ -86,7 +86,7 @@ with gr.Blocks(title="Aesthetic Score") as demo:
 
     with gr.Tab("단일 이미지"):
         inp_text = gr.Textbox(label="이미지 경로 (텍스트)")
-        inp_upload = gr.Image(type="filepath", label="이미지 업로드 (드래그앤드롭)")
+        inp_upload = gr.Image(type="filepath", label="이미지 업로드 (드래그앤드롭)", height=320)
         btn = gr.Button("점수 계산")
         out = gr.Number(label="점수 (0~10)")
         btn.click(ui_score_single_mixed, inputs=[inp_text, inp_upload], outputs=out, queue=True)
