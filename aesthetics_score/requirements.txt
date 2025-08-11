@@ -1,0 +1,6 @@
+gradio==5.41.1
+simple-aesthetics-predictor>=0.1.2
+torch
+transformers
+Pillow
+
