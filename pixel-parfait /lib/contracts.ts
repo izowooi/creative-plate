@@ -4,10 +4,14 @@ export const ASPECT_RATIOS = ["1:1", "4:3", "3:4", "16:9", "9:16", "3:2", "2:3"]
 export const GENERATION_MODES = ["batch", "compare"] as const;
 
 export const MODEL_IDS = [
-  "seedream-4",
   "seedream-5-lite",
+  "seedream-4",
   "flux-2-pro",
+  "flux-2-flex",
+  "flux-2-max",
+  "gpt-image-1.5",
   "nano-banana-pro",
+  "p-image",
   "z-image-turbo",
 ] as const;
 
@@ -15,23 +19,45 @@ export type ModelId = (typeof MODEL_IDS)[number];
 export type AspectRatio = (typeof ASPECT_RATIOS)[number];
 export type GenerationMode = (typeof GENERATION_MODES)[number];
 
-export const DEFAULT_SELECTED_MODELS: ModelId[] = ["z-image-turbo", "seedream-5-lite"];
+export const DEFAULT_SELECTED_MODELS: ModelId[] = ["seedream-5-lite", "flux-2-pro"];
 export const DEFAULT_BATCH_MODEL: ModelId = "seedream-5-lite";
 
+const fluxResolutionSchema = z.enum(["0.5 MP", "1 MP", "2 MP"]);
+const fluxOutputFormatSchema = z.enum(["webp", "jpg", "png"]);
+
 export const advancedSettingsSchema = z.object({
+  "seedream-5-lite": z.object({
+    size: z.enum(["2K", "3K"]),
+    outputFormat: z.enum(["png", "jpeg"]),
+  }),
   "seedream-4": z.object({
     size: z.enum(["1K", "2K", "4K"]),
     outputFormat: z.enum(["png", "jpeg"]),
     enhancePrompt: z.boolean(),
   }),
-  "seedream-5-lite": z.object({
-    size: z.enum(["2K", "3K"]),
-    outputFormat: z.enum(["png", "jpeg"]),
-  }),
   "flux-2-pro": z.object({
-    resolution: z.enum(["0.5 MP", "1 MP", "2 MP"]),
-    outputFormat: z.enum(["webp", "jpg", "png"]),
+    resolution: fluxResolutionSchema,
     safetyTolerance: z.number().int().min(1).max(5),
+    outputFormat: fluxOutputFormatSchema,
+  }),
+  "flux-2-flex": z.object({
+    resolution: fluxResolutionSchema,
+    steps: z.number().int().min(6).max(28),
+    safetyTolerance: z.number().int().min(1).max(5),
+    promptUpsampling: z.boolean(),
+    outputFormat: fluxOutputFormatSchema,
+  }),
+  "flux-2-max": z.object({
+    resolution: fluxResolutionSchema,
+    safetyTolerance: z.number().int().min(1).max(5),
+    outputFormat: fluxOutputFormatSchema,
+  }),
+  "gpt-image-1.5": z.object({
+    quality: z.enum(["low", "medium", "high"]),
+    background: z.enum(["auto", "opaque", "transparent"]),
+    moderation: z.enum(["auto", "low"]),
+    outputFormat: z.enum(["webp", "jpeg", "png"]),
+    outputCompression: z.number().int().min(0).max(100),
   }),
   "nano-banana-pro": z.object({
     resolution: z.enum(["1K", "2K", "4K"]),
@@ -47,24 +73,47 @@ export const advancedSettingsSchema = z.object({
     numInferenceSteps: z.number().int().min(8).max(12),
     goFast: z.boolean(),
   }),
+  "p-image": z.object({
+    promptUpsampling: z.boolean(),
+    disableSafetyChecker: z.boolean(),
+  }),
 });
 
 export type AdvancedSettings = z.infer<typeof advancedSettingsSchema>;
 
 export const DEFAULT_ADVANCED_SETTINGS: AdvancedSettings = {
+  "seedream-5-lite": {
+    size: "2K",
+    outputFormat: "png",
+  },
   "seedream-4": {
     size: "2K",
     outputFormat: "jpeg",
     enhancePrompt: true,
   },
-  "seedream-5-lite": {
-    size: "2K",
-    outputFormat: "png",
-  },
   "flux-2-pro": {
     resolution: "1 MP",
-    outputFormat: "webp",
     safetyTolerance: 2,
+    outputFormat: "webp",
+  },
+  "flux-2-flex": {
+    resolution: "1 MP",
+    steps: 20,
+    safetyTolerance: 2,
+    promptUpsampling: true,
+    outputFormat: "webp",
+  },
+  "flux-2-max": {
+    resolution: "1 MP",
+    safetyTolerance: 2,
+    outputFormat: "webp",
+  },
+  "gpt-image-1.5": {
+    quality: "high",
+    background: "auto",
+    moderation: "auto",
+    outputFormat: "webp",
+    outputCompression: 90,
   },
   "nano-banana-pro": {
     resolution: "2K",
@@ -75,6 +124,10 @@ export const DEFAULT_ADVANCED_SETTINGS: AdvancedSettings = {
     outputFormat: "jpg",
     numInferenceSteps: 8,
     goFast: true,
+  },
+  "p-image": {
+    promptUpsampling: true,
+    disableSafetyChecker: false,
   },
 };
 

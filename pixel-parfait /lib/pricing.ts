@@ -31,14 +31,33 @@ export function estimateModelUsd(
   aspectRatio: AspectRatio,
 ) {
   switch (modelId) {
-    case "seedream-4":
-      return 0.03;
     case "seedream-5-lite":
       return 0.035;
+    case "seedream-4":
+      return 0.03;
     case "flux-2-pro":
       return 0.015 + FLUX_OUTPUT_MEGAPIXELS[advancedSettings["flux-2-pro"].resolution] * 0.015;
+    case "flux-2-flex":
+      return FLUX_OUTPUT_MEGAPIXELS[advancedSettings["flux-2-flex"].resolution] * 0.06;
+    case "flux-2-max":
+      return 0.04 + FLUX_OUTPUT_MEGAPIXELS[advancedSettings["flux-2-max"].resolution] * 0.03;
+    case "gpt-image-1.5": {
+      const quality = advancedSettings["gpt-image-1.5"].quality;
+
+      if (quality === "low") {
+        return 0.013;
+      }
+
+      if (quality === "medium") {
+        return 0.05;
+      }
+
+      return 0.136;
+    }
     case "nano-banana-pro":
       return advancedSettings["nano-banana-pro"].resolution === "4K" ? 0.3 : 0.15;
+    case "p-image":
+      return 0.005;
     case "z-image-turbo": {
       const { width, height } = getZImageDimensions(aspectRatio);
       const pixels = width * height;

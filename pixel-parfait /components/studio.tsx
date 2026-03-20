@@ -26,7 +26,18 @@ const LOADING_LINES = [
   "픽셀을 한 층씩 정리하는 중",
 ];
 
+const MAX_COMPARE_MODELS = 4;
 const TERMINAL_STATUSES = new Set(["succeeded", "failed", "canceled"]);
+
+function getAvailableAspectRatios(modelIds: ModelId[]) {
+  if (!modelIds.length) {
+    return [...ASPECT_RATIOS];
+  }
+
+  return ASPECT_RATIOS.filter((ratio) =>
+    modelIds.every((modelId) => MODEL_LOOKUP[modelId].supportedAspectRatios.includes(ratio)),
+  );
+}
 
 type JobState = {
   mode: GenerationMode;
@@ -50,6 +61,10 @@ export function Studio() {
   const [isPending, startTransition] = useTransition();
   const [isLoggingOut, startLogoutTransition] = useTransition();
   const activeBatchModel = selectedModels[0] ?? DEFAULT_BATCH_MODEL;
+  const availableAspectRatios = useMemo(
+    () => getAvailableAspectRatios(mode === "batch" ? [activeBatchModel] : selectedModels),
+    [activeBatchModel, mode, selectedModels],
+  );
 
   const estimatedTotal = useMemo(
     () => estimateBundleUsd(mode, selectedModels, imageCount, advancedSettings, aspectRatio),
@@ -136,6 +151,14 @@ export function Studio() {
     return () => window.clearInterval(intervalId);
   }, [job]);
 
+  useEffect(() => {
+    if (availableAspectRatios.includes(aspectRatio)) {
+      return;
+    }
+
+    setAspectRatio(availableAspectRatios[0] ?? ASPECT_RATIOS[0]);
+  }, [aspectRatio, availableAspectRatios]);
+
   function handleModeChange(nextMode: GenerationMode) {
     setMode(nextMode);
     setError(null);
@@ -162,8 +185,8 @@ export function Studio() {
         return current.filter((id) => id !== modelId);
       }
 
-      if (current.length >= 4) {
-        setError("비교 모드는 최대 4개 모델까지 가능합니다.");
+      if (current.length >= MAX_COMPARE_MODELS) {
+        setError(`비교 모드는 최대 ${MAX_COMPARE_MODELS}개 모델까지 가능합니다.`);
         return current;
       }
 
@@ -199,6 +222,17 @@ export function Studio() {
 
     if (prompt.trim().length < 10) {
       setError("프롬프트를 조금 더 구체적으로 적어 주세요.");
+      return;
+    }
+
+    const incompatibleModels = selectedModels
+      .map((modelId) => MODEL_LOOKUP[modelId])
+      .filter((model) => !model.supportedAspectRatios.includes(aspectRatio));
+
+    if (incompatibleModels.length) {
+      setError(
+        `${incompatibleModels.map((model) => model.name).join(", ")} 모델은 ${aspectRatio} 비율을 지원하지 않습니다.`,
+      );
       return;
     }
 
@@ -369,7 +403,7 @@ export function Studio() {
         </div>
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-[420px_minmax(0,1fr)]">
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,520px)_minmax(0,1fr)]">
         <div className="space-y-4">
           <div className="glass-card rounded-[2rem] p-5">
             <div className="flex items-center gap-2">
@@ -397,48 +431,60 @@ export function Studio() {
 
           <div className="glass-card rounded-[2rem] p-5">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <SectionLabel label="모델" />
-                <span
-                  className="tooltip-chip"
-                  title={
-                    mode === "batch"
-                      ? "하나의 모델로 여러 장을 뽑습니다."
-                      : "같은 프롬프트를 여러 모델에 동시에 보냅니다."
-                  }
-                >
-                  ?
-                </span>
-              </div>
+              <SectionLabel label="모델" />
               <span className="text-sm text-[var(--muted)]">
-                {mode === "batch" ? "1개" : `${selectedModels.length}/4`}
+                {mode === "batch" ? "1개" : `${selectedModels.length}/${MAX_COMPARE_MODELS}`}
               </span>
             </div>
 
-            <div className="mt-3 grid gap-2">
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
               {visibleModels.map((model) => {
                 const active = selectedModels.includes(model.id);
 
                 return (
                   <button
                     key={model.id}
-                    className={`rounded-[1.25rem] border px-4 py-3 text-left transition ${
+                    className={`h-full rounded-[1.5rem] border px-4 py-4 text-left transition ${
                       active
-                        ? "border-[var(--accent)] bg-[var(--accent-soft)]"
-                        : "border-[var(--border)] bg-[var(--surface-contrast)] hover:border-[var(--accent)]/40"
+                        ? "border-[var(--accent)] bg-[var(--accent-soft)] shadow-[0_18px_36px_rgba(47,111,237,0.08)]"
+                        : "border-[var(--border)] bg-[var(--surface-contrast)] hover:border-[var(--accent)]/35 hover:bg-[var(--surface)]"
                     }`}
                     type="button"
-                    title={model.description}
                     onClick={() => toggleModel(model.id)}
                   >
-                    <div className="flex items-center justify-between gap-3">
-                      <div>
-                        <p className="text-sm font-semibold tracking-tight">{model.name}</p>
-                        <p className="text-xs text-[var(--muted)]">{model.provider}</p>
+                    <div className="flex h-full flex-col">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="space-y-3">
+                          <div className="flex flex-wrap gap-2">
+                            <span className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-2.5 py-1 text-[11px] font-medium text-[var(--muted)]">
+                              {model.provider}
+                            </span>
+                            <span className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-2.5 py-1 text-[11px] font-medium text-[var(--muted)]">
+                              {model.lane}
+                            </span>
+                          </div>
+
+                          <div>
+                            <p className="text-base font-semibold tracking-tight">{model.name}</p>
+                            <p className="mt-1.5 text-sm leading-6 text-[var(--muted)]">
+                              {model.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        <span
+                          className={`mt-1 h-2.5 w-2.5 rounded-full ${
+                            active ? "bg-[var(--accent)]" : "bg-[var(--border)]"
+                          }`}
+                        />
                       </div>
-                      <span className="text-sm text-[var(--muted)]">
-                        {formatUsd(estimateModelUsd(model.id, advancedSettings, aspectRatio))}
-                      </span>
+
+                      <div className="mt-4 flex items-center justify-between gap-3 text-xs text-[var(--muted)]">
+                        <span>
+                          예상 {formatUsd(estimateModelUsd(model.id, advancedSettings, aspectRatio))}
+                        </span>
+                        <span>{active ? "선택됨" : "선택"}</span>
+                      </div>
                     </div>
                   </button>
                 );
@@ -447,12 +493,7 @@ export function Studio() {
 
             {mode === "batch" ? (
               <div className="mt-4">
-                <div className="flex items-center gap-2">
-                  <SectionLabel label="장수" />
-                  <span className="tooltip-chip" title="같은 모델로 1장부터 4장까지 동시에 생성합니다.">
-                    ?
-                  </span>
-                </div>
+                <SectionLabel label="장수" />
                 <div className="mt-3 grid grid-cols-4 gap-2">
                   {[1, 2, 3, 4].map((count) => (
                     <button
@@ -474,25 +515,30 @@ export function Studio() {
           </div>
 
           <div className="glass-card rounded-[2rem] p-5">
-            <div className="flex items-center gap-2">
-              <SectionLabel label="기본 설정" />
-            </div>
+            <SectionLabel label="기본 설정" />
 
             <div className="mt-3 grid grid-cols-4 gap-2">
-              {ASPECT_RATIOS.map((ratio) => (
-                <button
-                  key={ratio}
-                  className={`rounded-2xl border px-3 py-3 text-sm transition ${
-                    aspectRatio === ratio
-                      ? "border-[var(--accent)] bg-[var(--accent-soft)]"
-                      : "border-[var(--border)] bg-[var(--surface-contrast)]"
-                  }`}
-                  type="button"
-                  onClick={() => setAspectRatio(ratio)}
-                >
-                  {ratio}
-                </button>
-              ))}
+              {ASPECT_RATIOS.map((ratio) => {
+                const disabled = !availableAspectRatios.includes(ratio);
+
+                return (
+                  <button
+                    key={ratio}
+                    className={`rounded-2xl border px-3 py-3 text-sm transition ${
+                      disabled
+                        ? "cursor-not-allowed border-[var(--border)] bg-[var(--surface)] text-[var(--muted)]/50"
+                        : aspectRatio === ratio
+                          ? "border-[var(--accent)] bg-[var(--accent-soft)]"
+                          : "border-[var(--border)] bg-[var(--surface-contrast)]"
+                    }`}
+                    type="button"
+                    disabled={disabled}
+                    onClick={() => setAspectRatio(ratio)}
+                  >
+                    {ratio}
+                  </button>
+                );
+              })}
             </div>
 
             <details className="mt-4 rounded-[1.25rem] border border-[var(--border)] bg-[var(--surface-contrast)] px-4 py-3">
@@ -692,166 +738,325 @@ type AdvancedPanelProps = {
 function AdvancedPanel({ modelId, settings, onChange }: AdvancedPanelProps) {
   const model = MODEL_LOOKUP[modelId];
 
-  if (modelId === "seedream-4") {
-    const current = settings["seedream-4"];
+  switch (modelId) {
+    case "seedream-5-lite": {
+      const current = settings["seedream-5-lite"];
 
-    return (
-      <div className="rounded-[1rem] border border-[var(--border)] p-3">
-        <p className="mb-3 text-sm font-medium">{model.name}</p>
-        <div className="grid gap-3 sm:grid-cols-3">
-          <SelectField
-            label="Size"
-            value={current.size}
-            options={["1K", "2K", "4K"]}
-            onChange={(value) => onChange("seedream-4", { size: value as "1K" | "2K" | "4K" })}
-          />
-          <SelectField
-            label="Format"
-            value={current.outputFormat}
-            options={["png", "jpeg"]}
-            onChange={(value) => onChange("seedream-4", { outputFormat: value as "png" | "jpeg" })}
-          />
-          <ToggleField
-            label="Enhance"
-            checked={current.enhancePrompt}
-            onChange={(checked) => onChange("seedream-4", { enhancePrompt: checked })}
-          />
+      return (
+        <div className="rounded-[1rem] border border-[var(--border)] p-3">
+          <p className="mb-3 text-sm font-medium">{model.name}</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <SelectField
+              label="Size"
+              value={current.size}
+              options={["2K", "3K"]}
+              onChange={(value) => onChange("seedream-5-lite", { size: value as "2K" | "3K" })}
+            />
+            <SelectField
+              label="Format"
+              value={current.outputFormat}
+              options={["png", "jpeg"]}
+              onChange={(value) =>
+                onChange("seedream-5-lite", { outputFormat: value as "png" | "jpeg" })
+              }
+            />
+          </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
+    case "seedream-4": {
+      const current = settings["seedream-4"];
 
-  if (modelId === "seedream-5-lite") {
-    const current = settings["seedream-5-lite"];
-
-    return (
-      <div className="rounded-[1rem] border border-[var(--border)] p-3">
-        <p className="mb-3 text-sm font-medium">{model.name}</p>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <SelectField
-            label="Size"
-            value={current.size}
-            options={["2K", "3K"]}
-            onChange={(value) => onChange("seedream-5-lite", { size: value as "2K" | "3K" })}
-          />
-          <SelectField
-            label="Format"
-            value={current.outputFormat}
-            options={["png", "jpeg"]}
-            onChange={(value) =>
-              onChange("seedream-5-lite", { outputFormat: value as "png" | "jpeg" })
-            }
-          />
+      return (
+        <div className="rounded-[1rem] border border-[var(--border)] p-3">
+          <p className="mb-3 text-sm font-medium">{model.name}</p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <SelectField
+              label="Size"
+              value={current.size}
+              options={["1K", "2K", "4K"]}
+              onChange={(value) =>
+                onChange("seedream-4", { size: value as "1K" | "2K" | "4K" })
+              }
+            />
+            <SelectField
+              label="Format"
+              value={current.outputFormat}
+              options={["png", "jpeg"]}
+              onChange={(value) =>
+                onChange("seedream-4", { outputFormat: value as "png" | "jpeg" })
+              }
+            />
+            <ToggleField
+              label="Enhance"
+              checked={current.enhancePrompt}
+              onChange={(checked) => onChange("seedream-4", { enhancePrompt: checked })}
+            />
+          </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
+    case "flux-2-pro": {
+      const current = settings["flux-2-pro"];
 
-  if (modelId === "flux-2-pro") {
-    const current = settings["flux-2-pro"];
-
-    return (
-      <div className="rounded-[1rem] border border-[var(--border)] p-3">
-        <p className="mb-3 text-sm font-medium">{model.name}</p>
-        <div className="grid gap-3 sm:grid-cols-3">
-          <SelectField
-            label="MP"
-            value={current.resolution}
-            options={["0.5 MP", "1 MP", "2 MP"]}
-            onChange={(value) =>
-              onChange("flux-2-pro", { resolution: value as "0.5 MP" | "1 MP" | "2 MP" })
-            }
-          />
-          <SelectField
-            label="Format"
-            value={current.outputFormat}
-            options={["webp", "jpg", "png"]}
-            onChange={(value) =>
-              onChange("flux-2-pro", { outputFormat: value as "webp" | "jpg" | "png" })
-            }
-          />
-          <RangeField
-            label="Safety"
-            min={1}
-            max={5}
-            value={current.safetyTolerance}
-            onChange={(value) => onChange("flux-2-pro", { safetyTolerance: value })}
-          />
+      return (
+        <div className="rounded-[1rem] border border-[var(--border)] p-3">
+          <p className="mb-3 text-sm font-medium">{model.name}</p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <SelectField
+              label="MP"
+              value={current.resolution}
+              options={["0.5 MP", "1 MP", "2 MP"]}
+              onChange={(value) =>
+                onChange("flux-2-pro", { resolution: value as "0.5 MP" | "1 MP" | "2 MP" })
+              }
+            />
+            <SelectField
+              label="Format"
+              value={current.outputFormat}
+              options={["webp", "jpg", "png"]}
+              onChange={(value) =>
+                onChange("flux-2-pro", { outputFormat: value as "webp" | "jpg" | "png" })
+              }
+            />
+            <RangeField
+              label="Safety"
+              min={1}
+              max={5}
+              value={current.safetyTolerance}
+              onChange={(value) => onChange("flux-2-pro", { safetyTolerance: value })}
+            />
+          </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
+    case "flux-2-flex": {
+      const current = settings["flux-2-flex"];
 
-  if (modelId === "nano-banana-pro") {
-    const current = settings["nano-banana-pro"];
-
-    return (
-      <div className="rounded-[1rem] border border-[var(--border)] p-3">
-        <p className="mb-3 text-sm font-medium">{model.name}</p>
-        <div className="grid gap-3 sm:grid-cols-3">
-          <SelectField
-            label="Size"
-            value={current.resolution}
-            options={["1K", "2K", "4K"]}
-            onChange={(value) =>
-              onChange("nano-banana-pro", { resolution: value as "1K" | "2K" | "4K" })
-            }
-          />
-          <SelectField
-            label="Format"
-            value={current.outputFormat}
-            options={["jpg", "png"]}
-            onChange={(value) =>
-              onChange("nano-banana-pro", { outputFormat: value as "jpg" | "png" })
-            }
-          />
-          <SelectField
-            label="Safety"
-            value={current.safetyFilterLevel}
-            options={["block_only_high", "block_medium_and_above", "block_low_and_above"]}
-            onChange={(value) =>
-              onChange("nano-banana-pro", {
-                safetyFilterLevel: value as
-                  | "block_only_high"
-                  | "block_medium_and_above"
-                  | "block_low_and_above",
-              })
-            }
-          />
+      return (
+        <div className="rounded-[1rem] border border-[var(--border)] p-3">
+          <p className="mb-3 text-sm font-medium">{model.name}</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <SelectField
+              label="MP"
+              value={current.resolution}
+              options={["0.5 MP", "1 MP", "2 MP"]}
+              onChange={(value) =>
+                onChange("flux-2-flex", { resolution: value as "0.5 MP" | "1 MP" | "2 MP" })
+              }
+            />
+            <SelectField
+              label="Format"
+              value={current.outputFormat}
+              options={["webp", "jpg", "png"]}
+              onChange={(value) =>
+                onChange("flux-2-flex", { outputFormat: value as "webp" | "jpg" | "png" })
+              }
+            />
+            <RangeField
+              label="Steps"
+              min={6}
+              max={28}
+              value={current.steps}
+              onChange={(value) => onChange("flux-2-flex", { steps: value })}
+            />
+            <RangeField
+              label="Safety"
+              min={1}
+              max={5}
+              value={current.safetyTolerance}
+              onChange={(value) => onChange("flux-2-flex", { safetyTolerance: value })}
+            />
+            <ToggleField
+              label="Upsample"
+              checked={current.promptUpsampling}
+              onChange={(checked) => onChange("flux-2-flex", { promptUpsampling: checked })}
+            />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+    case "flux-2-max": {
+      const current = settings["flux-2-max"];
+
+      return (
+        <div className="rounded-[1rem] border border-[var(--border)] p-3">
+          <p className="mb-3 text-sm font-medium">{model.name}</p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <SelectField
+              label="MP"
+              value={current.resolution}
+              options={["0.5 MP", "1 MP", "2 MP"]}
+              onChange={(value) =>
+                onChange("flux-2-max", { resolution: value as "0.5 MP" | "1 MP" | "2 MP" })
+              }
+            />
+            <SelectField
+              label="Format"
+              value={current.outputFormat}
+              options={["webp", "jpg", "png"]}
+              onChange={(value) =>
+                onChange("flux-2-max", { outputFormat: value as "webp" | "jpg" | "png" })
+              }
+            />
+            <RangeField
+              label="Safety"
+              min={1}
+              max={5}
+              value={current.safetyTolerance}
+              onChange={(value) => onChange("flux-2-max", { safetyTolerance: value })}
+            />
+          </div>
+        </div>
+      );
+    }
+    case "gpt-image-1.5": {
+      const current = settings["gpt-image-1.5"];
+
+      return (
+        <div className="rounded-[1rem] border border-[var(--border)] p-3">
+          <p className="mb-3 text-sm font-medium">{model.name}</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <SelectField
+              label="Quality"
+              value={current.quality}
+              options={["low", "medium", "high"]}
+              onChange={(value) =>
+                onChange("gpt-image-1.5", { quality: value as "low" | "medium" | "high" })
+              }
+            />
+            <SelectField
+              label="Format"
+              value={current.outputFormat}
+              options={["webp", "jpeg", "png"]}
+              onChange={(value) =>
+                onChange("gpt-image-1.5", { outputFormat: value as "webp" | "jpeg" | "png" })
+              }
+            />
+            <SelectField
+              label="Bg"
+              value={current.background}
+              options={["auto", "opaque", "transparent"]}
+              onChange={(value) =>
+                onChange("gpt-image-1.5", {
+                  background: value as "auto" | "opaque" | "transparent",
+                })
+              }
+            />
+            <SelectField
+              label="Moderation"
+              value={current.moderation}
+              options={["auto", "low"]}
+              onChange={(value) =>
+                onChange("gpt-image-1.5", { moderation: value as "auto" | "low" })
+              }
+            />
+            <RangeField
+              label="Compress"
+              min={0}
+              max={100}
+              value={current.outputCompression}
+              onChange={(value) => onChange("gpt-image-1.5", { outputCompression: value })}
+            />
+          </div>
+        </div>
+      );
+    }
+    case "nano-banana-pro": {
+      const current = settings["nano-banana-pro"];
+
+      return (
+        <div className="rounded-[1rem] border border-[var(--border)] p-3">
+          <p className="mb-3 text-sm font-medium">{model.name}</p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <SelectField
+              label="Size"
+              value={current.resolution}
+              options={["1K", "2K", "4K"]}
+              onChange={(value) =>
+                onChange("nano-banana-pro", { resolution: value as "1K" | "2K" | "4K" })
+              }
+            />
+            <SelectField
+              label="Format"
+              value={current.outputFormat}
+              options={["jpg", "png"]}
+              onChange={(value) =>
+                onChange("nano-banana-pro", { outputFormat: value as "jpg" | "png" })
+              }
+            />
+            <SelectField
+              label="Safety"
+              value={current.safetyFilterLevel}
+              options={["block_only_high", "block_medium_and_above", "block_low_and_above"]}
+              onChange={(value) =>
+                onChange("nano-banana-pro", {
+                  safetyFilterLevel: value as
+                    | "block_only_high"
+                    | "block_medium_and_above"
+                    | "block_low_and_above",
+                })
+              }
+            />
+          </div>
+        </div>
+      );
+    }
+    case "p-image": {
+      const current = settings["p-image"];
+
+      return (
+        <div className="rounded-[1rem] border border-[var(--border)] p-3">
+          <p className="mb-3 text-sm font-medium">{model.name}</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <ToggleField
+              label="Upsample"
+              checked={current.promptUpsampling}
+              onChange={(checked) => onChange("p-image", { promptUpsampling: checked })}
+            />
+            <ToggleField
+              label="Safety"
+              checked={!current.disableSafetyChecker}
+              onChange={(checked) =>
+                onChange("p-image", { disableSafetyChecker: !checked })
+              }
+            />
+          </div>
+        </div>
+      );
+    }
+    case "z-image-turbo": {
+      const current = settings["z-image-turbo"];
+
+      return (
+        <div className="rounded-[1rem] border border-[var(--border)] p-3">
+          <p className="mb-3 text-sm font-medium">{model.name}</p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <SelectField
+              label="Format"
+              value={current.outputFormat}
+              options={["jpg", "png", "webp"]}
+              onChange={(value) =>
+                onChange("z-image-turbo", { outputFormat: value as "jpg" | "png" | "webp" })
+              }
+            />
+            <RangeField
+              label="Steps"
+              min={8}
+              max={12}
+              value={current.numInferenceSteps}
+              onChange={(value) => onChange("z-image-turbo", { numInferenceSteps: value })}
+            />
+            <ToggleField
+              label="Go fast"
+              checked={current.goFast}
+              onChange={(checked) => onChange("z-image-turbo", { goFast: checked })}
+            />
+          </div>
+        </div>
+      );
+    }
   }
-
-  const current = settings["z-image-turbo"];
-
-  return (
-    <div className="rounded-[1rem] border border-[var(--border)] p-3">
-      <p className="mb-3 text-sm font-medium">{model.name}</p>
-      <div className="grid gap-3 sm:grid-cols-3">
-        <SelectField
-          label="Format"
-          value={current.outputFormat}
-          options={["jpg", "png", "webp"]}
-          onChange={(value) =>
-            onChange("z-image-turbo", { outputFormat: value as "jpg" | "png" | "webp" })
-          }
-        />
-        <RangeField
-          label="Steps"
-          min={8}
-          max={12}
-          value={current.numInferenceSteps}
-          onChange={(value) => onChange("z-image-turbo", { numInferenceSteps: value })}
-        />
-        <ToggleField
-          label="Go fast"
-          checked={current.goFast}
-          onChange={(checked) => onChange("z-image-turbo", { goFast: checked })}
-        />
-      </div>
-    </div>
-  );
 }
 
 type SelectFieldProps = {

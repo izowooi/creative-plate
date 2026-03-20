@@ -78,6 +78,19 @@ function buildPredictionInput(modelId: ModelId, request: GenerateRequest) {
   const { prompt, aspectRatio, advancedSettings } = request;
 
   switch (modelId) {
+    case "seedream-5-lite": {
+      const settings = advancedSettings["seedream-5-lite"];
+
+      return {
+        prompt,
+        size: settings.size,
+        aspect_ratio: aspectRatio,
+        sequential_image_generation: "disabled",
+        max_images: 1,
+        output_format: settings.outputFormat,
+        image_input: [],
+      };
+    }
     case "seedream-4": {
       const settings = advancedSettings["seedream-4"];
 
@@ -88,19 +101,6 @@ function buildPredictionInput(modelId: ModelId, request: GenerateRequest) {
         sequential_image_generation: "disabled",
         max_images: 1,
         enhance_prompt: settings.enhancePrompt,
-        output_format: settings.outputFormat,
-        image_input: [],
-      };
-    }
-    case "seedream-5-lite": {
-      const settings = advancedSettings["seedream-5-lite"];
-
-      return {
-        prompt,
-        size: settings.size,
-        aspect_ratio: aspectRatio,
-        sequential_image_generation: "disabled",
-        max_images: 1,
         output_format: settings.outputFormat,
         image_input: [],
       };
@@ -116,6 +116,50 @@ function buildPredictionInput(modelId: ModelId, request: GenerateRequest) {
         safety_tolerance: settings.safetyTolerance,
         output_format: settings.outputFormat,
         output_quality: 90,
+      };
+    }
+    case "flux-2-flex": {
+      const settings = advancedSettings["flux-2-flex"];
+
+      return {
+        prompt,
+        input_images: [],
+        aspect_ratio: aspectRatio,
+        resolution: settings.resolution,
+        steps: settings.steps,
+        guidance: 3.5,
+        safety_tolerance: settings.safetyTolerance,
+        prompt_upsampling: settings.promptUpsampling,
+        output_format: settings.outputFormat,
+        output_quality: 90,
+      };
+    }
+    case "flux-2-max": {
+      const settings = advancedSettings["flux-2-max"];
+
+      return {
+        prompt,
+        input_images: [],
+        aspect_ratio: aspectRatio,
+        resolution: settings.resolution,
+        safety_tolerance: settings.safetyTolerance,
+        output_format: settings.outputFormat,
+        output_quality: 90,
+      };
+    }
+    case "gpt-image-1.5": {
+      const settings = advancedSettings["gpt-image-1.5"];
+
+      return {
+        prompt,
+        aspect_ratio: aspectRatio,
+        number_of_images: 1,
+        quality: settings.quality,
+        background: settings.background,
+        moderation: settings.moderation,
+        output_format: settings.outputFormat,
+        input_fidelity: "low",
+        output_compression: settings.outputCompression,
       };
     }
     case "nano-banana-pro": {
@@ -144,6 +188,16 @@ function buildPredictionInput(modelId: ModelId, request: GenerateRequest) {
         go_fast: settings.goFast,
         output_format: settings.outputFormat,
         output_quality: 90,
+      };
+    }
+    case "p-image": {
+      const settings = advancedSettings["p-image"];
+
+      return {
+        prompt,
+        aspect_ratio: aspectRatio,
+        prompt_upsampling: settings.promptUpsampling,
+        disable_safety_checker: settings.disableSafetyChecker,
       };
     }
   }
@@ -204,18 +258,45 @@ function inferEstimateFromModel(modelId: ModelId, prediction: ReplicatePredictio
   };
 
   switch (modelId) {
-    case "seedream-4":
-      return 0.03;
     case "seedream-5-lite":
       return 0.035;
+    case "seedream-4":
+      return 0.03;
     case "flux-2-pro": {
       const resolution = input.input?.resolution;
       const outputMegapixels =
         resolution === "0.5 MP" ? 0.5 : resolution === "2 MP" ? 2 : 1;
       return 0.015 + outputMegapixels * 0.015;
     }
+    case "flux-2-flex": {
+      const resolution = input.input?.resolution;
+      const outputMegapixels =
+        resolution === "0.5 MP" ? 0.5 : resolution === "2 MP" ? 2 : 1;
+      return outputMegapixels * 0.06;
+    }
+    case "flux-2-max": {
+      const resolution = input.input?.resolution;
+      const outputMegapixels =
+        resolution === "0.5 MP" ? 0.5 : resolution === "2 MP" ? 2 : 1;
+      return 0.04 + outputMegapixels * 0.03;
+    }
+    case "gpt-image-1.5": {
+      const quality = input.input?.quality;
+
+      if (quality === "low") {
+        return 0.013;
+      }
+
+      if (quality === "medium") {
+        return 0.05;
+      }
+
+      return 0.136;
+    }
     case "nano-banana-pro":
       return input.input?.resolution === "4K" ? 0.3 : 0.15;
+    case "p-image":
+      return 0.005;
     case "z-image-turbo": {
       const width = Number(input.input?.width ?? 1024);
       const height = Number(input.input?.height ?? 1024);
