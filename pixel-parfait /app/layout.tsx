@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
-import { Newsreader, Sora } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const sora = Sora({
+const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
 });
 
-const newsreader = Newsreader({
-  variable: "--font-serif",
-  subsets: ["latin"],
-});
+const themeBootScript = `
+  try {
+    const savedTheme = localStorage.getItem("pixel-parfait-theme");
+    const theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.dataset.theme = theme;
+  } catch (error) {
+    document.documentElement.dataset.theme = "light";
+  }
+`;
 
 export const metadata: Metadata = {
   title: "Pixel Parfait",
@@ -23,8 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className={`${sora.variable} ${newsreader.variable}`}>{children}</body>
+    <html lang="ko" suppressHydrationWarning>
+      <body className={plusJakartaSans.variable}>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+        {children}
+      </body>
     </html>
   );
 }

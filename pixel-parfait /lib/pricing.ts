@@ -1,4 +1,9 @@
-import type { AdvancedSettings, AspectRatio, ModelId } from "@/lib/contracts";
+import type {
+  AdvancedSettings,
+  AspectRatio,
+  GenerationMode,
+  ModelId,
+} from "@/lib/contracts";
 
 const Z_IMAGE_DIMENSIONS: Record<AspectRatio, { width: number; height: number }> = {
   "1:1": { width: 1024, height: 1024 },
@@ -52,14 +57,18 @@ export function estimateModelUsd(
 }
 
 export function estimateBundleUsd(
+  mode: GenerationMode,
   selectedModels: ModelId[],
+  imageCount: number,
   advancedSettings: AdvancedSettings,
   aspectRatio: AspectRatio,
 ) {
-  return selectedModels.reduce(
+  const unitTotal = selectedModels.reduce(
     (sum, modelId) => sum + estimateModelUsd(modelId, advancedSettings, aspectRatio),
     0,
   );
+
+  return mode === "batch" ? unitTotal * imageCount : unitTotal;
 }
 
 export function formatUsd(value: number) {

@@ -20,9 +20,16 @@ export async function POST(request: Request) {
   }
 
   try {
-    const predictions = await Promise.all(
-      payload.data.selectedModels.map((modelId) => createPrediction(modelId, payload.data)),
-    );
+    const predictions =
+      payload.data.mode === "batch"
+        ? await Promise.all(
+            Array.from({ length: payload.data.imageCount }, (_, index) =>
+              createPrediction(payload.data.selectedModels[0], payload.data, index + 1),
+            ),
+          )
+        : await Promise.all(
+            payload.data.selectedModels.map((modelId) => createPrediction(modelId, payload.data)),
+          );
 
     const totalEstimateUsd = predictions.reduce((sum, prediction) => sum + prediction.estimateUsd, 0);
 

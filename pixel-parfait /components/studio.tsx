@@ -3,20 +3,16 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import JSZip from "jszip";
-import {
-  FormEvent,
-  useEffect,
-  useEffectEvent,
-  useMemo,
-  useState,
-  useTransition,
-} from "react";
+import { useEffect, useEffectEvent, useMemo, useState, useTransition } from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   ASPECT_RATIOS,
   DEFAULT_ADVANCED_SETTINGS,
+  DEFAULT_BATCH_MODEL,
   DEFAULT_SELECTED_MODELS,
   type AdvancedSettings,
   type GeneratePredictionResponse,
+  type GenerationMode,
   type ModelId,
   type PredictionSnapshot,
 } from "@/lib/contracts";
@@ -24,39 +20,40 @@ import { MODEL_LIST, MODEL_LOOKUP } from "@/lib/models";
 import { estimateBundleUsd, estimateModelUsd, formatUsd } from "@/lib/pricing";
 
 const LOADING_LINES = [
-  "파르페 잔에 픽셀을 층층이 올리는 중입니다.",
-  "모델들이 같은 프롬프트를 각자 다른 미감으로 해석하고 있어요.",
-  "빛, 구도, 운을 한 번에 모아보는 중입니다.",
-  "잠시만요. 지금 가장 그럴듯한 한 장을 고르고 있습니다.",
-  "붓 대신 토큰으로 디테일을 다듬는 중이에요.",
+  "같은 프롬프트를 다른 눈으로 보는 중",
+  "장면을 조용히 조립하는 중",
+  "가장 그럴듯한 빛을 찾는 중",
+  "픽셀을 한 층씩 정리하는 중",
 ];
 
 const TERMINAL_STATUSES = new Set(["succeeded", "failed", "canceled"]);
 
 type JobState = {
+  mode: GenerationMode;
   phase: "submitting" | "polling" | "complete";
-  createdAt: number;
   totalEstimateUsd: number;
   predictions: PredictionSnapshot[];
 };
 
 export function Studio() {
   const router = useRouter();
+  const [mode, setMode] = useState<GenerationMode>("batch");
   const [prompt, setPrompt] = useState("");
   const [aspectRatio, setAspectRatio] = useState<(typeof ASPECT_RATIOS)[number]>("4:3");
-  const [selectedModels, setSelectedModels] = useState<ModelId[]>(DEFAULT_SELECTED_MODELS);
+  const [selectedModels, setSelectedModels] = useState<ModelId[]>([DEFAULT_BATCH_MODEL]);
+  const [imageCount, setImageCount] = useState(4);
   const [advancedSettings, setAdvancedSettings] = useState<AdvancedSettings>(DEFAULT_ADVANCED_SETTINGS);
-  const [advancedOpen, setAdvancedOpen] = useState(false);
   const [job, setJob] = useState<JobState | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [downloadState, setDownloadState] = useState<"idle" | "zip" | "single">("idle");
   const [loadingIndex, setLoadingIndex] = useState(0);
   const [isPending, startTransition] = useTransition();
   const [isLoggingOut, startLogoutTransition] = useTransition();
+  const activeBatchModel = selectedModels[0] ?? DEFAULT_BATCH_MODEL;
 
   const estimatedTotal = useMemo(
-    () => estimateBundleUsd(selectedModels, advancedSettings, aspectRatio),
-    [advancedSettings, aspectRatio, selectedModels],
+    () => estimateBundleUsd(mode, selectedModels, imageCount, advancedSettings, aspectRatio),
+    [advancedSettings, aspectRatio, imageCount, mode, selectedModels],
   );
 
   const successfulPredictions = job?.predictions.filter((prediction) => prediction.status === "succeeded") ?? [];
@@ -87,12 +84,25 @@ export function Studio() {
       }
 
       const byId = new Map(nextPredictions.map((prediction) => [prediction.id, prediction]));
-      const predictions = current.predictions.map((prediction) => byId.get(prediction.id) ?? prediction);
-      const allComplete = predictions.every((prediction) => TERMINAL_STATUSES.has(prediction.status));
+      const predictions = current.predictions.map((prediction) => {
+        const next = byId.get(prediction.id);
+
+        if (!next) {
+          return prediction;
+        }
+
+        return {
+          ...prediction,
+          ...next,
+          variantIndex: prediction.variantIndex ?? next.variantIndex,
+        };
+      });
 
       return {
         ...current,
-        phase: allComplete ? "complete" : "polling",
+        phase: predictions.every((prediction) => TERMINAL_STATUSES.has(prediction.status))
+          ? "complete"
+          : "polling",
         predictions,
       };
     });
@@ -121,13 +131,31 @@ export function Studio() {
 
     const intervalId = window.setInterval(() => {
       rotateLoadingCopy();
-    }, 2800);
+    }, 2600);
 
     return () => window.clearInterval(intervalId);
   }, [job]);
 
+  function handleModeChange(nextMode: GenerationMode) {
+    setMode(nextMode);
+    setError(null);
+    setJob(null);
+
+    if (nextMode === "batch") {
+      setSelectedModels((current) => [current[0] ?? DEFAULT_BATCH_MODEL]);
+      return;
+    }
+
+    setSelectedModels((current) => (current.length ? current : DEFAULT_SELECTED_MODELS));
+  }
+
   function toggleModel(modelId: ModelId) {
     setError(null);
+
+    if (mode === "batch") {
+      setSelectedModels([modelId]);
+      return;
+    }
 
     setSelectedModels((current) => {
       if (current.includes(modelId)) {
@@ -135,7 +163,7 @@ export function Studio() {
       }
 
       if (current.length >= 4) {
-        setError("모델은 한 번에 최대 4개까지만 선택할 수 있습니다.");
+        setError("비교 모드는 최대 4개 모델까지 가능합니다.");
         return current;
       }
 
@@ -161,43 +189,58 @@ export function Studio() {
     setError(null);
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  function submitGeneration() {
     setError(null);
 
     if (selectedModels.length === 0) {
-      setError("최소 1개 모델은 선택해 주세요.");
+      setError("모델을 선택해 주세요.");
       return;
     }
 
     if (prompt.trim().length < 10) {
-      setError("프롬프트를 조금만 더 자세히 적어 주세요.");
+      setError("프롬프트를 조금 더 구체적으로 적어 주세요.");
       return;
     }
 
     const payload = {
       prompt,
+      mode,
       aspectRatio,
       selectedModels,
+      imageCount,
       advancedSettings,
     };
 
     startTransition(async () => {
       setJob({
+        mode,
         phase: "submitting",
-        createdAt: Date.now(),
         totalEstimateUsd: estimatedTotal,
-        predictions: selectedModels.map((modelId) => ({
-          id: `pending-${modelId}`,
-          modelId,
-          status: "starting",
-          estimateUsd: estimateModelUsd(modelId, advancedSettings, aspectRatio),
-          outputUrls: [],
-          logs: "",
-          error: null,
-          webUrl: undefined,
-          metrics: null,
-        })),
+        predictions:
+          mode === "batch"
+            ? Array.from({ length: imageCount }, (_, index) => ({
+                id: `pending-${index + 1}`,
+                modelId: activeBatchModel,
+                variantIndex: index + 1,
+                status: "starting",
+                estimateUsd: estimateModelUsd(activeBatchModel, advancedSettings, aspectRatio),
+                outputUrls: [],
+                logs: "",
+                error: null,
+                webUrl: undefined,
+                metrics: null,
+              }))
+            : selectedModels.map((modelId) => ({
+                id: `pending-${modelId}`,
+                modelId,
+                status: "starting",
+                estimateUsd: estimateModelUsd(modelId, advancedSettings, aspectRatio),
+                outputUrls: [],
+                logs: "",
+                error: null,
+                webUrl: undefined,
+                metrics: null,
+              })),
       });
 
       const response = await fetch("/api/generate", {
@@ -214,13 +257,13 @@ export function Studio() {
 
       if (!response.ok || !data?.predictions) {
         setJob(null);
-        setError(data?.error ?? "생성 요청을 시작하지 못했습니다.");
+        setError(data?.error ?? "생성을 시작하지 못했습니다.");
         return;
       }
 
       setJob({
+        mode,
         phase: "polling",
-        createdAt: Date.now(),
         totalEstimateUsd: data.totalEstimateUsd,
         predictions: data.predictions,
       });
@@ -241,7 +284,7 @@ export function Studio() {
 
     try {
       setDownloadState("single");
-      const fileName = buildFilename(prediction, 0);
+      const fileName = buildFilename(prediction);
       const response = await fetch(
         `/api/file?url=${encodeURIComponent(prediction.outputUrls[0])}&filename=${encodeURIComponent(fileName)}`,
       );
@@ -250,8 +293,7 @@ export function Studio() {
         throw new Error("이미지를 내려받지 못했습니다.");
       }
 
-      const blob = await response.blob();
-      triggerBrowserDownload(blob, fileName);
+      triggerBrowserDownload(await response.blob(), fileName);
     } catch (downloadError) {
       const message =
         downloadError instanceof Error ? downloadError.message : "이미지 다운로드에 실패했습니다.";
@@ -278,15 +320,15 @@ export function Studio() {
           );
 
           if (!response.ok) {
-            throw new Error(`${MODEL_LOOKUP[prediction.modelId].name} 이미지를 가져오지 못했습니다.`);
+            throw new Error(`${MODEL_LOOKUP[prediction.modelId].name} 파일을 가져오지 못했습니다.`);
           }
 
           zip.file(fileName, await response.arrayBuffer());
         }
       }
 
-      const blob = await zip.generateAsync({ type: "blob" });
-      triggerBrowserDownload(blob, `pixel-parfait-${new Date().toISOString().slice(0, 19)}.zip`);
+      const zipName = `pixel-parfait-${new Date().toISOString().slice(0, 19)}.zip`;
+      triggerBrowserDownload(await zip.generateAsync({ type: "blob" }), zipName);
     } catch (downloadError) {
       const message =
         downloadError instanceof Error ? downloadError.message : "ZIP 다운로드에 실패했습니다.";
@@ -296,390 +338,346 @@ export function Studio() {
     }
   }
 
+  const visibleModels = MODEL_LIST;
+  const advancedModelIds = (mode === "batch" ? [activeBatchModel] : selectedModels).filter(
+    (modelId): modelId is ModelId => Boolean(modelId),
+  );
+
   return (
     <section className="w-full">
-      <div className="glass-card grid-fade overflow-hidden rounded-[2rem]">
-        <div className="flex flex-col gap-6 p-5 sm:p-7 lg:p-8">
-          <header className="dashed-divider flex flex-col gap-5 pb-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/65 px-3 py-1 text-sm text-[var(--muted)]">
-                <span className="h-2 w-2 rounded-full bg-[var(--accent)]" />
-                Replicate multi-model image studio
-              </div>
-              <div className="space-y-3">
-                <p className="text-sm uppercase tracking-[0.28em] text-[var(--muted)]">Pixel Parfait</p>
-                <h1 className="fancy-title text-4xl leading-none font-semibold tracking-tight sm:text-5xl">
-                  한 프롬프트를 여러 모델에 동시에 보내고,
-                  <br className="hidden sm:block" /> 가장 마음에 드는 결과를 바로 고르세요.
-                </h1>
-                <p className="max-w-3xl text-sm leading-7 text-[var(--muted)] sm:text-base">
-                  서버에는 결과를 저장하지 않습니다. 지금 보이는 세션에서만 확인하고, 마음에 들면
-                  바로 다운로드하세요.
-                </p>
-              </div>
+      <div className="flex items-center justify-between gap-4 pb-4">
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 rounded-2xl bg-[var(--foreground)]" />
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.28em] text-[var(--muted)]">
+              Pixel Parfait
+            </p>
+            <p className="text-sm text-[var(--muted)]">Replicate</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            className="glass-card rounded-full px-4 py-2 text-sm text-[var(--muted)] transition hover:text-[var(--foreground)]"
+            type="button"
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+          >
+            {isLoggingOut ? "..." : "Logout"}
+          </button>
+        </div>
+      </div>
+
+      <div className="grid gap-4 xl:grid-cols-[420px_minmax(0,1fr)]">
+        <div className="space-y-4">
+          <div className="glass-card rounded-[2rem] p-5">
+            <div className="flex items-center gap-2">
+              <ModeButton
+                active={mode === "batch"}
+                label="한 모델 여러 장"
+                onClick={() => handleModeChange("batch")}
+              />
+              <ModeButton
+                active={mode === "compare"}
+                label="여러 모델 비교"
+                onClick={() => handleModeChange("compare")}
+              />
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[23rem]">
-              <StatCard label="선택 모델" value={`${selectedModels.length}개`} note="최대 4개" />
-              <StatCard label="예상 비용" value={formatUsd(estimatedTotal)} note="현재 선택 기준" />
+            <div className="mt-4">
+              <textarea
+                className="app-textarea min-h-44 rounded-[1.5rem] px-4 py-4 text-base leading-7"
+                value={prompt}
+                onChange={(event) => setPrompt(event.target.value)}
+                placeholder='예: cinematic product photo, clean studio light, glass dessert cup, tiny lettering "Pixel Parfait"'
+              />
+            </div>
+          </div>
+
+          <div className="glass-card rounded-[2rem] p-5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <SectionLabel label="모델" />
+                <span
+                  className="tooltip-chip"
+                  title={
+                    mode === "batch"
+                      ? "하나의 모델로 여러 장을 뽑습니다."
+                      : "같은 프롬프트를 여러 모델에 동시에 보냅니다."
+                  }
+                >
+                  ?
+                </span>
+              </div>
+              <span className="text-sm text-[var(--muted)]">
+                {mode === "batch" ? "1개" : `${selectedModels.length}/4`}
+              </span>
+            </div>
+
+            <div className="mt-3 grid gap-2">
+              {visibleModels.map((model) => {
+                const active = selectedModels.includes(model.id);
+
+                return (
+                  <button
+                    key={model.id}
+                    className={`rounded-[1.25rem] border px-4 py-3 text-left transition ${
+                      active
+                        ? "border-[var(--accent)] bg-[var(--accent-soft)]"
+                        : "border-[var(--border)] bg-[var(--surface-contrast)] hover:border-[var(--accent)]/40"
+                    }`}
+                    type="button"
+                    title={model.description}
+                    onClick={() => toggleModel(model.id)}
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-semibold tracking-tight">{model.name}</p>
+                        <p className="text-xs text-[var(--muted)]">{model.provider}</p>
+                      </div>
+                      <span className="text-sm text-[var(--muted)]">
+                        {formatUsd(estimateModelUsd(model.id, advancedSettings, aspectRatio))}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {mode === "batch" ? (
+              <div className="mt-4">
+                <div className="flex items-center gap-2">
+                  <SectionLabel label="장수" />
+                  <span className="tooltip-chip" title="같은 모델로 1장부터 4장까지 동시에 생성합니다.">
+                    ?
+                  </span>
+                </div>
+                <div className="mt-3 grid grid-cols-4 gap-2">
+                  {[1, 2, 3, 4].map((count) => (
+                    <button
+                      key={count}
+                      className={`rounded-2xl border px-3 py-3 text-sm transition ${
+                        imageCount === count
+                          ? "border-[var(--accent)] bg-[var(--accent-soft)]"
+                          : "border-[var(--border)] bg-[var(--surface-contrast)]"
+                      }`}
+                      type="button"
+                      onClick={() => setImageCount(count)}
+                    >
+                      {count}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </div>
+
+          <div className="glass-card rounded-[2rem] p-5">
+            <div className="flex items-center gap-2">
+              <SectionLabel label="기본 설정" />
+            </div>
+
+            <div className="mt-3 grid grid-cols-4 gap-2">
+              {ASPECT_RATIOS.map((ratio) => (
+                <button
+                  key={ratio}
+                  className={`rounded-2xl border px-3 py-3 text-sm transition ${
+                    aspectRatio === ratio
+                      ? "border-[var(--accent)] bg-[var(--accent-soft)]"
+                      : "border-[var(--border)] bg-[var(--surface-contrast)]"
+                  }`}
+                  type="button"
+                  onClick={() => setAspectRatio(ratio)}
+                >
+                  {ratio}
+                </button>
+              ))}
+            </div>
+
+            <details className="mt-4 rounded-[1.25rem] border border-[var(--border)] bg-[var(--surface-contrast)] px-4 py-3">
+              <summary className="cursor-pointer list-none text-sm font-medium text-[var(--foreground)]">
+                Advanced
+              </summary>
+              <div className="mt-4 space-y-3">
+                {advancedModelIds.filter(Boolean).map((modelId) => (
+                  <AdvancedPanel
+                    key={modelId}
+                    modelId={modelId}
+                    settings={advancedSettings}
+                    onChange={updateAdvanced}
+                  />
+                ))}
+              </div>
+            </details>
+          </div>
+
+          <div className="glass-card rounded-[2rem] p-5">
+            <div className="flex items-end justify-between gap-3">
+              <div>
+                <p className="text-sm text-[var(--muted)]">Estimate</p>
+                <p className="mt-1 text-3xl font-semibold tracking-tight">{formatUsd(estimatedTotal)}</p>
+              </div>
               <button
-                className="rounded-3xl border border-[var(--border)] bg-white/70 px-4 py-4 text-left transition hover:bg-white"
+                className="rounded-2xl bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-[var(--background)] transition hover:opacity-92 disabled:cursor-not-allowed disabled:opacity-45"
                 type="button"
-                onClick={handleLogout}
-                disabled={isLoggingOut}
+                onClick={submitGeneration}
+                disabled={isPending}
               >
-                <p className="text-sm text-[var(--muted)]">세션</p>
-                <p className="mt-1 text-lg font-semibold tracking-tight">
-                  {isLoggingOut ? "닫는 중..." : "로그아웃"}
-                </p>
+                {isPending ? "Generating..." : "Generate"}
               </button>
             </div>
-          </header>
 
-          <form className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]" onSubmit={handleSubmit}>
-            <div className="space-y-6">
-              <section className="rounded-[1.75rem] border border-[var(--border)] bg-white/70 p-5 sm:p-6">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <h2 className="text-xl font-semibold tracking-tight">프롬프트</h2>
-                      <p className="mt-1 text-sm text-[var(--muted)]">
-                        인물, 분위기, 카메라, 재질, 텍스트 삽입 등 원하는 요소를 자연스럽게 적어주세요.
-                      </p>
-                    </div>
-                    <button
-                      className="rounded-full border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--muted)] transition hover:bg-white"
-                      type="button"
-                      onClick={() =>
-                        setPrompt(
-                          'A cinematic dessert shop interior at dusk, warm amber lighting, glossy parfait glass in the foreground, elegant Korean signage that reads "Pixel Parfait", photographed like a premium editorial campaign.',
-                        )
-                      }
-                    >
-                      예시 넣기
-                    </button>
-                  </div>
-                  <textarea
-                    className="min-h-44 w-full rounded-[1.5rem] border border-[var(--border)] bg-[rgba(255,255,255,0.88)] px-4 py-4 text-base leading-7 outline-none transition focus:border-[var(--accent)] focus:ring-4 focus:ring-[color:rgba(201,109,68,0.12)]"
-                    value={prompt}
-                    onChange={(event) => setPrompt(event.target.value)}
-                    placeholder="예: ultra realistic editorial portrait, soft morning light, handmade ceramic cup with tiny engraved lettering..."
-                  />
-                </div>
-              </section>
-
-              <section className="rounded-[1.75rem] border border-[var(--border)] bg-white/70 p-5 sm:p-6">
-                <div className="space-y-4">
-                  <div>
-                    <h2 className="text-xl font-semibold tracking-tight">모델 선택</h2>
-                    <p className="mt-1 text-sm text-[var(--muted)]">
-                      같은 프롬프트를 서로 다른 모델에 보내 결과 감각을 비교합니다.
-                    </p>
-                  </div>
-                  <div className="grid gap-4 lg:grid-cols-2">
-                    {MODEL_LIST.map((model) => {
-                      const selected = selectedModels.includes(model.id);
-                      const estimate = estimateModelUsd(model.id, advancedSettings, aspectRatio);
-
-                      return (
-                        <button
-                          key={model.id}
-                          className={`rounded-[1.5rem] border px-4 py-4 text-left transition ${
-                            selected
-                              ? "border-[var(--accent)] bg-[rgba(201,109,68,0.08)] shadow-[0_16px_40px_rgba(201,109,68,0.12)]"
-                              : "border-[var(--border)] bg-white/65 hover:bg-white"
-                          }`}
-                          type="button"
-                          onClick={() => toggleModel(model.id)}
-                        >
-                          <div className="flex items-start justify-between gap-3">
-                            <div>
-                              <p className="text-sm font-medium uppercase tracking-[0.18em] text-[var(--muted)]">
-                                {model.provider}
-                              </p>
-                              <h3 className="mt-2 text-xl font-semibold tracking-tight">{model.name}</h3>
-                            </div>
-                            <span
-                              className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${
-                                selected ? "bg-[var(--foreground)] text-white" : "bg-white text-[var(--muted)]"
-                              }`}
-                            >
-                              {model.lane}
-                            </span>
-                          </div>
-                          <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{model.description}</p>
-                          <div className="mt-4 flex items-center justify-between gap-3 text-sm">
-                            <span className="rounded-full border border-[var(--border)] px-3 py-1 text-[var(--muted)]">
-                              예상 {formatUsd(estimate)}
-                            </span>
-                            <span className="font-medium text-[var(--foreground)]">
-                              {selected ? "선택됨" : "클릭해서 추가"}
-                            </span>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </section>
-            </div>
-
-            <div className="space-y-6">
-              <section className="rounded-[1.75rem] border border-[var(--border)] bg-white/70 p-5 sm:p-6">
-                <div className="space-y-5">
-                  <div>
-                    <h2 className="text-xl font-semibold tracking-tight">기본 설정</h2>
-                    <p className="mt-1 text-sm text-[var(--muted)]">
-                      초보자라면 여기까지만 설정해도 충분합니다.
-                    </p>
-                  </div>
-                  <div className="space-y-3">
-                    <p className="text-sm font-medium text-[var(--muted)]">화면 비율</p>
-                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                      {ASPECT_RATIOS.map((ratio) => (
-                        <button
-                          key={ratio}
-                          className={`rounded-2xl border px-3 py-3 text-sm font-medium transition ${
-                            aspectRatio === ratio
-                              ? "border-[var(--teal)] bg-[rgba(63,123,130,0.08)] text-[var(--foreground)]"
-                              : "border-[var(--border)] bg-white/60 text-[var(--muted)] hover:bg-white"
-                          }`}
-                          type="button"
-                          onClick={() => setAspectRatio(ratio)}
-                        >
-                          {ratio}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="rounded-[1.35rem] border border-[var(--border)] bg-[rgba(255,255,255,0.66)] p-4">
-                    <div className="flex items-center justify-between gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-[var(--muted)]">비용 미리보기</p>
-                        <p className="mt-1 text-2xl font-semibold tracking-tight">{formatUsd(estimatedTotal)}</p>
-                      </div>
-                      <div className="text-right text-sm leading-6 text-[var(--muted)]">
-                        <p>선택한 모델 {selectedModels.length}개 기준</p>
-                        <p>Replicate 공개 가격표 기반 추정치</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <section className="rounded-[1.75rem] border border-[var(--border)] bg-white/70 p-5 sm:p-6">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <h2 className="text-xl font-semibold tracking-tight">고급 옵션</h2>
-                      <p className="mt-1 text-sm text-[var(--muted)]">
-                        필요할 때만 펼쳐서 모델별 해상도나 출력 포맷을 조정하세요.
-                      </p>
-                    </div>
-                    <button
-                      className="rounded-full border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--muted)] transition hover:bg-white"
-                      type="button"
-                      onClick={() => setAdvancedOpen((current) => !current)}
-                    >
-                      {advancedOpen ? "접기" : "펼치기"}
-                    </button>
-                  </div>
-
-                  {advancedOpen ? (
-                    <div className="space-y-4">
-                      {selectedModels.map((modelId) => (
-                        <AdvancedPanel
-                          key={modelId}
-                          modelId={modelId}
-                          settings={advancedSettings}
-                          onChange={updateAdvanced}
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="rounded-[1.35rem] border border-dashed border-[var(--border)] bg-white/45 px-4 py-4 text-sm leading-6 text-[var(--muted)]">
-                      대부분의 사용자는 기본 설정만으로도 충분합니다. 더 세밀하게 제어하고 싶을 때만
-                      열어 주세요.
-                    </div>
-                  )}
-                </div>
-              </section>
-
-              <section className="rounded-[1.75rem] border border-[var(--border)] bg-[rgba(31,25,21,0.96)] p-5 text-white sm:p-6">
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-sm uppercase tracking-[0.24em] text-white/60">Run</p>
-                    <h2 className="mt-2 text-2xl font-semibold tracking-tight">
-                      {selectedModels.length}개 모델로 지금 생성하기
-                    </h2>
-                  </div>
-
-                  {error ? (
-                    <div className="rounded-2xl border border-white/12 bg-white/8 px-4 py-3 text-sm text-white/85">
-                      {error}
-                    </div>
-                  ) : null}
-
-                  <button
-                    className="w-full rounded-full bg-[var(--accent)] px-5 py-3 text-base font-semibold text-white transition hover:translate-y-[-1px] hover:bg-[#ba623d] disabled:cursor-not-allowed disabled:opacity-60"
-                    type="submit"
-                    disabled={isPending}
-                  >
-                    {isPending ? "주문 넣는 중..." : `${formatUsd(estimatedTotal)} 정도로 그려보기`}
-                  </button>
-
-                  <p className="text-sm leading-6 text-white/60">
-                    결과는 저장되지 않습니다. 만족스러운 이미지가 나오면 바로 다운로드하세요.
-                  </p>
-                </div>
-              </section>
-            </div>
-          </form>
-
-          {job ? (
-            <section className="rounded-[1.75rem] border border-[var(--border)] bg-white/75 p-5 sm:p-6">
-              <div className="space-y-6">
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                  <div className="space-y-2">
-                    <p className="text-sm uppercase tracking-[0.24em] text-[var(--muted)]">Session</p>
-                    <h2 className="text-2xl font-semibold tracking-tight">
-                      {job.phase === "complete" ? "이번 라운드 결과" : "모델들이 작업 중입니다"}
-                    </h2>
-                    <p className="max-w-3xl text-sm leading-6 text-[var(--muted)]">
-                      {job.phase === "complete"
-                        ? "결과는 현재 세션에서만 유지됩니다. 필요하면 지금 바로 ZIP으로 내려받으세요."
-                        : LOADING_LINES[loadingIndex]}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-3">
-                    <button
-                      className="rounded-full border border-[var(--border)] px-4 py-2 text-sm font-medium text-[var(--muted)] transition hover:bg-white"
-                      type="button"
-                      onClick={resetSession}
-                    >
-                      새 라운드 준비
-                    </button>
-                    <button
-                      className="rounded-full bg-[var(--foreground)] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#2a221d] disabled:cursor-not-allowed disabled:opacity-55"
-                      type="button"
-                      onClick={downloadAllAsZip}
-                      disabled={!successfulPredictions.length || downloadState !== "idle"}
-                    >
-                      {downloadState === "zip" ? "ZIP 묶는 중..." : "한 번에 다운로드"}
-                    </button>
-                  </div>
-                </div>
-
-                {(job.phase === "submitting" || job.phase === "polling") && (
-                  <div className="loader-shimmer h-2 rounded-full" />
-                )}
-
-                <div className="grid gap-4 xl:grid-cols-2">
-                  {job.predictions.map((prediction) => {
-                    const model = MODEL_LOOKUP[prediction.modelId];
-                    const primaryImage = prediction.outputUrls[0];
-                    const isDone = TERMINAL_STATUSES.has(prediction.status);
-
-                    return (
-                      <article
-                        key={prediction.id}
-                        className="overflow-hidden rounded-[1.5rem] border border-[var(--border)] bg-white/70"
-                      >
-                        <div className="flex flex-col gap-4 p-4 sm:p-5">
-                          <div className="flex items-start justify-between gap-4">
-                            <div>
-                              <p className="text-sm uppercase tracking-[0.18em] text-[var(--muted)]">
-                                {model.provider}
-                              </p>
-                              <h3 className="mt-1 text-2xl font-semibold tracking-tight">{model.name}</h3>
-                              <p className="mt-1 text-sm text-[var(--muted)]">{model.description}</p>
-                            </div>
-                            <div className="text-right">
-                              <span className="inline-flex rounded-full border border-[var(--border)] px-3 py-1 text-sm text-[var(--muted)]">
-                                {prediction.status}
-                              </span>
-                              <p className="mt-2 text-sm font-medium text-[var(--foreground)]">
-                                예상 {formatUsd(prediction.estimateUsd)}
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="overflow-hidden rounded-[1.25rem] border border-[var(--border)] bg-[rgba(250,246,240,0.8)]">
-                            <div className="relative aspect-[4/3]">
-                              {primaryImage ? (
-                                <Image
-                                  src={primaryImage}
-                                  alt={`${model.name} result`}
-                                  fill
-                                  className="object-cover"
-                                  sizes="(max-width: 1280px) 100vw, 45vw"
-                                  unoptimized
-                                />
-                              ) : (
-                                <div className="flex h-full items-center justify-center px-6 text-center text-sm leading-6 text-[var(--muted)]">
-                                  {isDone && prediction.error
-                                    ? prediction.error
-                                    : "아직 이미지가 도착하기 전입니다. 모델이 열심히 장면을 구성하는 중이에요."}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-
-                          <div className="flex flex-wrap items-center justify-between gap-3">
-                            <div className="text-sm leading-6 text-[var(--muted)]">
-                              {prediction.webUrl ? (
-                                <a
-                                  className="font-medium text-[var(--foreground)] underline decoration-[rgba(31,25,21,0.24)] underline-offset-4"
-                                  href={prediction.webUrl}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  Replicate에서 보기
-                                </a>
-                              ) : (
-                                <span>Replicate 링크 준비 중</span>
-                              )}
-                            </div>
-
-                            <button
-                              className="rounded-full border border-[var(--border)] px-4 py-2 text-sm font-medium text-[var(--foreground)] transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
-                              type="button"
-                              onClick={() => void downloadPrediction(prediction)}
-                              disabled={!primaryImage || downloadState !== "idle"}
-                            >
-                              {downloadState === "single" ? "내려받는 중..." : "이 결과 다운로드"}
-                            </button>
-                          </div>
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
+            {error ? (
+              <div className="mt-3 rounded-2xl border border-[color:rgba(229,72,77,0.24)] bg-[color:rgba(229,72,77,0.08)] px-4 py-3 text-sm text-[var(--danger)]">
+                {error}
               </div>
-            </section>
-          ) : null}
+            ) : null}
+          </div>
+        </div>
+
+        <div className="glass-card min-h-[42rem] rounded-[2rem] p-5">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm text-[var(--muted)]">Results</p>
+              <h2 className="mt-1 text-2xl font-semibold tracking-tight">
+                {job
+                  ? job.phase === "complete"
+                    ? "Done"
+                    : LOADING_LINES[loadingIndex]
+                  : "아직 생성된 이미지 없음"}
+              </h2>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {job ? (
+                <button
+                  className="rounded-full border border-[var(--border)] px-4 py-2 text-sm text-[var(--muted)] transition hover:text-[var(--foreground)]"
+                  type="button"
+                  onClick={resetSession}
+                >
+                  Reset
+                </button>
+              ) : null}
+              <button
+                className="rounded-full bg-[var(--foreground)] px-4 py-2 text-sm font-semibold text-[var(--background)] transition hover:opacity-92 disabled:cursor-not-allowed disabled:opacity-45"
+                type="button"
+                onClick={downloadAllAsZip}
+                disabled={!successfulPredictions.length || downloadState !== "idle"}
+              >
+                {downloadState === "zip" ? "Zipping..." : "Download all"}
+              </button>
+            </div>
+          </div>
+
+          {(job?.phase === "submitting" || job?.phase === "polling") && (
+            <div className="loader-shimmer mt-4 h-1.5 rounded-full" />
+          )}
+
+          {!job ? (
+            <div className="mt-8 flex min-h-[32rem] items-center justify-center rounded-[1.75rem] border border-dashed border-[var(--border)] bg-[var(--surface-contrast)]">
+              <p className="text-sm text-[var(--muted)]">프롬프트를 입력하고 생성해 보세요.</p>
+            </div>
+          ) : (
+            <div className="mt-5 grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
+              {job.predictions.map((prediction) => {
+                const model = MODEL_LOOKUP[prediction.modelId];
+                const imageUrl = prediction.outputUrls[0];
+
+                return (
+                  <article
+                    key={prediction.id}
+                    className="overflow-hidden rounded-[1.5rem] border border-[var(--border)] bg-[var(--surface-contrast)]"
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      {imageUrl ? (
+                        <Image
+                          src={imageUrl}
+                          alt={model.name}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 1536px) 100vw, 30vw"
+                          unoptimized
+                        />
+                      ) : (
+                        <div className="flex h-full items-center justify-center px-6 text-center text-sm text-[var(--muted)]">
+                          {prediction.error ?? "생성 중"}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="space-y-3 p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <h3 className="text-lg font-semibold tracking-tight">
+                            {model.name}
+                            {prediction.variantIndex ? ` ${prediction.variantIndex}` : ""}
+                          </h3>
+                          <p className="text-sm text-[var(--muted)]">{prediction.status}</p>
+                        </div>
+                        <span className="text-sm text-[var(--muted)]">
+                          {formatUsd(prediction.estimateUsd)}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          className="rounded-full border border-[var(--border)] px-3 py-2 text-sm text-[var(--foreground)] transition hover:border-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-45"
+                          type="button"
+                          onClick={() => void downloadPrediction(prediction)}
+                          disabled={!imageUrl || downloadState !== "idle"}
+                        >
+                          {downloadState === "single" ? "..." : "Download"}
+                        </button>
+                        {prediction.webUrl ? (
+                          <a
+                            className="rounded-full border border-[var(--border)] px-3 py-2 text-sm text-[var(--muted)] transition hover:text-[var(--foreground)]"
+                            href={prediction.webUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Replicate
+                          </a>
+                        ) : null}
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </section>
   );
 }
 
-type StatCardProps = {
+type ModeButtonProps = {
+  active: boolean;
   label: string;
-  value: string;
-  note: string;
+  onClick: () => void;
 };
 
-function StatCard({ label, value, note }: StatCardProps) {
+function ModeButton({ active, label, onClick }: ModeButtonProps) {
   return (
-    <div className="rounded-3xl border border-[var(--border)] bg-white/70 px-4 py-4">
-      <p className="text-sm text-[var(--muted)]">{label}</p>
-      <p className="mt-1 text-2xl font-semibold tracking-tight">{value}</p>
-      <p className="mt-2 text-sm text-[var(--muted)]">{note}</p>
-    </div>
+    <button
+      className={`rounded-full px-4 py-2 text-sm transition ${
+        active ? "bg-[var(--foreground)] text-[var(--background)]" : "text-[var(--muted)]"
+      }`}
+      type="button"
+      onClick={onClick}
+    >
+      {label}
+    </button>
   );
+}
+
+type SectionLabelProps = {
+  label: string;
+};
+
+function SectionLabel({ label }: SectionLabelProps) {
+  return <span className="text-sm font-medium text-[var(--muted)]">{label}</span>;
 }
 
 type AdvancedPanelProps = {
@@ -698,23 +696,23 @@ function AdvancedPanel({ modelId, settings, onChange }: AdvancedPanelProps) {
     const current = settings["seedream-4"];
 
     return (
-      <div className="rounded-[1.35rem] border border-[var(--border)] bg-white/70 p-4">
-        <PanelHeader modelName={model.name} />
-        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+      <div className="rounded-[1rem] border border-[var(--border)] p-3">
+        <p className="mb-3 text-sm font-medium">{model.name}</p>
+        <div className="grid gap-3 sm:grid-cols-3">
           <SelectField
-            label="해상도"
+            label="Size"
             value={current.size}
             options={["1K", "2K", "4K"]}
             onChange={(value) => onChange("seedream-4", { size: value as "1K" | "2K" | "4K" })}
           />
           <SelectField
-            label="포맷"
+            label="Format"
             value={current.outputFormat}
             options={["png", "jpeg"]}
             onChange={(value) => onChange("seedream-4", { outputFormat: value as "png" | "jpeg" })}
           />
           <ToggleField
-            label="프롬프트 보강"
+            label="Enhance"
             checked={current.enhancePrompt}
             onChange={(checked) => onChange("seedream-4", { enhancePrompt: checked })}
           />
@@ -727,22 +725,22 @@ function AdvancedPanel({ modelId, settings, onChange }: AdvancedPanelProps) {
     const current = settings["seedream-5-lite"];
 
     return (
-      <div className="rounded-[1.35rem] border border-[var(--border)] bg-white/70 p-4">
-        <PanelHeader modelName={model.name} />
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+      <div className="rounded-[1rem] border border-[var(--border)] p-3">
+        <p className="mb-3 text-sm font-medium">{model.name}</p>
+        <div className="grid gap-3 sm:grid-cols-2">
           <SelectField
-            label="해상도"
+            label="Size"
             value={current.size}
             options={["2K", "3K"]}
             onChange={(value) => onChange("seedream-5-lite", { size: value as "2K" | "3K" })}
           />
           <SelectField
-            label="포맷"
+            label="Format"
             value={current.outputFormat}
             options={["png", "jpeg"]}
-            onChange={(value) => onChange("seedream-5-lite", {
-              outputFormat: value as "png" | "jpeg",
-            })}
+            onChange={(value) =>
+              onChange("seedream-5-lite", { outputFormat: value as "png" | "jpeg" })
+            }
           />
         </div>
       </div>
@@ -753,11 +751,11 @@ function AdvancedPanel({ modelId, settings, onChange }: AdvancedPanelProps) {
     const current = settings["flux-2-pro"];
 
     return (
-      <div className="rounded-[1.35rem] border border-[var(--border)] bg-white/70 p-4">
-        <PanelHeader modelName={model.name} />
-        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+      <div className="rounded-[1rem] border border-[var(--border)] p-3">
+        <p className="mb-3 text-sm font-medium">{model.name}</p>
+        <div className="grid gap-3 sm:grid-cols-3">
           <SelectField
-            label="메가픽셀"
+            label="MP"
             value={current.resolution}
             options={["0.5 MP", "1 MP", "2 MP"]}
             onChange={(value) =>
@@ -765,7 +763,7 @@ function AdvancedPanel({ modelId, settings, onChange }: AdvancedPanelProps) {
             }
           />
           <SelectField
-            label="포맷"
+            label="Format"
             value={current.outputFormat}
             options={["webp", "jpg", "png"]}
             onChange={(value) =>
@@ -773,7 +771,7 @@ function AdvancedPanel({ modelId, settings, onChange }: AdvancedPanelProps) {
             }
           />
           <RangeField
-            label="세이프티"
+            label="Safety"
             min={1}
             max={5}
             value={current.safetyTolerance}
@@ -788,11 +786,11 @@ function AdvancedPanel({ modelId, settings, onChange }: AdvancedPanelProps) {
     const current = settings["nano-banana-pro"];
 
     return (
-      <div className="rounded-[1.35rem] border border-[var(--border)] bg-white/70 p-4">
-        <PanelHeader modelName={model.name} />
-        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+      <div className="rounded-[1rem] border border-[var(--border)] p-3">
+        <p className="mb-3 text-sm font-medium">{model.name}</p>
+        <div className="grid gap-3 sm:grid-cols-3">
           <SelectField
-            label="해상도"
+            label="Size"
             value={current.resolution}
             options={["1K", "2K", "4K"]}
             onChange={(value) =>
@@ -800,7 +798,7 @@ function AdvancedPanel({ modelId, settings, onChange }: AdvancedPanelProps) {
             }
           />
           <SelectField
-            label="포맷"
+            label="Format"
             value={current.outputFormat}
             options={["jpg", "png"]}
             onChange={(value) =>
@@ -808,7 +806,7 @@ function AdvancedPanel({ modelId, settings, onChange }: AdvancedPanelProps) {
             }
           />
           <SelectField
-            label="세이프티"
+            label="Safety"
             value={current.safetyFilterLevel}
             options={["block_only_high", "block_medium_and_above", "block_low_and_above"]}
             onChange={(value) =>
@@ -828,11 +826,11 @@ function AdvancedPanel({ modelId, settings, onChange }: AdvancedPanelProps) {
   const current = settings["z-image-turbo"];
 
   return (
-    <div className="rounded-[1.35rem] border border-[var(--border)] bg-white/70 p-4">
-      <PanelHeader modelName={model.name} />
-      <div className="mt-4 grid gap-4 sm:grid-cols-3">
+    <div className="rounded-[1rem] border border-[var(--border)] p-3">
+      <p className="mb-3 text-sm font-medium">{model.name}</p>
+      <div className="grid gap-3 sm:grid-cols-3">
         <SelectField
-          label="포맷"
+          label="Format"
           value={current.outputFormat}
           options={["jpg", "png", "webp"]}
           onChange={(value) =>
@@ -840,32 +838,17 @@ function AdvancedPanel({ modelId, settings, onChange }: AdvancedPanelProps) {
           }
         />
         <RangeField
-          label="스텝"
+          label="Steps"
           min={8}
           max={12}
           value={current.numInferenceSteps}
           onChange={(value) => onChange("z-image-turbo", { numInferenceSteps: value })}
         />
         <ToggleField
-          label="추가 가속"
+          label="Go fast"
           checked={current.goFast}
           onChange={(checked) => onChange("z-image-turbo", { goFast: checked })}
         />
-      </div>
-    </div>
-  );
-}
-
-type PanelHeaderProps = {
-  modelName: string;
-};
-
-function PanelHeader({ modelName }: PanelHeaderProps) {
-  return (
-    <div className="flex items-center justify-between gap-4">
-      <div>
-        <h3 className="text-base font-semibold tracking-tight">{modelName}</h3>
-        <p className="text-sm text-[var(--muted)]">이 모델만의 세부 조절값입니다.</p>
       </div>
     </div>
   );
@@ -880,10 +863,10 @@ type SelectFieldProps = {
 
 function SelectField({ label, value, options, onChange }: SelectFieldProps) {
   return (
-    <label className="space-y-2">
-      <span className="text-sm font-medium text-[var(--muted)]">{label}</span>
+    <label className="space-y-1.5">
+      <span className="text-xs uppercase tracking-[0.2em] text-[var(--muted)]">{label}</span>
       <select
-        className="w-full rounded-2xl border border-[var(--border)] bg-white px-3 py-2.5 outline-none transition focus:border-[var(--accent)]"
+        className="app-select rounded-xl px-3 py-2.5 text-sm"
         value={value}
         onChange={(event) => onChange(event.target.value)}
       >
@@ -908,8 +891,8 @@ type RangeFieldProps = {
 function RangeField({ label, min, max, value, onChange }: RangeFieldProps) {
   return (
     <label className="space-y-2">
-      <span className="text-sm font-medium text-[var(--muted)]">
-        {label} <span className="text-[var(--foreground)]">{value}</span>
+      <span className="text-xs uppercase tracking-[0.2em] text-[var(--muted)]">
+        {label} {value}
       </span>
       <input
         className="w-full accent-[var(--accent)]"
@@ -931,38 +914,26 @@ type ToggleFieldProps = {
 
 function ToggleField({ label, checked, onChange }: ToggleFieldProps) {
   return (
-    <label className="space-y-2">
-      <span className="text-sm font-medium text-[var(--muted)]">{label}</span>
-      <button
-        className={`flex h-[46px] w-full items-center rounded-2xl border px-3 transition ${
-          checked
-            ? "border-[var(--accent)] bg-[rgba(201,109,68,0.08)]"
-            : "border-[var(--border)] bg-white"
-        }`}
-        type="button"
-        onClick={() => onChange(!checked)}
-      >
-        <span
-          className={`inline-flex h-6 w-11 items-center rounded-full p-1 transition ${
-            checked ? "bg-[var(--accent)] justify-end" : "bg-[rgba(31,25,21,0.14)] justify-start"
-          }`}
-        >
-          <span className="h-4 w-4 rounded-full bg-white" />
-        </span>
-        <span className="ml-3 text-sm font-medium text-[var(--foreground)]">
-          {checked ? "켜짐" : "꺼짐"}
-        </span>
-      </button>
-    </label>
+    <button
+      className={`rounded-xl border px-3 py-2.5 text-left text-sm transition ${
+        checked ? "border-[var(--accent)] bg-[var(--accent-soft)]" : "border-[var(--border)]"
+      }`}
+      type="button"
+      onClick={() => onChange(!checked)}
+    >
+      <span className="text-xs uppercase tracking-[0.2em] text-[var(--muted)]">{label}</span>
+      <p className="mt-1 font-medium">{checked ? "On" : "Off"}</p>
+    </button>
   );
 }
 
-function buildFilename(prediction: PredictionSnapshot, index: number) {
+function buildFilename(prediction: PredictionSnapshot, outputIndex = 0) {
   const model = MODEL_LOOKUP[prediction.modelId];
-  const url = prediction.outputUrls[index] ?? prediction.outputUrls[0] ?? "";
+  const url = prediction.outputUrls[outputIndex] ?? prediction.outputUrls[0] ?? "";
   const extension = url.split(".").pop()?.split("?")[0] || "png";
-  const slug = `${model.name}-${index + 1}`.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-  return `${slug}.${extension}`;
+  const suffix = prediction.variantIndex ? `-${String(prediction.variantIndex).padStart(2, "0")}` : "";
+  const slug = model.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  return `${slug}${suffix}.${extension}`;
 }
 
 function triggerBrowserDownload(blob: Blob, fileName: string) {

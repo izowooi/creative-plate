@@ -52,6 +52,7 @@ function normalizePrediction(
   modelId: ModelId,
   prediction: ReplicatePrediction,
   estimateUsd: number,
+  variantIndex?: number,
 ): PredictionSnapshot {
   const outputUrls = Array.isArray(prediction.output)
     ? prediction.output.filter(Boolean)
@@ -62,6 +63,7 @@ function normalizePrediction(
   return {
     id: prediction.id,
     modelId,
+    variantIndex,
     status: prediction.status,
     estimateUsd,
     outputUrls,
@@ -147,7 +149,11 @@ function buildPredictionInput(modelId: ModelId, request: GenerateRequest) {
   }
 }
 
-export async function createPrediction(modelId: ModelId, request: GenerateRequest) {
+export async function createPrediction(
+  modelId: ModelId,
+  request: GenerateRequest,
+  variantIndex?: number,
+) {
   const model = MODEL_LOOKUP[modelId];
   const estimateUsd = estimateModelUsd(modelId, request.advancedSettings, request.aspectRatio);
   const prediction = (await replicateFetch(`/models/${model.replicatePath}/predictions`, {
@@ -161,7 +167,7 @@ export async function createPrediction(modelId: ModelId, request: GenerateReques
     }),
   })) as ReplicatePrediction;
 
-  return normalizePrediction(modelId, prediction, estimateUsd);
+  return normalizePrediction(modelId, prediction, estimateUsd, variantIndex);
 }
 
 export async function fetchPredictionStatus(id: string) {

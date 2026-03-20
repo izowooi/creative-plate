@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const ASPECT_RATIOS = ["1:1", "4:3", "3:4", "16:9", "9:16", "3:2", "2:3"] as const;
+export const GENERATION_MODES = ["batch", "compare"] as const;
 
 export const MODEL_IDS = [
   "seedream-4",
@@ -12,8 +13,10 @@ export const MODEL_IDS = [
 
 export type ModelId = (typeof MODEL_IDS)[number];
 export type AspectRatio = (typeof ASPECT_RATIOS)[number];
+export type GenerationMode = (typeof GENERATION_MODES)[number];
 
 export const DEFAULT_SELECTED_MODELS: ModelId[] = ["z-image-turbo", "seedream-5-lite"];
+export const DEFAULT_BATCH_MODEL: ModelId = "seedream-5-lite";
 
 export const advancedSettingsSchema = z.object({
   "seedream-4": z.object({
@@ -77,9 +80,27 @@ export const DEFAULT_ADVANCED_SETTINGS: AdvancedSettings = {
 
 export const generateRequestSchema = z.object({
   prompt: z.string().trim().min(10).max(4000),
+  mode: z.enum(GENERATION_MODES),
   aspectRatio: z.enum(ASPECT_RATIOS),
   selectedModels: z.array(z.enum(MODEL_IDS)).min(1).max(4),
+  imageCount: z.number().int().min(1).max(4),
   advancedSettings: advancedSettingsSchema,
+}).superRefine((value, ctx) => {
+  if (value.mode === "batch" && value.selectedModels.length !== 1) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "한 모델 여러 장 모드에서는 모델을 정확히 1개 선택해야 합니다.",
+      path: ["selectedModels"],
+    });
+  }
+
+  if (value.mode === "compare" && value.selectedModels.length > 4) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "비교 모드에서는 최대 4개 모델까지만 선택할 수 있습니다.",
+      path: ["selectedModels"],
+    });
+  }
 });
 
 export type GenerateRequest = z.infer<typeof generateRequestSchema>;
@@ -94,6 +115,7 @@ export type PredictionStatus =
 export type PredictionSnapshot = {
   id: string;
   modelId: ModelId;
+  variantIndex?: number;
   status: string;
   estimateUsd: number;
   outputUrls: string[];
