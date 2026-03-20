@@ -1,0 +1,35 @@
+{
+  "name": "pixel-parfait",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "cf:build": "opennextjs-cloudflare build",
+    "cf:preview": "opennextjs-cloudflare build && wrangler dev",
+    "cf:deploy": "opennextjs-cloudflare build && wrangler deploy"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "next": "16.2.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20260317.1",
+    "@eslint/eslintrc": "^3.3.1",
+    "@opennextjs/cloudflare": "1.17.1",
+    "@tailwindcss/postcss": "^4.1.14",
+    "@types/node": "^24.5.2",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "eslint": "^9.36.0",
+    "eslint-config-next": "16.2.0",
+    "tailwindcss": "4.2.2",
+    "typescript": "5.9.3",
+    "wrangler": "4.76.0"
+  }
+}
