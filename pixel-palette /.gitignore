@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+.next/
+out/
+.vercel
+.wrangler/
+
+# Environment
+.env*.local
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cloudflare
+.dev.vars

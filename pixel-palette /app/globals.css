@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: 255 255 255;
+    --surface: 248 248 252;
+    --surface-2: 241 241 247;
+    --border: 226 226 234;
+    --text: 28 28 30;
+    --text-secondary: 100 100 110;
+    --primary: 99 102 241;
+    --primary-hover: 79 70 229;
+  }
+
+  .dark {
+    --bg: 15 15 20;
+    --surface: 24 24 32;
+    --surface-2: 32 32 44;
+    --border: 50 50 70;
+    --text: 229 229 235;
+    --text-secondary: 148 148 160;
+    --primary: 129 140 248;
+    --primary-hover: 99 102 241;
+  }
+
+  * {
+    border-color: rgb(var(--border));
+  }
+
+  body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text));
+    font-family: var(--font-geist-sans), Inter, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer utilities {
+  .bg-app { background-color: rgb(var(--bg)); }
+  .bg-surface { background-color: rgb(var(--surface)); }
+  .bg-surface-2 { background-color: rgb(var(--surface-2)); }
+  .border-app { border-color: rgb(var(--border)); }
+  .text-app { color: rgb(var(--text)); }
+  .text-secondary { color: rgb(var(--text-secondary)); }
+
+  .glass {
+    background: rgba(var(--surface), 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgb(var(--surface)) 0%,
+      rgb(var(--surface-2)) 50%,
+      rgb(var(--surface)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* Smooth transitions for theme switching */
+html {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Image hover effects */
+.image-card:hover .image-overlay {
+  opacity: 1;
+}
+
+.image-card .image-overlay {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Password shake animation */
+@keyframes wiggle {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--border));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--text-secondary));
+}
