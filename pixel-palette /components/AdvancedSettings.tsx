@@ -42,9 +42,9 @@ export default function AdvancedSettings({ modelIds, params, onChange }: Props) 
         "
       >
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-app">Advanced Settings</span>
+          <span className="text-sm font-medium text-app">추가 설정</span>
           <span className="text-xs text-secondary bg-surface-2 px-2 py-0.5 rounded-full">
-            Optional
+            선택사항
           </span>
         </div>
         <svg

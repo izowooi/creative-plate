@@ -51,7 +51,7 @@ export const MODELS: ModelConfig[] = [
     vendor: 'Black Forest Labs',
     vendorShort: 'BFL',
     description: 'Excellent text rendering & typography. Production-ready reliability.',
-    badge: 'Popular',
+    badge: '인기',
     speed: 'fast',
     quality: 'high',
     estimatedCostPerImage: 0.055,
@@ -75,7 +75,7 @@ export const MODELS: ModelConfig[] = [
     vendor: 'Black Forest Labs',
     vendorShort: 'BFL',
     description: 'Maximum fidelity. Up to 8 reference images. 3x faster than competitors.',
-    badge: 'Premium',
+    badge: '플래그십',
     speed: 'medium',
     quality: 'highest',
     estimatedCostPerImage: 0.08,
@@ -125,7 +125,7 @@ export const MODELS: ModelConfig[] = [
     vendor: 'ByteDance',
     vendorShort: 'ByteDance',
     description: 'Up to 4K resolution. Batch generation & natural-language editing.',
-    badge: '4K',
+    badge: '고해상도',
     speed: 'medium',
     quality: 'high',
     estimatedCostPerImage: 0.04,
@@ -148,7 +148,7 @@ export const MODELS: ModelConfig[] = [
     vendor: 'ByteDance',
     vendorShort: 'ByteDance',
     description: 'Built-in reasoning for spatial & physics understanding. Up to 14 references.',
-    badge: 'Reasoning',
+    badge: '추론형',
     speed: 'medium',
     quality: 'high',
     estimatedCostPerImage: 0.035,
@@ -194,7 +194,7 @@ export const MODELS: ModelConfig[] = [
     vendor: 'PrunaAI',
     vendorShort: 'PrunaAI',
     description: 'Super fast 6B model. Sub-second generation. Bilingual (EN/ZH) text.',
-    badge: 'Turbo',
+    badge: '최고속',
     speed: 'turbo',
     quality: 'good',
     estimatedCostPerImage: 0.005,
@@ -219,7 +219,7 @@ export const MODELS: ModelConfig[] = [
     vendor: 'PrunaAI',
     vendorShort: 'PrunaAI',
     description: 'Sub 1-second generation. Best speed-quality-cost balance. LoRA support.',
-    badge: '<1s',
+    badge: '최저가',
     speed: 'turbo',
     quality: 'high',
     estimatedCostPerImage: 0.004,
@@ -277,13 +277,13 @@ export function estimateCost(modelIds: string[], imageCount: number): number {
 }
 
 export const SPEED_LABELS: Record<SpeedRating, string> = {
-  turbo: '⚡ Turbo',
-  fast: '🚀 Fast',
-  medium: '🎯 Quality',
+  turbo: '⚡ 최고속',
+  fast: '🚀 고속',
+  medium: '🎯 고품질',
 }
 
 export const QUALITY_LABELS: Record<QualityRating, string> = {
-  good: 'Good',
-  high: 'High',
-  highest: 'Highest',
+  good: '보통',
+  high: '고품질',
+  highest: '최고품질',
 }

@@ -43,10 +43,10 @@ export default function ModelSelector({ mode, selectedIds, onChange }: Props) {
     <div>
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-sm font-semibold text-secondary uppercase tracking-wider">
-          {mode === 'single' ? 'Select Model' : `Select Models (${selectedIds.length}/4)`}
+          {mode === 'single' ? '모델 선택' : `모델 선택 (${selectedIds.length}/4)`}
         </h2>
         {mode === 'compare' && (
-          <span className="text-xs text-secondary">Pick 2–4 models to compare</span>
+          <span className="text-xs text-secondary">2~4개 모델을 선택하세요</span>
         )}
       </div>
 
@@ -121,11 +121,6 @@ function ModelCard({
           </div>
           <div className="text-xs text-secondary">{model.vendor}</div>
         </div>
-      </div>
-
-      {/* Description - visible on hover */}
-      <div className="mt-2 text-xs text-secondary leading-relaxed line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-150 h-0 group-hover:h-auto overflow-hidden">
-        {model.description}
       </div>
 
       {/* Stats */}
