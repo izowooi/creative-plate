@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import PasswordGate from '@/components/PasswordGate'
 import ThemeToggle from '@/components/ThemeToggle'
 import ModelSelector from '@/components/ModelSelector'
 import AdvancedSettings from '@/components/AdvancedSettings'
 import LoadingMessages from '@/components/LoadingMessages'
 import ImageGrid, { GeneratedImage } from '@/components/ImageGrid'
-import { MODELS, ASPECT_RATIOS, getModelById, estimateCost } from '@/lib/models'
+import { MODELS, ASPECT_RATIOS, getModelById, estimateCost, formatPrice, Currency } from '@/lib/models'
 
 type Mode = 'single' | 'compare'
 
@@ -45,6 +45,18 @@ export default function Home() {
   const [startTime, setStartTime] = useState<number | null>(null)
   const [endTime, setEndTime] = useState<number | null>(null)
   const pollingRef = useRef<NodeJS.Timeout | null>(null)
+  const [currency, setCurrency] = useState<Currency>('USD')
+
+  useEffect(() => {
+    const stored = localStorage.getItem('currency') as Currency | null
+    if (stored === 'USD' || stored === 'KRW') setCurrency(stored)
+  }, [])
+
+  function toggleCurrency() {
+    const next: Currency = currency === 'USD' ? 'KRW' : 'USD'
+    setCurrency(next)
+    localStorage.setItem('currency', next)
+  }
 
   const handleAuth = useCallback(() => setAuthenticated(true), [])
 
@@ -260,6 +272,13 @@ export default function Home() {
                 Video
               </button>
             </div>
+            <button
+              onClick={toggleCurrency}
+              title={currency === 'USD' ? '원화로 전환' : '달러로 전환'}
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold text-secondary hover:text-app hover:bg-surface-2 transition-colors duration-150"
+            >
+              {currency === 'USD' ? '₩' : '$'}
+            </button>
             <ThemeToggle />
           </div>
         </div>
@@ -305,6 +324,7 @@ export default function Home() {
         <ModelSelector
           mode={mode}
           selectedIds={selectedModelIds}
+          currency={currency}
           onChange={ids => {
             setSelectedModelIds(ids)
             setImages([])
@@ -378,7 +398,7 @@ export default function Home() {
             <div className="ml-auto flex items-center gap-1 text-xs text-secondary">
               <span className="opacity-70">예상 비용</span>
               <span className="font-mono font-semibold text-primary-500">
-                ~${estimatedCost.toFixed(4)}
+                ~{formatPrice(estimatedCost, currency)}
               </span>
             </div>
           </div>
@@ -449,6 +469,7 @@ export default function Home() {
             images={images}
             totalCost={estimatedCost}
             generationTime={endTime && startTime ? endTime - startTime : undefined}
+            currency={currency}
           />
         )}
 

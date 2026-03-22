@@ -1,6 +1,6 @@
 'use client'
 
-import { MODELS, ModelConfig, SPEED_LABELS, QUALITY_LABELS } from '@/lib/models'
+import { MODELS, ModelConfig, SPEED_LABELS, QUALITY_LABELS, formatPrice, Currency } from '@/lib/models'
 
 const VENDOR_COLORS: Record<string, string> = {
   'BFL': 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300',
@@ -20,9 +20,10 @@ interface Props {
   mode: 'single' | 'compare'
   selectedIds: string[]
   onChange: (ids: string[]) => void
+  currency: Currency
 }
 
-export default function ModelSelector({ mode, selectedIds, onChange }: Props) {
+export default function ModelSelector({ mode, selectedIds, onChange, currency }: Props) {
   function toggleModel(id: string) {
     if (mode === 'single') {
       onChange([id])
@@ -62,6 +63,7 @@ export default function ModelSelector({ mode, selectedIds, onChange }: Props) {
               selectedIds.length >= 4
             }
             onClick={() => toggleModel(model.id)}
+            currency={currency}
           />
         ))}
       </div>
@@ -74,11 +76,13 @@ function ModelCard({
   selected,
   disabled,
   onClick,
+  currency,
 }: {
   model: ModelConfig
   selected: boolean
   disabled: boolean
   onClick: () => void
+  currency: Currency
 }) {
   return (
     <button
@@ -129,7 +133,7 @@ function ModelCard({
           {SPEED_LABELS[model.speed]}
         </span>
         <span className="text-secondary opacity-30">·</span>
-        <span className="text-xs text-secondary">${model.estimatedCostPerImage.toFixed(3)}/img</span>
+        <span className="text-xs text-secondary">{formatPrice(model.estimatedCostPerImage, currency, true)}/img</span>
       </div>
 
       {/* Selected indicator */}

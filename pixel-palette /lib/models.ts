@@ -288,3 +288,12 @@ export const QUALITY_LABELS: Record<QualityRating, string> = {
   high: '고품질',
   highest: '최고품질',
 }
+
+export type Currency = 'USD' | 'KRW'
+
+export function formatPrice(usd: number, currency: Currency, perImage = false): string {
+  if (currency === 'KRW') {
+    return `₩${Math.round(usd * 1500).toLocaleString()}`
+  }
+  return `$${usd.toFixed(perImage ? 3 : 4)}`
+}

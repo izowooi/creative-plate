@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { formatPrice, Currency } from '@/lib/models'
 
 export interface GeneratedImage {
   url: string
@@ -13,9 +14,10 @@ interface Props {
   images: GeneratedImage[]
   totalCost?: number
   generationTime?: number
+  currency: Currency
 }
 
-export default function ImageGrid({ images, totalCost, generationTime }: Props) {
+export default function ImageGrid({ images, totalCost, generationTime, currency }: Props) {
   const [downloading, setDownloading] = useState<string | null>(null)
   const [downloadingAll, setDownloadingAll] = useState(false)
 
@@ -78,7 +80,7 @@ export default function ImageGrid({ images, totalCost, generationTime }: Props) 
           <div className="flex items-center gap-3 mt-0.5">
             {totalCost !== undefined && (
               <span className="text-xs text-secondary">
-                예상 비용: <span className="font-mono font-semibold text-primary-500">~${totalCost.toFixed(4)}</span>
+                예상 비용: <span className="font-mono font-semibold text-primary-500">~{formatPrice(totalCost, currency)}</span>
               </span>
             )}
             {generationTime !== undefined && (
