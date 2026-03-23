@@ -3,7 +3,8 @@
     "allow": [
       "Bash(wc:*)",
       "Bash(npm install:*)",
-      "Bash(npx next:*)"
+      "Bash(npx next:*)",
+      "Bash(npm run:*)"
     ]
   }
 }
