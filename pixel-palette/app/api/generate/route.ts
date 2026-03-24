@@ -6,6 +6,7 @@ interface GenerateRequest {
   aspectRatio: string
   imageCount: number
   advancedParams: Record<string, unknown>
+  parallel?: boolean
 }
 
 function buildInput(
@@ -105,7 +106,7 @@ export async function POST(request: Request) {
     return Response.json({ error: 'Invalid request body' }, { status: 400 })
   }
 
-  const { modelId, prompt, aspectRatio, imageCount, advancedParams } = body
+  const { modelId, prompt, aspectRatio, imageCount, advancedParams, parallel = false } = body
 
   if (!modelId || !prompt?.trim()) {
     return Response.json({ error: 'Model and prompt are required' }, { status: 400 })
@@ -146,9 +147,9 @@ export async function POST(request: Request) {
       const prediction = await response.json()
       return Response.json({ predictions: [{ id: prediction.id, index: 0 }] })
     } else {
-      // Multiple parallel API calls for single-image models
       const count = Math.min(imageCount, 4)
-      const promises = Array.from({ length: count }, async (_, i) => {
+
+      const makePrediction = async (i: number) => {
         const seed = advancedParams.seed
           ? Number(advancedParams.seed) + i
           : undefined
@@ -174,10 +175,25 @@ export async function POST(request: Request) {
 
         const prediction = await response.json()
         return { id: prediction.id, index: i }
-      })
+      }
 
-      const predictions = await Promise.all(promises)
-      return Response.json({ predictions })
+      if (parallel) {
+        // Parallel: fire all requests simultaneously
+        const predictions = await Promise.all(
+          Array.from({ length: count }, (_, i) => makePrediction(i))
+        )
+        return Response.json({ predictions })
+      } else {
+        // Sequential: 11s gap respects 6 req/min with burst=1 (10s minimum + 1s buffer)
+        const predictions = []
+        for (let i = 0; i < count; i++) {
+          if (i > 0) {
+            await new Promise(resolve => setTimeout(resolve, 11000))
+          }
+          predictions.push(await makePrediction(i))
+        }
+        return Response.json({ predictions })
+      }
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error'

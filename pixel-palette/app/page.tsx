@@ -33,11 +33,12 @@ const ASPECT_RATIO_ICONS: Record<string, string> = {
 export default function Home() {
   const [authenticated, setAuthenticated] = useState(false)
   const [mode, setMode] = useState<Mode>('single')
-  const [selectedModelIds, setSelectedModelIds] = useState<string[]>(['black-forest-labs/flux-2-pro'])
+  const [selectedModelIds, setSelectedModelIds] = useState<string[]>(['prunaai/p-image'])
   const [prompt, setPrompt] = useState('')
   const [imageCount, setImageCount] = useState(2)
   const [aspectRatio, setAspectRatio] = useState('1:1')
   const [advancedParams, setAdvancedParams] = useState<Record<string, Record<string, unknown>>>({})
+  const [parallelMode, setParallelMode] = useState(false)
   const [generating, setGenerating] = useState(false)
   const [predictions, setPredictions] = useState<Prediction[]>([])
   const [images, setImages] = useState<GeneratedImage[]>([])
@@ -122,30 +123,24 @@ export default function Home() {
             allPredictions.push({ id: p.id, index: p.index, modelId, status: 'starting' })
           })
         } else {
-          // Multiple API calls for non-native models
-          for (let i = 0; i < count; i++) {
-            const res = await fetch('/api/generate', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                modelId,
-                prompt: prompt.trim(),
-                aspectRatio,
-                imageCount: 1,
-                advancedParams: {
-                  ...(advancedParams[modelId] || {}),
-                  ...(advancedParams[modelId]?.seed
-                    ? { seed: Number(advancedParams[modelId].seed) + i }
-                    : {}),
-                },
-              }),
-            })
-            const data = await res.json()
-            if (!res.ok) throw new Error(data.error || 'Generation failed')
-            data.predictions.forEach((p: { id: string; index: number }) => {
-              allPredictions.push({ id: p.id, index: i, modelId, status: 'starting' })
-            })
-          }
+          // Single API call — route.ts handles sequential/parallel internally
+          const res = await fetch('/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              modelId,
+              prompt: prompt.trim(),
+              aspectRatio,
+              imageCount: count,
+              advancedParams: advancedParams[modelId] || {},
+              parallel: parallelMode,
+            }),
+          })
+          const data = await res.json()
+          if (!res.ok) throw new Error(data.error || 'Generation failed')
+          data.predictions.forEach((p: { id: string; index: number }) => {
+            allPredictions.push({ id: p.id, index: p.index, modelId, status: 'starting' })
+          })
         }
       } else {
         // Compare mode: one image per model
@@ -294,7 +289,7 @@ export default function Home() {
               active={mode === 'single'}
               onClick={() => {
                 setMode('single')
-                setSelectedModelIds([selectedModelIds[0] || 'black-forest-labs/flux-2-pro'])
+                setSelectedModelIds([selectedModelIds[0] || 'prunaai/p-image'])
                 setImages([])
               }}
               label="단일 모델"
@@ -392,6 +387,23 @@ export default function Home() {
                 ))}
                 <span className="text-xs text-secondary px-1">장</span>
               </div>
+            )}
+
+            {/* Parallel/sequential toggle (single mode, non-native multi only) */}
+            {mode === 'single' && selectedModel && !nativeMultiModels.includes(selectedModel.id) && imageCount > 1 && (
+              <button
+                onClick={() => setParallelMode(p => !p)}
+                title={parallelMode ? '병렬 요청 (rate limit 주의)' : '순차 요청 (안전)'}
+                className={`
+                  flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-all duration-150
+                  ${parallelMode
+                    ? 'bg-amber-500/10 border-amber-500/40 text-amber-600 dark:text-amber-400'
+                    : 'bg-surface border-app text-secondary hover:text-app hover:bg-surface-2'
+                  }
+                `}
+              >
+                <span>{parallelMode ? '⚡ 병렬' : '↓ 순차'}</span>
+              </button>
             )}
 
             {/* Cost estimate */}
