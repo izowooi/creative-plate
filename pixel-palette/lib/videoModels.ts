@@ -9,7 +9,7 @@ export interface VideoModelConfig {
   badge?: string
   speed: SpeedRating
   quality: QualityRating
-  estimatedCostPerVideo: number
+  pricePerSecond: number
   supportsImageInput: boolean
   supportsLastFrame: boolean
   supportsAudio: boolean
@@ -43,7 +43,7 @@ export const VIDEO_MODELS: VideoModelConfig[] = [
     badge: '최고속',
     speed: 'fast',
     quality: 'high',
-    estimatedCostPerVideo: 0.20,
+    pricePerSecond: 0.04,
     supportsImageInput: true,
     supportsLastFrame: false,
     supportsAudio: false,
@@ -71,7 +71,7 @@ export const VIDEO_MODELS: VideoModelConfig[] = [
     badge: '오디오',
     speed: 'fast',
     quality: 'high',
-    estimatedCostPerVideo: 0.25,
+    pricePerSecond: 0.05,
     supportsImageInput: true,
     supportsLastFrame: false,
     supportsAudio: true,
@@ -99,7 +99,7 @@ export const VIDEO_MODELS: VideoModelConfig[] = [
     badge: '오디오',
     speed: 'medium',
     quality: 'high',
-    estimatedCostPerVideo: 0.30,
+    pricePerSecond: 0.06,
     supportsImageInput: true,
     supportsLastFrame: false,
     supportsAudio: true,
@@ -125,7 +125,7 @@ export const VIDEO_MODELS: VideoModelConfig[] = [
     badge: '시작/끝',
     speed: 'fast',
     quality: 'high',
-    estimatedCostPerVideo: 0.35,
+    pricePerSecond: 0.07,
     supportsImageInput: true,
     supportsLastFrame: true,
     supportsAudio: false,
@@ -151,7 +151,7 @@ export const VIDEO_MODELS: VideoModelConfig[] = [
     badge: '최신',
     speed: 'fast',
     quality: 'highest',
-    estimatedCostPerVideo: 0.40,
+    pricePerSecond: 0.05,
     supportsImageInput: true,
     supportsLastFrame: true,
     supportsAudio: true,
@@ -179,7 +179,7 @@ export const VIDEO_MODELS: VideoModelConfig[] = [
     badge: '최고품질',
     speed: 'medium',
     quality: 'highest',
-    estimatedCostPerVideo: 0.45,
+    pricePerSecond: 0.09,
     supportsImageInput: true,
     supportsLastFrame: true,
     supportsAudio: false,
@@ -204,11 +204,11 @@ export function getVideoModelById(id: string): VideoModelConfig | undefined {
   return VIDEO_MODELS.find(m => m.id === id)
 }
 
-export function estimateVideoCost(modelIds: string[], videoCount: number): number {
+export function estimateVideoCost(modelIds: string[], videoCount: number, duration: number): number {
   return modelIds.reduce((total, modelId) => {
     const model = getVideoModelById(modelId)
     if (!model) return total
-    return total + model.estimatedCostPerVideo * videoCount
+    return total + model.pricePerSecond * duration * videoCount
   }, 0)
 }
 

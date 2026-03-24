@@ -32,6 +32,10 @@ export default function VideoPage() {
   const [resolution, setResolution] = useState('720p')
   const [imageUrl, setImageUrl] = useState('')
   const [lastFrameUrl, setLastFrameUrl] = useState('')
+  const [imageUploadState, setImageUploadState] = useState<'idle' | 'uploading' | 'error'>('idle')
+  const [lastFrameUploadState, setLastFrameUploadState] = useState<'idle' | 'uploading' | 'error'>('idle')
+  const imageFileRef = useRef<HTMLInputElement>(null)
+  const lastFrameFileRef = useRef<HTMLInputElement>(null)
   const [advancedParams, setAdvancedParams] = useState<Record<string, Record<string, unknown>>>({})
   const [parallelMode, setParallelMode] = useState(false)
   const [generating, setGenerating] = useState(false)
@@ -75,7 +79,7 @@ export default function VideoPage() {
   // Computed values
   const effectiveModels = mode === 'single' ? selectedModelIds.slice(0, 1) : selectedModelIds
   const selectedModel = mode === 'single' ? getVideoModelById(selectedModelIds[0]) : null
-  const estimatedCost = estimateVideoCost(effectiveModels, mode === 'compare' ? 1 : videoCount)
+  const estimatedCost = estimateVideoCost(effectiveModels, mode === 'compare' ? 1 : videoCount, duration)
   const completedCount = predictions.filter(p => p.status === 'succeeded' || p.status === 'failed').length
 
   const showParallelToggle =
@@ -112,6 +116,23 @@ export default function VideoPage() {
   const generatingModelNames = [...new Set(predictions.map(p =>
     getVideoModelById(p.modelId)?.name || p.modelId
   ))]
+
+  async function uploadImage(file: File, target: 'image' | 'lastFrame') {
+    const setState = target === 'image' ? setImageUploadState : setLastFrameUploadState
+    const setUrl = target === 'image' ? setImageUrl : setLastFrameUrl
+    setState('uploading')
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/upload-image', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Upload failed')
+      setUrl(data.url)
+      setState('idle')
+    } catch {
+      setState('error')
+    }
+  }
 
   async function makeOnePrediction(modelId: string, index: number): Promise<Prediction> {
     const res = await fetch('/api/generate-video', {
@@ -325,6 +346,7 @@ export default function VideoPage() {
           mode={mode}
           selectedIds={selectedModelIds}
           currency={currency}
+          currentDuration={duration}
           onChange={ids => {
             setSelectedModelIds(ids)
             setVideos([])
@@ -344,31 +366,83 @@ export default function VideoPage() {
             <label className="text-xs font-semibold text-secondary uppercase tracking-wider">
               이미지 입력 <span className="font-normal normal-case opacity-60">(선택사항 — 이미지를 영상으로 변환)</span>
             </label>
-            <input
-              type="url"
-              value={imageUrl}
-              onChange={e => setImageUrl(e.target.value)}
-              placeholder="이미지 URL을 붙여넣으세요 (https://...)"
-              className="
-                w-full px-4 py-2.5 rounded-xl border border-app bg-surface text-app text-sm
-                placeholder:text-secondary
-                focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20
-                transition-all duration-200
-              "
-            />
-            {showLastFrame && (
+            {/* Start frame */}
+            <div className="flex gap-2">
+              <input type="file" accept="image/*" ref={imageFileRef} className="hidden"
+                onChange={e => { const f = e.target.files?.[0]; if (f) uploadImage(f, 'image') }} />
+              <button
+                onClick={() => imageFileRef.current?.click()}
+                disabled={imageUploadState === 'uploading'}
+                className="flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-app bg-surface text-secondary text-sm hover:border-primary-400 hover:text-app transition-all duration-150 flex-shrink-0 disabled:opacity-60"
+                title="파일 업로드"
+              >
+                {imageUploadState === 'uploading' ? (
+                  <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                  </svg>
+                )}
+                파일
+              </button>
               <input
                 type="url"
-                value={lastFrameUrl}
-                onChange={e => setLastFrameUrl(e.target.value)}
-                placeholder="마지막 프레임 URL (선택사항 — 시작/끝 프레임 보간)"
+                value={imageUrl}
+                onChange={e => setImageUrl(e.target.value)}
+                placeholder="이미지 URL 붙여넣기 (https://...)"
                 className="
-                  w-full px-4 py-2.5 rounded-xl border border-app bg-surface text-app text-sm
+                  flex-1 px-4 py-2.5 rounded-xl border border-app bg-surface text-app text-sm
                   placeholder:text-secondary
                   focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20
                   transition-all duration-200
                 "
               />
+            </div>
+            {imageUploadState === 'error' && (
+              <p className="text-xs text-red-500">업로드 실패. 다시 시도하거나 URL을 직접 입력하세요.</p>
+            )}
+            {/* Last frame */}
+            {showLastFrame && (
+              <div className="flex gap-2">
+                <input type="file" accept="image/*" ref={lastFrameFileRef} className="hidden"
+                  onChange={e => { const f = e.target.files?.[0]; if (f) uploadImage(f, 'lastFrame') }} />
+                <button
+                  onClick={() => lastFrameFileRef.current?.click()}
+                  disabled={lastFrameUploadState === 'uploading'}
+                  className="flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-app bg-surface text-secondary text-sm hover:border-primary-400 hover:text-app transition-all duration-150 flex-shrink-0 disabled:opacity-60"
+                  title="마지막 프레임 파일 업로드"
+                >
+                  {lastFrameUploadState === 'uploading' ? (
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                  ) : (
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                    </svg>
+                  )}
+                  파일
+                </button>
+                <input
+                  type="url"
+                  value={lastFrameUrl}
+                  onChange={e => setLastFrameUrl(e.target.value)}
+                  placeholder="마지막 프레임 URL (선택사항 — 시작/끝 프레임 보간)"
+                  className="
+                    flex-1 px-4 py-2.5 rounded-xl border border-app bg-surface text-app text-sm
+                    placeholder:text-secondary
+                    focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20
+                    transition-all duration-200
+                  "
+                />
+              </div>
+            )}
+            {lastFrameUploadState === 'error' && (
+              <p className="text-xs text-red-500">마지막 프레임 업로드 실패. 다시 시도하거나 URL을 직접 입력하세요.</p>
             )}
           </div>
         )}

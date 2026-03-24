@@ -21,9 +21,10 @@ interface Props {
   selectedIds: string[]
   onChange: (ids: string[]) => void
   currency: Currency
+  currentDuration: number
 }
 
-export default function VideoModelSelector({ mode, selectedIds, onChange, currency }: Props) {
+export default function VideoModelSelector({ mode, selectedIds, onChange, currency, currentDuration }: Props) {
   function toggleModel(id: string) {
     if (mode === 'single') {
       onChange([id])
@@ -64,6 +65,7 @@ export default function VideoModelSelector({ mode, selectedIds, onChange, curren
             }
             onClick={() => toggleModel(model.id)}
             currency={currency}
+            currentDuration={currentDuration}
           />
         ))}
       </div>
@@ -77,12 +79,14 @@ function VideoModelCard({
   disabled,
   onClick,
   currency,
+  currentDuration,
 }: {
   model: VideoModelConfig
   selected: boolean
   disabled: boolean
   onClick: () => void
   currency: Currency
+  currentDuration: number
 }) {
   return (
     <button
@@ -133,7 +137,7 @@ function VideoModelCard({
           {SPEED_LABELS[model.speed]}
         </span>
         <span className="text-secondary opacity-30">·</span>
-        <span className="text-xs text-secondary">{formatPrice(model.estimatedCostPerVideo, currency, true)}/vid</span>
+        <span className="text-xs text-secondary">~{formatPrice(model.pricePerSecond * currentDuration, currency, true)} ({currentDuration}s)</span>
         {model.supportsAudio && (
           <>
             <span className="text-secondary opacity-30">·</span>
