@@ -6,7 +6,6 @@ interface GenerateRequest {
   aspectRatio: string
   imageCount: number
   advancedParams: Record<string, unknown>
-  parallel?: boolean
 }
 
 function buildInput(
@@ -106,7 +105,7 @@ export async function POST(request: Request) {
     return Response.json({ error: 'Invalid request body' }, { status: 400 })
   }
 
-  const { modelId, prompt, aspectRatio, imageCount, advancedParams, parallel = false } = body
+  const { modelId, prompt, aspectRatio, imageCount, advancedParams } = body
 
   if (!modelId || !prompt?.trim()) {
     return Response.json({ error: 'Model and prompt are required' }, { status: 400 })
@@ -147,53 +146,27 @@ export async function POST(request: Request) {
       const prediction = await response.json()
       return Response.json({ predictions: [{ id: prediction.id, index: 0 }] })
     } else {
-      const count = Math.min(imageCount, 4)
-
-      const makePrediction = async (i: number) => {
-        const seed = advancedParams.seed
-          ? Number(advancedParams.seed) + i
-          : undefined
-        const params = seed !== undefined ? { ...advancedParams, seed } : advancedParams
-        const input = buildInput(modelId, prompt, aspectRatio, 1, params)
-
-        const response = await fetch(
-          `https://api.replicate.com/v1/models/${owner}/${name}/predictions`,
-          {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${apiToken}`,
-              'Content-Type': 'application/json',
-              Prefer: 'respond-async',
-            },
-            body: JSON.stringify({ input }),
-          }
-        )
-
-        if (!response.ok) {
-          throw new Error(`Replicate API error: ${await response.text()}`)
+      // Single prediction per call — multi-image sequencing is handled by the client
+      const input = buildInput(modelId, prompt, aspectRatio, 1, advancedParams)
+      const response = await fetch(
+        `https://api.replicate.com/v1/models/${owner}/${name}/predictions`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${apiToken}`,
+            'Content-Type': 'application/json',
+            Prefer: 'respond-async',
+          },
+          body: JSON.stringify({ input }),
         }
+      )
 
-        const prediction = await response.json()
-        return { id: prediction.id, index: i }
+      if (!response.ok) {
+        throw new Error(`Replicate API error: ${await response.text()}`)
       }
 
-      if (parallel) {
-        // Parallel: fire all requests simultaneously
-        const predictions = await Promise.all(
-          Array.from({ length: count }, (_, i) => makePrediction(i))
-        )
-        return Response.json({ predictions })
-      } else {
-        // Sequential: 11s gap respects 6 req/min with burst=1 (10s minimum + 1s buffer)
-        const predictions = []
-        for (let i = 0; i < count; i++) {
-          if (i > 0) {
-            await new Promise(resolve => setTimeout(resolve, 11000))
-          }
-          predictions.push(await makePrediction(i))
-        }
-        return Response.json({ predictions })
-      }
+      const prediction = await response.json()
+      return Response.json({ predictions: [{ id: prediction.id, index: 0 }] })
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error'

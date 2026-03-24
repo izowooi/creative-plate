@@ -123,24 +123,40 @@ export default function Home() {
             allPredictions.push({ id: p.id, index: p.index, modelId, status: 'starting' })
           })
         } else {
-          // Single API call — route.ts handles sequential/parallel internally
-          const res = await fetch('/api/generate', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              modelId,
-              prompt: prompt.trim(),
-              aspectRatio,
-              imageCount: count,
-              advancedParams: advancedParams[modelId] || {},
-              parallel: parallelMode,
-            }),
-          })
-          const data = await res.json()
-          if (!res.ok) throw new Error(data.error || 'Generation failed')
-          data.predictions.forEach((p: { id: string; index: number }) => {
-            allPredictions.push({ id: p.id, index: p.index, modelId, status: 'starting' })
-          })
+          const makeOnePrediction = async (i: number) => {
+            const baseSeed = advancedParams[modelId]?.seed
+            const seed = baseSeed ? Number(baseSeed) + i : undefined
+            const params = seed !== undefined
+              ? { ...(advancedParams[modelId] || {}), seed }
+              : (advancedParams[modelId] || {})
+            const res = await fetch('/api/generate', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ modelId, prompt: prompt.trim(), aspectRatio, imageCount: 1, advancedParams: params }),
+            })
+            const data = await res.json()
+            if (!res.ok) throw new Error(data.error || 'Generation failed')
+            return { id: data.predictions[0].id, index: i, modelId, status: 'starting' as const }
+          }
+
+          if (parallelMode) {
+            // Fire all simultaneously
+            const results = await Promise.all(
+              Array.from({ length: count }, (_, i) => makeOnePrediction(i))
+            )
+            allPredictions.push(...results)
+          } else {
+            // Sequential with 11s gap (burst=1 rate limit)
+            for (let i = 0; i < count; i++) {
+              if (i > 0) {
+                await new Promise(resolve => setTimeout(resolve, 11000))
+              }
+              const pred = await makeOnePrediction(i)
+              allPredictions.push(pred)
+              // Update UI immediately so loading screen shows after first prediction
+              setPredictions([...allPredictions])
+            }
+          }
         }
       } else {
         // Compare mode: one image per model
