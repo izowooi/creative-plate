@@ -46,12 +46,28 @@ export default function Home() {
   const [startTime, setStartTime] = useState<number | null>(null)
   const [endTime, setEndTime] = useState<number | null>(null)
   const pollingRef = useRef<NodeJS.Timeout | null>(null)
+  const loadingRef = useRef<HTMLDivElement>(null)
+  const resultsRef = useRef<HTMLDivElement>(null)
   const [currency, setCurrency] = useState<Currency>('USD')
 
   useEffect(() => {
     const stored = localStorage.getItem('currency') as Currency | null
     if (stored === 'USD' || stored === 'KRW') setCurrency(stored)
   }, [])
+
+  // Auto-scroll to loading section when first prediction appears
+  useEffect(() => {
+    if (generating && predictions.length === 1) {
+      loadingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [generating, predictions.length])
+
+  // Auto-scroll to results when generation completes
+  useEffect(() => {
+    if (images.length > 0 && endTime) {
+      resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [images.length, endTime])
 
   function toggleCurrency() {
     const next: Currency = currency === 'USD' ? 'KRW' : 'USD'
@@ -482,7 +498,7 @@ export default function Home() {
 
         {/* Loading state */}
         {generating && predictions.length > 0 && (
-          <div className="bg-surface rounded-2xl border border-app animate-fade-in">
+          <div ref={loadingRef} className="bg-surface rounded-2xl border border-app animate-fade-in">
             <LoadingMessages
               modelNames={generatingModelNames}
               completed={completedCount}
@@ -493,12 +509,14 @@ export default function Home() {
 
         {/* Results */}
         {images.length > 0 && (
-          <ImageGrid
-            images={images}
-            totalCost={estimatedCost}
-            generationTime={endTime && startTime ? endTime - startTime : undefined}
-            currency={currency}
-          />
+          <div ref={resultsRef}>
+            <ImageGrid
+              images={images}
+              totalCost={estimatedCost}
+              generationTime={endTime && startTime ? endTime - startTime : undefined}
+              currency={currency}
+            />
+          </div>
         )}
 
         {/* Empty state */}
