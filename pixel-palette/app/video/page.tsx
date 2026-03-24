@@ -4,11 +4,11 @@ import { useState, useCallback, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import PasswordGate from '@/components/PasswordGate'
 import ThemeToggle from '@/components/ThemeToggle'
-import ModelSelector from '@/components/ModelSelector'
-import AdvancedSettings from '@/components/AdvancedSettings'
+import VideoModelSelector from '@/components/VideoModelSelector'
+import VideoAdvancedSettings from '@/components/VideoAdvancedSettings'
 import LoadingMessages from '@/components/LoadingMessages'
-import ImageGrid, { GeneratedImage } from '@/components/ImageGrid'
-import { MODELS, ASPECT_RATIOS, getModelById, estimateCost, formatPrice, Currency } from '@/lib/models'
+import VideoGrid, { GeneratedVideo } from '@/components/VideoGrid'
+import { VIDEO_MODELS, VIDEO_ASPECT_RATIOS, getVideoModelById, estimateVideoCost, formatPrice, Currency } from '@/lib/videoModels'
 
 type Mode = 'single' | 'compare'
 
@@ -17,32 +17,26 @@ interface Prediction {
   index: number
   modelId: string
   status: 'starting' | 'processing' | 'succeeded' | 'failed'
-  output?: string | string[]
+  output?: string
   error?: string
 }
 
-const ASPECT_RATIO_ICONS: Record<string, string> = {
-  '1:1': '⬛',
-  '16:9': '▬',
-  '9:16': '▮',
-  '4:3': '▭',
-  '3:4': '▯',
-  '3:2': '▬',
-  '2:3': '▯',
-}
-
-export default function Home() {
+export default function VideoPage() {
   const [authenticated, setAuthenticated] = useState(false)
   const [mode, setMode] = useState<Mode>('single')
-  const [selectedModelIds, setSelectedModelIds] = useState<string[]>(['prunaai/p-image'])
+  const [selectedModelIds, setSelectedModelIds] = useState<string[]>(['bytedance/seedance-1-pro-fast'])
   const [prompt, setPrompt] = useState('')
-  const [imageCount, setImageCount] = useState(2)
-  const [aspectRatio, setAspectRatio] = useState('1:1')
+  const [videoCount, setVideoCount] = useState(1)
+  const [aspectRatio, setAspectRatio] = useState('16:9')
+  const [duration, setDuration] = useState(5)
+  const [resolution, setResolution] = useState('720p')
+  const [imageUrl, setImageUrl] = useState('')
+  const [lastFrameUrl, setLastFrameUrl] = useState('')
   const [advancedParams, setAdvancedParams] = useState<Record<string, Record<string, unknown>>>({})
   const [parallelMode, setParallelMode] = useState(false)
   const [generating, setGenerating] = useState(false)
   const [predictions, setPredictions] = useState<Prediction[]>([])
-  const [images, setImages] = useState<GeneratedImage[]>([])
+  const [videos, setVideos] = useState<GeneratedVideo[]>([])
   const [error, setError] = useState<string | null>(null)
   const [startTime, setStartTime] = useState<number | null>(null)
   const [endTime, setEndTime] = useState<number | null>(null)
@@ -56,19 +50,19 @@ export default function Home() {
     if (stored === 'USD' || stored === 'KRW') setCurrency(stored)
   }, [])
 
-  // Auto-scroll to loading section when first prediction appears
+  // Auto-scroll to loading when first prediction appears
   useEffect(() => {
     if (generating && predictions.length === 1) {
       loadingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }, [generating, predictions.length])
 
-  // Auto-scroll to results when generation completes
+  // Auto-scroll to results when done
   useEffect(() => {
-    if (images.length > 0 && endTime) {
+    if (videos.length > 0 && endTime) {
       resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
-  }, [images.length, endTime])
+  }, [videos.length, endTime])
 
   function toggleCurrency() {
     const next: Currency = currency === 'USD' ? 'KRW' : 'USD'
@@ -80,124 +74,102 @@ export default function Home() {
 
   // Computed values
   const effectiveModels = mode === 'single' ? selectedModelIds.slice(0, 1) : selectedModelIds
-  const selectedModel = mode === 'single' ? getModelById(selectedModelIds[0]) : null
-  const nativeMultiModels = ['bytedance/seedream-4', 'bytedance/seedream-5-lite', 'openai/gpt-image-1.5']
-  const showParallelToggle =
-    (mode === 'single' && selectedModel != null && !nativeMultiModels.includes(selectedModel.id) && imageCount > 1) ||
-    (mode === 'compare' && effectiveModels.length > 1)
-  const effectiveCount = mode === 'compare'
-    ? effectiveModels.length
-    : imageCount
-  const estimatedCost = estimateCost(
-    effectiveModels,
-    mode === 'compare' ? 1 : imageCount
-  )
+  const selectedModel = mode === 'single' ? getVideoModelById(selectedModelIds[0]) : null
+  const estimatedCost = estimateVideoCost(effectiveModels, mode === 'compare' ? 1 : videoCount)
   const completedCount = predictions.filter(p => p.status === 'succeeded' || p.status === 'failed').length
 
-  // Get supported aspect ratios for current model selection
-  const supportedRatios = mode === 'single' && selectedModel
-    ? ASPECT_RATIOS.filter(r => selectedModel.supportedAspectRatios.includes(r.value))
-    : ASPECT_RATIOS
+  const showParallelToggle =
+    (mode === 'single' && videoCount > 1) ||
+    (mode === 'compare' && effectiveModels.length > 1)
 
-  // Determine if mode should show image count selector
-  const showImageCount = mode === 'single' && (
-    !selectedModel || selectedModel.supportsMultipleImages || true
-  )
+  // Filter aspect ratios by selected model (single mode)
+  const supportedRatios = mode === 'single' && selectedModel
+    ? VIDEO_ASPECT_RATIOS.filter(r => selectedModel.supportedAspectRatios.includes(r.value))
+    : VIDEO_ASPECT_RATIOS
+
+  // Filter durations by selected model (single mode)
+  const supportedDurations = mode === 'single' && selectedModel
+    ? selectedModel.supportedDurations
+    : [5, 8, 10]
+
+  // Filter resolutions by selected model (single mode)
+  const supportedResolutions = mode === 'single' && selectedModel
+    ? selectedModel.supportedResolutions
+    : ['480p', '720p', '1080p']
+
+  const showResolution = supportedResolutions.length > 0
+
+  // Whether to show image input (any selected model supports I2V)
+  const showImageInput = mode === 'single'
+    ? (selectedModel?.supportsImageInput ?? false)
+    : effectiveModels.some(id => getVideoModelById(id)?.supportsImageInput)
+
+  // Whether to show last frame input
+  const showLastFrame = mode === 'single'
+    ? (selectedModel?.supportsLastFrame ?? false)
+    : effectiveModels.some(id => getVideoModelById(id)?.supportsLastFrame)
+
+  const generatingModelNames = [...new Set(predictions.map(p =>
+    getVideoModelById(p.modelId)?.name || p.modelId
+  ))]
+
+  async function makeOnePrediction(modelId: string, index: number): Promise<Prediction> {
+    const res = await fetch('/api/generate-video', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        modelId,
+        prompt: prompt.trim(),
+        aspectRatio,
+        resolution,
+        duration,
+        advancedParams: advancedParams[modelId] || {},
+        imageUrl: imageUrl.trim() || undefined,
+        lastFrameUrl: lastFrameUrl.trim() || undefined,
+      }),
+    })
+    const data = await res.json()
+    if (!res.ok) throw new Error(data.error || 'Generation failed')
+    return { id: data.predictions[0].id, index, modelId, status: 'starting' }
+  }
 
   async function generate() {
     if (!prompt.trim() || generating || effectiveModels.length === 0) return
 
     setGenerating(true)
     setError(null)
-    setImages([])
+    setVideos([])
     setPredictions([])
     setStartTime(Date.now())
     setEndTime(null)
 
     try {
-      // Create all predictions
       const allPredictions: Prediction[] = []
 
       if (mode === 'single') {
         const modelId = effectiveModels[0]
-        const model = getModelById(modelId)!
-        const count = model.supportsMultipleImages ? imageCount : Math.min(imageCount, 4)
-        const isNativeMulti = nativeMultiModels.includes(modelId)
+        const count = videoCount
 
-        if (isNativeMulti) {
-          // Single API call
-          const res = await fetch('/api/generate', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              modelId,
-              prompt: prompt.trim(),
-              aspectRatio,
-              imageCount: count,
-              advancedParams: advancedParams[modelId] || {},
-            }),
-          })
-          const data = await res.json()
-          if (!res.ok) throw new Error(data.error || 'Generation failed')
-          data.predictions.forEach((p: { id: string; index: number }) => {
-            allPredictions.push({ id: p.id, index: p.index, modelId, status: 'starting' })
-          })
+        if (parallelMode) {
+          const results = await Promise.all(
+            Array.from({ length: count }, (_, i) => makeOnePrediction(modelId, i))
+          )
+          allPredictions.push(...results)
         } else {
-          const makeOnePrediction = async (i: number) => {
-            const baseSeed = advancedParams[modelId]?.seed
-            const seed = baseSeed ? Number(baseSeed) + i : undefined
-            const params = seed !== undefined
-              ? { ...(advancedParams[modelId] || {}), seed }
-              : (advancedParams[modelId] || {})
-            const res = await fetch('/api/generate', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ modelId, prompt: prompt.trim(), aspectRatio, imageCount: 1, advancedParams: params }),
-            })
-            const data = await res.json()
-            if (!res.ok) throw new Error(data.error || 'Generation failed')
-            return { id: data.predictions[0].id, index: i, modelId, status: 'starting' as const }
-          }
-
-          if (parallelMode) {
-            // Fire all simultaneously
-            const results = await Promise.all(
-              Array.from({ length: count }, (_, i) => makeOnePrediction(i))
-            )
-            allPredictions.push(...results)
-          } else {
-            // Sequential with 11s gap (burst=1 rate limit)
-            for (let i = 0; i < count; i++) {
-              if (i > 0) {
-                await new Promise(resolve => setTimeout(resolve, 11000))
-              }
-              const pred = await makeOnePrediction(i)
-              allPredictions.push(pred)
-              // Update UI immediately so loading screen shows after first prediction
-              setPredictions([...allPredictions])
+          for (let i = 0; i < count; i++) {
+            if (i > 0) {
+              await new Promise(resolve => setTimeout(resolve, 11000))
             }
+            const pred = await makeOnePrediction(modelId, i)
+            allPredictions.push(pred)
+            setPredictions([...allPredictions])
           }
         }
       } else {
-        // Compare mode: one image per model
+        // Compare mode: one video per model
         if (parallelMode) {
           const results = await Promise.all(
-            effectiveModels.map(async (modelId) => {
-              const res = await fetch('/api/generate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  modelId,
-                  prompt: prompt.trim(),
-                  aspectRatio,
-                  imageCount: 1,
-                  advancedParams: advancedParams[modelId] || {},
-                }),
-              })
-              const data = await res.json()
-              if (!res.ok) throw new Error(data.error || 'Generation failed')
-              return { id: data.predictions[0].id, index: 0, modelId, status: 'starting' as const }
-            })
+            effectiveModels.map((modelId, i) => makeOnePrediction(modelId, i))
           )
           allPredictions.push(...results)
         } else {
@@ -205,21 +177,8 @@ export default function Home() {
             if (i > 0) {
               await new Promise(resolve => setTimeout(resolve, 11000))
             }
-            const modelId = effectiveModels[i]
-            const res = await fetch('/api/generate', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                modelId,
-                prompt: prompt.trim(),
-                aspectRatio,
-                imageCount: 1,
-                advancedParams: advancedParams[modelId] || {},
-              }),
-            })
-            const data = await res.json()
-            if (!res.ok) throw new Error(data.error || 'Generation failed')
-            allPredictions.push({ id: data.predictions[0].id, index: 0, modelId, status: 'starting' })
+            const pred = await makeOnePrediction(effectiveModels[i], i)
+            allPredictions.push(pred)
             setPredictions([...allPredictions])
           }
         }
@@ -236,15 +195,11 @@ export default function Home() {
 
   function startPolling(preds: Prediction[]) {
     const poll = async () => {
-      const current = [...preds]
-      let allDone = true
+      let current = [...preds]
 
       const updated = await Promise.all(
         current.map(async (pred) => {
-          if (pred.status === 'succeeded' || pred.status === 'failed') {
-            return pred
-          }
-
+          if (pred.status === 'succeeded' || pred.status === 'failed') return pred
           try {
             const res = await fetch(`/api/status/${pred.id}`)
             const data = await res.json()
@@ -255,35 +210,26 @@ export default function Home() {
         })
       )
 
-      // Check if all done
-      allDone = updated.every(p => p.status === 'succeeded' || p.status === 'failed')
-
+      const allDone = updated.every(p => p.status === 'succeeded' || p.status === 'failed')
       setPredictions(updated)
 
-      // Extract completed images
-      const newImages: GeneratedImage[] = []
+      const newVideos: GeneratedVideo[] = []
       updated.forEach((pred) => {
-        if (pred.status === 'succeeded' && pred.output) {
-          const model = getModelById(pred.modelId)
-          const modelName = model?.name || pred.modelId
-
-          if (Array.isArray(pred.output)) {
-            pred.output.forEach((url, i) => {
-              if (url) {
-                newImages.push({ url, modelId: pred.modelId, modelName, index: pred.index * 10 + i })
-              }
-            })
-          } else if (typeof pred.output === 'string') {
-            newImages.push({ url: pred.output, modelId: pred.modelId, modelName, index: pred.index })
-          }
+        if (pred.status === 'succeeded' && pred.output && typeof pred.output === 'string') {
+          const model = getVideoModelById(pred.modelId)
+          newVideos.push({
+            url: pred.output,
+            modelId: pred.modelId,
+            modelName: model?.name || pred.modelId,
+            index: pred.index,
+          })
         }
       })
-
-      setImages(newImages)
-      preds = updated
+      setVideos(newVideos)
+      current = updated
 
       if (!allDone) {
-        pollingRef.current = setTimeout(() => poll(), 2000)
+        pollingRef.current = setTimeout(() => poll(), 3000)
       } else {
         setGenerating(false)
         setEndTime(Date.now())
@@ -297,10 +243,6 @@ export default function Home() {
     if (pollingRef.current) clearTimeout(pollingRef.current)
     setGenerating(false)
   }
-
-  const generatingModelNames = [...new Set(predictions.map(p => {
-    return getModelById(p.modelId)?.name || p.modelId
-  }))]
 
   if (!authenticated) {
     return <PasswordGate onAuth={handleAuth} />
@@ -319,14 +261,16 @@ export default function Home() {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            {/* Future: Video tab placeholder */}
             <div className="hidden sm:flex items-center gap-1 bg-surface rounded-xl p-1 border border-app">
-              <button className="px-3 py-1 rounded-lg text-xs font-medium bg-primary-600 text-white">
+              <Link
+                href="/"
+                className="px-3 py-1 rounded-lg text-xs font-medium text-secondary hover:text-app hover:bg-surface-2 transition-colors"
+              >
                 Images
-              </button>
-              <Link href="/video" className="px-3 py-1 rounded-lg text-xs font-medium text-secondary hover:text-app hover:bg-surface-2 transition-colors">
-                Video
               </Link>
+              <button className="px-3 py-1 rounded-lg text-xs font-medium bg-primary-600 text-white">
+                Video
+              </button>
             </div>
             <button
               onClick={toggleCurrency}
@@ -350,18 +294,18 @@ export default function Home() {
               active={mode === 'single'}
               onClick={() => {
                 setMode('single')
-                setSelectedModelIds([selectedModelIds[0] || 'prunaai/p-image'])
-                setImages([])
+                setSelectedModelIds([selectedModelIds[0] || 'bytedance/seedance-1-pro-fast'])
+                setVideos([])
               }}
               label="단일 모델"
-              sub="여러 이미지"
-              icon="🖼️"
+              sub="여러 영상"
+              icon="🎬"
             />
             <ModeButton
               active={mode === 'compare'}
               onClick={() => {
                 setMode('compare')
-                setImages([])
+                setVideos([])
               }}
               label="모델 비교"
               sub="같은 프롬프트"
@@ -370,22 +314,64 @@ export default function Home() {
           </div>
           <p className="hidden sm:block text-xs text-secondary">
             {mode === 'single'
-              ? '하나의 모델로 1~4장을 생성합니다'
+              ? '하나의 모델로 1~4개의 영상을 생성합니다'
               : '여러 모델에 동일한 프롬프트를 보내 비교합니다'
             }
           </p>
         </div>
 
         {/* Model selector */}
-        <ModelSelector
+        <VideoModelSelector
           mode={mode}
           selectedIds={selectedModelIds}
           currency={currency}
           onChange={ids => {
             setSelectedModelIds(ids)
-            setImages([])
+            setVideos([])
+            // Reset duration/resolution to first selected model's defaults
+            const first = getVideoModelById(ids[0])
+            if (first) {
+              setDuration(first.defaultDuration)
+              setResolution(first.defaultResolution)
+              setAspectRatio(first.defaultAspectRatio)
+            }
           }}
         />
+
+        {/* Image input (I2V) */}
+        {showImageInput && (
+          <div className="space-y-2">
+            <label className="text-xs font-semibold text-secondary uppercase tracking-wider">
+              이미지 입력 <span className="font-normal normal-case opacity-60">(선택사항 — 이미지를 영상으로 변환)</span>
+            </label>
+            <input
+              type="url"
+              value={imageUrl}
+              onChange={e => setImageUrl(e.target.value)}
+              placeholder="이미지 URL을 붙여넣으세요 (https://...)"
+              className="
+                w-full px-4 py-2.5 rounded-xl border border-app bg-surface text-app text-sm
+                placeholder:text-secondary
+                focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20
+                transition-all duration-200
+              "
+            />
+            {showLastFrame && (
+              <input
+                type="url"
+                value={lastFrameUrl}
+                onChange={e => setLastFrameUrl(e.target.value)}
+                placeholder="마지막 프레임 URL (선택사항 — 시작/끝 프레임 보간)"
+                className="
+                  w-full px-4 py-2.5 rounded-xl border border-app bg-surface text-app text-sm
+                  placeholder:text-secondary
+                  focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20
+                  transition-all duration-200
+                "
+              />
+            )}
+          </div>
+        )}
 
         {/* Prompt area */}
         <div className="space-y-3">
@@ -393,7 +379,7 @@ export default function Home() {
             <textarea
               value={prompt}
               onChange={e => setPrompt(e.target.value)}
-              placeholder="무엇을 만들고 싶으세요? 영어로 입력하면 더 좋은 결과가 나와요 :)"
+              placeholder="어떤 영상을 만들고 싶으세요? 카메라 앵글, 조명, 움직임을 구체적으로 설명하면 더 좋아요 :)"
               rows={3}
               className="
                 w-full px-4 py-3.5 rounded-xl border border-app bg-surface text-app
@@ -428,16 +414,56 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Image count (single mode only) */}
+            {/* Duration */}
+            <div className="flex items-center gap-1 bg-surface rounded-xl p-1 border border-app">
+              {supportedDurations.map(d => (
+                <button
+                  key={d}
+                  onClick={() => setDuration(d)}
+                  className={`
+                    px-2.5 py-1 rounded-lg text-xs font-medium transition-all duration-150
+                    ${duration === d
+                      ? 'bg-primary-600 text-white shadow-sm'
+                      : 'text-secondary hover:text-app hover:bg-surface-2'
+                    }
+                  `}
+                >
+                  {d}s
+                </button>
+              ))}
+            </div>
+
+            {/* Resolution */}
+            {showResolution && supportedResolutions.length > 1 && (
+              <div className="flex items-center gap-1 bg-surface rounded-xl p-1 border border-app">
+                {supportedResolutions.map(r => (
+                  <button
+                    key={r}
+                    onClick={() => setResolution(r)}
+                    className={`
+                      px-2.5 py-1 rounded-lg text-xs font-medium transition-all duration-150
+                      ${resolution === r
+                        ? 'bg-primary-600 text-white shadow-sm'
+                        : 'text-secondary hover:text-app hover:bg-surface-2'
+                      }
+                    `}
+                  >
+                    {r}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Video count (single mode only) */}
             {mode === 'single' && (
               <div className="flex items-center gap-1 bg-surface rounded-xl p-1 border border-app">
                 {[1, 2, 3, 4].map(n => (
                   <button
                     key={n}
-                    onClick={() => setImageCount(n)}
+                    onClick={() => setVideoCount(n)}
                     className={`
                       w-8 h-7 rounded-lg text-xs font-medium transition-all duration-150
-                      ${imageCount === n
+                      ${videoCount === n
                         ? 'bg-primary-600 text-white shadow-sm'
                         : 'text-secondary hover:text-app hover:bg-surface-2'
                       }
@@ -446,7 +472,7 @@ export default function Home() {
                     {n}
                   </button>
                 ))}
-                <span className="text-xs text-secondary px-1">장</span>
+                <span className="text-xs text-secondary px-1">개</span>
               </div>
             )}
 
@@ -478,7 +504,7 @@ export default function Home() {
         </div>
 
         {/* Advanced settings */}
-        <AdvancedSettings
+        <VideoAdvancedSettings
           modelIds={effectiveModels}
           params={advancedParams}
           onChange={setAdvancedParams}
@@ -509,9 +535,9 @@ export default function Home() {
             </span>
           ) : (
             <span className="flex items-center justify-center gap-2">
-              <span>✨</span>
+              <span>🎬</span>
               {mode === 'single'
-                ? `${imageCount}장 생성하기`
+                ? `${videoCount}개 영상 생성하기`
                 : `${effectiveModels.length}개 모델로 비교하기`
               }
             </span>
@@ -533,14 +559,17 @@ export default function Home() {
               completed={completedCount}
               total={predictions.length}
             />
+            <p className="text-center text-xs text-secondary opacity-50 pb-4">
+              영상 생성은 보통 1~3분 정도 소요됩니다
+            </p>
           </div>
         )}
 
         {/* Results */}
-        {images.length > 0 && (
+        {videos.length > 0 && (
           <div ref={resultsRef}>
-            <ImageGrid
-              images={images}
+            <VideoGrid
+              videos={videos}
               totalCost={estimatedCost}
               generationTime={endTime && startTime ? endTime - startTime : undefined}
               currency={currency}
@@ -549,9 +578,9 @@ export default function Home() {
         )}
 
         {/* Empty state */}
-        {!generating && images.length === 0 && !error && (
+        {!generating && videos.length === 0 && !error && (
           <div className="text-center py-16 text-secondary opacity-50">
-            <div className="text-4xl mb-3">🖼️</div>
+            <div className="text-4xl mb-3">🎬</div>
             <p className="text-sm">프롬프트를 입력하고 생성 버튼을 눌러주세요</p>
           </div>
         )}
@@ -561,11 +590,7 @@ export default function Home() {
 }
 
 function ModeButton({
-  active,
-  onClick,
-  label,
-  sub,
-  icon,
+  active, onClick, label, sub, icon,
 }: {
   active: boolean
   onClick: () => void
