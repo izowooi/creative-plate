@@ -81,6 +81,9 @@ export default function Home() {
   const effectiveModels = mode === 'single' ? selectedModelIds.slice(0, 1) : selectedModelIds
   const selectedModel = mode === 'single' ? getModelById(selectedModelIds[0]) : null
   const nativeMultiModels = ['bytedance/seedream-4', 'bytedance/seedream-5-lite', 'openai/gpt-image-1.5']
+  const showParallelToggle =
+    (mode === 'single' && selectedModel != null && !nativeMultiModels.includes(selectedModel.id) && imageCount > 1) ||
+    (mode === 'compare' && effectiveModels.length > 1)
   const effectiveCount = mode === 'compare'
     ? effectiveModels.length
     : imageCount
@@ -176,23 +179,48 @@ export default function Home() {
         }
       } else {
         // Compare mode: one image per model
-        for (const modelId of effectiveModels) {
-          const res = await fetch('/api/generate', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              modelId,
-              prompt: prompt.trim(),
-              aspectRatio,
-              imageCount: 1,
-              advancedParams: advancedParams[modelId] || {},
-            }),
-          })
-          const data = await res.json()
-          if (!res.ok) throw new Error(data.error || 'Generation failed')
-          data.predictions.forEach((p: { id: string; index: number }) => {
-            allPredictions.push({ id: p.id, index: p.index, modelId, status: 'starting' })
-          })
+        if (parallelMode) {
+          const results = await Promise.all(
+            effectiveModels.map(async (modelId) => {
+              const res = await fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  modelId,
+                  prompt: prompt.trim(),
+                  aspectRatio,
+                  imageCount: 1,
+                  advancedParams: advancedParams[modelId] || {},
+                }),
+              })
+              const data = await res.json()
+              if (!res.ok) throw new Error(data.error || 'Generation failed')
+              return { id: data.predictions[0].id, index: 0, modelId, status: 'starting' as const }
+            })
+          )
+          allPredictions.push(...results)
+        } else {
+          for (let i = 0; i < effectiveModels.length; i++) {
+            if (i > 0) {
+              await new Promise(resolve => setTimeout(resolve, 11000))
+            }
+            const modelId = effectiveModels[i]
+            const res = await fetch('/api/generate', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                modelId,
+                prompt: prompt.trim(),
+                aspectRatio,
+                imageCount: 1,
+                advancedParams: advancedParams[modelId] || {},
+              }),
+            })
+            const data = await res.json()
+            if (!res.ok) throw new Error(data.error || 'Generation failed')
+            allPredictions.push({ id: data.predictions[0].id, index: 0, modelId, status: 'starting' })
+            setPredictions([...allPredictions])
+          }
         }
       }
 
@@ -421,8 +449,8 @@ export default function Home() {
               </div>
             )}
 
-            {/* Parallel/sequential toggle (single mode, non-native multi only) */}
-            {mode === 'single' && selectedModel && !nativeMultiModels.includes(selectedModel.id) && imageCount > 1 && (
+            {/* Parallel/sequential toggle */}
+            {showParallelToggle && (
               <button
                 onClick={() => setParallelMode(p => !p)}
                 title={parallelMode ? '병렬 요청 (rate limit 주의)' : '순차 요청 (안전)'}
