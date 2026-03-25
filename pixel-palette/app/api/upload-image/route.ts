@@ -1,3 +1,5 @@
+export const runtime = 'edge'
+
 export async function POST(request: Request) {
   const apiToken = process.env.REPLICATE_API_TOKEN
   if (!apiToken) {
