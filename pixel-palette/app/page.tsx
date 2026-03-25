@@ -314,9 +314,6 @@ export default function Home() {
           <div className="flex items-center gap-2.5">
             <span className="text-xl select-none">🎨</span>
             <span className="font-bold text-app tracking-tight">Pixel Palette</span>
-            <span className="hidden sm:inline text-xs text-secondary bg-surface px-2 py-0.5 rounded-full border border-app">
-              AI Studio
-            </span>
           </div>
           <div className="flex items-center gap-2">
             {/* Future: Video tab placeholder */}
@@ -339,6 +336,18 @@ export default function Home() {
           </div>
         </div>
       </header>
+
+      {/* 모바일 전용 이미지/동영상 탭바 */}
+      <div className="sm:hidden sticky top-14 z-30 glass border-b border-app">
+        <div className="flex items-center gap-1 px-4 py-2">
+          <button className="flex-1 py-1.5 rounded-lg text-xs font-medium bg-primary-600 text-white text-center">
+            Images
+          </button>
+          <Link href="/video" className="flex-1 py-1.5 rounded-lg text-xs font-medium text-secondary hover:text-app hover:bg-surface-2 transition-colors text-center">
+            Video
+          </Link>
+        </div>
+      </div>
 
       {/* Main */}
       <main className="max-w-6xl mx-auto px-4 py-6 space-y-6">
@@ -556,6 +565,12 @@ export default function Home() {
           </div>
         )}
       </main>
+
+      <footer className="border-t border-app mt-8 py-6 text-center px-4">
+        <p className="text-xs text-secondary">
+          생성된 이미지는 서버에 저장되지 않습니다. 개인정보를 소중히 여기며, 누구나 편하게 이미지를 만들 수 있도록 설계되었습니다.
+        </p>
+      </footer>
     </div>
   )
 }
