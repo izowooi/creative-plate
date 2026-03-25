@@ -120,8 +120,9 @@ function ModelCard({
           {model.vendorShort[0]}
         </div>
         <div className="min-w-0">
-          <div className="font-semibold text-sm text-app leading-tight truncate">
+          <div className="font-semibold text-sm text-app leading-tight truncate flex items-center gap-1">
             {model.name}
+            {model.flags && <span className="text-sm leading-none">{model.flags.join('')}</span>}
           </div>
           <div className="text-xs text-secondary">{model.vendor}</div>
         </div>

@@ -5,7 +5,8 @@
       "Bash(npm install:*)",
       "Bash(npx next:*)",
       "Bash(npm run:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(find /Users/izowooi/git/creative-plate/pixel-palette/src -type f \\\\\\(-name *.tsx -o -name *.ts \\\\\\))"
     ]
   }
 }

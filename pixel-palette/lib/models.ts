@@ -32,6 +32,7 @@ export interface ModelConfig {
   tags: string[]
   advancedParams: AdvancedParam[]
   color: string // tailwind color class for accent
+  flags?: string[]
 }
 
 export const ASPECT_RATIOS = [
@@ -52,6 +53,7 @@ export const MODELS: ModelConfig[] = [
     vendorShort: 'PrunaAI',
     description: 'Sub 1-second generation. Best speed-quality-cost balance. LoRA support.',
     badge: '최저가',
+    flags: ['🇩🇪', '🇫🇷'],
     speed: 'turbo',
     quality: 'high',
     estimatedCostPerImage: 0.004,
@@ -76,6 +78,7 @@ export const MODELS: ModelConfig[] = [
     vendorShort: 'PrunaAI',
     description: 'Super fast 6B model. Sub-second generation. Bilingual (EN/ZH) text.',
     badge: '최고속',
+    flags: ['🇩🇪', '🇫🇷'],
     speed: 'turbo',
     quality: 'good',
     estimatedCostPerImage: 0.005,
@@ -101,6 +104,7 @@ export const MODELS: ModelConfig[] = [
     vendorShort: 'ByteDance',
     description: 'Built-in reasoning for spatial & physics understanding. Up to 14 references.',
     badge: '추론형',
+    flags: ['🇨🇳'],
     speed: 'medium',
     quality: 'high',
     estimatedCostPerImage: 0.035,
@@ -123,6 +127,7 @@ export const MODELS: ModelConfig[] = [
     vendorShort: 'BFL',
     description: 'Best for typography & UI mockups. Adjustable speed/quality balance.',
     badge: '타이포',
+    flags: ['🇩🇪'],
     speed: 'fast',
     quality: 'high',
     estimatedCostPerImage: 0.04,
@@ -150,6 +155,7 @@ export const MODELS: ModelConfig[] = [
     vendorShort: 'ByteDance',
     description: 'Up to 4K resolution. Batch generation & natural-language editing.',
     badge: '고해상도',
+    flags: ['🇨🇳'],
     speed: 'medium',
     quality: 'high',
     estimatedCostPerImage: 0.04,
@@ -173,6 +179,7 @@ export const MODELS: ModelConfig[] = [
     vendorShort: 'OpenAI',
     description: 'Best instruction following & text rendering. 4x faster than predecessor.',
     badge: '편집특화',
+    flags: ['🇺🇸'],
     speed: 'fast',
     quality: 'high',
     estimatedCostPerImage: 0.04,
@@ -197,6 +204,7 @@ export const MODELS: ModelConfig[] = [
     vendorShort: 'BFL',
     description: 'Excellent text rendering & typography. Production-ready reliability.',
     badge: '텍스트',
+    flags: ['🇩🇪'],
     speed: 'fast',
     quality: 'high',
     estimatedCostPerImage: 0.055,
@@ -221,6 +229,7 @@ export const MODELS: ModelConfig[] = [
     vendorShort: 'Google',
     description: 'Gemini 3 Pro powered. Real-time info via Google Search. Multilingual text.',
     badge: '검색연동',
+    flags: ['🇺🇸'],
     speed: 'medium',
     quality: 'high',
     estimatedCostPerImage: 0.06,
@@ -244,6 +253,7 @@ export const MODELS: ModelConfig[] = [
     vendorShort: 'BFL',
     description: 'Maximum fidelity. Up to 8 reference images. 3x faster than competitors.',
     badge: '플래그십',
+    flags: ['🇩🇪'],
     speed: 'medium',
     quality: 'highest',
     estimatedCostPerImage: 0.08,

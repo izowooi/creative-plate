@@ -23,6 +23,7 @@ export interface VideoModelConfig {
   tags: string[]
   color: string
   advancedParams: AdvancedParam[]
+  flags?: string[]
 }
 
 export const VIDEO_ASPECT_RATIOS = [
@@ -41,6 +42,7 @@ export const VIDEO_MODELS: VideoModelConfig[] = [
     vendorShort: 'ByteDance',
     description: '30~60% 빠른 추론, ~60% 저렴한 비용. 텍스트/이미지 to 비디오 지원.',
     badge: '최고속',
+    flags: ['🇨🇳'],
     speed: 'fast',
     quality: 'high',
     pricePerSecond: 0.04,
@@ -69,6 +71,7 @@ export const VIDEO_MODELS: VideoModelConfig[] = [
     vendorShort: 'Google',
     description: 'Google Veo 3의 빠르고 저렴한 버전. 오디오 자동 생성 포함.',
     badge: '오디오',
+    flags: ['🇺🇸'],
     speed: 'fast',
     quality: 'high',
     pricePerSecond: 0.05,
@@ -97,6 +100,7 @@ export const VIDEO_MODELS: VideoModelConfig[] = [
     vendorShort: 'xAI',
     description: '오디오 자동 생성. 텍스트/이미지 to 비디오. 1~15초 자유 설정.',
     badge: '오디오',
+    flags: ['🇺🇸'],
     speed: 'medium',
     quality: 'high',
     pricePerSecond: 0.06,
@@ -123,6 +127,7 @@ export const VIDEO_MODELS: VideoModelConfig[] = [
     vendorShort: 'Kwai',
     description: '부드러운 모션, 시네마틱 깊이감. 시작/끝 프레임 설정 가능.',
     badge: '시작/끝',
+    flags: ['🇨🇳'],
     speed: 'fast',
     quality: 'high',
     pricePerSecond: 0.07,
@@ -149,6 +154,7 @@ export const VIDEO_MODELS: VideoModelConfig[] = [
     vendorShort: 'Google',
     description: 'Veo 3 Fast 개선판. 고화질 + 오디오 + 마지막 프레임 보간 지원.',
     badge: '최신',
+    flags: ['🇺🇸'],
     speed: 'fast',
     quality: 'highest',
     pricePerSecond: 0.05,
@@ -177,6 +183,7 @@ export const VIDEO_MODELS: VideoModelConfig[] = [
     vendorShort: 'ByteDance',
     description: '최고 품질. 멀티샷 내러티브, 1080p. 텍스트/이미지 to 비디오.',
     badge: '최고품질',
+    flags: ['🇨🇳'],
     speed: 'medium',
     quality: 'highest',
     pricePerSecond: 0.09,
