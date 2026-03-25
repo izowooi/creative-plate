@@ -125,7 +125,7 @@ graph LR
 
     API -->|POST /predictions| IMG_MODELS
     APIV -->|POST /predictions| VID_MODELS
-    STATUS -->|GET /predictions/[id]| Replicate
+    STATUS -->|GET /predictions/:id| Replicate
 
     style Browser fill:#e0e7ff,color:#1e1b4b
     style CF fill:#fff7ed,color:#7c2d12
