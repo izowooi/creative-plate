@@ -1,4 +1,4 @@
-> 🇰🇷 [한국어 README](./README.md)
+> 🇰🇷 [한국어 README](./README.md) | 🇨🇳 [中文 README](./README_ZH.md)
 
 # 🎨 Pixel Palette - AI Image & Video Generation Platform
 

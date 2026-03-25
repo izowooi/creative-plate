@@ -9,7 +9,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-06b6d4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com)
 [![Cloudflare Pages](https://img.shields.io/badge/Cloudflare_Pages-Edge-f38020?style=for-the-badge&logo=cloudflare)](https://pages.cloudflare.com)
 
-> 🇺🇸 [English README](./README_EN.md)
+> 🇺🇸 [English README](./README_EN.md) | 🇨🇳 [中文 README](./README_ZH.md)
 
 **여러 최신 AI 모델로 이미지와 영상을 생성하고 나란히 비교할 수 있는 플랫폼** ✨
 
