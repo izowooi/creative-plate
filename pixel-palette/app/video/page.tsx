@@ -47,7 +47,7 @@ export default function VideoPage() {
   const pollingRef = useRef<NodeJS.Timeout | null>(null)
   const loadingRef = useRef<HTMLDivElement>(null)
   const resultsRef = useRef<HTMLDivElement>(null)
-  const [currency, setCurrency] = useState<Currency>('USD')
+  const [currency, setCurrency] = useState<Currency>('KRW')
 
   useEffect(() => {
     const stored = localStorage.getItem('currency') as Currency | null
