@@ -1,18 +1,39 @@
 'use strict';
 
 (function () {
-  if (document.getElementById('missav-dl-wrapper')) return;
+  const BRIDGE_KEY = '__ma_hls__';
+
+  // Inject a script into the main world to read window.hls and store it in a meta tag.
+  // Content scripts run in an isolated world and cannot access window.hls directly.
+  function injectBridge() {
+    const script = document.createElement('script');
+    script.textContent = `(function(){
+      const KEY='${BRIDGE_KEY}';
+      function store(){
+        if(!window.hls) return false;
+        const lvl=(window.hls.levels||[]);
+        if(!lvl.length) return false;
+        let el=document.getElementById(KEY);
+        if(!el){el=document.createElement('meta');el.id=KEY;document.head.appendChild(el);}
+        el.dataset.url=window.hls.url||'';
+        el.dataset.levels=JSON.stringify(lvl.map(l=>({height:l.height,url:Array.isArray(l.url)?l.url[0]:l.url})));
+        return true;
+      }
+      const t=setInterval(()=>{if(store())clearInterval(t);},300);
+      setTimeout(()=>clearInterval(t),20000);
+    })();`;
+    (document.head || document.documentElement).appendChild(script);
+    script.remove();
+  }
 
   function getHlsInfo() {
-    if (!window.hls) return null;
-    return {
-      masterUrl: window.hls.url,
-      levels: (window.hls.levels || []).map(l => ({
-        height: l.height,
-        url: Array.isArray(l.url) ? l.url[0] : l.url,
-      })),
-      currentLevel: window.hls.currentLevel,
-    };
+    const el = document.getElementById(BRIDGE_KEY);
+    if (!el || !el.dataset.levels) return null;
+    try {
+      return { masterUrl: el.dataset.url, levels: JSON.parse(el.dataset.levels) };
+    } catch (_) {
+      return null;
+    }
   }
 
   function buildUI() {
@@ -89,10 +110,12 @@
     setTimeout(() => clearInterval(timer), 15000);
   }
 
+  injectBridge();
+
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(tryInsert, 500);
+    setTimeout(tryInsert, 800);
   } else {
-    document.addEventListener('DOMContentLoaded', () => setTimeout(tryInsert, 500));
+    document.addEventListener('DOMContentLoaded', () => setTimeout(tryInsert, 800));
   }
 
   chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
