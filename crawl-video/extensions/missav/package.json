@@ -1,0 +1,14 @@
+{
+  "name": "missav-downloader",
+  "version": "1.0.0",
+  "description": "MissAV Video Downloader Chrome Extension",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
