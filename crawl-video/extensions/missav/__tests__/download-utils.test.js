@@ -1,5 +1,5 @@
 'use strict';
-const { buildFilename, concatenateBuffers, extractUuidFromM3u8Url } = require('../lib/download-utils');
+const { buildFilename, concatenateBuffers, extractUuidFromM3u8Url } = require('../ext/lib/download-utils');
 
 describe('buildFilename', () => {
   test('creates valid filename from title and quality', () => {
