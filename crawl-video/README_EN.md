@@ -23,7 +23,7 @@
 **crawl-video** is a single repository that bundles three complementary artifacts:
 
 1. **🐍 `missav-dl/` — Python Streamlit HLS Downloader (main tool)**
-   Paste multiple missav.ai URLs and the app analyzes them in one batch, then downloads sequentially or in parallel. It uses headless Playwright to render the page, extracts the surrit.com UUID, and fetches the m3u8 master playlist.
+   Paste multiple xxxx.xx URLs and the app analyzes them in one batch, then downloads sequentially or in parallel. It uses headless Playwright to render the page, extracts the xxxx.xx UUID, and fetches the m3u8 master playlist.
 
 2. **🐳 `extensions/missav/` — Chrome Extension (alternative, reference)**
    Manifest V3 extension. Because Chrome content scripts run in an `isolated world`, it injects a `<script>` tag bridge to read `window.hls` from the main world. Useful when you want an in-page button, but the Python tool is recommended.
@@ -61,11 +61,11 @@
 
 ```mermaid
 graph TD
-    A[🌐 Multiple missav.ai URLs<br/>one per line] --> B[📝 Paste into text area]
+    A[🌐 Multiple xxxx.xx URLs<br/>one per line] --> B[📝 Paste into text area]
     B --> C[⚙️ Set options<br/>quality / folder / mode]
     C --> D{▶ Click Analyze}
     D --> E[🎭 Playwright headless<br/>renders the page]
-    E --> F[🔍 Extract surrit.com UUID<br/>from HTML]
+    E --> F[🔍 Extract xxxx.xx UUID<br/>from HTML]
     F --> G[📑 Fetch master.m3u8<br/>get quality list]
     G --> H[✅ Show analysis<br/>per-URL elapsed time]
     H --> I{▶ Start Download}
@@ -86,7 +86,7 @@ graph TD
 | Step | Description |
 |------|-------------|
 | 1️⃣ Start server | Run `streamlit run app.py` and open `http://localhost:8501` |
-| 2️⃣ Enter URLs | Paste missav.ai URLs into the text area, one per line (e.g., `https://missav.ai/ko/h_1724a141g00017`) |
+| 2️⃣ Enter URLs | Paste xxxx.xx URLs into the text area, one per line (e.g., `https://xxxx.xx/ko/h_1724a141g00017`) |
 | 3️⃣ Configure | Choose save folder + preferred quality (default 720p). Optionally expand ⚙ Advanced to switch sequential/parallel mode |
 | 4️⃣ Analyze | Click `Analyze (N)` → review per-URL results and elapsed times |
 | 5️⃣ Download | Click `Start Download (M)` → per-URL progress bars, then file size / time / segment count on completion |
@@ -96,7 +96,7 @@ graph TD
 ```bash
 # 1. Open chrome://extensions/ → enable Developer Mode
 # 2. "Load unpacked" → choose crawl-video/extensions/missav/ext/
-# 3. Visit https://missav.ai/ko/<video> → button appears below the player
+# 3. Visit https://xxxx.xx/ko/<video> → button appears below the player
 ```
 
 ---
@@ -141,8 +141,8 @@ graph LR
     end
 
     subgraph External["External"]
-        MA[🌐 missav.ai<br/>HTML page]
-        SU[🌐 surrit.com<br/>HLS CDN]
+        MA[🌐 xxxx.xx<br/>HTML page]
+        SU[🌐 xxxx.xx<br/>HLS CDN]
     end
 
     TXT --> RP
@@ -166,7 +166,7 @@ graph LR
 
 ```mermaid
 graph TB
-    subgraph Page["missav.ai page (Main World)"]
+    subgraph Page["xxxx.xx page (Main World)"]
         WH[window.hls<br/>HLS.js instance]
         SCR[💉 injected script tag]
         META[<meta id='__ma_hls__'><br/>data-url, data-levels]
@@ -322,18 +322,18 @@ User: "Analyze https://example-video-site.com and build a download extension"
 
 ---
 
-## 🔬 Site Analysis Notes (missav.ai)
+## 🔬 Site Analysis Notes (xxxx.xx)
 
 | Item | Value |
 |------|-------|
-| HLS URL location | `surrit.com/{UUID}/720p/video.m3u8` embedded directly in HTML |
-| URL pattern | `https://surrit.com/{UUID}/{quality}/video.m3u8` |
+| HLS URL location | `xxxx.xx/{UUID}/720p/video.m3u8` embedded directly in HTML |
+| URL pattern | `https://xxxx.xx/{UUID}/{quality}/video.m3u8` |
 | Qualities | 360p / 480p / 720p / 1080p |
 | Segments | `video{N}.jpeg` (actually MPEG-TS, first byte `0x47`) |
-| Auth | surrit.com requires `Referer: https://missav.ai/` header |
+| Auth | xxxx.xx requires `Referer: https://xxxx.xx/` header |
 | DRM / Encryption | None |
 
-> 💡 In headless mode `window.hls` doesn't initialize, but the server embeds the surrit URL directly in the HTML, so a regex extracts it reliably.
+> 💡 In headless mode `window.hls` doesn't initialize, but the server embeds the CDN URL directly in the HTML, so a regex extracts it reliably.
 
 ---
 

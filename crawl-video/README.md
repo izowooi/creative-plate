@@ -23,7 +23,7 @@
 **crawl-video**는 두 가지 산출물을 한 저장소에서 함께 관리하는 프로젝트입니다.
 
 1. **🐍 `missav-dl/` — Python Streamlit HLS 다운로더 (메인 도구)**
-   복수의 missav.ai URL을 입력해 한 번에 분석하고, 순차/병렬로 일괄 다운로드합니다. Playwright headless 브라우저로 페이지를 렌더링한 뒤 surrit.com UUID를 추출해 m3u8 master playlist를 fetch합니다.
+   복수의 xxxx.xx URL을 입력해 한 번에 분석하고, 순차/병렬로 일괄 다운로드합니다. Playwright headless 브라우저로 페이지를 렌더링한 뒤 xxxx.xx UUID를 추출해 m3u8 master playlist를 fetch합니다.
 
 2. **🔧 `extensions/missav/` — Chrome Extension (대안 구현, 참고용)**
    Manifest V3 기반의 익스텐션. Chrome content script `isolated world` 제약 때문에 `<script>` 태그 주입 브릿지로 `window.hls`에 접근합니다. Python 도구를 권장하지만 In-page 버튼이 필요할 때 유용합니다.
@@ -61,11 +61,11 @@
 
 ```mermaid
 graph TD
-    A[🌐 missav.ai URL 여러 개<br/>한 줄에 하나씩] --> B[📝 텍스트영역에 붙여넣기]
+    A[🌐 xxxx.xx URL 여러 개<br/>한 줄에 하나씩] --> B[📝 텍스트영역에 붙여넣기]
     B --> C[⚙️ 옵션 설정<br/>화질 / 폴더 / 모드]
     C --> D{▶ 분석 클릭}
     D --> E[🎭 Playwright headless<br/>페이지 렌더링]
-    E --> F[🔍 HTML에서<br/>surrit.com UUID 추출]
+    E --> F[🔍 HTML에서<br/>xxxx.xx UUID 추출]
     F --> G[📑 master.m3u8 fetch<br/>품질 목록 확보]
     G --> H[✅ 분석 결과 표시<br/>URL별 elapsed time]
     H --> I{▶ 다운로드 시작}
@@ -86,7 +86,7 @@ graph TD
 | 단계 | 설명 |
 |------|------|
 | 1️⃣ 서버 시작 | `streamlit run app.py` 실행 후 `http://localhost:8501` 접속 |
-| 2️⃣ URL 입력 | 텍스트영역에 missav.ai URL을 한 줄에 하나씩 (예: `https://missav.ai/ko/h_1724a141g00017`) |
+| 2️⃣ URL 입력 | 텍스트영역에 xxxx.xx URL을 한 줄에 하나씩 (예: `https://xxxx.xx/ko/h_1724a141g00017`) |
 | 3️⃣ 옵션 설정 | 저장 폴더 + 선호 화질(720p 기본) 선택. 필요하면 ⚙ 고급 옵션 펼쳐서 순차/병렬 모드 변경 |
 | 4️⃣ 분석 | `분석 (N개)` 클릭 → URL별 결과 + 시간 확인 |
 | 5️⃣ 다운로드 | `다운로드 시작 (M개)` 클릭 → URL별 진행바 + 완료 시 파일 크기/시간/세그먼트 수 |
@@ -96,7 +96,7 @@ graph TD
 ```bash
 # 1. chrome://extensions/ 에서 개발자 모드 ON
 # 2. "압축해제된 확장 프로그램 로드" → crawl-video/extensions/missav/ext/ 선택
-# 3. https://missav.ai/ko/<영상> 접속 → 플레이어 아래 다운로드 버튼 표시
+# 3. https://xxxx.xx/ko/<영상> 접속 → 플레이어 아래 다운로드 버튼 표시
 ```
 
 ---
@@ -141,8 +141,8 @@ graph LR
     end
 
     subgraph External["외부"]
-        MA[🌐 missav.ai<br/>HTML 페이지]
-        SU[🌐 surrit.com<br/>HLS CDN]
+        MA[🌐 xxxx.xx<br/>HTML 페이지]
+        SU[🌐 xxxx.xx<br/>HLS CDN]
     end
 
     TXT --> RP
@@ -166,7 +166,7 @@ graph LR
 
 ```mermaid
 graph TB
-    subgraph Page["missav.ai 페이지 (Main World)"]
+    subgraph Page["xxxx.xx 페이지 (Main World)"]
         WH[window.hls<br/>HLS.js 인스턴스]
         SCR[💉 주입된 script 태그]
         META[<meta id='__ma_hls__'><br/>data-url, data-levels]
@@ -322,18 +322,18 @@ graph LR
 
 ---
 
-## 🔬 사이트 분석 결과 (missav.ai)
+## 🔬 사이트 분석 결과 (xxxx.xx)
 
 | 항목 | 값 |
 |------|-----|
-| HLS URL 위치 | HTML에 `surrit.com/{UUID}/720p/video.m3u8` 직접 삽입 |
-| URL 패턴 | `https://surrit.com/{UUID}/{quality}/video.m3u8` |
+| HLS URL 위치 | HTML에 `xxxx.xx/{UUID}/720p/video.m3u8` 직접 삽입 |
+| URL 패턴 | `https://xxxx.xx/{UUID}/{quality}/video.m3u8` |
 | 품질 | 360p / 480p / 720p / 1080p |
 | 세그먼트 | `video{N}.jpeg` (실제 MPEG-TS, 첫 바이트 `0x47`) |
-| 인증 | surrit.com은 `Referer: https://missav.ai/` 헤더 필요 |
+| 인증 | xxxx.xx은 `Referer: https://xxxx.xx/` 헤더 필요 |
 | DRM / 암호화 | 없음 |
 
-> 💡 헤드리스 환경에서 `window.hls`는 초기화되지 않지만, 서버가 HTML에 surrit URL을 직접 삽입하므로 정규식으로 추출 가능합니다.
+> 💡 헤드리스 환경에서 `window.hls`는 초기화되지 않지만, 서버가 HTML에 CDN URL을 직접 삽입하므로 정규식으로 추출 가능합니다.
 
 ---
 
