@@ -1,5 +1,5 @@
 'use strict';
-const { parseMasterPlaylist, parseSegmentPlaylist, selectQuality } = require('../lib/m3u8-parser');
+const { parseMasterPlaylist, parseSegmentPlaylist, selectQuality } = require('../ext/lib/m3u8-parser');
 
 describe('parseMasterPlaylist', () => {
   test('returns quality levels with absolute URLs', () => {
