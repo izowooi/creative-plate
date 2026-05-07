@@ -1,0 +1,45 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+dist/
+build/
+*.egg-info/
+
+# Lock files
+uv.lock
+
+# Project output directories
+audio/
+srt/
+
+# Logs
+*.log
+firebase-debug.log
+
+# macOS
+.DS_Store
+
+# Environment & secrets
+.env
+.env.*
+.env.local
+.env.production
+secrets/
+credentials*.json
+service-account*.json
+*.key
+*.pem
+*.p12
+id_rsa
+id_ed25519
+
+# Audio/video downloads (large binary files)
+*.mp3
+*.mp4
+*.wav
+*.m4a
+*.webm
+*.ogg

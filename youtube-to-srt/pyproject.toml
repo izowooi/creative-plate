@@ -1,0 +1,34 @@
+[project]
+name = "youtube-to-srt"
+version = "0.1.0"
+description = "YouTube URL들을 받아 로컬 faster-whisper로 SRT 자막을 생성"
+readme = "README.md"
+authors = [
+    { name = "stzjongwoo", email = "jongwoo.park@sundaytoz.com" }
+]
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "yt-dlp>=2024.8.6",
+    "faster-whisper>=1.0.3",
+    "gradio>=4.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
+
+[project.scripts]
+youtube-to-srt = "youtube_to_srt.cli:main"
+youtube-to-srt-ui = "youtube_to_srt.ui:main"
+
+[build-system]
+requires = ["uv_build>=0.8.3,<0.9.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: 실제 네트워크 및 whisper 모델을 사용하는 통합 테스트 (기본적으로 비활성)",
+]
+addopts = "-m 'not integration'"

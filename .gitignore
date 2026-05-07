@@ -186,3 +186,6 @@ waffle-wisdom/flutter_proj/ios/Runner/GoogleService-Info.plist
 aesthetics_score/uv.lock
 /aesthetics_score/.idea
 /social-syrup/phase1_x_upload/.idea
+
+# Claude Code
+.claude/
