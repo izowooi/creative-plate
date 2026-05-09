@@ -12,11 +12,22 @@ from downloader import (
     expand_range_urls,
     get_hls_info,
 )
+from state import load_state, save_state
 
 st.set_page_config(page_title="ma", page_icon="⬇", layout="centered")
 st.title("ma — HLS Video Downloader")
 
 QUALITY_OPTIONS = [1080, 720, 480, 360]
+
+# 앱 첫 실행 시 디스크에서 마지막 입력값을 복원해 session_state 의 디폴트로 사용.
+if "_state_loaded" not in st.session_state:
+    _persisted = load_state()
+    st.session_state.setdefault("urls_text", _persisted.get("urls_text", ""))
+    st.session_state.setdefault(
+        "save_dir_str",
+        _persisted.get("save_dir", str(Path.home() / "Downloads")),
+    )
+    st.session_state["_state_loaded"] = True
 
 
 def pick_level(levels: list[HlsLevel], preferred: int) -> HlsLevel:
@@ -140,7 +151,7 @@ urls_text = st.text_area(
 
 col1, col2 = st.columns([3, 1])
 with col1:
-    save_dir_str = st.text_input("저장 폴더", value=str(Path.home() / "Downloads"))
+    save_dir_str = st.text_input("저장 폴더", key="save_dir_str")
 with col2:
     preferred_quality = st.selectbox(
         "선호 화질", [f"{q}p" for q in QUALITY_OPTIONS], index=1
@@ -281,3 +292,13 @@ if analyzed:
                     f"다운로드 완료 — 신규 {fresh} + 스킵 {skipped} / {len(items)} "
                     f"(전체 {total_elapsed:.1f}초, {mode_label})"
                 )
+
+# =================== State persistence ===================
+
+_current_state = {
+    "urls_text": st.session_state.get("urls_text", ""),
+    "save_dir": st.session_state.get("save_dir_str", ""),
+}
+if st.session_state.get("_last_persisted") != _current_state:
+    save_state(_current_state)
+    st.session_state["_last_persisted"] = _current_state
