@@ -204,7 +204,7 @@ if analyzed:
                 url, slug, info, preferred = item
                 level = pick_level(info.levels, preferred)
                 output = save_dir / build_filename(slug, f"{level.height}p")
-                n = download_hls(level.url, output, cb)
+                n = download_hls(level.url, output, info.referer, cb)
                 return {
                     "output": str(output),
                     "size_mb": output.stat().st_size / 1024 / 1024,

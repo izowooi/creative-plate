@@ -9,5 +9,17 @@ dependencies = [
     "streamlit>=1.35",
 ]
 
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
+
 [tool.uv]
 package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: 실제 네트워크에 접속하는 통합 테스트 (기본 비활성)",
+]
+addopts = "-m 'not integration'"

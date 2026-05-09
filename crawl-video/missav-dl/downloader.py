@@ -1,10 +1,11 @@
 import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
+from urllib.parse import urlparse
 
 import httpx
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from playwright.sync_api import sync_playwright
 
 
@@ -18,28 +19,42 @@ class HlsLevel:
 class HlsInfo:
     master_url: str
     levels: list[HlsLevel]
+    referer: str  # CDN 이 요구하는 Referer (페이지 origin, 예: https://missav.ws)
 
 
 _UA = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 )
-_SURRIT_HEADERS = {
-    "User-Agent": _UA,
-    "Referer": "https://missav.ai/",
-    "Origin": "https://missav.ai",
-}
 
 _UUID_RE = re.compile(
     r"surrit\.com/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"
 )
 
 
+def _origin_from_page_url(page_url: str) -> str:
+    """page_url 에서 'scheme://host' 형식의 origin 만 추출."""
+    p = urlparse(page_url)
+    return f"{p.scheme}://{p.netloc}"
+
+
+def _surrit_headers(referer: str) -> dict[str, str]:
+    return {
+        "User-Agent": _UA,
+        "Referer": referer.rstrip("/") + "/",
+        "Origin": referer,
+    }
+
+
 def get_hls_info(page_url: str) -> HlsInfo:
-    """Playwright(headless)로 페이지를 렌더링해 UUID를 추출한 뒤
-    master playlist를 fetch해 품질 목록을 반환한다."""
-    # 1. 페이지 렌더링 — window.hls는 headless에서 초기화 안 됨.
-    #    대신 서버가 HTML에 surrit.com UUID를 직접 삽입하므로 page.content()로 추출.
+    """Playwright(headless) 로 페이지를 렌더해 HLS 정보를 추출.
+
+    추출 우선순위:
+      1) `window.hls` 객체에서 직접 — missav.ws 등 HTML 에 UUID 가 박히지 않는 사이트
+      2) HTML 내 `surrit.com/<uuid>` regex — legacy missav.ai 형식
+    """
+    referer = _origin_from_page_url(page_url)
+
     with sync_playwright() as p:
         browser = p.chromium.launch(
             headless=True,
@@ -51,26 +66,56 @@ def get_hls_info(page_url: str) -> HlsInfo:
         )
         page = ctx.new_page()
         page.goto(page_url, wait_until="domcontentloaded", timeout=20000)
-        page.wait_for_timeout(2000)
-        html = page.content()
+
+        info_from_js = None
+        try:
+            page.wait_for_function(
+                "() => window.hls && window.hls.url && (window.hls.levels||[]).length > 0",
+                timeout=12000,
+            )
+            info_from_js = page.evaluate(
+                """() => ({
+                    masterUrl: window.hls.url,
+                    levels: window.hls.levels.map(l => ({
+                        height: l.height,
+                        url: Array.isArray(l.url) ? l.url[0] : l.url,
+                    })),
+                })"""
+            )
+        except Exception:
+            info_from_js = None
+
+        html = None if info_from_js else page.content()
         browser.close()
 
-    # 2. UUID 추출
-    m = _UUID_RE.search(html)
+    if info_from_js:
+        levels = [
+            HlsLevel(int(l["height"]), l["url"])
+            for l in info_from_js["levels"]
+            if l.get("url")
+        ]
+        if levels:
+            return HlsInfo(
+                master_url=info_from_js["masterUrl"],
+                levels=levels,
+                referer=referer,
+            )
+
+    m = _UUID_RE.search(html or "")
     if not m:
-        raise ValueError("페이지에서 surrit.com UUID를 찾을 수 없습니다")
+        raise ValueError(
+            "페이지에서 HLS 정보를 찾을 수 없습니다 (window.hls 비어 있고 surrit UUID 도 없음)"
+        )
     uuid = m.group(1)
 
-    # 3. Master playlist fetch → 품질 목록
     master_url = f"https://surrit.com/{uuid}/playlist.m3u8"
-    resp = httpx.get(master_url, headers=_SURRIT_HEADERS, timeout=15)
+    resp = httpx.get(master_url, headers=_surrit_headers(referer), timeout=15)
     resp.raise_for_status()
-
     levels = _parse_master(resp.text, uuid)
     if not levels:
-        raise ValueError("master playlist에서 품질 정보를 파싱할 수 없습니다")
+        raise ValueError("master playlist 에서 품질 정보를 파싱할 수 없습니다")
 
-    return HlsInfo(master_url=master_url, levels=levels)
+    return HlsInfo(master_url=master_url, levels=levels, referer=referer)
 
 
 def _parse_master(text: str, uuid: str) -> list[HlsLevel]:
@@ -95,11 +140,13 @@ def _parse_master(text: str, uuid: str) -> list[HlsLevel]:
 def download_hls(
     m3u8_url: str,
     output_path: Path,
+    referer: str,
     progress_cb: Callable[[int, int], None] | None = None,
 ) -> int:
-    """m3u8 세그먼트를 병렬로 다운로드하고 output_path에 .ts 파일로 저장한다.
+    """m3u8 세그먼트를 병렬로 다운로드하고 output_path 에 .ts 로 저장한다.
     반환값: 다운로드한 세그먼트 수."""
-    resp = httpx.get(m3u8_url, headers=_SURRIT_HEADERS, follow_redirects=True, timeout=30)
+    headers = _surrit_headers(referer)
+    resp = httpx.get(m3u8_url, headers=headers, follow_redirects=True, timeout=30)
     resp.raise_for_status()
 
     base = m3u8_url.rsplit("/", 1)[0] + "/"
@@ -115,7 +162,7 @@ def download_hls(
     buffers: list[bytes | None] = [None] * total
 
     CONCURRENCY = 8
-    with httpx.Client(headers=_SURRIT_HEADERS, timeout=30) as client:
+    with httpx.Client(headers=headers, timeout=30) as client:
         with ThreadPoolExecutor(max_workers=CONCURRENCY) as ex:
             futures = {ex.submit(client.get, url): i for i, url in enumerate(segments)}
             done = 0
