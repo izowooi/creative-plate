@@ -11,6 +11,7 @@ from downloader import (
     _origin_from_page_url,
     _parse_master,
     build_filename,
+    expand_range_urls,
 )
 
 
@@ -60,6 +61,63 @@ def test_build_filename_replaces_forbidden_chars():
     assert name.endswith("_1080p.ts")
     forbidden = '<>:"/\\|?*'
     assert all(ch not in name for ch in forbidden)
+
+
+def test_expand_range_basic():
+    assert expand_range_urls(
+        "https://missav.ws/hmn_744", "https://missav.ws/hmn_747"
+    ) == [
+        "https://missav.ws/hmn_744",
+        "https://missav.ws/hmn_745",
+        "https://missav.ws/hmn_746",
+        "https://missav.ws/hmn_747",
+    ]
+
+
+def test_expand_range_zero_padding_kept():
+    urls = expand_range_urls(
+        "https://missav.ws/abc_007", "https://missav.ws/abc_010"
+    )
+    assert urls[0].endswith("abc_007")
+    assert urls[-1].endswith("abc_010")
+    assert len(urls) == 4
+
+
+def test_expand_range_padding_dropped_when_widths_differ():
+    assert expand_range_urls(
+        "https://missav.ws/x_99", "https://missav.ws/x_101"
+    ) == [
+        "https://missav.ws/x_99",
+        "https://missav.ws/x_100",
+        "https://missav.ws/x_101",
+    ]
+
+
+def test_expand_range_single():
+    assert expand_range_urls(
+        "https://missav.ws/hmn_744", "https://missav.ws/hmn_744"
+    ) == ["https://missav.ws/hmn_744"]
+
+
+def test_expand_range_prefix_mismatch():
+    with pytest.raises(ValueError, match="prefix"):
+        expand_range_urls(
+            "https://missav.ws/abc_001", "https://missav.ws/xyz_005"
+        )
+
+
+def test_expand_range_reversed():
+    with pytest.raises(ValueError, match="시작 번호"):
+        expand_range_urls(
+            "https://missav.ws/x_010", "https://missav.ws/x_005"
+        )
+
+
+def test_expand_range_no_trailing_number():
+    with pytest.raises(ValueError, match="숫자"):
+        expand_range_urls(
+            "https://missav.ws/title", "https://missav.ws/title_001"
+        )
 
 
 # =================== 통합 테스트 (실제 네트워크) ===================

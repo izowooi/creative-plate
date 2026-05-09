@@ -31,6 +31,31 @@ _UUID_RE = re.compile(
     r"surrit\.com/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"
 )
 
+_TAIL_NUM_RE = re.compile(r"^(.*?)(\d+)$")
+
+
+def expand_range_urls(start_url: str, end_url: str) -> list[str]:
+    """두 URL 의 끝 숫자 부분을 inclusive 범위로 확장한다.
+
+    숫자 이전의 prefix 가 동일해야 하며, 자릿수가 같으면 zero-padding 을 유지하고
+    다르면 padding 없이 정수 그대로 출력한다.
+    """
+    m1 = _TAIL_NUM_RE.match(start_url.strip())
+    m2 = _TAIL_NUM_RE.match(end_url.strip())
+    if not m1 or not m2:
+        raise ValueError("두 URL 모두 끝이 숫자여야 합니다")
+    p1, n1 = m1.group(1), m1.group(2)
+    p2, n2 = m2.group(1), m2.group(2)
+    if p1 != p2:
+        raise ValueError(f"두 URL 의 prefix 가 다릅니다:\n  '{p1}'\n  '{p2}'")
+    s, e = int(n1), int(n2)
+    if s > e:
+        raise ValueError(f"시작 번호({s})가 끝 번호({e})보다 큽니다")
+    digits = len(n1) if len(n1) == len(n2) else 0
+    if digits:
+        return [f"{p1}{n:0{digits}d}" for n in range(s, e + 1)]
+    return [f"{p1}{n}" for n in range(s, e + 1)]
+
 
 def _origin_from_page_url(page_url: str) -> str:
     """page_url 에서 'scheme://host' 형식의 origin 만 추출."""

@@ -4,7 +4,14 @@ from pathlib import Path
 
 import streamlit as st
 
-from downloader import HlsInfo, HlsLevel, build_filename, download_hls, get_hls_info
+from downloader import (
+    HlsInfo,
+    HlsLevel,
+    build_filename,
+    download_hls,
+    expand_range_urls,
+    get_hls_info,
+)
 
 st.set_page_config(page_title="ma", page_icon="⬇", layout="centered")
 st.title("ma — HLS Video Downloader")
@@ -84,18 +91,49 @@ def render_download(idx, sd, ph, item):
         ph.progress(min(done / total, 1.0), text=f"{n}. {label} — 세그먼트 {done}/{total}")
     elif status == "done":
         r = sd["result"]
-        ph.success(
-            f"✓ {n}. {label} — {r['size_mb']:.1f}MB, {r['n']}개 세그먼트, {sd.get('elapsed', 0):.1f}초"
-        )
+        if r.get("skipped"):
+            ph.info(f"⏭ {n}. {label} — 이미 존재 ({r['size_mb']:.1f}MB), 스킵")
+        else:
+            ph.success(
+                f"✓ {n}. {label} — {r['size_mb']:.1f}MB, {r['n']}개 세그먼트, {sd.get('elapsed', 0):.1f}초"
+            )
     else:
         ph.error(f"✗ {n}. {label} — {sd.get('error', '오류')}")
 
 
 # =================== UI ===================
 
+with st.expander("📐 범위로 한 번에 추가 (선택)", expanded=False):
+    rcol1, rcol2 = st.columns(2)
+    range_start = rcol1.text_input("시작 URL", placeholder="https://missav.ws/hmn_744")
+    range_end = rcol2.text_input("끝 URL", placeholder="https://missav.ws/hmn_767")
+    rmode = st.radio(
+        "기존 목록", ["덮어쓰기", "이어붙이기"], index=0, horizontal=True
+    )
+    if st.button(
+        "목록에 추가", disabled=not (range_start and range_end), key="range_apply"
+    ):
+        try:
+            generated = expand_range_urls(range_start, range_end)
+        except ValueError as exc:
+            st.error(str(exc))
+        else:
+            existing = st.session_state.get("urls_text", "")
+            if rmode == "이어붙이기" and existing.strip():
+                st.session_state["urls_text"] = (
+                    existing.rstrip() + "\n" + "\n".join(generated)
+                )
+            else:
+                st.session_state["urls_text"] = "\n".join(generated)
+            st.rerun()
+    st.caption(
+        "💡 두 URL 의 끝 숫자만 다르고 앞부분은 동일해야 합니다. "
+        "자릿수가 다르면(예: 99 ↔ 120) zero-padding 없이 그대로 생성합니다."
+    )
+
 urls_text = st.text_area(
     "URL 목록 (한 줄에 하나)",
-    placeholder="https://missav.ai/ko/h_1724a141g00017\nhttps://missav.ai/ko/h_1724a147g00005",
+    placeholder="https://missav.ws/hmn_744\nhttps://missav.ws/hmn_745",
     height=120,
     key="urls_text",
 )
@@ -209,12 +247,21 @@ if analyzed:
                 url, slug, info, preferred = item
                 level = pick_level(info.levels, preferred)
                 output = save_dir / build_filename(slug, f"{level.height}p")
+                if output.exists() and output.stat().st_size > 0:
+                    return {
+                        "output": str(output),
+                        "size_mb": output.stat().st_size / 1024 / 1024,
+                        "n": 0,
+                        "quality": f"{level.height}p",
+                        "skipped": True,
+                    }
                 n = download_hls(level.url, output, info.referer, cb)
                 return {
                     "output": str(output),
                     "size_mb": output.stat().st_size / 1024 / 1024,
                     "n": n,
                     "quality": f"{level.height}p",
+                    "skipped": False,
                 }
 
             with dl_box:
@@ -222,7 +269,15 @@ if analyzed:
                 state, total_elapsed = run_parallel(items, concurrency, work_d, render_download)
 
                 done_count = sum(1 for s in state.values() if s["status"] == "done")
+                skipped = sum(
+                    1
+                    for s in state.values()
+                    if s["status"] == "done"
+                    and (s.get("result") or {}).get("skipped")
+                )
+                fresh = done_count - skipped
                 mode_label = f"{mode} {concurrency}" if mode == "병렬" else mode
                 st.success(
-                    f"다운로드 완료 — 성공 {done_count}/{len(items)} (전체 {total_elapsed:.1f}초, {mode_label})"
+                    f"다운로드 완료 — 신규 {fresh} + 스킵 {skipped} / {len(items)} "
+                    f"(전체 {total_elapsed:.1f}초, {mode_label})"
                 )
