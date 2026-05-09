@@ -204,7 +204,8 @@ crawl-video/
 ├── 📄 README.md
 ├── 📄 CLAUDE.md                       # 하네스 트리거 + 변경 이력
 ├── 📂 missav-dl/                      # 🐍 Python Streamlit 다운로더 (메인)
-│   ├── 📄 requirements.txt            # playwright, httpx, streamlit
+│   ├── 📄 pyproject.toml              # uv 프로젝트 정의 (playwright, httpx, streamlit)
+│   ├── 🔒 uv.lock                     # 의존성 잠금 파일
 │   ├── 🔧 downloader.py               # get_hls_info / download_hls / build_filename
 │   └── 🖥️ app.py                      # Streamlit UI + 다중 URL 오케스트레이션
 ├── 📂 extensions/missav/              # 🐳 Chrome Extension (대안)
@@ -237,26 +238,39 @@ crawl-video/
 
 ### 📋 사전 준비물
 
-- Python 3.11 이상
-- (선택) Chrome 111+ (익스텐션 사용 시)
+- Python 3.11 또는 3.12
+- [uv](https://github.com/astral-sh/uv) 패키지 매니저
+- (선택) Chrome 111+ — 익스텐션 사용 시
+
+```bash
+# uv 설치 (없는 경우, macOS / Linux)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
 ### 🚀 실행 방법 — Python 다운로더 (권장)
+
+> 💡 **참고:** `streamlit` 은 단순 라이브러리가 아니라 동봉된 CLI 입니다.
+> uv 가상환경 안에서 호출해야 의존성과 함께 동작하므로 `uv run streamlit ...`
+> 형태로 실행합니다 (`streamlit run app.py` 를 직접 입력하면 시스템 파이썬
+> 환경의 streamlit 을 찾으려다 실패할 수 있습니다).
 
 ```bash
 # 1. 저장소 클론
 git clone https://github.com/izowooi/creative-plate.git
 cd creative-plate/crawl-video/missav-dl
 
-# 2. 의존성 설치
-pip install -r requirements.txt
+# 2. 의존성 설치 (.venv 자동 생성 + uv.lock 동기화)
+uv sync
 
-# 3. Playwright Chromium 다운로드
-playwright install chromium
+# 3. Playwright Chromium 다운로드 (최초 1회)
+uv run playwright install chromium
 
-# 4. Streamlit 실행
-streamlit run app.py
+# 4. Streamlit 앱 실행
+uv run streamlit run app.py
 # → 브라우저에서 http://localhost:8501 접속
 ```
+
+종료는 터미널에서 `Ctrl+C`. 다음에 다시 실행할 때는 4번 명령만 반복하면 됩니다.
 
 ### 🐳 실행 방법 — Chrome Extension (대안)
 

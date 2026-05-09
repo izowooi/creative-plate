@@ -204,7 +204,8 @@ crawl-video/
 ├── 📄 README.md
 ├── 📄 CLAUDE.md                       # harness trigger + change log
 ├── 📂 missav-dl/                      # 🐍 Python Streamlit downloader (main)
-│   ├── 📄 requirements.txt            # playwright, httpx, streamlit
+│   ├── 📄 pyproject.toml              # uv project (playwright, httpx, streamlit)
+│   ├── 🔒 uv.lock                     # dependency lockfile
 │   ├── 🔧 downloader.py               # get_hls_info / download_hls / build_filename
 │   └── 🖥️ app.py                      # Streamlit UI + multi-URL orchestration
 ├── 📂 extensions/missav/              # 🐳 Chrome Extension (alternative)
@@ -237,26 +238,39 @@ crawl-video/
 
 ### 📋 Prerequisites
 
-- Python 3.11+
-- (optional) Chrome 111+ if you want to use the extension
+- Python 3.11 or 3.12
+- [uv](https://github.com/astral-sh/uv) package manager
+- (optional) Chrome 111+ — only if you also want to use the extension
+
+```bash
+# Install uv (macOS / Linux)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
 ### 🚀 Run — Python Downloader (recommended)
+
+> 💡 **Note:** `streamlit` is not just a library — it ships a CLI of the same
+> name. Run it inside the uv-managed virtualenv via `uv run streamlit ...` so
+> it picks up the project dependencies. Calling `streamlit run app.py`
+> directly would look up a global `streamlit`, which may not exist.
 
 ```bash
 # 1. Clone
 git clone https://github.com/izowooi/creative-plate.git
 cd creative-plate/crawl-video/missav-dl
 
-# 2. Install dependencies
-pip install -r requirements.txt
+# 2. Install dependencies (creates .venv and syncs uv.lock)
+uv sync
 
-# 3. Download Playwright Chromium
-playwright install chromium
+# 3. Download Playwright Chromium (first run only)
+uv run playwright install chromium
 
-# 4. Launch Streamlit
-streamlit run app.py
+# 4. Launch the Streamlit app
+uv run streamlit run app.py
 # → open http://localhost:8501 in your browser
 ```
+
+Stop with `Ctrl+C` in the terminal. On subsequent runs only step 4 is needed.
 
 ### 🐳 Run — Chrome Extension (alternative)
 
