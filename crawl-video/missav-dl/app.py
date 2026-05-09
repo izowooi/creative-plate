@@ -112,7 +112,12 @@ preferred_height = int(preferred_quality.rstrip("p"))
 with st.expander("⚙ 고급 옵션", expanded=False):
     mode = st.radio("실행 모드", ["순차", "병렬"], index=1, horizontal=True)
     if mode == "병렬":
-        concurrency = st.slider("동시 처리 수", 1, 5, 2)
+        concurrency = st.slider("동시 처리 수", 1, 16, 8)
+        st.caption(
+            "💡 12 이상에서는 CDN rate-limit 으로 일부 세그먼트가 실패하거나 "
+            "타임아웃이 발생할 수 있습니다. 회선이 100 Mbps 이하라면 8~10 "
+            "이상 늘려도 체감 속도 향상은 거의 없습니다."
+        )
     else:
         concurrency = 1
 
