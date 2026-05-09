@@ -1,0 +1,4 @@
+[client]
+# localhost 에서도 viewer 모드 강제 — 햄버거 메뉴 + 단축키(R/C/Cmd+C) 비활성화
+# Cmd+C 가 텍스트 복사로만 동작하게 함.
+toolbarMode = "viewer"
