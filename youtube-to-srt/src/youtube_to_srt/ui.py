@@ -33,7 +33,17 @@ def build_app(
 
     transcribe_fn = make_transcribe_fn(backend)
 
-    with gr.Blocks(title="YouTube to SRT") as demo:
+    custom_css = """
+footer {display: none !important;}
+.app-footer, .app-footer p, .app-footer a {
+    text-align: center;
+    font-size: 0.78em;
+    color: var(--body-text-color-subdued, #888);
+}
+.app-footer {margin-top: 1.5em; opacity: 0.7;}
+"""
+
+    with gr.Blocks(title="YouTube to SRT", css=custom_css) as demo:
         gr.Markdown(
             f"""# YouTube to SRT
 YouTube URL을 한 줄에 하나씩 최대 **{MAX_URLS}개**까지 입력하세요. `#`으로 시작하는 줄은 무시됩니다.
@@ -130,6 +140,12 @@ YouTube URL을 한 줄에 하나씩 최대 **{MAX_URLS}개**까지 입력하세�
             fn=_submit,
             inputs=[urls_box, mode_radio, model_dd, audio_dir_box, srt_dir_box],
             outputs=[status_df, progress_md, downloads, submit_btn],
+        )
+
+        gr.Markdown(
+            "개인 정보를 소중히 합니다. 입력하신 URL과 처리 결과는 어디에도 저장되지 않습니다. · "
+            "[소스 코드](https://github.com/izowooi/creative-plate/tree/main/youtube-to-srt)",
+            elem_classes=["app-footer"],
         )
 
     return demo
