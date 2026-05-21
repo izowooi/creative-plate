@@ -25,6 +25,7 @@ firebase-debug.log
 # Environment & secrets
 .env
 .env.*
+!.env.*.example
 .env.local
 .env.production
 secrets/
