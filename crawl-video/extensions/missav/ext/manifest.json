@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "ma",
+  "name": "TS Downloader",
   "version": "1.0",
   "description": "HLS 영상 다운로더",
   "permissions": ["downloads", "storage"],
@@ -18,6 +18,6 @@
   }],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "ma"
+    "default_title": "TS Downloader"
   }
 }

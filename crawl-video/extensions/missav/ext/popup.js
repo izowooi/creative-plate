@@ -5,6 +5,7 @@ const noVideo = document.getElementById('noVideo');
 const qualitySelect = document.getElementById('qualitySelect');
 const dlBtn = document.getElementById('dlBtn');
 const copyBtn = document.getElementById('copyBtn');
+const clearBtn = document.getElementById('clearBtn');
 const status = document.getElementById('status');
 
 let hlsInfo = null;
@@ -49,7 +50,8 @@ dlBtn.addEventListener('click', () => {
     chrome.runtime.sendMessage({ type: 'DOWNLOAD_HLS', m3u8Url: selectedUrl, filename }, res => {
       if (res && res.success) {
         dlBtn.textContent = '✓ 완료';
-        status.textContent = `${res.segments}개 세그먼트 저장됨`;
+        const resumedMsg = res.resumed ? ` (이어받기 ${res.resumed}/${res.segments})` : '';
+        status.textContent = `${res.segments}개 세그먼트 저장됨${resumedMsg}`;
       } else {
         dlBtn.textContent = '다운로드 (.ts 파일)';
         dlBtn.disabled = false;
@@ -64,5 +66,16 @@ copyBtn.addEventListener('click', () => {
   navigator.clipboard.writeText(hlsInfo.masterUrl).then(() => {
     copyBtn.textContent = '✓ 복사됨';
     setTimeout(() => { copyBtn.textContent = 'm3u8 URL 복사'; }, 2000);
+  });
+});
+
+clearBtn.addEventListener('click', () => {
+  if (!confirm('이어받기 캐시를 모두 비웁니다. 다음 다운로드는 처음부터 시작합니다. 진행할까요?')) return;
+  chrome.runtime.sendMessage({ type: 'CLEAR_CACHE' }, res => {
+    if (res && res.success) {
+      status.textContent = '캐시 비움';
+    } else {
+      status.textContent = `오류: ${res?.error || '알 수 없는 오류'}`;
+    }
   });
 });

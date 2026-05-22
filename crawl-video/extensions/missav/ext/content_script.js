@@ -81,7 +81,8 @@
       chrome.runtime.sendMessage({ type: 'DOWNLOAD_HLS', m3u8Url: selectedUrl, filename }, res => {
         if (res && res.success) {
           dlBtn.textContent = '✓ 완료';
-          status.textContent = `저장: ${filename} (${res.segments}개 세그먼트)`;
+          const resumedMsg = res.resumed ? ` · 이어받기 ${res.resumed}/${res.segments}` : '';
+          status.textContent = `저장: ${filename} (${res.segments}개 세그먼트${resumedMsg})`;
         } else {
           dlBtn.textContent = '⬇ 영상 다운로드 (.ts)';
           dlBtn.disabled = false;
