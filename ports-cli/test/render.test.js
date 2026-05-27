@@ -14,7 +14,7 @@ test('renderTable prints a compact glanceable table', () => {
         port: 5173,
         scope: 'all',
         url: 'http://localhost:5173',
-        user: 'izowooi'
+        user: 'developer'
       },
       {
         command: 'Python',
@@ -24,7 +24,7 @@ test('renderTable prints a compact glanceable table', () => {
         port: 8000,
         scope: 'local',
         url: 'http://localhost:8000',
-        user: 'izowooi'
+        user: 'developer'
       }
     ],
     { color: false, width: 120 }

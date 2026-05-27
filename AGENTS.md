@@ -1,7 +1,7 @@
 # L2 AGENTS.md
 
-이 문서는 `/Users/izowooi/git/creative-plate` 저장소 루트에 적용되는 지침이다.
-상위 `/Users/izowooi/git/AGENTS.md`와 `~/.claude/CLAUDE.md`의 안전 규칙을 먼저 따른다.
+이 문서는 이 저장소 루트에 적용되는 지침이다.
+상위 workspace 지침인 `../AGENTS.md`와 `~/.claude/CLAUDE.md`의 안전 규칙을 먼저 따른다.
 하위 폴더에 별도 `AGENTS.md`가 있으면 그 지침을 더 구체적인 규칙으로 우선한다.
 단, 상위의 secret, 브랜치, force push, 시스템 설정 관련 절대 원칙은 하위 지침으로 완화하지 않는다.
 

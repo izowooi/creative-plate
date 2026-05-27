@@ -9,7 +9,7 @@ test('parseLsofFieldOutput reads macOS lsof field output', () => {
     'p123',
     'cnode',
     'u501',
-    'Lizowooi',
+    'Ldeveloper',
     'f10',
     'n127.0.0.1:3000',
     'TST=LISTEN',
@@ -19,7 +19,7 @@ test('parseLsofFieldOutput reads macOS lsof field output', () => {
     'p456',
     'cPython',
     'u501',
-    'Lizowooi',
+    'Ldeveloper',
     'f4',
     'n*:8000',
     'TST=LISTEN',
@@ -36,7 +36,7 @@ test('parseLsofFieldOutput reads macOS lsof field output', () => {
       port: 3000,
       state: 'LISTEN',
       uid: '501',
-      user: 'izowooi'
+      user: 'developer'
     },
     {
       command: 'node',
@@ -45,7 +45,7 @@ test('parseLsofFieldOutput reads macOS lsof field output', () => {
       port: 3000,
       state: 'LISTEN',
       uid: '501',
-      user: 'izowooi'
+      user: 'developer'
     },
     {
       command: 'Python',
@@ -54,7 +54,7 @@ test('parseLsofFieldOutput reads macOS lsof field output', () => {
       port: 8000,
       state: 'LISTEN',
       uid: '501',
-      user: 'izowooi'
+      user: 'developer'
     }
   ]);
 });
@@ -69,7 +69,7 @@ test('summarizeListeners groups duplicate IPv4 and IPv6 sockets', () => {
         port: 5173,
         state: 'LISTEN',
         uid: '501',
-        user: 'izowooi'
+        user: 'developer'
       },
       {
         command: 'node',
@@ -78,7 +78,7 @@ test('summarizeListeners groups duplicate IPv4 and IPv6 sockets', () => {
         port: 5173,
         state: 'LISTEN',
         uid: '501',
-        user: 'izowooi'
+        user: 'developer'
       },
       {
         command: 'Python',
@@ -87,7 +87,7 @@ test('summarizeListeners groups duplicate IPv4 and IPv6 sockets', () => {
         port: 8000,
         state: 'LISTEN',
         uid: '501',
-        user: 'izowooi'
+        user: 'developer'
       }
     ],
     new Map([
@@ -105,7 +105,7 @@ test('summarizeListeners groups duplicate IPv4 and IPv6 sockets', () => {
       port: 5173,
       scope: 'all',
       url: 'http://localhost:5173',
-      user: 'izowooi'
+      user: 'developer'
     },
     {
       command: 'Python',
@@ -115,7 +115,7 @@ test('summarizeListeners groups duplicate IPv4 and IPv6 sockets', () => {
       port: 8000,
       scope: 'local',
       url: 'http://localhost:8000',
-      user: 'izowooi'
+      user: 'developer'
     }
   ]);
 });

@@ -1,7 +1,7 @@
 # L3 AGENTS.md
 
-이 문서는 `/Users/izowooi/git/creative-plate/ports-cli` 하위 프로젝트에 적용되는 지침이다.
-상위 `/Users/izowooi/git/creative-plate/AGENTS.md`와 `/Users/izowooi/git/AGENTS.md`를 먼저 읽는다.
+이 문서는 이 하위 프로젝트에 적용되는 지침이다.
+상위 저장소 지침인 `../AGENTS.md`와 그보다 상위의 글로벌 선언인 `../../AGENTS.md`를 먼저 읽는다.
 상위 지침과 충돌하면 이 파일의 프로젝트 고유 지침을 우선한다.
 단, 상위의 secret, 브랜치, force push, 시스템 설정 관련 절대 원칙은 이 파일로 완화하지 않는다.
 
