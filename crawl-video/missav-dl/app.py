@@ -12,6 +12,7 @@ from downloader import (
     expand_range_urls,
     get_hls_info,
 )
+from queue_manager import DownloadQueueManager, QueueItem
 from state import load_state, save_state
 
 st.set_page_config(page_title="ma", page_icon="⬇", layout="centered")
@@ -28,6 +29,14 @@ if "_state_loaded" not in st.session_state:
         _persisted.get("save_dir", str(Path.home() / "Downloads")),
     )
     st.session_state["_state_loaded"] = True
+
+
+@st.cache_resource
+def get_manager() -> DownloadQueueManager:
+    return DownloadQueueManager()
+
+
+manager = get_manager()
 
 
 def pick_level(levels: list[HlsLevel], preferred: int) -> HlsLevel:
@@ -88,36 +97,33 @@ def render_analyze(idx, sd, ph, url):
         ph.error(f"✗ {n}. {url} — {sd.get('error', '오류')}")
 
 
-def render_download(idx, sd, ph, item):
-    url, slug, info, preferred = item
-    level = pick_level(info.levels, preferred)
-    label = f"{slug} ({level.height}p)"
-    status = sd.get("status", "pending")
+def render_queue_item(idx: int, item: QueueItem) -> None:
+    label = f"{item.slug} ({item.height}p)"
     n = idx + 1
-    if status == "pending":
-        ph.info(f"⏳ {n}. {label} — 대기 중")
-    elif status == "running":
-        done = sd.get("done", 0)
-        total = sd.get("total", 0) or 1
-        ph.progress(min(done / total, 1.0), text=f"{n}. {label} — 세그먼트 {done}/{total}")
-    elif status == "done":
-        r = sd["result"]
+    if item.status == "pending":
+        st.info(f"⏳ {n}. {label} — 대기 중")
+    elif item.status == "running":
+        done = item.done
+        total = item.total or 1
+        st.progress(min(done / total, 1.0), text=f"{n}. {label} — 세그먼트 {done}/{total}")
+    elif item.status == "done":
+        r = item.result
         if r.get("skipped"):
-            ph.info(f"⏭ {n}. {label} — 이미 존재 ({r['size_mb']:.1f}MB), 스킵")
+            st.info(f"⏭ {n}. {label} — 이미 존재 ({r['size_mb']:.1f}MB), 스킵")
         else:
-            ph.success(
-                f"✓ {n}. {label} — {r['size_mb']:.1f}MB, {r['n']}개 세그먼트, {sd.get('elapsed', 0):.1f}초"
+            st.success(
+                f"✓ {n}. {label} — {r['size_mb']:.1f}MB, {r['n']}개 세그먼트"
             )
     else:
-        ph.error(f"✗ {n}. {label} — {sd.get('error', '오류')}")
+        st.error(f"✗ {n}. {label} — {item.error}")
 
 
 # =================== UI ===================
 
 with st.expander("📐 범위로 한 번에 추가 (선택)", expanded=False):
     rcol1, rcol2 = st.columns(2)
-    range_start = rcol1.text_input("시작 URL", placeholder="https://missav.ws/hmn_744")
-    range_end = rcol2.text_input("끝 URL", placeholder="https://missav.ws/hmn_767")
+    range_start = rcol1.text_input("시작 URL", placeholder="https://example.com/title_001")
+    range_end = rcol2.text_input("끝 URL", placeholder="https://example.com/title_024")
     rmode = st.radio(
         "기존 목록", ["덮어쓰기", "이어붙이기"], index=0, horizontal=True
     )
@@ -144,7 +150,7 @@ with st.expander("📐 범위로 한 번에 추가 (선택)", expanded=False):
 
 urls_text = st.text_area(
     "URL 목록 (한 줄에 하나)",
-    placeholder="https://missav.ws/hmn_744\nhttps://missav.ws/hmn_745",
+    placeholder="https://example.com/title_001\nhttps://example.com/title_002",
     height=120,
     key="urls_text",
 )
@@ -161,18 +167,20 @@ preferred_height = int(preferred_quality.rstrip("p"))
 with st.expander("⚙ 고급 옵션", expanded=False):
     mode = st.radio("실행 모드", ["순차", "병렬"], index=1, horizontal=True)
     if mode == "병렬":
-        concurrency = st.slider("동시 처리 수", 1, 16, 8)
+        concurrency = st.slider("동시 처리 수", 1, 16, 4)
         st.caption(
-            "💡 12 이상에서는 CDN rate-limit 으로 일부 세그먼트가 실패하거나 "
-            "타임아웃이 발생할 수 있습니다. 회선이 100 Mbps 이하라면 8~10 "
-            "이상 늘려도 체감 속도 향상은 거의 없습니다."
+            "💡 분석 단계 동시 처리 수. 다운로드 큐는 동일한 값을 사용합니다. "
+            "12 이상에서는 CDN rate-limit 으로 일부 세그먼트가 실패하거나 "
+            "타임아웃이 발생할 수 있습니다."
         )
     else:
         concurrency = 1
 
+manager.set_concurrency(concurrency)
+
 urls = [u.strip() for u in urls_text.splitlines() if u.strip()]
 
-# URL 목록이 바뀌면 분석/다운로드 결과 초기화
+# URL 목록이 바뀌면 분석 결과 초기화
 if st.session_state.get("_analyzed_for_urls") != urls:
     for k in ("analyzed", "analyze_total_elapsed", "_just_analyzed"):
         st.session_state.pop(k, None)
@@ -225,7 +233,6 @@ if analyze_btn:
         st.info(f"분석 완료 — 성공 {success_count}/{len(urls)} (총 {total_elapsed:.1f}초, {mode_label})")
 
 elif analyzed := st.session_state.get("analyzed"):
-    # 이전 분석 결과를 영속적으로 다시 표시
     with analyze_box:
         st.subheader("분석 결과")
         for i, a in enumerate(analyzed):
@@ -240,58 +247,74 @@ elif analyzed := st.session_state.get("analyzed"):
         if total is not None:
             st.info(f"분석 완료 — 성공 {success_count}/{len(analyzed)} (총 {total:.1f}초)")
 
-# =================== Phase 2: Download ===================
+# =================== Phase 2: Queue에 추가 ===================
 
 analyzed = st.session_state.get("analyzed")
 if analyzed:
     successful = [a for a in analyzed if "info" in a]
     if successful:
         st.divider()
-        dl_btn = st.button(f"다운로드 시작 ({len(successful)}개)", type="primary")
-        dl_box = st.container()
+        save_dir = Path(save_dir_str).expanduser()
 
-        if dl_btn:
-            save_dir = Path(save_dir_str).expanduser()
-            items = [(a["url"], a["slug"], a["info"], preferred_height) for a in successful]
+        add_btn = st.button(
+            f"다운로드 큐에 추가 ({len(successful)}개)", type="primary"
+        )
 
-            def work_d(idx, item, cb):
-                url, slug, info, preferred = item
-                level = pick_level(info.levels, preferred)
-                output = save_dir / build_filename(slug, f"{level.height}p")
-                if output.exists() and output.stat().st_size > 0:
-                    return {
-                        "output": str(output),
-                        "size_mb": output.stat().st_size / 1024 / 1024,
-                        "n": 0,
-                        "quality": f"{level.height}p",
-                        "skipped": True,
-                    }
-                n = download_hls(level.url, output, info.referer, cb)
-                return {
-                    "output": str(output),
-                    "size_mb": output.stat().st_size / 1024 / 1024,
-                    "n": n,
-                    "quality": f"{level.height}p",
-                    "skipped": False,
-                }
-
-            with dl_box:
-                st.subheader("다운로드 진행")
-                state, total_elapsed = run_parallel(items, concurrency, work_d, render_download)
-
-                done_count = sum(1 for s in state.values() if s["status"] == "done")
-                skipped = sum(
-                    1
-                    for s in state.values()
-                    if s["status"] == "done"
-                    and (s.get("result") or {}).get("skipped")
+        if add_btn:
+            new_queue_items = []
+            for a in successful:
+                level = pick_level(a["info"].levels, preferred_height)
+                output = save_dir / build_filename(a["slug"], f"{level.height}p")
+                new_queue_items.append(
+                    QueueItem(
+                        item_id=f"{a['slug']}_{level.height}p",
+                        url=a["url"],
+                        slug=a["slug"],
+                        output_path=output,
+                        level_url=level.url,
+                        referer=a["info"].referer,
+                        height=level.height,
+                    )
                 )
-                fresh = done_count - skipped
-                mode_label = f"{mode} {concurrency}" if mode == "병렬" else mode
-                st.success(
-                    f"다운로드 완료 — 신규 {fresh} + 스킵 {skipped} / {len(items)} "
-                    f"(전체 {total_elapsed:.1f}초, {mode_label})"
-                )
+            added = manager.add_items(new_queue_items)
+            skipped_dup = len(new_queue_items) - added
+            msg = f"{added}개 큐에 추가됨"
+            if skipped_dup:
+                msg += f" ({skipped_dup}개 중복 스킵)"
+            st.success(msg)
+
+# =================== Queue 현황 ===================
+
+queue_items = manager.get_items()
+if queue_items:
+    st.divider()
+    st.subheader("다운로드 큐")
+
+    pending_n = sum(1 for i in queue_items if i.status == "pending")
+    running_n = sum(1 for i in queue_items if i.status == "running")
+    done_n = sum(1 for i in queue_items if i.status == "done")
+    error_n = sum(1 for i in queue_items if i.status == "error")
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("대기", pending_n)
+    c2.metric("진행 중", running_n)
+    c3.metric("완료", done_n)
+    c4.metric("오류", error_n)
+
+    for idx, item in enumerate(queue_items):
+        render_queue_item(idx, item)
+
+    if st.button(
+        "완료/오류 항목 지우기",
+        disabled=(done_n + error_n == 0),
+    ):
+        manager.clear_done()
+        st.rerun()
+
+# 큐가 활성 상태일 때 자동 갱신
+if manager.is_running():
+    time.sleep(0.3)
+    st.rerun()
 
 # =================== State persistence ===================
 
