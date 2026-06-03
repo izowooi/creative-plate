@@ -57,6 +57,17 @@ python -m election_recorder.main --interval 300 --duration 120 --csv data/daegu_
 종료 시 `data/charts/` 아래에 득표율, 득표수, 표차 PNG 차트를 생성한다.
 차트 생성을 끄려면 `--no-charts`를 사용한다.
 
+## Streamlit 대시보드
+
+실시간 수집 CSV를 보면서 표차가 줄어드는지 확인하려면 별도 터미널에서 실행한다.
+
+```bash
+streamlit run dashboard/streamlit_app.py
+```
+
+브라우저에서 `http://localhost:8501`을 연다.
+사이드바에서 `실시간 수집 CSV` 또는 `스크린샷 보강 CSV`를 선택할 수 있고, 기본 30초마다 자동 새로고침한다.
+
 ## CSV 컬럼
 - collected_at
 - region
