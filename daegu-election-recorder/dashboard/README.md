@@ -13,3 +13,4 @@ streamlit run dashboard/streamlit_app.py
 
 앱 사이드바에서 `실시간 수집 CSV` 또는 `스크린샷 보강 CSV`를 선택할 수 있다.
 기본 자동 새로고침은 30초다.
+프로젝트 설정은 기본 light theme로 고정되어 있다.

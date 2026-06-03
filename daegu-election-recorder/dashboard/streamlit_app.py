@@ -1,15 +1,20 @@
 from __future__ import annotations
 
 from pathlib import Path
+import sys
 
 import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
 
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
 from election_recorder.dashboard import build_trend_frame, latest_summary, load_election_csv, vote_gap_direction
 
 
-ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CSV = ROOT / "data" / "daegu_election.csv"
 SCREENSHOT_CSV = ROOT / "data" / "daegu_election_with_screenshots.csv"
 
