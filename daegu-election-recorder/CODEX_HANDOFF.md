@@ -66,7 +66,8 @@ streamlit run dashboard/streamlit_app.py
 ```
 
 브라우저에서 `http://localhost:8501`을 연다.
-사이드바에서 `실시간 수집 CSV` 또는 `스크린샷 보강 CSV`를 선택할 수 있고, 기본 30초마다 자동 새로고침한다.
+사이드바에서 `실시간 수집 CSV` 또는 `스크린샷 보강 CSV`를 선택할 수 있고, 기본 10분마다 자동 새로고침한다.
+`지금 새로고침` 버튼으로 수동 갱신할 수 있다.
 대시보드는 `.streamlit/config.toml`에서 기본 light theme로 고정한다.
 
 ## CSV 컬럼

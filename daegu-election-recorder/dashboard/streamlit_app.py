@@ -17,6 +17,9 @@ from election_recorder.dashboard import build_trend_frame, latest_summary, load_
 
 DEFAULT_CSV = ROOT / "data" / "daegu_election.csv"
 SCREENSHOT_CSV = ROOT / "data" / "daegu_election_with_screenshots.csv"
+DEFAULT_REFRESH_SECONDS = 600
+MAX_REFRESH_SECONDS = 3600
+MANUAL_REFRESH_LABEL = "지금 새로고침"
 
 
 def _format_votes(value: int | float) -> str:
@@ -35,6 +38,11 @@ def _auto_refresh(seconds: int) -> None:
         """,
         height=0,
     )
+
+
+def _request_manual_refresh(button_fn=st.sidebar.button, rerun_fn=st.rerun) -> None:
+    if button_fn(MANUAL_REFRESH_LABEL, use_container_width=True):
+        rerun_fn()
 
 
 def _choose_csv() -> Path:
@@ -116,7 +124,14 @@ def main() -> None:
     st.title("대구 시·도지사 개표 추이")
 
     csv_path = _choose_csv()
-    refresh_seconds = st.sidebar.number_input("자동 새로고침(초)", min_value=0, max_value=600, value=30, step=5)
+    refresh_seconds = st.sidebar.number_input(
+        "자동 새로고침(초)",
+        min_value=0,
+        max_value=MAX_REFRESH_SECONDS,
+        value=DEFAULT_REFRESH_SECONDS,
+        step=30,
+    )
+    _request_manual_refresh()
     _auto_refresh(refresh_seconds)
 
     st.sidebar.caption(str(csv_path))
