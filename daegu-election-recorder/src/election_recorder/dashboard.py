@@ -52,10 +52,13 @@ def build_trend_frame(df: pd.DataFrame) -> pd.DataFrame:
         return df.copy()
 
     trend = df.sort_values("collected_at").reset_index(drop=True).copy()
+    trend["collected_at"] = pd.to_datetime(trend["collected_at"], errors="coerce")
+    trend = trend.dropna(subset=["collected_at"]).reset_index(drop=True)
+    trend["chart_time"] = trend["collected_at"]
     trend["vote_gap_delta"] = trend["vote_gap"].diff().fillna(0).astype(int)
     trend["is_gap_shrinking"] = trend["vote_gap_delta"] < 0
     trend["gap_delta_label"] = trend["vote_gap_delta"].map(lambda value: f"{int(value):,}")
-    trend["display_time"] = trend["기준시각"].astype(str)
+    trend["display_time"] = trend["chart_time"].dt.strftime("%m-%d %H:%M")
     return trend
 
 

@@ -67,6 +67,24 @@ def test_build_trend_frame_adds_gap_delta_and_gap_shrinking_flags():
     assert trend["gap_delta_label"].tolist() == ["0", "-2,000", "-1,500"]
 
 
+def test_build_trend_frame_uses_full_datetime_for_chart_axis_after_midnight():
+    df = pd.DataFrame(
+        [
+            _row("2026-06-03T23:56:58", "23:56", 217_353, 197_082, 20_271),
+            _row("2026-06-04T00:01:59", "00:01", 227_616, 210_070, 17_546),
+        ]
+    )
+
+    trend = build_trend_frame(df)
+
+    assert trend["chart_time"].dt.strftime("%Y-%m-%d %H:%M").tolist() == [
+        "2026-06-03 23:56",
+        "2026-06-04 00:01",
+    ]
+    assert trend["display_time"].tolist() == ["06-03 23:56", "06-04 00:01"]
+    assert trend["chart_time"].is_monotonic_increasing
+
+
 def test_vote_gap_direction_reports_shrinking_when_latest_gap_is_smaller():
     df = pd.DataFrame(
         [

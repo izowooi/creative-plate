@@ -85,7 +85,7 @@ def _render_latest(summary: dict) -> None:
 
 def _line_chart(trend: pd.DataFrame, y: str, title: str) -> None:
     st.markdown(f"### {title}")
-    chart_data = trend.set_index("display_time")[[y]]
+    chart_data = trend.set_index("chart_time")[[y]]
     st.line_chart(chart_data, use_container_width=True)
 
 
@@ -157,7 +157,7 @@ def main() -> None:
     _line_chart(trend, "vote_gap", "표차 추이")
 
     st.markdown("### 직전 대비 표차 변화")
-    st.bar_chart(trend.set_index("display_time")[["vote_gap_delta"]], use_container_width=True)
+    st.bar_chart(trend.set_index("chart_time")[["vote_gap_delta"]], use_container_width=True)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -165,7 +165,7 @@ def main() -> None:
     with col2:
         _line_chart(trend, "second_votes", "2위 득표수 추이")
 
-    vote_rate = trend.set_index("display_time")[["first_vote_rate_percent", "second_vote_rate_percent"]]
+    vote_rate = trend.set_index("chart_time")[["first_vote_rate_percent", "second_vote_rate_percent"]]
     vote_rate = vote_rate.rename(columns={"first_vote_rate_percent": "1위 득표율", "second_vote_rate_percent": "2위 득표율"})
     st.markdown("### 득표율 추이")
     st.line_chart(vote_rate, use_container_width=True)
