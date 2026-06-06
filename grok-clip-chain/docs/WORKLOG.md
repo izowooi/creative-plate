@@ -90,16 +90,16 @@ npm test               # node:test (9 tests)
 - planner e2e 통과: `POST /api/plans`로 2세그먼트 영어 plan 생성 확인.
 - **영상 생성 e2e 통과**: 20s 체인(text→video + extension + concat) → 최종 19.999s mp4 생성·다운로드 확인(§8).
 
-### ⚠️ 로그인 관련 중요 발견: device-code consent 실패
-- 앱 UI의 기본 로그인(`POST /api/auth/login`)은 xAI **device-code** flow(`auth.x.ai/oauth2/device/code` → `accounts.x.ai/oauth2/device` 승인)를 쓴다.
-- 검증 중 **여러 신선한 코드(TTL 900s)가 consent 단계에서 일관되게 "Invalid or expired code"로 거부**됨(생성 5초 내 코드 포함, 계정 정상 로그인 상태). 자동화 브라우저 컨텍스트 한정 문제일 수도 있으나 재현율 100%.
-- **우회/해결**: progrok의 **PKCE flow**(`progrok login --manual-paste` / `--browser`)는 정상 동작. authorize→consent(`Allow`)→authorization code 발급→토큰 교환까지 완료되어 동일한 `auth.json`을 생성함.
-- **권장 후속**: 앱 로그인 UX를 device-code 대신 progrok PKCE(`--browser` 콜백 `127.0.0.1:56121`)로 전환하거나, 최소한 device-code 실패 시 progrok CLI 로그인 안내를 노출. (남은 일 참조)
+### 로그인: device-code → PKCE 전환 (해결 완료)
+- **발견**: 앱 초기 로그인은 xAI **device-code** flow(`auth.x.ai/oauth2/device/code` → `accounts.x.ai/oauth2/device` 승인)를 썼는데, 검증 중 **여러 신선한 코드(TTL 900s)가 consent 단계에서 일관되게 "Invalid or expired code"로 거부**됨(생성 5초 내 코드 포함, 계정 정상 로그인). 재현율 100%.
+- **해결**: `src/lib/auth.ts`의 로그인을 progrok **PKCE 브라우저 flow**로 교체. `POST /api/auth/login`이 `progrok login --browser`를 자식 프로세스로 spawn → 브라우저 자동 열림 + loopback(`127.0.0.1:56121`) 콜백 자동 수신·토큰 교환 → `~/.progrok/auth.json` 저장. 서버는 자식 종료 코드(0=성공)로 세션 상태 추적. progrok은 proxy에서도 이미 쓰므로 새 의존성 없음.
+- UI(`ui/src/main.tsx`)는 device code 표시 대신 "브라우저에서 로그인 완료" 안내 + authorize 링크(자동 열기 실패 시 fallback)를 노출. 로그인 완료 시 자동 연결.
+- **검증(2026-06-06)**: 앱 로그인 버튼 클릭 → progrok 기동 → authorize URL(ANSI 제거됨) 반환 → consent `Allow` → 56121 콜백 → `auth.json` 갱신·`expiresAt` refresh 확인. (Playwright 샌드박스는 browser→host loopback hop만 못 하므로 host에서 콜백을 직접 호출해 마지막 단계 검증; 실제 시스템 브라우저는 네이티브로 수행.)
 - 토큰은 `~/.progrok/auth.json`에 저장되며 **절대 커밋/출력 금지**.
 
 ## 6. 남은 일 / 향후 개선 후보
 
-- [ ] **(우선) 로그인 UX**: device-code consent가 거부되는 환경이 있으므로(§5 참조), 앱 로그인을 progrok PKCE(`--browser`, loopback `127.0.0.1:56121`)로 전환하거나 실패 시 fallback 안내. 현재 `src/lib/auth.ts`는 device-code 전용.
+- [x] **로그인 UX**: device-code consent 거부 문제로 progrok PKCE(`--browser`, loopback `127.0.0.1:56121`)로 전환 완료(§5). `src/lib/auth.ts` + `ui/src/main.tsx` 수정, 버튼 e2e 검증.
 - [x] 로그인 완료 후 실제 end-to-end 영상 생성 스모크 테스트 (proxy 기동 → plan → run → mp4). 진행/결과는 §8 참조.
 - [ ] 진행 중 run 목록을 UI에 노출 (`GET /api/runs`는 있으나 화면 미연결).
 - [ ] 토큰 만료(`expiresAt`) 시 자동 refresh 또는 재로그인 유도 UX.

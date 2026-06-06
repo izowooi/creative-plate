@@ -44,13 +44,13 @@ export async function authStatus(): Promise<AuthStatus> {
   return res.json();
 }
 
-export async function startLogin(): Promise<{ sessionId: string; userCode: string; verificationUrl: string; expiresIn: number }> {
+export async function startLogin(): Promise<{ sessionId: string; authorizeUrl: string | null; expiresIn: number }> {
   const res = await fetch("/api/auth/login", { method: "POST" });
   if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || "로그인을 시작하지 못했습니다.");
   return res.json();
 }
 
-export async function pollLogin(sessionId: string): Promise<{ status: string; error?: string }> {
+export async function pollLogin(sessionId: string): Promise<{ status: string; error?: string; authorizeUrl?: string }> {
   const res = await fetch(`/api/auth/login/${encodeURIComponent(sessionId)}`);
   return res.json();
 }

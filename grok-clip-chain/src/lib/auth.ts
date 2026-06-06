@@ -1,26 +1,23 @@
 import { randomBytes } from "node:crypto";
-import { execFile } from "node:child_process";
+import { execFile, spawn, type ChildProcess } from "node:child_process";
 import { existsSync, mkdirSync, renameSync, writeFileSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
 import { appError } from "./errors.js";
 
-const GROK_CLIENT_ID = "b1a00492-073a-47ea-816f-4c329264a828";
-const GROK_SCOPE = "openid profile email offline_access grok-cli:access api:access";
 const GROK_TOKEN_URL = "https://auth.x.ai/oauth2/token";
-const DEVICE_CODE_GRANT = "urn:ietf:params:oauth:grant-type:device_code";
-const MAX_CONCURRENT_SESSIONS = 20;
+// PKCE 브라우저 flow 한도. device-code consent가 일부 환경에서 거부되어 progrok PKCE로 통일한다.
+const LOGIN_TIMEOUT_MS = 5 * 60_000;
+const AUTHORIZE_URL_RE = /https:\/\/auth\.x\.ai\/oauth2\/authorize\S+/;
 const execFileAsync = promisify(execFile);
 
-export interface AuthSession {
-  userCode: string;
-  verificationUrl: string;
-  expiresAt: number;
+export interface LoginSession {
   status: "pending" | "complete" | "error" | "expired";
   error?: string;
-  pollTimer?: ReturnType<typeof setInterval>;
-  deviceCode?: string;
+  authorizeUrl?: string;
+  expiresAt: number;
+  child?: ChildProcess;
 }
 
 export interface GrokAuthStatus {
@@ -30,7 +27,7 @@ export interface GrokAuthStatus {
   path: string;
 }
 
-const sessions = new Map<string, AuthSession>();
+const sessions = new Map<string, LoginSession>();
 
 export interface AuthJsonRequestOptions {
   method?: "GET" | "POST";
@@ -51,10 +48,13 @@ export function grokAuthPath(baseDir = join(homedir(), ".progrok")): string {
   return join(baseDir, "auth.json");
 }
 
+export function progrokBinPath(): string {
+  return join(process.cwd(), "node_modules", ".bin", process.platform === "win32" ? "progrok.cmd" : "progrok");
+}
+
 function cleanup(id: string): void {
   const session = sessions.get(id);
-  if (session?.pollTimer) clearInterval(session.pollTimer);
-  if (session) delete session.deviceCode;
+  if (session) delete session.child;
   setTimeout(() => sessions.delete(id), 120_000).unref?.();
 }
 
@@ -151,81 +151,92 @@ export function readGrokAuthStatus(baseDir = join(homedir(), ".progrok")): GrokA
   }
 }
 
-export async function startGrokLogin(): Promise<{ sessionId: string; userCode: string; verificationUrl: string; expiresIn: number }> {
-  if (sessions.size >= MAX_CONCURRENT_SESSIONS) {
-    throw appError("Too many pending auth sessions", 429, "AUTH_TOO_MANY_SESSIONS");
+function activeLoginId(): string | null {
+  for (const [id, session] of sessions) {
+    if (session.status === "pending") return id;
   }
-
-  const disc = (await requestAuthJson("https://auth.x.ai/.well-known/openid-configuration", { method: "GET", timeoutMs: 15_000 })) as { device_authorization_endpoint?: string; token_endpoint?: string };
-  if (!disc.device_authorization_endpoint || !disc.token_endpoint) {
-    throw appError("xAI device authorization endpoint is unavailable", 502, "AUTH_DISCOVERY_FAILED");
-  }
-
-  const device = (await requestAuthJson(disc.device_authorization_endpoint, {
-    method: "POST",
-    body: new URLSearchParams({ client_id: GROK_CLIENT_ID, scope: GROK_SCOPE }),
-    timeoutMs: 15_000,
-  })) as {
-    device_code: string;
-    user_code: string;
-    verification_uri: string;
-    verification_uri_complete?: string;
-    expires_in: number;
-    interval?: number;
-  };
-  const id = sid();
-  const session: AuthSession = {
-    userCode: device.user_code,
-    verificationUrl: device.verification_uri_complete || device.verification_uri,
-    expiresAt: Date.now() + device.expires_in * 1000,
-    status: "pending",
-    deviceCode: device.device_code,
-  };
-  sessions.set(id, session);
-
-  const interval = Math.max((device.interval || 5) * 1000, 5_000);
-  session.pollTimer = setInterval(async () => {
-    if (session.status !== "pending") {
-      cleanup(id);
-      return;
-    }
-    if (Date.now() > session.expiresAt) {
-      session.status = "expired";
-      cleanup(id);
-      return;
-    }
-    try {
-      const token = await requestAuthJson(disc.token_endpoint!, {
-        method: "POST",
-        body: new URLSearchParams({
-          grant_type: DEVICE_CODE_GRANT,
-          client_id: GROK_CLIENT_ID,
-          device_code: device.device_code,
-        }),
-        timeoutMs: 10_000,
-      });
-      saveGrokTokens(token as Record<string, unknown>);
-      session.status = "complete";
-      cleanup(id);
-      return;
-    } catch (error: any) {
-      const message = typeof error?.message === "string" ? error.message : "";
-      if (!message.includes("authorization_pending") && !message.includes("slow_down")) {
-        // Keep polling through transient network failures and xAI pending responses.
-      }
-    }
-  }, interval);
-  session.pollTimer.unref?.();
-
-  return { sessionId: id, userCode: device.user_code, verificationUrl: session.verificationUrl, expiresIn: device.expires_in };
+  return null;
 }
 
-export function getLoginSession(id: string): { status: AuthSession["status"]; error?: string } {
+/**
+ * progrok PKCE 브라우저 flow로 xAI 로그인을 시작한다.
+ * `progrok login --browser`가 브라우저를 열고 loopback(127.0.0.1:56121)으로 콜백을 직접 수신·교환해
+ * `~/.progrok/auth.json`에 토큰을 저장한다. 서버는 자식 프로세스의 종료 코드만 추적한다.
+ * (xAI device-code consent가 일부 환경에서 일관되게 거부되어 PKCE로 통일했다.)
+ */
+export async function startGrokLogin(): Promise<{ sessionId: string; authorizeUrl: string | null; expiresIn: number }> {
+  const existing = activeLoginId();
+  if (existing) {
+    const session = sessions.get(existing)!;
+    return { sessionId: existing, authorizeUrl: session.authorizeUrl ?? null, expiresIn: Math.max(0, Math.round((session.expiresAt - Date.now()) / 1000)) };
+  }
+
+  const id = sid();
+  let child: ChildProcess;
+  try {
+    child = spawn(progrokBinPath(), ["login", "--browser"], {
+      stdio: ["ignore", "pipe", "pipe"],
+      shell: process.platform === "win32",
+      windowsHide: true,
+      env: process.env,
+    });
+  } catch (error: any) {
+    throw appError(`progrok 로그인 프로세스를 시작하지 못했습니다: ${error.message}`, 500, "AUTH_LOGIN_SPAWN_FAILED");
+  }
+
+  const session: LoginSession = { status: "pending", expiresAt: Date.now() + LOGIN_TIMEOUT_MS, child };
+  sessions.set(id, session);
+
+  const onOutput = (chunk: Buffer): void => {
+    // progrok은 ANSI 색상 코드와 함께 URL을 출력하므로 제거 후 매칭한다.
+    const text = chunk.toString().replace(/\x1b\[[0-9;]*m/g, "");
+    const match = AUTHORIZE_URL_RE.exec(text);
+    if (match && !session.authorizeUrl) session.authorizeUrl = match[0];
+    if (/logged in to xai/i.test(text)) session.status = "complete";
+  };
+  child.stdout?.on("data", onOutput);
+  child.stderr?.on("data", onOutput);
+
+  child.on("error", (err) => {
+    if (session.status === "pending") {
+      session.status = "error";
+      session.error = err.message;
+    }
+    cleanup(id);
+  });
+  child.on("exit", (code) => {
+    if (session.status !== "complete") {
+      session.status = code === 0 ? "complete" : "error";
+      if (code !== 0 && !session.error) session.error = "브라우저 로그인이 완료되지 않았습니다. 다시 시도해 주세요.";
+    }
+    cleanup(id);
+  });
+
+  const timer = setTimeout(() => {
+    if (session.status === "pending") {
+      session.status = "expired";
+      session.child?.kill("SIGTERM");
+      cleanup(id);
+    }
+  }, LOGIN_TIMEOUT_MS);
+  timer.unref?.();
+
+  // authorize URL이 stdout에 나타날 때까지 잠깐 대기(자동 열기 실패 시 fallback 링크 제공용).
+  const deadline = Date.now() + 4000;
+  while (!session.authorizeUrl && session.status === "pending" && Date.now() < deadline) {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+
+  return { sessionId: id, authorizeUrl: session.authorizeUrl ?? null, expiresIn: Math.round(LOGIN_TIMEOUT_MS / 1000) };
+}
+
+export function getLoginSession(id: string): { status: LoginSession["status"]; error?: string; authorizeUrl?: string } {
   const session = sessions.get(id);
   if (!session) return { status: "expired" };
   if (Date.now() > session.expiresAt && session.status === "pending") {
     session.status = "expired";
+    session.child?.kill("SIGTERM");
     cleanup(id);
   }
-  return { status: session.status, error: session.error };
+  return { status: session.status, error: session.error, authorizeUrl: session.authorizeUrl };
 }

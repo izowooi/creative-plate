@@ -37,7 +37,7 @@ function statusLabel(status: string | undefined): string {
 
 function App() {
   const [auth, setAuth] = useState<AuthStatus | null>(null);
-  const [login, setLogin] = useState<{ sessionId: string; userCode: string; verificationUrl: string } | null>(null);
+  const [login, setLogin] = useState<{ sessionId: string; authorizeUrl: string | null } | null>(null);
   const [prompt, setPrompt] = useState("");
   const [targetLength, setTargetLength] = useState(60);
   const [resolution, setResolution] = useState("720p");
@@ -192,9 +192,9 @@ function App() {
 
       {login && (
         <section className="login-panel">
-          <strong>{login.userCode}</strong>
-          <a href={login.verificationUrl} target="_blank" rel="noreferrer">xAI 인증 열기</a>
-          <span>같은 Chrome에서 열면 기존 Grok/xAI 로그인 세션을 사용할 수 있습니다.</span>
+          <strong>브라우저에서 xAI 로그인을 완료하세요</strong>
+          {login.authorizeUrl && <a href={login.authorizeUrl} target="_blank" rel="noreferrer">xAI 로그인 열기</a>}
+          <span>로그인 창이 자동으로 열립니다. 열리지 않으면 위 링크를 누르세요. 완료되면 자동으로 연결됩니다.</span>
         </section>
       )}
 
