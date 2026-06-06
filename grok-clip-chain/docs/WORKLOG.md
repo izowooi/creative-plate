@@ -84,12 +84,23 @@ npm test               # node:test (9 tests)
 - L4 `AGENTS.md` 작성
 - 로컬 서버 기동 확인: UI serving + `/api/health` + device-code 발급(`POST /api/auth/login` → userCode/verificationUrl 정상)
 
-⏳ 사용자 액션 대기
-- **Grok 로그인 1회**: 앱(`http://127.0.0.1:3456`)에서 `로그인` 클릭 → xAI device URL에서 인증 완료. 완료 시 `~/.progrok/auth.json` 저장 → progrok proxy 정상 기동 → 영상 생성 가능.
+✅ 로그인 & proxy (2026-06-06 검증 완료)
+- `buildops@wemadeplay.com` 계정으로 로그인 완료 → `~/.progrok/auth.json` 저장 → progrok proxy 정상 기동(`Listening http://127.0.0.1:18645/v1 → api.x.ai`).
+- `/v1/models` 정상 응답, 설정 모델 `grok-4.3`(planner)·`grok-imagine-video`(video) 모두 존재 확인.
+- planner e2e 통과: `POST /api/plans`로 2세그먼트 영어 plan 생성 확인.
+- **영상 생성 e2e 통과**: 20s 체인(text→video + extension + concat) → 최종 19.999s mp4 생성·다운로드 확인(§8).
+
+### ⚠️ 로그인 관련 중요 발견: device-code consent 실패
+- 앱 UI의 기본 로그인(`POST /api/auth/login`)은 xAI **device-code** flow(`auth.x.ai/oauth2/device/code` → `accounts.x.ai/oauth2/device` 승인)를 쓴다.
+- 검증 중 **여러 신선한 코드(TTL 900s)가 consent 단계에서 일관되게 "Invalid or expired code"로 거부**됨(생성 5초 내 코드 포함, 계정 정상 로그인 상태). 자동화 브라우저 컨텍스트 한정 문제일 수도 있으나 재현율 100%.
+- **우회/해결**: progrok의 **PKCE flow**(`progrok login --manual-paste` / `--browser`)는 정상 동작. authorize→consent(`Allow`)→authorization code 발급→토큰 교환까지 완료되어 동일한 `auth.json`을 생성함.
+- **권장 후속**: 앱 로그인 UX를 device-code 대신 progrok PKCE(`--browser` 콜백 `127.0.0.1:56121`)로 전환하거나, 최소한 device-code 실패 시 progrok CLI 로그인 안내를 노출. (남은 일 참조)
+- 토큰은 `~/.progrok/auth.json`에 저장되며 **절대 커밋/출력 금지**.
 
 ## 6. 남은 일 / 향후 개선 후보
 
-- [ ] 로그인 완료 후 실제 end-to-end 영상 1편 생성 스모크 테스트 (proxy 기동 → plan → run → mp4).
+- [ ] **(우선) 로그인 UX**: device-code consent가 거부되는 환경이 있으므로(§5 참조), 앱 로그인을 progrok PKCE(`--browser`, loopback `127.0.0.1:56121`)로 전환하거나 실패 시 fallback 안내. 현재 `src/lib/auth.ts`는 device-code 전용.
+- [x] 로그인 완료 후 실제 end-to-end 영상 생성 스모크 테스트 (proxy 기동 → plan → run → mp4). 진행/결과는 §8 참조.
 - [ ] 진행 중 run 목록을 UI에 노출 (`GET /api/runs`는 있으나 화면 미연결).
 - [ ] 토큰 만료(`expiresAt`) 시 자동 refresh 또는 재로그인 유도 UX.
 - [ ] proxy 미기동(로그인 전) 상태에서 계획/실행 시도 시 사용자 친화적 에러 안내.
@@ -101,3 +112,21 @@ npm test               # node:test (9 tests)
 - `ffmpeg`/`ffprobe`가 PATH에 없으면 미디어 단계에서 실패(`MEDIA_TOOLS_MISSING`). macOS는 `brew install ffmpeg`.
 - run 데이터는 `~/.grok-clip-chain/runs/<runId>/`에 저장(매니페스트+세그먼트). 저장소에 커밋되지 않음.
 - vendored `progrok-0.2.0.tgz`는 ima2-gen 원본과 동일 바이너리. 업데이트 시 양쪽 동기화 필요.
+
+## 8. e2e 스모크 테스트 (2026-06-06)
+
+조건: `buildops` 로그인 완료, proxy 기동. 프롬프트 "calico cat windowsill", 480p/16:9, target 20s → 2 세그먼트.
+
+- planner(`POST /api/plans`): 2세그먼트 영어 plan 생성 ✅
+- run(`POST /api/runs`, SSE): planning → seg1(text→video, 10.04s) → seg2(extension) → merge-done. **전 과정 ~90초** (22:03:58 → 22:05:24).
+- 최종 mp4(`GET /api/runs/<id>/download`): **HTTP 200, 3.56MB, h264+aac, 848×480(480p), 19.999s** ✅
+- manifest `status: completed`, 두 세그먼트 모두 `completed`. **체인 생성→연장→병합→다운로드 전체 동작 확인.**
+
+재현:
+```bash
+curl -s -X POST localhost:3456/api/plans -H 'Content-Type: application/json' \
+  -d '{"prompt":"...","targetLength":20,"resolution":"480p","aspectRatio":"16:9"}' \
+  | python3 -c "import sys,json;print(json.dumps({'plan':json.load(sys.stdin)['plan']}))" > plan.json
+curl -sN -X POST localhost:3456/api/runs -H 'Content-Type: application/json' --data @plan.json
+# merge-done 후: GET /api/runs/<id>/download → final.mp4
+```
