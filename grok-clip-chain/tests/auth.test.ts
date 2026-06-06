@@ -3,7 +3,21 @@ import assert from "node:assert/strict";
 import { stat } from "node:fs/promises";
 import { join } from "node:path";
 import { removeDir, tempDir } from "./helpers.js";
-import { readGrokAuthStatus, requestAuthJson, saveGrokTokens } from "../src/lib/auth.js";
+import { extractAuthorizeUrl, readGrokAuthStatus, requestAuthJson, saveGrokTokens } from "../src/lib/auth.js";
+
+test("extractAuthorizeUrl strips ANSI codes and returns a clean authorize URL", () => {
+  const line =
+    "\x1b[2mVisit this URL to authorize:\nhttps://auth.x.ai/oauth2/authorize?client_id=b1a00492&redirect_uri=http%3A%2F%2F127.0.0.1%3A56121%2Fcallback&code_challenge_method=S256\x1b[0m";
+  const url = extractAuthorizeUrl(line);
+  assert.ok(url, "should find a URL");
+  assert.doesNotMatch(url!, /\x1b/, "no ANSI escape leaks into the URL");
+  assert.equal(url!.endsWith("S256"), true);
+  assert.equal(url!.startsWith("https://auth.x.ai/oauth2/authorize?"), true);
+});
+
+test("extractAuthorizeUrl returns null when no authorize URL is present", () => {
+  assert.equal(extractAuthorizeUrl("Opening browser for xAI login...\n"), null);
+});
 
 test("saveGrokTokens writes local auth file with private permissions", async () => {
   const dir = await tempDir("grok-chain-auth-");

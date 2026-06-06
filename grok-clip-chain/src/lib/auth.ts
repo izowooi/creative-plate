@@ -158,6 +158,12 @@ function activeLoginId(): string | null {
   return null;
 }
 
+/** progrok stdout 한 줄에서 authorize URL을 추출한다. progrok이 ANSI 색상 코드와 함께 출력하므로 제거 후 매칭. */
+export function extractAuthorizeUrl(text: string): string | null {
+  const clean = text.replace(/\x1b\[[0-9;]*m/g, "");
+  return AUTHORIZE_URL_RE.exec(clean)?.[0] ?? null;
+}
+
 /**
  * progrok PKCE 브라우저 flow로 xAI 로그인을 시작한다.
  * `progrok login --browser`가 브라우저를 열고 loopback(127.0.0.1:56121)으로 콜백을 직접 수신·교환해
@@ -188,10 +194,9 @@ export async function startGrokLogin(): Promise<{ sessionId: string; authorizeUr
   sessions.set(id, session);
 
   const onOutput = (chunk: Buffer): void => {
-    // progrok은 ANSI 색상 코드와 함께 URL을 출력하므로 제거 후 매칭한다.
-    const text = chunk.toString().replace(/\x1b\[[0-9;]*m/g, "");
-    const match = AUTHORIZE_URL_RE.exec(text);
-    if (match && !session.authorizeUrl) session.authorizeUrl = match[0];
+    const text = chunk.toString();
+    const url = extractAuthorizeUrl(text);
+    if (url && !session.authorizeUrl) session.authorizeUrl = url;
     if (/logged in to xai/i.test(text)) session.status = "complete";
   };
   child.stdout?.on("data", onOutput);
