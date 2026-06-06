@@ -1,0 +1,33 @@
+{
+  "name": "grok-clip-chain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "test": "node --import tsx --test --test-timeout=60000 tests/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run build:ui && tsc -p tsconfig.build.json",
+    "build:ui": "vite build"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.1.4",
+    "express": "^5.1.0",
+    "progrok": "file:vendor/progrok-0.2.0.tgz",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "vite": "^7.3.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.19.17",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# build output (생성물 — 클론 후 `npm run build`로 재생성)
+dist/
+dist-ui/
+
+# runtime data / 로그
+*.log
+.grok-clip-chain/
+
+# env / secrets
+.env
+.env.*
+!.env.*.example
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/
+
+# tool artifacts
+.playwright-mcp/
