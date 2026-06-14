@@ -301,15 +301,29 @@ if queue_items:
     c3.metric("완료", done_n)
     c4.metric("오류", error_n)
 
-    for idx, item in enumerate(queue_items):
-        render_queue_item(idx, item)
-
+    # 지우기 버튼·상태 필터를 목록 위에 배치 — 항목이 많아도 스크롤 없이 접근.
     if st.button(
         "완료/오류 항목 지우기",
         disabled=(done_n + error_n == 0),
     ):
         manager.clear_done()
         st.rerun()
+
+    fc1, fc2, fc3, fc4 = st.columns(4)
+    show = {
+        "pending": fc1.checkbox("대기", value=True, key="flt_pending"),
+        "running": fc2.checkbox("진행 중", value=True, key="flt_running"),
+        "done": fc3.checkbox("완료", value=True, key="flt_done"),
+        "error": fc4.checkbox("오류", value=True, key="flt_error"),
+    }
+
+    # 원래 순번(idx)을 유지한 채 선택된 상태만 표시.
+    visible = [(i, it) for i, it in enumerate(queue_items) if show[it.status]]
+    if visible:
+        for idx, item in visible:
+            render_queue_item(idx, item)
+    else:
+        st.caption("표시할 항목이 없습니다. 상태 필터를 확인하세요.")
 
 # 큐가 활성 상태일 때 자동 갱신
 if manager.is_running():
