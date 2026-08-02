@@ -25,6 +25,7 @@
     "coverage": "tsx scripts/coverage-report.ts",
     "coverage:missing": "tsx scripts/coverage-report.ts --missing",
     "images:check": "tsx scripts/validate-images.ts",
+    "images:audit": "tsx scripts/audit-commons.ts",
     "images:sync": "tsx scripts/sync-images.ts",
     "db:seed": "tsx scripts/seed-content.ts",
     "pretest": "npm run db:seed",

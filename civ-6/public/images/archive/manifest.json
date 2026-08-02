@@ -23,13 +23,41 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/22/Angkor_Thom_%28II%29.jpg",
     "sha256": "800e2c33fbd0ad2c4efd48dbd2079f3f267047309a09fdb2ad620b0abb3fcff0"
   },
+  "anshan": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Kneeling_Bull_Holding_a_Spouted_Vessel_Silver_Southwestern_Iran_Proto-Elamite_Period_3100-2900_BCE_%2816260108209%29.jpg",
+    "sha256": "bc24ad6a1f7918e67d06800700648d43b9127bf1c5385484479386ed790ce58f"
+  },
+  "antananarivo": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Rova_Antananarivo_Madagascar_2015.jpg",
+    "sha256": "8c351dba673c24188d5b9458de8c539b4822e11e6f9264b1c5cc40426f27434b"
+  },
+  "antioch": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Antakya_Archaeological_Museum_Geometric_mosaic_6064.jpg",
+    "sha256": "e27954dac482bb29266417c32c99fc07f19da9be1ca542e312b5664438557520"
+  },
+  "armagh": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/52/St_Patrick%27s_Cathedral%2C_Armagh_-_geograph.org.uk_-_3768998.jpg",
+    "sha256": "c798d4f06b34ad9496de9d19a0ff3e1c72e3a7a71e3a1b23231fa692a90f4ff7"
+  },
   "athens": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/6/68/Athens_Acropolis_at_Daybreak.jpg",
     "sha256": "529a8b1a60e15886ed0b9f02f6229adc09b290a1453834dbbe5413653c999317"
   },
+  "auckland": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/47/Auckland_skyline_from_harbor_bridge%2C_20_September_2019.jpg",
+    "sha256": "8386d1b7de7f94f4d044db019b214af7b01f1bce37470e89495a138e8c83d6e7"
+  },
+  "ayutthaya": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Ayutthaya_Historical_Park_%2844638637840%29.jpg",
+    "sha256": "1756c6399986f27c37b3e4dea46e6df2ea758be0d6b4e4144d2abd542e48826a"
+  },
   "babylon": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Ishtar_Gate.jpg",
     "sha256": "c8f31937f6cb066b52c044d3caae77a0e173f4be3fa28e05717b6459f6a714f9"
+  },
+  "bandar-brunei": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Bandar_Seri_Begawan_-_Kampong_Ayer_-_01.JPG",
+    "sha256": "990b4fe7d3f18631d77783e78dd5218a454ff47cac84b60ac5341926a776c01a"
   },
   "beijing": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Skyline_of_Beijing_CBD_with_B-5906_approaching_%2820211016171955%29_%281%29.jpg",
@@ -39,13 +67,33 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/20/Bogota%2C_Colombia_%2836668708290%29.jpg",
     "sha256": "f76baf049d74cc0559b3bcd0d0b8b150a3e2e0ffe8dfb83900532087ff94cc10"
   },
+  "bologna": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Bologna%2C_Italia.jpg",
+    "sha256": "f779c2e8349918a8abf355873b49d5192952fe6bf78f54dd0671f264168a5647"
+  },
+  "brussels": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/96/2018_flower_carpet_at_Grand_Place%2C_Brussels_%28DSCF6849%29.jpg",
+    "sha256": "ab3c64a1a578a5f38f16e6c9864e3e3f2ebbc1e28a4be66592318d7287d247d6"
+  },
   "buda": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Budav%C3%A1ri_Palota%2C_ABCDEF_%C3%A9p%C3%BClet.jpg",
     "sha256": "5f6978b2eda710e3a03962f8855c92b9703b8d6cde72ba7eaf81adaff9f8d35b"
   },
+  "buenos-aires": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Argentina_-_Buenos_Aires_039_-_Casa_Rosada_%26_the_Plaza_de_Mayo_%286831882032%29.jpg",
+    "sha256": "c2a62df6431ae39f44d715124a11adfa2ac8737b0630a3a52a85edff74003983"
+  },
   "busan": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Gwangan_Bridge1.jpg",
     "sha256": "c6418ff032fee27688b980a53dbabaf8ac353512115e415cc82f9ff057e2ab96"
+  },
+  "caguana": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Caguana_Ceremonial_Ball_Courts_Site%2C_Utuado%2C_Puerto_Rico.jpg",
+    "sha256": "5f77065d554255bdbf84eae62798c50cc4f95ae09e236a00476887520e632896"
+  },
+  "cahokia": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Monks_Mound-55.jpg",
+    "sha256": "96ac111da497639a3f1bc765462148e804a2bf9df42602c66cb5b35c6fac1a71"
   },
   "cairo": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/7/72/Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg",
@@ -55,6 +103,18 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Canberra_panorama_from_Mount_Ainslie.jpg/1920px-Canberra_panorama_from_Mount_Ainslie.jpg",
     "sha256": "529ae006e759f92571d764c8418be73c49d858bb118994cf7020e024f11c2e70"
   },
+  "cardiff": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Cardiff_MMB_10.jpg",
+    "sha256": "414029816572210752f6e0fc996275618840ad5a98df44dd05b3822b5101d527"
+  },
+  "carthage": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Ruins_in_Carthage.jpg",
+    "sha256": "4a00a754969fcc52f69860028c72a8b2fcd3f9e60f1873a491f351915d05368f"
+  },
+  "chinguetti": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Chinguetti_Mosque.jpg",
+    "sha256": "404df213a5f9ab6be1cec75ae998a53697e8c7424c0b37bf5727753cf2194291"
+  },
   "constantinople": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Hagia_Sophia%2C_Constantinople%2C_Turkey%2C_ca._1897.jpg",
     "sha256": "1417a35f331821dc80b1e4f1c466d74595805ba287ba1f3b559346bd79569fbb"
@@ -63,29 +123,81 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/4/40/Jama_Masjid_2011.jpg",
     "sha256": "dc2fff7774cb5f3ec31a35e099f865c58f9f81d587198d1cd2ab7216a8f9f36f"
   },
+  "fez": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Medina_of_Fes_-_panoramio.jpg",
+    "sha256": "17623c6f98af9f6f1468e22221146a24babe1c4198c6d5328407436ee3c27684"
+  },
   "geneva": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Geneve_2005_001_Ork.ch.jpg",
     "sha256": "4e17bf50d315f25376b48e205cacf7238fee85c5dbdef94f58851b1cc0d9eec8"
+  },
+  "granada": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Alcazaba_Alhambra_mirador_San_Cristobal_Granada_Spain.jpg",
+    "sha256": "96ed85965fdc19592ae48fb52eee4bde6512640d5c6ffbc216ce535c3b2cc83d"
   },
   "gyeongju": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/24/Gyeongju_montage.png",
     "sha256": "a402ba5599cc6206a32516d2813420f2b1715b4c043cb3a388663a61988e3cbb"
   },
+  "hattusa": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Lion_Gate%2C_Hattusa_01.jpg",
+    "sha256": "4256cf36be0e19b534260d11d03258bfe4729ae9673b3579a91559d35677819a"
+  },
+  "hong-kong": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Hong_Kong_Harbour_Night_2019-06-11.jpg",
+    "sha256": "ebfa6cfe7f833870aa1fb86a64b375622c6466ad908be53863cf3bf71c9783a5"
+  },
+  "hunza": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Cojines_del_Zaque._Vista_actual_%282015%29.JPG",
+    "sha256": "4e5a3fbe208eceff218bf116f5d4103960932dda26b3669e0993d71debb6ff87"
+  },
   "istanbul": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Historical_peninsula_and_modern_skyline_of_Istanbul.jpg",
     "sha256": "b83beed976d9742a235b8967ac5950ec631d8330dc9d69f00b31c739625e1680"
+  },
+  "jakarta": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/81/Kota_Tua_Jakarta.jpg",
+    "sha256": "1abc112e0de588da0564c8c091b72b184a4bc7e28dbf3b6733b79103081fba2e"
+  },
+  "jerusalem": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/22/Jerusalem_Old_city_panorama.jpg",
+    "sha256": "2c902e79c848213ca1ca195e588c6d88e782e3bc2296b87829bd9a9546344217"
+  },
+  "johannesburg": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Johannesburg_skyline.jpg",
+    "sha256": "fda09c8c3ea47edc6be5d546a50181d3320fdd8fb04d40496364659cb6ff5823"
   },
   "kabasa": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/4/42/Flag_of_the_Kingdom_of_Ndongo.svg",
     "sha256": "7282fb7557b4ec4667b4db1c7e7bad2e31f8f4bb36dfa0e23b24da6f62f5a8e6"
   },
+  "kabul": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b9/66-180_Kabul_Afghanistan_1966.jpg",
+    "sha256": "161486753e4b9476547f84c0293e5ca49416b0ccc27ae40bbdb5ad8c222d415d"
+  },
+  "kandy": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/99/The_Temple_Of_The_Tooth%2C_Kandy_(9806964294).jpg",
+    "sha256": "893c8fa14b81ffc0a01ab4bb55e2a7cb07bb711c53c700caeea97cf4ac8a9b43"
+  },
   "krakow": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Krakow_Rynek_Glowny_panorama_2.jpg",
     "sha256": "d2a68833fedaea0286fc53046c2ca08e5580ffff37078b457fa2746f753051b4"
   },
+  "kumasi": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/97/Kejetia-Markt.jpg",
+    "sha256": "e4982ea0eeeaf393822ff8d68fc965f5e0a5717010ab57a40fd4df5c647107d9"
+  },
   "kyoto": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Kyoto%2C_Japan_%2849667780482%29.jpg",
     "sha256": "8d88af99b65d3b881c4dd48be41acea65b12a3da142bad560f7f1c8958e87ef1"
+  },
+  "la-venta": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Olmeca_head_in_Villahermosa.jpg",
+    "sha256": "f2ee5c9fdab57182b2cae197dc14b32bd9e7d9f38f79253ecbb080a566bf97ec"
+  },
+  "lahore": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/35/LAHORE_FORT.jpg",
+    "sha256": "9b3aa05360bc1873ab643154cead3dfaf577b0e04b0f43a5a1fe91a82ddd07bd"
   },
   "lisbon": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Lisboa_-_Portugal_%2852597836992%29.jpg",
@@ -119,17 +231,49 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Meroe_pyramids_-_Sudan.jpg",
     "sha256": "848cfa56ad81a8da0ae465f34cc7773e674c3df993121a451960bb43323cd318"
   },
+  "mexico-city": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/62/Mexico_City._Zocalo.jpg",
+    "sha256": "da099f49857412c7b2a90fe06b5e7c7eee5cdb972925a6e8eaf957ad9ce4c5f6"
+  },
   "mikisiw-wacihk": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/1/12/Poundmaker.png",
     "sha256": "6253252a038397e7921b0ef1387bd82ddae3768f571cf7d435f7cade5d4a14d3"
+  },
+  "mitla": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/86/Mitla_Oaxaca.JPG",
+    "sha256": "9c04dc5a7292b7bf9a162098a2a84a17897fd64f274b011a592eaceed8688275"
+  },
+  "mogadishu": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Lido_beach_from_the_sea_in_Mogadishu.jpg",
+    "sha256": "a6146f899b6c67864aa1eba35e7c07e8f03f255ce5fc9728e054682e0ce4cb13"
+  },
+  "mohenjo-daro": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/84/Great_Bath_of_Mohenjo-daro.jpg",
+    "sha256": "892eac133c5b8145d3ef6ab0c37416f3c49293a8cfba7d149b506dc002937054"
   },
   "munich": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Stadtbild_M%C3%BCnchen.jpg",
     "sha256": "e903720763cc9f6dc6d5b17473a63cf75b38522e215bbccf74d79191cf86760f"
   },
+  "muscat": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Muttrah_corniche.jpg",
+    "sha256": "6f83631691b29cf8b58fc74a7ce239997d4d60442bb6d6e3edbdb3e7effd0267"
+  },
+  "nalanda": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/10/Archeological_Ruins_of_Nalanda_Mahavihara.jpg",
+    "sha256": "33191c1e61c06260b32da76ebba157af4a27571566b565155f0c39ba4618c349"
+  },
   "nan-madol": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Nan_madol.jpg",
     "sha256": "ceeffdda92d1fb5713f8ed979b89acdc3519cde100868a78d4a6bf6405261e7d"
+  },
+  "nazca": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/46/Linhas_de_Nazca.jpg",
+    "sha256": "5d7cd71aa5b391a5cac80888f0da61023aaa479547c5ef111d2737c0fbdf0e23"
+  },
+  "ngazargamu": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/06/Bornu_map_1750.svg",
+    "sha256": "e209f187e37a55160d11ba56ec9277bb26c28d10ce91d24ab90be24e0285d871"
   },
   "ngulu-mapu": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Looking_out_over_Lago_Conguillio.jpg",
@@ -146,6 +290,10 @@
   "ottawa": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/22/Parliament-Ottawa.jpg",
     "sha256": "ce38bce65a74452b5427f7622c68422446e6a9b76efb75f56ea75704f1444ca9"
+  },
+  "palenque": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Templo_en_ruinas.jpg",
+    "sha256": "40ddc026f3691b22a30f1c5e9533af150d1e94877cfd445239830a0e7d43741b"
   },
   "paris": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg",
@@ -167,6 +315,10 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Helmet_Bobuezhi_Sarmatians_GIM.jpg",
     "sha256": "07c78cfc45ab390cbbff3c67c26e364d8d1e44af976c1de216cc471bd4d68897"
   },
+  "preslav": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Golden_Church_in_Veliki_Preslav.jpg",
+    "sha256": "f966b059788d2068388bead9654d4cf5b8ddc37b4dec250a18b29c97915d845b"
+  },
   "qaraqorum": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Erdene_Zuu_Monastery_05.jpg",
     "sha256": "083fa3d3faf4598ae78b52d4ec1dab9bc3c9682d3f4f76c056a72b65affa82ca"
@@ -179,6 +331,10 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Qaitbay_citadel_in_Alexandria_10.jpg",
     "sha256": "c2791d94a3ffa6494c257964b0a16bed722c202a5ff15d42bfd7acf0228d0307"
   },
+  "rapa-nui": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Rapa_Nui_Moai_%28Easter_Island%29.jpg",
+    "sha256": "8749acf38d2fa3ccdfa09b598433f2722975c7bdde8a40b673fb5dba07c884f8"
+  },
   "rio-de-janeiro": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/9/98/Cidade_Maravilhosa.jpg",
     "sha256": "7ba428e2578b2e54170c7b652be4eee2dfb366ef8ec82ed72f17d8d6f9a036ff"
@@ -190,6 +346,10 @@
   "saint-petersburg": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/4/41/Spb_06-2017_img20_StMichael_Castle_%28cropped%29.jpg",
     "sha256": "6c6b6860610eaa13ebf33d3fa2c20f4c5d7f8642b4f12ba52f3cfbaef6dbaf57"
+  },
+  "samarkand": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Registan-Samarkand.jpg",
+    "sha256": "7390470d08e19d83d3bd7036e761e04a4f35ec83d3caff55644f49f8064f6324"
   },
   "seoul": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/3/30/%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg",
@@ -215,6 +375,10 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Royal_Dramatic_Theatre_Stockholm.jpg",
     "sha256": "0d18ccde8837ee222977ec03e95d01938bef4593edabd3c0759a65178b49b76d"
   },
+  "taruga": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Kneeling_figure%2C_Nok_culture%2C_terracotta%2C_Honolulu_Museum_of_Art%2C_8348.1.JPG",
+    "sha256": "f8233f7f484ddbd4b30b2ff0a50f53f3c1bcebef9d3eff7357f015f90ea40995"
+  },
   "tbilisi": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/4/45/View_of_Tbilisi_from_Tabori_Church_2023-10-08-2.jpg",
     "sha256": "19e0950aa6031f35d49c0c2a4b9cf14646ef34262aa82a88d68fb00d26328c0d"
@@ -239,6 +403,10 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg",
     "sha256": "54b9be96be2f41bf9c79320e959a1873f167ef104602fd7682f7d0fb2654b5bf"
   },
+  "toronto": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Toronto-skyline.jpg",
+    "sha256": "ae35eb809839c1743ce893e5c0aedfca04c515ef6d944615547a0c3f37341f50"
+  },
   "tyre": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/c/cc/SubmergedEgyptianHarbour_TyreSour_Lebanon_RomanDeckert04112019.jpg",
     "sha256": "1ded61950728806555372dfec56f7ca3a3a6eeb5ff7b6b852d3f084feacc09de"
@@ -251,6 +419,22 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/26/Uruk_Archaeological_site_at_Warka%2C_Iraq_MOD_45156521.jpg",
     "sha256": "2db4289bf39d139d7751e628abadc0fbce436fae70c25d9100fc029c7b1266f0"
   },
+  "valletta": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/68/Panorama_of_Valletta.jpg",
+    "sha256": "6f15781451a5d8811950692aef38ae17035c2ce45f00610b7c613ef01eb56cbd"
+  },
+  "vatican-city": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/ba/St._Peter%27s_Basilica_in_Vatican_City.jpg",
+    "sha256": "b562bdfc20e6929c3558e82718abc2aa7fbbcb3b629c905d682c1a4241b937d2"
+  },
+  "venice": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Gondola_on_the_Grand_Canal%2C_Venice%2C_Italy.jpg",
+    "sha256": "256b5d59b6e4eba9ec18010b9292f8a9f175729e5b0bc5e131acf97fa46cd3aa"
+  },
+  "vilnius": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Vilnius_Old_Town_Aug_2019_002.jpg",
+    "sha256": "c5424bf260ea64a9f543633b615aa4a967f5e460d70705945dcd09904a9a71d3"
+  },
   "wak-kabnal": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/23/Sitio_el_naranjo_1.jpg",
     "sha256": "eba1b484233d61ca6a7766d638e1993d633bc313bf5759c4fb34b8caa5548c07"
@@ -258,6 +442,10 @@
   "washington": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/e/e4/12-07-13-washington-by-RalfR-08.jpg",
     "sha256": "69673eec5096ce970c00552c5b04d9993143430be978af145364dfd4dcd173b8"
+  },
+  "wolin": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/31/Wolin_kz01.jpg",
+    "sha256": "94a86e36397de4c5bbae632b04084cc0240087312ea1ba9b2f49923766712244"
   },
   "xanadu": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/1/11/Yuan_Shangdu.jpg",

@@ -37,10 +37,13 @@ npm run roster:check   # roster 구조, 개수, scope/availability 예외 검증
 npm run coverage       # roster 전체 대비 현재 Markdown 수록 현황 출력
 npm run images:sync    # Commons 원본을 검증해 public/images/archive/*.webp로 최적화
 npm run images:check   # Markdown·manifest·WebP 파일/크기/형식/SHA-256 교차 검증
+npm run images:audit   # Commons 원본 페이지의 license·credit metadata 재확인(네트워크 필요)
 npm run db:seed        # docs/ → data/the-turn.db
 ```
 
 이미지 원본은 바뀌지 않았지만 변환 설정만 다시 적용할 때는 `npm run images:sync -- --force=<slug>`로 한 항목을 강제 갱신할 수 있습니다. 전체 강제 갱신은 `--force`를 사용합니다.
+
+특정 항목의 Commons 권리 정보만 다시 확인하려면 `npm run images:audit -- --slugs=<slug,slug> --check`를 사용합니다. author/credit metadata 누락도 실패로 처리하려면 `--strict-credit`을 함께 지정합니다. 네트워크가 필요한 감사 명령이므로 오프라인 전체 품질 게이트인 `npm run check`와 분리되어 있습니다.
 
 `npm run sources:missing`은 최소 schema는 통과하지만 권장 출처 깊이에 아직 못 미치는 글을 분류별로 보여 줍니다. 네트워크 요청 없이 중복 URL을 제거한 frontmatter만 집계하므로 콘텐츠 보강 우선순위를 잡는 데 사용합니다. 전체 `npm run check`에도 같은 기준이 품질 게이트로 포함됩니다.
 
