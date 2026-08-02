@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Aegyptisches_Museum_Berlin
 sources:
   - title: "Amanitore — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Amanitore"
+  - title: "메로에 유적 등재 신청서 — UNESCO World Heritage Centre"
+    url: "https://whc.unesco.org/document/168998"
   - title: "Amanitore (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Amanitore_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Civ6의 ‘메로에의 칸다케’는 모든 특수지구 생산력을 20% 높
 ## 출처
 
 - [통치와 고고학 자료 — Wikipedia](https://en.wikipedia.org/wiki/Amanitore)
+- [나타카마니·아마니토레 공동 통치와 메로에 유적 — UNESCO](https://whc.unesco.org/document/168998)
 - [게임 등장·능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Amanitore_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Aegyptisches_Museum_Berlin_InvNr7261_20080313_Barkenuntersatz_Natakamani_Amanitore_aus_Wad_Ban_Naga_1.jpg)

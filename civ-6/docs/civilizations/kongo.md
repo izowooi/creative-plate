@@ -21,6 +21,8 @@ sources:
     url: "https://civilization.fandom.com/wiki/Kongolese_(Civ6)"
   - title: "Mbanza Kongo, former capital of the Kingdom of Kongo — UNESCO"
     url: "https://whc.unesco.org/en/list/1511"
+  - title: "Kongo: Power and Majesty — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/es/met-publications/kongo-power-and-majesty"
   - title: "Commons 이미지 기록"
     url: "https://commons.wikimedia.org/wiki/File:Congo_1617,_Jodocus_Hondius_(4265886-verso).png"
 ---
@@ -48,4 +50,5 @@ sources:
 - [게임 roster — Civilization Wiki](https://civilization.fandom.com/wiki/Civilizations_(Civ6))
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/Kongolese_(Civ6))
 - [음반자콩고와 콩고 왕국 — UNESCO World Heritage Centre](https://whc.unesco.org/en/list/1511)
+- [콩고 왕국 400년의 역사 — The Metropolitan Museum of Art](https://www.metmuseum.org/es/met-publications/kongo-power-and-majesty)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Congo_1617,_Jodocus_Hondius_(4265886-verso).png)

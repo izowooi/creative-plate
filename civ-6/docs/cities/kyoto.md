@@ -18,6 +18,8 @@ sources:
     url: "https://en.wikipedia.org/wiki/Kyoto"
   - title: "Historic Monuments of Ancient Kyoto — UNESCO"
     url: "https://whc.unesco.org/en/list/688/"
+  - title: "Cultural Properties Inheritance Plan — City of Kyoto"
+    url: "https://www.city.kyoto.lg.jp/bunshi/cmsfiles/contents/0000285/285296/english.pdf"
   - title: "Japanese cities (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Japanese_cities_%28Civ6%29"
 ---
@@ -43,5 +45,6 @@ sources:
 
 - [도시 역사 — Wikipedia](https://en.wikipedia.org/wiki/Kyoto)
 - [고도 교토의 문화재 — UNESCO](https://whc.unesco.org/en/list/688/)
+- [교토 역사·문화 특성 — 교토시](https://www.city.kyoto.lg.jp/bunshi/cmsfiles/contents/0000285/285296/english.pdf)
 - [게임 도시명 — Civilization Wiki](https://civilization.fandom.com/wiki/Japanese_cities_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Kyoto,_Japan_(49667780482).jpg)

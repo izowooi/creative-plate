@@ -20,6 +20,8 @@ sources:
     url: "https://www.busan.go.kr/eng/history-of-busan"
   - title: "Busan — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Busan"
+  - title: "Historical Overview of Busan Port — Busan Metropolitan City"
+    url: "https://www.busan.go.kr/eng/historical-overview"
   - title: "Korean cities (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Korean_cities_%28Civ6%29"
 ---
@@ -45,5 +47,6 @@ sources:
 
 - [부산의 역사 — 부산광역시](https://www.busan.go.kr/eng/history-of-busan)
 - [도시 개관 — Wikipedia](https://en.wikipedia.org/wiki/Busan)
+- [부산항 역사 연표 — 부산광역시](https://www.busan.go.kr/eng/historical-overview)
 - [게임 도시명 — Civilization Wiki](https://civilization.fandom.com/wiki/Korean_cities_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Gwangan_Bridge1.jpg)

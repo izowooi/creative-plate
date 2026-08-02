@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Friedrich_I._Barbarossa.jp
 sources:
   - title: "Frederick Barbarossa — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Frederick_Barbarossa"
+  - title: "바르바로사의 죽음과 독일 민족 신화 — Deutsches Historisches Museum"
+    url: "https://www.dhm.de/archiv/ausstellungen/mythen/english/deutsch.html"
   - title: "Frederick Barbarossa (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Frederick_Barbarossa_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Civ6의 ‘신성 로마 황제’는 모든 정부에 군사 정책 슬롯 하�
 ## 출처
 
 - [생애와 제국 정치 — Wikipedia](https://en.wikipedia.org/wiki/Frederick_Barbarossa)
+- [바르바로사의 죽음과 후대 민족 신화 — Deutsches Historisches Museum](https://www.dhm.de/archiv/ausstellungen/mythen/english/deutsch.html)
 - [게임 등장·능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Frederick_Barbarossa_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Friedrich_I._Barbarossa.jpg)

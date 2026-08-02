@@ -17,6 +17,8 @@ related: [donatello, rembrandt, michelangelo]
 sources:
   - title: "El Greco — Wikipedia"
     url: "https://en.wikipedia.org/wiki/El_Greco"
+  - title: "El Greco — National Gallery"
+    url: "https://www.nationalgallery.org.uk/artists/el-greco"
   - title: "Great Artist (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Artist_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -45,5 +47,6 @@ sources:
 ## 출처
 
 - [생애와 작품 — Wikipedia](https://en.wikipedia.org/wiki/El_Greco)
+- [생애와 회화 세계 — National Gallery](https://www.nationalgallery.org.uk/artists/el-greco)
 - [게임 등장과 위대한 작품 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Artist_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:El_Greco_-_Portrait_of_a_Man_-_WGA10554.jpg)

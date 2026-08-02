@@ -16,6 +16,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Hokusai_as_an_old_man.jpg"
 sources:
   - title: "Hokusai — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Hokusai"
+  - title: "A timeline of Katsushika Hokusai — British Museum"
+    url: "https://www.britishmuseum.org/exhibitions/hokusai-great-picture-book-everything/timeline-japanese-artist-katsushika-hokusai"
   - title: "Great Artist (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Artist_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -42,5 +44,6 @@ sources:
 ## 출처
 
 - [생애와 작품 — Wikipedia](https://en.wikipedia.org/wiki/Hokusai)
+- [생애와 작품 연표 — British Museum](https://www.britishmuseum.org/exhibitions/hokusai-great-picture-book-everything/timeline-japanese-artist-katsushika-hokusai)
 - [게임 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Artist_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Hokusai_as_an_old_man.jpg)

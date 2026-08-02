@@ -20,6 +20,8 @@ sources:
     url: "https://en.wikipedia.org/wiki/Saint_Petersburg"
   - title: "Historic Centre of Saint Petersburg — UNESCO"
     url: "https://whc.unesco.org/en/list/540/"
+  - title: "Peter and Paul Fortress History — State Museum of the History of St Petersburg"
+    url: "https://www.spbmuseum.ru/themuseum/museum_complex/peterpaul_fortress/ppk.php?lang_ui=en"
   - title: "Russian cities (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Russian_cities_%28Civ6%29"
 ---
@@ -45,5 +47,6 @@ sources:
 
 - [도시 역사 — Wikipedia](https://en.wikipedia.org/wiki/Saint_Petersburg)
 - [역사지구와 기념물군 — UNESCO](https://whc.unesco.org/en/list/540/)
+- [도시 창건과 요새의 역사 — State Museum of the History of St Petersburg](https://www.spbmuseum.ru/themuseum/museum_complex/peterpaul_fortress/ppk.php?lang_ui=en)
 - [게임 도시명 — Civilization Wiki](https://civilization.fandom.com/wiki/Russian_cities_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Spb_06-2017_img20_StMichael_Castle_(cropped).jpg)

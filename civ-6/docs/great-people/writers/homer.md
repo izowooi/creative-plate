@@ -16,6 +16,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Homer_At_the_British_Museu
 sources:
   - title: "Homer — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Homer"
+  - title: "Who was Homer? — British Museum"
+    url: "https://www.britishmuseum.org/blog/who-was-homer"
   - title: "Great Writer (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Writer_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -42,5 +44,6 @@ sources:
 ## 출처
 
 - [작품과 전승 — Wikipedia](https://en.wikipedia.org/wiki/Homer)
+- [호메로스와 서사시 전승 — British Museum](https://www.britishmuseum.org/blog/who-was-homer)
 - [게임 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Writer_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Homer_At_the_British_Museum_2024_(3x4_cropped).jpg)

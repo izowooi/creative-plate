@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Huehuemoteuczoma_mendoza.j
 sources:
   - title: "Moctezuma I — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Moctezuma_I"
+  - title: "Moctezuma I 연구자 해설 — Secretaría de Cultura, Gobierno de México"
+    url: "https://www.gob.mx/cultura/prensa/matos-moctezuma-ofrece-semblanza-de-moctezuma-i-tlatoani-que-consolido-el-imperio-mexica"
   - title: "Montezuma (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Montezuma_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Civ6의 지도자 능력 ‘틀라토아니를 위한 선물’은 개발한 사
 ## 출처
 
 - [생애와 아즈텍 통치 — Wikipedia](https://en.wikipedia.org/wiki/Moctezuma_I)
+- [몬테수마 1세와 멕시카 패권 — 멕시코 문화부·INAH](https://www.gob.mx/cultura/prensa/matos-moctezuma-ofrece-semblanza-de-moctezuma-i-tlatoani-que-consolido-el-imperio-mexica)
 - [게임 등장·능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Montezuma_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Huehuemoteuczoma_mendoza.jpg)

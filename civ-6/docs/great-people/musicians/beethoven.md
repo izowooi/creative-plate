@@ -16,6 +16,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Joseph_Karl_Stieler%27s_Be
 sources:
   - title: "Ludwig van Beethoven — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Ludwig_van_Beethoven"
+  - title: "Beethoven — Beethoven-Haus Bonn"
+    url: "https://www.beethoven.de/en/beethoven"
   - title: "Great Musician (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Musician_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -42,5 +44,6 @@ sources:
 ## 출처
 
 - [생애와 음악 — Wikipedia](https://en.wikipedia.org/wiki/Ludwig_van_Beethoven)
+- [생애와 작품 세계 — Beethoven-Haus Bonn](https://www.beethoven.de/en/beethoven)
 - [게임 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Musician_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Joseph_Karl_Stieler%27s_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg)

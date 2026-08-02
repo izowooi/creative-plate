@@ -17,6 +17,8 @@ related: [isaac-newton, galileo-galilei, janaki-ammal]
 sources:
   - title: "Charles Darwin — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Charles_Darwin"
+  - title: "Charles Darwin: History's most famous biologist — Natural History Museum"
+    url: "https://www.nhm.ac.uk/discover/charles-darwin-most-famous-biologist.html"
   - title: "Great Scientist (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Scientist_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -45,5 +47,6 @@ sources:
 ## 출처
 
 - [생애와 연구 — Wikipedia](https://en.wikipedia.org/wiki/Charles_Darwin)
+- [생애와 진화 연구 — Natural History Museum](https://www.nhm.ac.uk/discover/charles-darwin-most-famous-biologist.html)
 - [게임 등장과 은퇴 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Scientist_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Charles_Darwin_seated_crop.jpg)

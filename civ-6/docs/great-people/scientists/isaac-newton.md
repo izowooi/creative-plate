@@ -16,6 +16,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Portrait_of_Sir_Isaac_Newt
 sources:
   - title: "Isaac Newton — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Isaac_Newton"
+  - title: "Isaac Newton — Royal Society catalogues"
+    url: "https://catalogues.royalsociety.org/CalmView/Record.aspx?id=NA8414&src=CalmView.Persons"
   - title: "Great Scientist (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Scientist_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -42,5 +44,6 @@ sources:
 ## 출처
 
 - [생애와 연구 — Wikipedia](https://en.wikipedia.org/wiki/Isaac_Newton)
+- [생애와 Royal Society 기록 — Royal Society](https://catalogues.royalsociety.org/CalmView/Record.aspx?id=NA8414&src=CalmView.Persons)
 - [게임 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Scientist_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Portrait_of_Sir_Isaac_Newton,_1689_(brightened).jpg)

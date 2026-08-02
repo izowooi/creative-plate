@@ -16,6 +16,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Michelangelo_Daniele_da_Vo
 sources:
   - title: "Michelangelo — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Michelangelo"
+  - title: "Michelangelo's First Painting — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/exhibitions/listings/2009/michelangelo"
   - title: "Great Artist (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Artist_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -42,5 +44,6 @@ sources:
 ## 출처
 
 - [생애와 작품 — Wikipedia](https://en.wikipedia.org/wiki/Michelangelo)
+- [초기 회화와 예술 세계 — The Metropolitan Museum of Art](https://www.metmuseum.org/exhibitions/listings/2009/michelangelo)
 - [게임 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Artist_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Michelangelo_Daniele_da_Volterra_(dettaglio).jpg)

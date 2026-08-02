@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Tablet_V_of_the_Epic_of_Gi
 sources:
   - title: "Gilgamesh — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Gilgamesh"
+  - title: "The Flood Tablet, Epic of Gilgamesh — The British Museum"
+    url: "https://www.britishmuseum.org/collection/object/W_K-3375"
   - title: "Gilgamesh (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Gilgamesh_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Civ6의 ‘엔키두와의 모험’은 동맹국의 적에게 외교적 불이�
 ## 출처
 
 - [역사성과 문학 전승 — Wikipedia](https://en.wikipedia.org/wiki/Gilgamesh)
+- [《길가메시 서사시》 제11서판 기록 — The British Museum](https://www.britishmuseum.org/collection/object/W_K-3375)
 - [게임 등장·능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Gilgamesh_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Tablet_V_of_the_Epic_of_Gilgamesh.jpg)

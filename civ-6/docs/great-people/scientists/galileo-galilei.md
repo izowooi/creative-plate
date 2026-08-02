@@ -17,6 +17,8 @@ related: [isaac-newton, hypatia]
 sources:
   - title: "Galileo Galilei — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Galileo_Galilei"
+  - title: "Galileo Galilei — Museo Galileo"
+    url: "https://catalogue.museogalileo.it/biography/GalileoGalilei.html"
   - title: "Galileo Galilei (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Galileo_Galilei_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -43,5 +45,6 @@ sources:
 ## 출처
 
 - [생애와 연구 — Wikipedia](https://en.wikipedia.org/wiki/Galileo_Galilei)
+- [생애와 과학 연구 — Museo Galileo](https://catalogue.museogalileo.it/biography/GalileoGalilei.html)
 - [게임 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Galileo_Galilei_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Justus_Sustermans_-_Portrait_of_Galileo_Galilei,_1636.jpg)

@@ -17,6 +17,8 @@ related: [michelangelo, rembrandt, el-greco]
 sources:
   - title: "Donatello — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Donatello"
+  - title: "Donatello – a master at work — V&A"
+    url: "https://www.vam.ac.uk/articles/donatello-a-master-at-work"
   - title: "Great Artist (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Artist_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -44,5 +46,6 @@ sources:
 ## 출처
 
 - [생애와 작품 — Wikipedia](https://en.wikipedia.org/wiki/Donatello)
+- [생애와 조각 혁신 — V&A](https://www.vam.ac.uk/articles/donatello-a-master-at-work)
 - [게임 등장과 위대한 작품 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Artist_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Donatello,_miracolo_della_mula,_1446-49_ca._(pd,_museo_antoniano)_37_uomo_che_si_allontana,_forse_autoritratto_(cropped).jpg)

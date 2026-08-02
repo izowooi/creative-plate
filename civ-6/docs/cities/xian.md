@@ -18,6 +18,8 @@ sources:
     url: "https://en.wikipedia.org/wiki/Xi%27an"
   - title: "Silk Roads: Chang'an–Tianshan Corridor — UNESCO"
     url: "https://whc.unesco.org/en/list/1442/"
+  - title: "Tang Dynasty — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/essays/tang-dynasty-618-906"
   - title: "Chinese cities (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Chinese_cities_%28Civ6%29"
 ---
@@ -43,5 +45,6 @@ sources:
 
 - [도시 역사 — Wikipedia](https://en.wikipedia.org/wiki/Xi%27an)
 - [실크로드 세계유산 — UNESCO](https://whc.unesco.org/en/list/1442/)
+- [장안과 당 왕조의 국제성 — The Metropolitan Museum of Art](https://www.metmuseum.org/essays/tang-dynasty-618-906)
 - [게임 도시명 — Civilization Wiki](https://civilization.fandom.com/wiki/Chinese_cities_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:City_wall_of_Xi%27an_51550-Xian_(27959363326).jpg)

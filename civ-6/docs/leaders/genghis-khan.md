@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:YuanEmperorAlbumGenghisPor
 sources:
   - title: "Genghis Khan — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Genghis_Khan"
+  - title: "The Legacy of Genghis Khan — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/essays/the-legacy-of-genghis-khan"
   - title: "Genghis Khan (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Genghis_Khan_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Rise and Fall에 등장한 칭기즈 칸의 지도자 능력 ‘몽골 무리’
 ## 출처
 
 - [생애와 정복 — Wikipedia](https://en.wikipedia.org/wiki/Genghis_Khan)
+- [몽골 제국의 통치와 문화적 유산 — The Metropolitan Museum of Art](https://www.metmuseum.org/essays/the-legacy-of-genghis-khan)
 - [게임 등장·능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Genghis_Khan_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:YuanEmperorAlbumGenghisPortrait.jpg)

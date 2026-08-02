@@ -18,6 +18,8 @@ sources:
     url: "https://en.wikipedia.org/wiki/Rome"
   - title: "Historic Centre of Rome — UNESCO"
     url: "https://whc.unesco.org/en/list/91/"
+  - title: "The Roman Empire — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/pt/essays/the-roman-empire-27-b-c-393-a-d"
   - title: "Roman cities (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Roman_cities_%28Civ6%29"
 ---
@@ -43,5 +45,6 @@ sources:
 
 - [도시 역사 — Wikipedia](https://en.wikipedia.org/wiki/Rome)
 - [역사지구 — UNESCO](https://whc.unesco.org/en/list/91/)
+- [제국 수도의 정치·사회 맥락 — The Metropolitan Museum of Art](https://www.metmuseum.org/pt/essays/the-roman-empire-27-b-c-393-a-d)
 - [게임 도시명 — Civilization Wiki](https://civilization.fandom.com/wiki/Roman_cities_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Trevi_Fountain,_Rome,_Italy_2_-_May_2007.jpg)

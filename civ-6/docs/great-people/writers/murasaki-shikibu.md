@@ -16,6 +16,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Murasaki-Shikibu-composing
 sources:
   - title: "Murasaki Shikibu — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Murasaki_Shikibu"
+  - title: "The Tale of Genji — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/exhibitions/listings/2019/tale-of-genji/exhibition-galleries"
   - title: "Great Writer (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Writer_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -42,5 +44,6 @@ sources:
 ## 출처
 
 - [생애와 작품 — Wikipedia](https://en.wikipedia.org/wiki/Murasaki_Shikibu)
+- [겐지 이야기의 문화사 — The Metropolitan Museum of Art](https://www.metmuseum.org/exhibitions/listings/2019/tale-of-genji/exhibition-galleries)
 - [게임 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Writer_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Murasaki-Shikibu-composing-Genji-Monogatari.png)

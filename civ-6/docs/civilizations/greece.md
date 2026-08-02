@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Parthenon_(30276156187).jp
 sources:
   - title: "Ancient Greece — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Ancient_Greece"
+  - title: "The Art of Classical Greece — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/essays/the-art-of-classical-greece-ca-480-323-b-c"
   - title: "Greek (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Greek_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ sources:
 ## 출처
 
 - [역사 개관 — Wikipedia](https://en.wikipedia.org/wiki/Ancient_Greece)
+- [고전기 그리스 사회·예술 — The Metropolitan Museum of Art](https://www.metmuseum.org/essays/the-art-of-classical-greece-ca-480-323-b-c)
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/Greek_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Parthenon_(30276156187).jpg)

@@ -16,6 +16,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Hypatia_(Charles_William_M
 sources:
   - title: "Hypatia — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Hypatia"
+  - title: "Hypatia of Alexandria — World History Encyclopedia"
+    url: "https://www.worldhistory.org/Hypatia_of_Alexandria/"
   - title: "Hypatia (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Hypatia_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -42,5 +44,6 @@ sources:
 ## 출처
 
 - [생애와 연구 — Wikipedia](https://en.wikipedia.org/wiki/Hypatia)
+- [생애와 알렉산드리아 학문 세계 — World History Encyclopedia](https://www.worldhistory.org/Hypatia_of_Alexandria/)
 - [게임 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Hypatia_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Hypatia_(Charles_William_Mitchell).jpg)

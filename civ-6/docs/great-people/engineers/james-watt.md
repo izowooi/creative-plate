@@ -17,6 +17,8 @@ related: [nikola-tesla, ada-lovelace, leonardo-da-vinci]
 sources:
   - title: "James Watt — Wikipedia"
     url: "https://en.wikipedia.org/wiki/James_Watt"
+  - title: "James Watt — Science Museum Group Collection"
+    url: "https://collection.sciencemuseumgroup.org.uk/people/cp37593/james-watt"
   - title: "Great Engineer (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Engineer_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -45,5 +47,6 @@ sources:
 ## 출처
 
 - [생애와 공학 — Wikipedia](https://en.wikipedia.org/wiki/James_Watt)
+- [생애와 증기기관 공학 — Science Museum Group Collection](https://collection.sciencemuseumgroup.org.uk/people/cp37593/james-watt)
 - [게임 등장과 활성화 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Engineer_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Watt_James_von_Breda.jpg)

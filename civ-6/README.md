@@ -30,6 +30,8 @@ npm run dev
 
 ```bash
 npm run content:check  # Markdown schema, 중복, 관계, 출처/이미지 권리 필드 검증
+npm run sources:report # 권장 출처 깊이(총 4개·독립 역사 출처 2개) 충족률 출력
+npm run sources:check  # 권장 출처 깊이를 전수 검사하고 미달 시 실패
 npm run roster:sync    # Civ VI roster 원본을 docs/catalog 스냅샷으로 갱신(네트워크 필요)
 npm run roster:check   # roster 구조, 개수, scope/availability 예외 검증
 npm run coverage       # roster 전체 대비 현재 Markdown 수록 현황 출력
@@ -39,6 +41,8 @@ npm run db:seed        # docs/ → data/the-turn.db
 ```
 
 이미지 원본은 바뀌지 않았지만 변환 설정만 다시 적용할 때는 `npm run images:sync -- --force=<slug>`로 한 항목을 강제 갱신할 수 있습니다. 전체 강제 갱신은 `--force`를 사용합니다.
+
+`npm run sources:missing`은 최소 schema는 통과하지만 권장 출처 깊이에 아직 못 미치는 글을 분류별로 보여 줍니다. 네트워크 요청 없이 중복 URL을 제거한 frontmatter만 집계하므로 콘텐츠 보강 우선순위를 잡는 데 사용합니다. 전체 `npm run check`에도 같은 기준이 품질 게이트로 포함됩니다.
 
 개발 서버가 켜진 상태에서 `db:seed`를 직접 실행하면 기존 SQLite 읽기 연결은 이전 파일을 계속 볼 수 있습니다. 콘텐츠를 다시 반영할 때는 개발 서버를 재시작하세요.
 

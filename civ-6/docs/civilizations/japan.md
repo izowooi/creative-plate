@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Himeji_castle_in_may_2015.
 sources:
   - title: "History of Japan — Wikipedia"
     url: "https://en.wikipedia.org/wiki/History_of_Japan"
+  - title: "Shōguns and Art — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/ja/essays/shoguns-and-art"
   - title: "Japanese (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Japanese_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ sources:
 ## 출처
 
 - [역사 개관 — Wikipedia](https://en.wikipedia.org/wiki/History_of_Japan)
+- [쇼군 통치와 문화 — The Metropolitan Museum of Art](https://www.metmuseum.org/ja/essays/shoguns-and-art)
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/Japanese_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Himeji_castle_in_may_2015.jpg)

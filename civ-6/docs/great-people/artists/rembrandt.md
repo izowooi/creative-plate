@@ -17,6 +17,8 @@ related: [el-greco, donatello, michelangelo]
 sources:
   - title: "Rembrandt — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Rembrandt"
+  - title: "10 things about the life of Rembrandt — Rijksmuseum"
+    url: "https://www.rijksmuseum.nl/en/stories/themes/rembrandt/story/10-things-about-life-rembrandt"
   - title: "Great Artist (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Artist_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -44,5 +46,6 @@ sources:
 ## 출처
 
 - [생애와 작품 — Wikipedia](https://en.wikipedia.org/wiki/Rembrandt)
+- [생애와 작업 세계 — Rijksmuseum](https://www.rijksmuseum.nl/en/stories/themes/rembrandt/story/10-things-about-life-rembrandt)
 - [게임 등장과 위대한 작품 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Artist_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg)

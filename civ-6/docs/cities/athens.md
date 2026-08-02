@@ -18,6 +18,8 @@ sources:
     url: "https://en.wikipedia.org/wiki/Athens"
   - title: "Acropolis, Athens — UNESCO"
     url: "https://whc.unesco.org/en/list/404/"
+  - title: "The Art of Classical Greece — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/essays/the-art-of-classical-greece-ca-480-323-b-c"
   - title: "Greek cities (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Greek_cities_%28Civ6%29"
 ---
@@ -43,5 +45,6 @@ sources:
 
 - [도시 역사 — Wikipedia](https://en.wikipedia.org/wiki/Athens)
 - [아크로폴리스 — UNESCO](https://whc.unesco.org/en/list/404/)
+- [고전기 아테네의 사회·예술 — The Metropolitan Museum of Art](https://www.metmuseum.org/essays/the-art-of-classical-greece-ca-480-323-b-c)
 - [게임 도시명 — Civilization Wiki](https://civilization.fandom.com/wiki/Greek_cities_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Athens_Acropolis_at_Daybreak.jpg)

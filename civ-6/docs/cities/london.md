@@ -16,6 +16,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:London_Skyline_(125508655)
 sources:
   - title: "London — Wikipedia"
     url: "https://en.wikipedia.org/wiki/London"
+  - title: "City of London — London Museum"
+    url: "https://www.londonmuseum.org.uk/collections/boroughs/city-of-london/"
   - title: "English cities (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/English_cities_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -42,5 +44,6 @@ sources:
 ## 출처
 
 - [도시 역사 — Wikipedia](https://en.wikipedia.org/wiki/London)
+- [런던의 도시사 컬렉션 — London Museum](https://www.londonmuseum.org.uk/collections/boroughs/city-of-london/)
 - [게임 도시명 — Civilization Wiki](https://civilization.fandom.com/wiki/English_cities_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:London_Skyline_(125508655).jpeg)

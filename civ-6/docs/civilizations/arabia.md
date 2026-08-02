@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:The_spiral_minaret_in_Sama
 sources:
   - title: "Arab world — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Arab_world"
+  - title: "Art of the Islamic World — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/learn/educators/curriculum-resources/art-of-the-islamic-world/~/media/Files/Learn/For%20Educators/Publications%20for%20Educators/Islamic%20Teacher%20Resource/Introduction.pdf"
   - title: "Arabian (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Arabian_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ sources:
 ## 출처
 
 - [역사·지역 개관 — Wikipedia](https://en.wikipedia.org/wiki/Arab_world)
+- [이슬람 세계의 왕조·문화 연표 — The Metropolitan Museum of Art](https://www.metmuseum.org/learn/educators/curriculum-resources/art-of-the-islamic-world/~/media/Files/Learn/For%20Educators/Publications%20for%20Educators/Islamic%20Teacher%20Resource/Introduction.pdf)
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/Arabian_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:The_spiral_minaret_in_Samarra.jpg)

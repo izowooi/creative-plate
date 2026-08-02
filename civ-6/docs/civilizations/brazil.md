@@ -21,6 +21,8 @@ sources:
     url: "https://civilization.fandom.com/wiki/Brazilian_(Civ6)"
   - title: "Brazil: A Country Study — Library of Congress"
     url: "https://www.loc.gov/item/97036500/"
+  - title: "Brazil: Five Centuries of Change — Brown University Library"
+    url: "https://library.brown.edu/create/fivecenturiesofchange/"
   - title: "Commons 이미지 기록"
     url: "https://commons.wikimedia.org/wiki/File:Ouro_Preto_centre_historique_en2005_(2).jpg"
 ---
@@ -48,4 +50,5 @@ sources:
 - [게임 roster — Civilization Wiki](https://civilization.fandom.com/wiki/Civilizations_(Civ6))
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/Brazilian_(Civ6))
 - [브라질 역사·사회 개관 — Library of Congress](https://www.loc.gov/item/97036500/)
+- [브라질 5세기 역사 자료 — Brown University Library](https://library.brown.edu/create/fivecenturiesofchange/)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ouro_Preto_centre_historique_en2005_(2).jpg)

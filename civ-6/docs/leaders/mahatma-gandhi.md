@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Mahatma-Gandhi,_studio,_19
 sources:
   - title: "Mahatma Gandhi — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Mahatma_Gandhi"
+  - title: "Gandhi Heritage Sites Mission — Government of India Ministry of Culture"
+    url: "https://culture.gov.in/offering/mission/gandhi-heritage-sites-mission"
   - title: "Gandhi (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Gandhi_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Civ6의 지도자 능력 ‘사티아그라하’는 간디가 만난 문명 가
 ## 출처
 
 - [생애와 독립운동 — Wikipedia](https://en.wikipedia.org/wiki/Mahatma_Gandhi)
+- [간디 유산 보존 사업 — Government of India Ministry of Culture](https://culture.gov.in/offering/mission/gandhi-heritage-sites-mission)
 - [게임 등장·능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Gandhi_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Mahatma-Gandhi,_studio,_1931.jpg)

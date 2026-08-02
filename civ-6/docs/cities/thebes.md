@@ -18,6 +18,8 @@ sources:
     url: "https://en.wikipedia.org/wiki/Thebes,_Egypt"
   - title: "Ancient Thebes — UNESCO"
     url: "https://whc.unesco.org/en/list/87/"
+  - title: "Timeline of ancient Egypt — British Museum"
+    url: "https://www.britishmuseum.org/learn/schools/ages-7-11/ancient-egypt/timeline-ancient-egypt"
   - title: "Egyptian cities (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Egyptian_cities_%28Civ6%29"
 ---
@@ -43,5 +45,6 @@ sources:
 
 - [도시 역사 — Wikipedia](https://en.wikipedia.org/wiki/Thebes,_Egypt)
 - [세계유산 설명 — UNESCO](https://whc.unesco.org/en/list/87/)
+- [고대 이집트 연표 — British Museum](https://www.britishmuseum.org/learn/schools/ages-7-11/ancient-egypt/timeline-ancient-egypt)
 - [게임 도시명 — Civilization Wiki](https://civilization.fandom.com/wiki/Egyptian_cities_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Decorated_pillars_of_the_temple_at_Karnac,_Thebes,_Egypt._Co_Wellcome_V0049316.jpg)

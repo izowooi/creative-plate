@@ -16,6 +16,8 @@ related: [saint-petersburg, russian-civilization]
 sources:
   - title: "Peter the Great — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Peter_the_Great"
+  - title: "Peter the Great: Primary and Secondary Resources — Library of Congress"
+    url: "https://guides.loc.gov/peter-the-great"
   - title: "Peter (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Peter_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -42,5 +44,6 @@ sources:
 ## 출처
 
 - [생애와 통치 — Wikipedia](https://en.wikipedia.org/wiki/Peter_the_Great)
+- [생애·통치 연구 안내 — Library of Congress](https://guides.loc.gov/peter-the-great)
 - [게임 능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Peter_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Inconnu_d%27apr%C3%A8s_J.-M._Nattier,_Portrait_de_Pierre_Ier_(mus%C3%A9e_de_l%E2%80%99Ermitage).jpg)

@@ -17,6 +17,8 @@ related: [charles-darwin, albert-einstein, isaac-newton]
 sources:
   - title: "Janaki Ammal — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Janaki_Ammal"
+  - title: "Janaki Ammal: The Pioneering Indian Cytogeneticist — India Science"
+    url: "https://indiascience.dst.gov.in/videos/janaki-ammal-the-pioneering-indian-cytogenetics-e"
   - title: "Janaki Ammal (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Janaki_Ammal_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -46,5 +48,6 @@ E. K. 자나키 암말(1897~1984)은 영국령 인도 텔리체리에서 태어�
 ## 출처
 
 - [생애와 연구 — Wikipedia](https://en.wikipedia.org/wiki/Janaki_Ammal)
+- [생애와 세포유전학 연구 — India Science](https://indiascience.dst.gov.in/videos/janaki-ammal-the-pioneering-indian-cytogenetics-e)
 - [게임 등장과 은퇴 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Janaki_Ammal_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:E_K_Janaki_Ammal.jpg)

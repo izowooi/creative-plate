@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Pedro_II_of_Brazil_-_Brady
 sources:
   - title: "Pedro II of Brazil — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Pedro_II_of_Brazil"
+  - title: "D. Pedro II — Senado Federal do Brasil"
+    url: "https://tainacan.senado.leg.br/personalidades/d-pedro-ii/"
   - title: "Pedro II (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Pedro_II_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Civ6의 ‘관대왕’은 위인을 영입하거나 신앙·금으로 후원한
 ## 출처
 
 - [생애와 브라질 제국 — Wikipedia](https://en.wikipedia.org/wiki/Pedro_II_of_Brazil)
+- [브라질 상원 박물관 인물 기록 — Senado Federal](https://tainacan.senado.leg.br/personalidades/d-pedro-ii/)
 - [게임 등장·능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Pedro_II_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Pedro_II_of_Brazil_-_Brady-Handy.jpg)

@@ -17,6 +17,8 @@ related: [seondeok, gyeongju, busan]
 sources:
   - title: "History of Korea — Wikipedia"
     url: "https://en.wikipedia.org/wiki/History_of_Korea"
+  - title: "Arts of Korea — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/pt/met-publications/arts-of-korea"
   - title: "Korean (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Korean_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -43,5 +45,6 @@ sources:
 ## 출처
 
 - [한국사 개관 — Wikipedia](https://en.wikipedia.org/wiki/History_of_Korea)
+- [선사부터 조선까지의 한국 문화사 — The Metropolitan Museum of Art](https://www.metmuseum.org/pt/met-publications/arts-of-korea)
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/Korean_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Donggwoldo.jpg)

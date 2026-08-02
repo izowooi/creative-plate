@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Roman_Empire_Trajan_117AD.
 sources:
   - title: "Ancient Rome — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Ancient_Rome"
+  - title: "The Roman Empire — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/pt/essays/the-roman-empire-27-b-c-393-a-d"
   - title: "Roman (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Roman_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ sources:
 ## 출처
 
 - [역사 개관 — Wikipedia](https://en.wikipedia.org/wiki/Ancient_Rome)
+- [로마 제국의 통치·사회·교역 — The Metropolitan Museum of Art](https://www.metmuseum.org/pt/essays/the-roman-empire-27-b-c-393-a-d)
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/Roman_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Roman_Empire_Trajan_117AD.png)

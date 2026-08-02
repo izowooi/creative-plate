@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Queen_Victoria_by_Bassano.
 sources:
   - title: "Queen Victoria — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Queen_Victoria"
+  - title: "Queen Victoria (1819–1901) — Royal Collection Trust"
+    url: "https://www.rct.uk/group/381/content/queen-victoria-1819-1901"
   - title: "Victoria (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Victoria_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ sources:
 ## 출처
 
 - [역사 개관 — Wikipedia](https://en.wikipedia.org/wiki/Queen_Victoria)
+- [생애와 재위 — Royal Collection Trust](https://www.rct.uk/group/381/content/queen-victoria-1819-1901)
 - [게임 능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Victoria_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Queen_Victoria_by_Bassano.jpg)

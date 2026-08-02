@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:QinShiHuang19century.jpg"
 sources:
   - title: "Qin Shi Huang — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Qin_Shi_Huang"
+  - title: "Qin Shi Huangdi — British Museum"
+    url: "https://www.britishmuseum.org/collection/term/BIOG13399"
   - title: "Qin Shi Huang (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Qin_Shi_Huang_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ sources:
 ## 출처
 
 - [역사 개관 — Wikipedia](https://en.wikipedia.org/wiki/Qin_Shi_Huang)
+- [박물관 인물 기록 — British Museum](https://www.britishmuseum.org/collection/term/BIOG13399)
 - [게임 능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Qin_Shi_Huang_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:QinShiHuang19century.jpg)

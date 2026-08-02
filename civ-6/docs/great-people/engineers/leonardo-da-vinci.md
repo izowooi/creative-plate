@@ -16,6 +16,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Francesco_Melzi_-_Portrait
 sources:
   - title: "Leonardo da Vinci — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Leonardo_da_Vinci"
+  - title: "The Life of Leonardo da Vinci — Royal Collection Trust"
+    url: "https://www.rct.uk/collection/stories/leonardo-in-the-royal-collection/the-life-of-leonardo-da-vinci"
   - title: "Leonardo da Vinci (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Leonardo_da_Vinci_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -42,5 +44,6 @@ sources:
 ## 출처
 
 - [생애와 연구 — Wikipedia](https://en.wikipedia.org/wiki/Leonardo_da_Vinci)
+- [생애와 왕실 소장 기록 — Royal Collection Trust](https://www.rct.uk/collection/stories/leonardo-in-the-royal-collection/the-life-of-leonardo-da-vinci)
 - [게임 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Leonardo_da_Vinci_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Francesco_Melzi_-_Portrait_of_Leonardo.png)

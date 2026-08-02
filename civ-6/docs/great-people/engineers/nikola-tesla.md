@@ -17,6 +17,8 @@ related: [james-watt, ada-lovelace, leonardo-da-vinci]
 sources:
   - title: "Nikola Tesla — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Nikola_Tesla"
+  - title: "Nikola Tesla, Inventor and Electrical Engineer — Smithsonian Institution"
+    url: "https://www.si.edu/exhibitions/nikola-tesla-inventor-and-electrical-engineer-event-event-exhib-3311"
   - title: "Great Engineer (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Engineer_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -46,5 +48,6 @@ sources:
 ## 출처
 
 - [생애와 공학 — Wikipedia](https://en.wikipedia.org/wiki/Nikola_Tesla)
+- [발명과 전기공학 — Smithsonian Institution](https://www.si.edu/exhibitions/nikola-tesla-inventor-and-electrical-engineer-event-event-exhib-3311)
 - [게임 등장과 활성화 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Engineer_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Tesla_circa_1890.jpeg)

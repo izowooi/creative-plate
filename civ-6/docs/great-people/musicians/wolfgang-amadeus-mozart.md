@@ -17,6 +17,8 @@ related: [johann-sebastian-bach, clara-schumann, beethoven]
 sources:
   - title: "Wolfgang Amadeus Mozart — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Wolfgang_Amadeus_Mozart"
+  - title: "Wolfgang Amadé Mozart — International Mozarteum Foundation"
+    url: "https://mozarteum.at/en/wolfgang-amade-mozart"
   - title: "Great Musician (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Musician_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -44,5 +46,6 @@ sources:
 ## 출처
 
 - [생애와 음악 — Wikipedia](https://en.wikipedia.org/wiki/Wolfgang_Amadeus_Mozart)
+- [생애와 작품 세계 — International Mozarteum Foundation](https://mozarteum.at/en/wolfgang-amade-mozart)
 - [게임 등장과 위대한 음악 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Musician_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:The_Mozart_Family_-_Wolfgang_Amadeus_Mozart_headshot.jpg)

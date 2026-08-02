@@ -17,6 +17,8 @@ related: [wolfgang-amadeus-mozart, beethoven, clara-schumann]
 sources:
   - title: "Johann Sebastian Bach — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Johann_Sebastian_Bach"
+  - title: "Johann Sebastian Bach – A chronology — Bach-Archiv Leipzig"
+    url: "https://www.bach-leipzig.de/en/neutral/johann-sebastian-bach-%E2%94%80-chronology"
   - title: "Great Musician (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Musician_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -45,5 +47,6 @@ sources:
 ## 출처
 
 - [생애와 음악 — Wikipedia](https://en.wikipedia.org/wiki/Johann_Sebastian_Bach)
+- [생애와 작품 연표 — Bach-Archiv Leipzig](https://www.bach-leipzig.de/en/neutral/johann-sebastian-bach-%E2%94%80-chronology)
 - [게임 등장과 위대한 음악 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Musician_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Johann_Sebastian_Bach.jpg)

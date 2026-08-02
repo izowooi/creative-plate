@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:%EA%B2%BD%EC%A3%BC_%EB%82%
 sources:
   - title: "Queen Seondeok of Silla — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Queen_Seondeok_of_Silla"
+  - title: "경주 선덕여왕릉 — 국가유산포털"
+    url: "https://www.heritage.go.kr/heri/cul/culGuidePostDetail.do?ccbaCpno=1333701820000&ccgbGbtype=IND&ccgbGbtypeNo=1&pageNo=1_1_4_0"
   - title: "Seondeok (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Seondeok_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ sources:
 ## 출처
 
 - [역사 개관 — Wikipedia](https://en.wikipedia.org/wiki/Queen_Seondeok_of_Silla)
+- [통치와 왕릉 설명 — 국가유산포털](https://www.heritage.go.kr/heri/cul/culGuidePostDetail.do?ccbaCpno=1333701820000&ccgbGbtype=IND&ccgbGbtypeNo=1&pageNo=1_1_4_0)
 - [게임 능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Seondeok_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:%EA%B2%BD%EC%A3%BC_%EB%82%A8%EC%82%B0_%EB%B6%88%EA%B3%A1_%EB%A7%88%EC%95%A0%EC%97%AC%EB%9E%98%EC%A2%8C%EC%83%81_01.jpg)

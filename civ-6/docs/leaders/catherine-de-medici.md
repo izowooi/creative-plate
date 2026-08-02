@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Catherine_de_M%C3%A9dicis_
 sources:
   - title: "Catherine de' Medici — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Catherine_de%27_Medici"
+  - title: "Catherine de' Medici — The British Museum"
+    url: "https://www.britishmuseum.org/collection/term/BIOG38000"
   - title: "Catherine de Medici (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Catherine_de_Medici_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Civ6의 기본 ‘검은 여왕’ 카트린은 ‘카트린의 비행 전대’
 ## 출처
 
 - [생애와 종교전쟁 — Wikipedia](https://en.wikipedia.org/wiki/Catherine_de%27_Medici)
+- [박물관 인물 기록 — The British Museum](https://www.britishmuseum.org/collection/term/BIOG38000)
 - [게임 등장·능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Catherine_de_Medici_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Catherine_de_M%C3%A9dicis_-_entourage_de_Fran%C3%A7ois_Clouet.jpg)

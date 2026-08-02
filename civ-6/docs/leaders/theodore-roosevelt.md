@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_
 sources:
   - title: "Theodore Roosevelt — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Theodore_Roosevelt"
+  - title: "Theodore Roosevelt Biography — U.S. National Park Service"
+    url: "https://www.nps.gov/articles/000/theodore-roosevelt-biography.htm"
   - title: "Teddy Roosevelt (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Teddy_Roosevelt_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Civ6 출시판의 지도자 능력 ‘루스벨트 계론’은 미국의 본토
 ## 출처
 
 - [생애와 대통령 재임 — Wikipedia](https://en.wikipedia.org/wiki/Theodore_Roosevelt)
+- [생애·정책·보전 유산 — U.S. National Park Service](https://www.nps.gov/articles/000/theodore-roosevelt-biography.htm)
 - [게임 등장·능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Teddy_Roosevelt_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg)

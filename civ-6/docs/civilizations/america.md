@@ -21,6 +21,8 @@ sources:
     url: "https://civilization.fandom.com/wiki/American_(Civ6)"
   - title: "U.S. History Primary Source Timeline — Library of Congress"
     url: "https://www.loc.gov/classroom-materials/united-states-history-primary-source-timeline/"
+  - title: "America at 250 — Smithsonian Institution"
+    url: "https://www.si.edu/support/impact/america-250"
   - title: "Commons 이미지 기록"
     url: "https://commons.wikimedia.org/wiki/File:United_States_Capitol_-_west_front.jpg"
 ---
@@ -47,4 +49,5 @@ sources:
 - [게임 roster — Civilization Wiki](https://civilization.fandom.com/wiki/Civilizations_(Civ6))
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/American_(Civ6))
 - [미국사 1차 자료 연표 — Library of Congress](https://www.loc.gov/classroom-materials/united-states-history-primary-source-timeline/)
+- [미국 250년 역사 기획 — Smithsonian Institution](https://www.si.edu/support/impact/america-250)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:United_States_Capitol_-_west_front.jpg)

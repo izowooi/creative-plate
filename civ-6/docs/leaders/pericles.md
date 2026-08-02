@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Pericles_Pio-Clementino_In
 sources:
   - title: "Pericles — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Pericles"
+  - title: "Pericles, Son of Xanthippos — Acropolis Museum"
+    url: "https://www.theacropolismuseum.gr/en/node/429"
   - title: "Pericles (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Pericles_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ sources:
 ## 출처
 
 - [역사 개관 — Wikipedia](https://en.wikipedia.org/wiki/Pericles)
+- [페리클레스 전시 기록 — Acropolis Museum](https://www.theacropolismuseum.gr/en/node/429)
 - [게임 능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Pericles_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Pericles_Pio-Clementino_Inv269_n2.jpg)

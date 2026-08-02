@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Traianus_Glyptothek_Munich
 sources:
   - title: "Trajan — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Trajan"
+  - title: "Trajan — British Museum"
+    url: "https://www.britishmuseum.org/collection/term/BIOG140738"
   - title: "Trajan (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Trajan_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ sources:
 ## 출처
 
 - [역사 개관 — Wikipedia](https://en.wikipedia.org/wiki/Trajan)
+- [박물관 인물 기록 — British Museum](https://www.britishmuseum.org/collection/term/BIOG140738)
 - [게임 능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Trajan_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Traianus_Glyptothek_Munich_72.jpg)

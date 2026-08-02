@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Al-Nasir_I_Salah_al-Din_Yu
 sources:
   - title: "Saladin — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Saladin"
+  - title: "Saladin — World History Encyclopedia"
+    url: "https://www.worldhistory.org/Saladin/"
   - title: "Saladin (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Saladin_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ sources:
 ## 출처
 
 - [역사 개관 — Wikipedia](https://en.wikipedia.org/wiki/Saladin)
+- [생애와 통치 — World History Encyclopedia](https://www.worldhistory.org/Saladin/)
 - [게임 능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Saladin_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Al-Nasir_I_Salah_al-Din_Yusuf_(Saladin)._AH_564-589_(1169-1193_CE)_%C3%86_Dirham_(30.1mm,_13.28_g,_6h)._Without_mint-name._Dated_AH_586_(AD_1190-91)._Sultan_sitting_facing,_cross-legged,_on_high-backed_throne_(obverse).jpg)

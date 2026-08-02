@@ -17,6 +17,8 @@ related: [peter-the-great, saint-petersburg]
 sources:
   - title: "History of Russia — Wikipedia"
     url: "https://en.wikipedia.org/wiki/History_of_Russia"
+  - title: "Russia: A Country Study — Library of Congress"
+    url: "https://www.loc.gov/item/97007563/"
   - title: "Russian (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Russian_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -43,5 +45,6 @@ sources:
 ## 출처
 
 - [러시아사 개관 — Wikipedia](https://en.wikipedia.org/wiki/History_of_Russia)
+- [러시아 역사·사회 연구서 — Library of Congress](https://www.loc.gov/item/97007563/)
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/Russian_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:1730_map_of_the_Russian_Empire_by_Philipp_Johann_Strahlenberg.jpg)

@@ -17,6 +17,8 @@ related: [william-shakespeare, mark-twain, murasaki-shikibu]
 sources:
   - title: "Jane Austen — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Jane_Austen"
+  - title: "Jane Austen: A Life — Jane Austen's House"
+    url: "https://janeaustens.house/jane-austen/jane-austen-a-life/"
   - title: "Great Writer (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Writer_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -45,5 +47,6 @@ sources:
 ## 출처
 
 - [생애와 작품 — Wikipedia](https://en.wikipedia.org/wiki/Jane_Austen)
+- [생애와 창작 활동 — Jane Austen's House](https://janeaustens.house/jane-austen/jane-austen-a-life/)
 - [게임 등장과 위대한 저서 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Writer_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:CassandraAusten-JaneAusten(c.1810)_hires.jpg)

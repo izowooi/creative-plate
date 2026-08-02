@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Ancient_Egypt_map-en.svg"
 sources:
   - title: "Ancient Egypt — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Ancient_Egypt"
+  - title: "Timeline of ancient Egypt — British Museum"
+    url: "https://www.britishmuseum.org/learn/schools/ages-7-11/ancient-egypt/timeline-ancient-egypt"
   - title: "Egyptian (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Egyptian_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ sources:
 ## 출처
 
 - [역사 개관 — Wikipedia](https://en.wikipedia.org/wiki/Ancient_Egypt)
+- [고대 이집트 연표 — British Museum](https://www.britishmuseum.org/learn/schools/ages-7-11/ancient-egypt/timeline-ancient-egypt)
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/Egyptian_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ancient_Egypt_map-en.svg)

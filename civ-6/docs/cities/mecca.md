@@ -16,6 +16,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Great_Mosque_of_Mecca1.jpg
 sources:
   - title: "Mecca — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Mecca"
+  - title: "Hajj: pilgrimage to Mecca — British Museum"
+    url: "https://www.britishmuseum.org/blog/hajj-pilgrimage-mecca"
   - title: "Arabian cities (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Arabian_cities_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -42,5 +44,6 @@ sources:
 ## 출처
 
 - [도시 역사 — Wikipedia](https://en.wikipedia.org/wiki/Mecca)
+- [메카와 하지의 역사 — British Museum](https://www.britishmuseum.org/blog/hajj-pilgrimage-mecca)
 - [게임 도시명 — Civilization Wiki](https://civilization.fandom.com/wiki/Arabian_cities_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Great_Mosque_of_Mecca1.jpg)

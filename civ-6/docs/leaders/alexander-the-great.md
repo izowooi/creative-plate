@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Alexander_Mosaic_detail_of
 sources:
   - title: "Alexander the Great — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Alexander_the_Great"
+  - title: "고전기 마케도니아와 알렉산드로스 — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/essays/the-art-of-classical-greece-ca-480-323-b-c"
   - title: "Alexander (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Alexander_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Civ6에서 알렉산드로스의 ‘세상의 끝까지’는 도시의 전쟁 �
 ## 출처
 
 - [생애와 원정 — Wikipedia](https://en.wikipedia.org/wiki/Alexander_the_Great)
+- [마케도니아의 부상과 알렉산드로스의 정복 — The Metropolitan Museum of Art](https://www.metmuseum.org/essays/the-art-of-classical-greece-ca-480-323-b-c)
 - [게임 등장·능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Alexander_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Alexander_Mosaic_detail_of_Alexander_the_Great_(3x4_cropped).jpg)

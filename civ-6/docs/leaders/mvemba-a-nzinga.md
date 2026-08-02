@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Royal_banner_of_Kongo_(Afo
 sources:
   - title: "Afonso I of Kongo — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Afonso_I_of_Kongo"
+  - title: "The Kongo kingdom — Royal Museum for Central Africa"
+    url: "https://www.africamuseum.be/en/discover/history_articles/kongo-kingdom"
   - title: "Mvemba a Nzinga (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Mvemba_a_Nzinga_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Civ6의 ‘종교적 개종자’는 성지를 지을 수 없고 위대한 예�
 ## 출처
 
 - [생애와 콩고-포르투갈 관계 — Wikipedia](https://en.wikipedia.org/wiki/Afonso_I_of_Kongo)
+- [콩고 왕국과 아폰수 1세 — Royal Museum for Central Africa](https://www.africamuseum.be/en/discover/history_articles/kongo-kingdom)
 - [게임 등장·능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Mvemba_a_Nzinga_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Royal_banner_of_Kongo_(Afonso_I).svg)

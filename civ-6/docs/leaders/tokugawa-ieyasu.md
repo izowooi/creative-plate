@@ -16,6 +16,8 @@ related: [japan, kyoto, hojo-tokimune]
 sources:
   - title: "Tokugawa Ieyasu — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Tokugawa_Ieyasu"
+  - title: "Art of the Edo Period — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/essays/art-of-the-edo-period-1615-1868"
   - title: "Tokugawa (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Tokugawa_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -42,5 +44,6 @@ sources:
 ## 출처
 
 - [생애와 막부 성립 — Wikipedia](https://en.wikipedia.org/wiki/Tokugawa_Ieyasu)
+- [에도 시대와 도쿠가와 통치 — The Metropolitan Museum of Art](https://www.metmuseum.org/essays/art-of-the-edo-period-1615-1868)
 - [게임 능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Tokugawa_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Tokugawa_Ieyasu2.JPG)

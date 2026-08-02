@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Harold-III-Coin.png"
 sources:
   - title: "Harald Hardrada — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Harald_Hardrada"
+  - title: "Harald Hardråde — Store norske leksikon"
+    url: "https://snl.no/Harald_Hardr%C3%A5de"
   - title: "Harald Hardrada (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Harald_Hardrada_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Civ6의 왕 페르소나 하랄은 ‘북방의 번개’로 해군 근접 유�
 ## 출처
 
 - [생애와 원정 — Wikipedia](https://en.wikipedia.org/wiki/Harald_Hardrada)
+- [노르웨이 왕 하랄 하르드라다 — Store norske leksikon](https://snl.no/Harald_Hardr%C3%A5de)
 - [게임 등장·능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Harald_Hardrada_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Harold-III-Coin.png)

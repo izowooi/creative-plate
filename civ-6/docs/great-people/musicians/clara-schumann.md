@@ -17,6 +17,8 @@ related: [beethoven, johann-sebastian-bach, wolfgang-amadeus-mozart]
 sources:
   - title: "Clara Schumann — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Clara_Schumann"
+  - title: "Chronological short vita — Schumann Portal"
+    url: "https://www.schumann-portal.de/Chronological_short_vita-Clara.html"
   - title: "Great Musician (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Musician_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -45,5 +47,6 @@ sources:
 ## 출처
 
 - [생애와 음악 — Wikipedia](https://en.wikipedia.org/wiki/Clara_Schumann)
+- [생애 연표 — Schumann Portal](https://www.schumann-portal.de/Chronological_short_vita-Clara.html)
 - [게임 등장과 위대한 음악 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Musician_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Franz_Hanfstaengl_-_Clara_Schumann_(1857).jpg)

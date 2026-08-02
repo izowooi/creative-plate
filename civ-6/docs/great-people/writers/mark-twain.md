@@ -17,6 +17,8 @@ related: [jane-austen, william-shakespeare, homer]
 sources:
   - title: "Mark Twain — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Mark_Twain"
+  - title: "Perspectives: Samuel L. Clemens (Mark Twain) — National Portrait Gallery"
+    url: "https://npg.si.edu/Mark_Twain"
   - title: "Great Writer (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Writer_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -45,5 +47,6 @@ sources:
 ## 출처
 
 - [생애와 작품 — Wikipedia](https://en.wikipedia.org/wiki/Mark_Twain)
+- [생애와 작가적 정체성 — National Portrait Gallery](https://npg.si.edu/Mark_Twain)
 - [게임 등장과 위대한 저서 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Writer_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Mark_Twain_by_AF_Bradley_(cropped_2).jpg)

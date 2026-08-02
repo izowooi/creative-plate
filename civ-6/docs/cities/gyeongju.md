@@ -18,6 +18,8 @@ sources:
     url: "https://en.wikipedia.org/wiki/Gyeongju"
   - title: "Gyeongju Historic Areas — UNESCO"
     url: "https://whc.unesco.org/en/list/976/"
+  - title: "Silla: Korea's Golden Kingdom — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/ko/met-publications/silla-koreas-golden-kingdom"
   - title: "Korean cities (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Korean_cities_%28Civ6%29"
 ---
@@ -43,5 +45,6 @@ sources:
 
 - [도시 역사 — Wikipedia](https://en.wikipedia.org/wiki/Gyeongju)
 - [경주역사유적지구 — UNESCO](https://whc.unesco.org/en/list/976/)
+- [신라 왕경의 역사·문화 — The Metropolitan Museum of Art](https://www.metmuseum.org/ko/met-publications/silla-koreas-golden-kingdom)
 - [게임 도시명 — Civilization Wiki](https://civilization.fandom.com/wiki/Korean_cities_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Gyeongju_montage.png)

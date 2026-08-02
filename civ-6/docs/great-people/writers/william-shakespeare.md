@@ -17,6 +17,8 @@ related: [jane-austen, mark-twain, homer]
 sources:
   - title: "William Shakespeare — Wikipedia"
     url: "https://en.wikipedia.org/wiki/William_Shakespeare"
+  - title: "William Shakespeare Biography — Shakespeare Birthplace Trust"
+    url: "https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/william-shakespeare-biography/"
   - title: "Great Writer (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Writer_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -45,5 +47,6 @@ sources:
 ## 출처
 
 - [생애와 작품 — Wikipedia](https://en.wikipedia.org/wiki/William_Shakespeare)
+- [생애와 극작 활동 — Shakespeare Birthplace Trust](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/william-shakespeare-biography/)
 - [게임 등장과 위대한 저서 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Writer_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:William_Shakespeare_by_John_Taylor,_edited.jpg)

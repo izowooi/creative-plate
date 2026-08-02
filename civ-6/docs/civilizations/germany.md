@@ -21,6 +21,8 @@ sources:
     url: "https://civilization.fandom.com/wiki/German_(Civ6)"
   - title: "German History in Images and Documents — Deutsches Historisches Museum"
     url: "https://www.dhm.de/archiv/ausstellungen/staendige-ausstellung/english/index.html"
+  - title: "German History in Documents and Images — German Historical Institute"
+    url: "https://germanhistorydocs.org/en/"
   - title: "Commons 이미지 기록"
     url: "https://commons.wikimedia.org/wiki/File:Brandenburger_Tor_morgens.jpg"
 ---
@@ -48,4 +50,5 @@ sources:
 - [게임 roster — Civilization Wiki](https://civilization.fandom.com/wiki/Civilizations_(Civ6))
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/German_(Civ6))
 - [독일사 전시 개관 — Deutsches Historisches Museum](https://www.dhm.de/archiv/ausstellungen/staendige-ausstellung/english/index.html)
+- [독일사 사료·해설 아카이브 — German Historical Institute](https://germanhistorydocs.org/en/)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Brandenburger_Tor_morgens.jpg)

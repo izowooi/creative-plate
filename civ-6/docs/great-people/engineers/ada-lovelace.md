@@ -17,6 +17,8 @@ related: [james-watt, nikola-tesla, leonardo-da-vinci]
 sources:
   - title: "Ada Lovelace — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Ada_Lovelace"
+  - title: "Lovelace, Turing and the invention of computers — Science Museum"
+    url: "https://www.sciencemuseum.org.uk/objects-and-stories/lovelace-turing-and-invention-computers"
   - title: "Great Engineer (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Engineer_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -45,5 +47,6 @@ sources:
 ## 출처
 
 - [생애와 연구 — Wikipedia](https://en.wikipedia.org/wiki/Ada_Lovelace)
+- [계산 기계와 컴퓨터사 — Science Museum](https://www.sciencemuseum.org.uk/objects-and-stories/lovelace-turing-and-invention-computers)
 - [게임 등장과 활성화 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Engineer_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ada_Lovelace_daguerreotype_by_Antoine_Claudet_1843_-_cropped.png)

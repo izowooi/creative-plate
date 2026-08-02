@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:H%C5%8Dj%C5%8D_Tokimune.jp
 sources:
   - title: "Hōjō Tokimune — Wikipedia"
     url: "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8D_Tokimune"
+  - title: "북조시종과 그 시대 — 후쿠오카시박물관"
+    url: "https://museum.city.fukuoka.jp/archives/exhibition/2001/20011103_mouko/"
   - title: "Hojo Tokimune (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Hojo_Tokimune_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ sources:
 ## 출처
 
 - [역사 개관 — Wikipedia](https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8D_Tokimune)
+- [몽골 침공과 통치 시대 — 후쿠오카시박물관](https://museum.city.fukuoka.jp/archives/exhibition/2001/20011103_mouko/)
 - [게임 능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Hojo_Tokimune_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:H%C5%8Dj%C5%8D_Tokimune.jpg)

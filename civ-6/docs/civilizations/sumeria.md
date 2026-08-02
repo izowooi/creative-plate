@@ -21,6 +21,8 @@ sources:
     url: "https://civilization.fandom.com/wiki/Sumerian_(Civ6)"
   - title: "Art of the Ancient Near East — The Metropolitan Museum of Art"
     url: "https://www.metmuseum.org/-/media/files/learn/for-educators/publications-for-educators/art-of-the-ancient-near-east.pdf"
+  - title: "Mesopotamia — British Museum"
+    url: "https://www.britishmuseum.org/collection/galleries/mesopotamia"
   - title: "Commons 이미지 기록"
     url: "https://commons.wikimedia.org/wiki/File:Ziggarat_of_Ur_001.jpg"
 ---
@@ -48,4 +50,5 @@ sources:
 - [게임 roster — Civilization Wiki](https://civilization.fandom.com/wiki/Civilizations_(Civ6))
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/Sumerian_(Civ6))
 - [고대 근동 도시·문자 개관 — The Metropolitan Museum of Art](https://www.metmuseum.org/-/media/files/learn/for-educators/publications-for-educators/art-of-the-ancient-near-east.pdf)
+- [수메르·메소포타미아 문명 개관 — British Museum](https://www.britishmuseum.org/collection/galleries/mesopotamia)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ziggarat_of_Ur_001.jpg)

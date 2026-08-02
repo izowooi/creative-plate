@@ -21,6 +21,8 @@ sources:
     url: "https://civilization.fandom.com/wiki/Aztec_(Civ6)"
   - title: "Tenochtitlan — The Metropolitan Museum of Art"
     url: "https://www.metmuseum.org/essays/tenochtitlan"
+  - title: "Aztec Civilization — World History Encyclopedia"
+    url: "https://www.worldhistory.org/Aztec_Civilization/"
   - title: "Commons 이미지 기록"
     url: "https://commons.wikimedia.org/wiki/File:Monolito_de_la_Piedra_del_Sol.jpg"
 ---
@@ -47,4 +49,5 @@ sources:
 - [게임 roster — Civilization Wiki](https://civilization.fandom.com/wiki/Civilizations_(Civ6))
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/Aztec_(Civ6))
 - [테노치티틀란 역사 개관 — The Metropolitan Museum of Art](https://www.metmuseum.org/essays/tenochtitlan)
+- [아즈텍 문명 개관 — World History Encyclopedia](https://www.worldhistory.org/Aztec_Civilization/)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Monolito_de_la_Piedra_del_Sol.jpg)

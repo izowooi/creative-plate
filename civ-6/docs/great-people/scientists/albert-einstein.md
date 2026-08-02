@@ -17,6 +17,8 @@ related: [isaac-newton, charles-darwin, janaki-ammal]
 sources:
   - title: "Albert Einstein — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Albert_Einstein"
+  - title: "Albert Einstein – Facts — NobelPrize.org"
+    url: "https://www.nobelprize.org/laureate/26"
   - title: "Great Scientist (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Great_Scientist_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -45,5 +47,6 @@ sources:
 ## 출처
 
 - [생애와 연구 — Wikipedia](https://en.wikipedia.org/wiki/Albert_Einstein)
+- [생애와 노벨 물리학상 — NobelPrize.org](https://www.nobelprize.org/laureate/26)
 - [게임 등장과 은퇴 효과 — Civilization Wiki](https://civilization.fandom.com/wiki/Great_Scientist_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Albert_Einstein_Head_cleaned.jpg)

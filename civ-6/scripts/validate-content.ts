@@ -40,6 +40,11 @@ try {
     if (entry.sources.length < 3) fail(`${entry.slug}: frontmatter 출처가 3개보다 적습니다.`);
     const sourceUrls = entry.sources.map((source) => source.url);
     if (new Set(sourceUrls).size !== sourceUrls.length) fail(`${entry.slug}: 중복 출처 URL이 있습니다.`);
+    const sourceSection = entry.body.match(/^## 출처\s+([\s\S]*)$/m)?.[1] ?? "";
+    const unlistedSourceUrls = sourceUrls.filter((url) => !sourceSection.includes(`](${url})`));
+    if (unlistedSourceUrls.length) {
+      fail(`${entry.slug}: frontmatter 출처가 본문 출처 목록에 없습니다: ${unlistedSourceUrls.join(", ")}`);
+    }
     const sourceHosts = sourceUrls.map((url) => new URL(url).hostname.replace(/^www\./, ""));
     if (!sourceHosts.some((host) => [
       "civilization.fandom.com",

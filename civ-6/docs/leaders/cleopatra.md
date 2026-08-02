@@ -15,6 +15,8 @@ imageSource: "https://commons.wikimedia.org/wiki/File:Kleopatra-VII.-Altes-Museu
 sources:
   - title: "Cleopatra — Wikipedia"
     url: "https://en.wikipedia.org/wiki/Cleopatra"
+  - title: "Cleopatra the Great — British Museum"
+    url: "https://www.britishmuseum.org/collection/term/BIOG57627"
   - title: "Cleopatra (Civ6) — Civilization Wiki"
     url: "https://civilization.fandom.com/wiki/Cleopatra_%28Civ6%29"
   - title: "Commons 이미지 기록"
@@ -41,5 +43,6 @@ Civ6의 이집트인 클레오파트라는 지도자 능력 ‘지중해의 신�
 ## 출처
 
 - [역사 개관 — Wikipedia](https://en.wikipedia.org/wiki/Cleopatra)
+- [박물관 인물 기록 — British Museum](https://www.britishmuseum.org/collection/term/BIOG57627)
 - [게임 능력 — Civilization Wiki](https://civilization.fandom.com/wiki/Cleopatra_%28Civ6%29)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Kleopatra-VII.-Altes-Museum-Berlin1.jpg)

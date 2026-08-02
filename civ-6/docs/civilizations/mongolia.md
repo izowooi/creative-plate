@@ -21,6 +21,8 @@ sources:
     url: "https://civilization.fandom.com/wiki/Mongolian_(Civ6)"
   - title: "Orkhon Valley Cultural Landscape — UNESCO"
     url: "https://whc.unesco.org/en/list/1081"
+  - title: "The Legacy of Genghis Khan — The Metropolitan Museum of Art"
+    url: "https://www.metmuseum.org/met-publications/the-legacy-of-genghis-khan-courtly-art-and-culture-in-western-asia-1256-1353"
   - title: "Commons 이미지 기록"
     url: "https://commons.wikimedia.org/wiki/File:202408_Orkhon_Valley_08.jpg"
 ---
@@ -48,4 +50,5 @@ sources:
 - [게임 roster — Civilization Wiki](https://civilization.fandom.com/wiki/Civilizations_(Civ6))
 - [게임 요소 — Civilization Wiki](https://civilization.fandom.com/wiki/Mongolian_(Civ6))
 - [오르혼 계곡의 장기 역사 — UNESCO World Heritage Centre](https://whc.unesco.org/en/list/1081)
+- [몽골 제국의 정치·문화 유산 — The Metropolitan Museum of Art](https://www.metmuseum.org/met-publications/the-legacy-of-genghis-khan-courtly-art-and-culture-in-western-asia-1256-1353)
 - [이미지·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:202408_Orkhon_Valley_08.jpg)
