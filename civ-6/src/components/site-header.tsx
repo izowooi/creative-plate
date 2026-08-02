@@ -13,6 +13,7 @@ const navigation = [
   { href: "/explore?category=civilizations", label: "문명" },
   { href: "/explore?category=cities", label: "도시" },
   { href: "/explore?category=great-people", label: "위인" },
+  { href: "/explore?category=great-works", label: "걸작" },
 ];
 
 export function SiteHeader() {
@@ -68,7 +69,7 @@ export function SiteHeader() {
       <header className="site-header">
         <div className="page-shell flex h-[68px] items-center justify-between">
           <Logo />
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="주요 탐색">
+          <nav className="hidden items-center gap-5 xl:gap-7 lg:flex" aria-label="주요 탐색">
             {navigation.map((item) => (
               <Link key={item.href} href={item.href} className="nav-link">
                 {item.label}
@@ -132,14 +133,14 @@ export function SiteHeader() {
           <form className="search-panel" onSubmit={submitSearch}>
             <Search size={24} strokeWidth={1.7} aria-hidden="true" />
             <label className="sr-only" htmlFor="global-search">
-              인물, 도시, 문명 검색
+              인물, 도시, 문명, 걸작 검색
             </label>
             <input
               id="global-search"
               ref={inputRef}
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="선덕여왕, 상트페테르부르크, 갈릴레오…"
+              placeholder="선덕여왕, 상트페테르부르크, 사계…"
               autoComplete="off"
             />
             <button className="search-submit" type="submit">

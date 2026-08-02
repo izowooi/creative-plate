@@ -1523,6 +1523,22 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/21/William_Shakespeare_by_John_Taylor%2C_edited.jpg",
     "sha256": "3b4991663208d8ba7881608881a92eec8e22c37363a167723cc15bdb592aef2d"
   },
+  "great-work-claude-monet-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/07/Claude_Monet_-_Waterlilies_-_Nympheas_%281908%29.jpg",
+    "sha256": "9e6aa6f4238071faccb6feb9e875d51e6e5af61f673880f6b7142479ed099797"
+  },
+  "great-work-rembrandt-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Portrait_of_Andries_de_Graeff_%E2%80%93_Rembrandt.jpg",
+    "sha256": "8aa6da65595a3443199cad9edef86f4cf63ac6b1bb9b45d9bbbe55b664d50aee"
+  },
+  "great-work-rembrandt-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Rembrandt_van_Rijn%2C_Abraham_and_Isaac%2C_1645%2C_NGA_46905.jpg",
+    "sha256": "2a74e81f6840a168936ac2812dc04832286892f9f23a116b73f057da3575307a"
+  },
+  "great-work-donatello-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Orsanmichele_Florenz_Donatello_Markus.jpg",
+    "sha256": "060083f3c44e71cd32885e867f64356b8a5e963bb336e2f61e3aba9017514885"
+  },
   "abraham-lincoln": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/4/44/Abraham_Lincoln_head_on_shoulders_photo_portrait.jpg",
     "sha256": "936e22e028fe341e65463a4b9544e97c73d2dca04c90fdc5e4e1f3fa9ebfaacd"

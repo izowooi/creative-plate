@@ -519,6 +519,23 @@ button {
   transform: translate(2px, -2px);
 }
 
+.entry-card-title,
+.entry-card-name-en {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+.entry-card-title {
+  -webkit-line-clamp: 2;
+}
+
+.entry-card-name-en {
+  min-height: 2.5rem;
+  line-height: 1.25rem;
+  -webkit-line-clamp: 2;
+}
+
 .image-placeholder {
   position: relative;
   display: flex;
@@ -933,6 +950,13 @@ button {
   word-break: keep-all;
 }
 
+.detail-title-grid.is-great-work h1 {
+  overflow-wrap: anywhere;
+  font-size: clamp(3.2rem, 7vw, 7rem);
+  line-height: 0.98;
+  word-break: normal;
+}
+
 .detail-name-en {
   margin-top: 24px;
   color: #686a70;
@@ -968,6 +992,12 @@ button {
   overflow: hidden;
   border-radius: 32px;
   background: #e5e3dc;
+}
+
+.detail-image-wrap.is-great-work {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.96), transparent 56%),
+    #e9e7e0;
 }
 
 .detail-figure figcaption {
@@ -1095,6 +1125,291 @@ button {
   font-weight: 650;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.quick-context strong a {
+  text-decoration: underline;
+  text-decoration-color: rgba(36, 91, 201, 0.28);
+  text-underline-offset: 3px;
+}
+
+.quick-context strong a:hover {
+  color: #245bc9;
+  text-decoration-color: #245bc9;
+}
+
+.great-work-panel {
+  margin-top: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(17, 17, 19, 0.1);
+  border-radius: 24px;
+  background: rgba(251, 250, 247, 0.74);
+  box-shadow: 0 20px 55px rgba(17, 17, 19, 0.045);
+}
+
+.great-work-panel-heading {
+  padding: 28px 28px 24px;
+}
+
+.great-work-panel-heading h2 {
+  margin-top: 8px;
+  color: #111113;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+
+.great-work-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-block: 1px solid rgba(17, 17, 19, 0.09);
+}
+
+.great-work-facts > div {
+  min-width: 0;
+  padding: 22px;
+}
+
+.great-work-facts > div + div {
+  border-left: 1px solid rgba(17, 17, 19, 0.09);
+}
+
+.great-work-facts dt {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #686a70;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.great-work-facts dt svg {
+  color: #245bc9;
+}
+
+.great-work-facts dd {
+  display: grid;
+  gap: 5px;
+  margin-top: 14px;
+  color: #3e4045;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.great-work-facts dd strong {
+  overflow-wrap: anywhere;
+  color: #222327;
+  font-size: 13px;
+}
+
+.great-work-facts dd span,
+.great-work-facts dd p {
+  color: #686a70;
+}
+
+.great-work-facts a,
+.great-work-audio-rights a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  color: #245bc9;
+  text-decoration: underline;
+  text-decoration-color: rgba(36, 91, 201, 0.3);
+  text-underline-offset: 3px;
+}
+
+.great-work-attribution {
+  display: grid;
+  gap: 10px;
+  padding: 24px 28px;
+  color: #4d4f54;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.great-work-attribution p {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 14px;
+}
+
+.great-work-attribution strong {
+  color: #222327;
+  font-size: 11px;
+}
+
+.great-work-game-context {
+  display: grid;
+  gap: 20px;
+  border-top: 1px solid rgba(17, 17, 19, 0.09);
+  background: rgba(17, 17, 19, 0.022);
+  padding: 24px 28px;
+}
+
+.great-work-game-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.great-work-game-heading > div {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.great-work-game-heading p {
+  color: #245bc9;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.great-work-game-heading strong {
+  color: #222327;
+  font-size: 14px;
+}
+
+.great-work-game-heading div > span {
+  color: #686a70;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.great-work-game-icon {
+  display: grid;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  background: #111113;
+  color: white;
+}
+
+.great-work-rulesets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid rgba(17, 17, 19, 0.09);
+  border-radius: 15px;
+  background: rgba(251, 250, 247, 0.72);
+}
+
+.great-work-rulesets > div {
+  min-width: 0;
+  padding: 15px;
+}
+
+.great-work-rulesets > div + div {
+  border-left: 1px solid rgba(17, 17, 19, 0.09);
+}
+
+.great-work-rulesets dt {
+  display: grid;
+  gap: 2px;
+  color: #303136;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.great-work-rulesets dt span {
+  overflow: hidden;
+  color: #85868b;
+  font-size: 9px;
+  font-weight: 550;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.great-work-rulesets dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 9px;
+  margin-top: 10px;
+  color: #245bc9;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.great-work-game-note {
+  color: #686a70;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.great-work-audio {
+  display: grid;
+  gap: 18px;
+  border-top: 1px solid rgba(17, 17, 19, 0.09);
+  background: rgba(36, 91, 201, 0.055);
+  padding: 24px 28px;
+}
+
+.great-work-audio-copy {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.great-work-audio-copy > div {
+  display: grid;
+  gap: 3px;
+}
+
+.great-work-audio-copy p {
+  color: #245bc9;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.great-work-audio-copy strong {
+  color: #222327;
+  font-size: 14px;
+}
+
+.great-work-audio-copy span:not(.great-work-audio-icon) {
+  color: #686a70;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.great-work-audio-icon {
+  display: grid;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  background: #245bc9;
+  color: white;
+}
+
+.great-work-audio audio {
+  width: 100%;
+  min-height: 40px;
+  color-scheme: light;
+}
+
+.great-work-audio-rights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  color: #5e6066;
+  font-size: 11px;
+}
+
+.great-work-audio.is-unavailable {
+  background: rgba(17, 17, 19, 0.025);
+}
+
+.great-work-audio.is-unavailable .great-work-audio-icon {
+  background: #777980;
 }
 
 .editorial-quote {
@@ -1359,6 +1674,40 @@ button {
 
   .quick-context {
     grid-template-columns: 1fr;
+  }
+
+  .great-work-panel-heading,
+  .great-work-attribution,
+  .great-work-game-context,
+  .great-work-audio {
+    padding-inline: 20px;
+  }
+
+  .great-work-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .great-work-facts > div {
+    padding-inline: 20px;
+  }
+
+  .great-work-facts > div + div {
+    border-top: 1px solid rgba(17, 17, 19, 0.09);
+    border-left: 0;
+  }
+
+  .great-work-attribution p {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
+  .great-work-rulesets {
+    grid-template-columns: 1fr;
+  }
+
+  .great-work-rulesets > div + div {
+    border-top: 1px solid rgba(17, 17, 19, 0.09);
+    border-left: 0;
   }
 
   .editorial-quote {

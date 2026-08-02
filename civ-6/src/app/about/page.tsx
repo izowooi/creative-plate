@@ -46,8 +46,8 @@ export default function AboutPage() {
           </p>
           <div className="space-y-5 text-[16px] leading-8 text-muted">
             <p>
-              THE TURN은 Civilization VI를 플레이하다 만난 지도자, 문명, 도시와 위대한
-              인물을 실제 세계사와 연결하는 개인용 비공식 에디토리얼입니다.
+              THE TURN은 Civilization VI를 플레이하다 만난 지도자, 문명, 도시, 위대한
+              인물과 걸작을 실제 세계사와 연결하는 개인용 비공식 에디토리얼입니다.
             </p>
             <p>
               승률을 높이는 공략보다 감정이입을 깊게 하는 배경지식에 집중합니다. 게임을
@@ -88,8 +88,8 @@ export default function AboutPage() {
               <p>Wikipedia와 공공기관 자료를 출발점으로 삼고, 가능한 경우 박물관·백과사전·원문 아카이브를 함께 확인합니다. 각 상세 글에 실제 접근 가능한 URL을 남깁니다.</p>
             </div>
             <div>
-              <h3 className="mb-2 font-semibold text-ink">이미지</h3>
-              <p>Wikimedia Commons 등에서 Public Domain 또는 재사용 가능한 라이선스가 확인된 이미지를 우선합니다. 작품명·제작자·기관·라이선스·원본 링크를 이미지 바로 아래에 표시합니다.</p>
+              <h3 className="mb-2 font-semibold text-ink">이미지와 오디오</h3>
+              <p>Wikimedia Commons 등에서 Public Domain 또는 재사용 가능한 라이선스가 확인된 자료를 우선합니다. 작품 자체의 권리와 사진·디지털 복제본, 연주·녹음의 권리를 구분하고 제작자·기관·라이선스·원본 링크를 자료 가까이에 표시합니다.</p>
             </div>
             <div>
               <h3 className="mb-2 font-semibold text-ink">게임 저작권</h3>

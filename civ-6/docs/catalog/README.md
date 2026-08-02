@@ -1,6 +1,6 @@
-# Civilization VI roster와 coverage 정책
+# Civilization VI roster·Great Works catalog와 coverage 정책
 
-이 폴더는 THE TURN의 역사 프로필 범위를 게임 roster와 대조하기 위한 편집용 카탈로그다. `civ6-roster.json`은 빌드 때 네트워크에 의존하지 않도록 저장소에 고정한 스냅샷이며, 역사 서술의 출처가 아니다. 각 Markdown 프로필의 역사적 사실은 박물관·기록관·학술 기관 등 독립 출처로 별도 검증한다.
+이 폴더는 THE TURN의 역사 프로필 범위를 게임 데이터와 대조하기 위한 편집용 카탈로그다. `civ6-roster.json`과 `civ6-great-works.json`은 빌드 때 네트워크에 의존하지 않도록 저장소에 고정한 스냅샷이며, 역사 서술의 출처가 아니다. 각 Markdown 프로필의 역사적 사실은 박물관·기록관·학술 기관 등 독립 출처로 별도 검증한다.
 
 ## 범위의 두 층
 
@@ -40,11 +40,51 @@
 }
 ```
 
+## Great Works catalog
+
+`civ6-great-works.json`은 일반 게임에서 위대한 작가·예술가·음악가가 만드는 작품과 Sun Tzu의 《The Art of War》를 합친 166개 record를 고정한다. scenario 전용 작품, Heroic Relic, Artifact, Relic, Product는 포함하지 않는다.
+
+| 작품 유형 | 개수 |
+| --- | ---: |
+| writing | 59 |
+| portrait | 18 |
+| landscape | 25 |
+| religious | 12 |
+| sculpture | 14 |
+| music | 38 |
+
+작품 제작자는 71명이다. `creatorMap`은 게임 데이터의 `creatorKey`를 기존 위인 Markdown의 canonical `entryId`, 현재 route인 `entrySlug`, 실제 `entryPath`에 명시적으로 연결한다. 이름을 slugify해 추측하지 않는다. 예를 들어 Beethoven은 id `ludwig-van-beethoven`과 route `beethoven`이 다르고, Hokusai는 id `katsushika-hokusai`와 route `hokusai`가 다르다.
+
+```json
+{
+  "ludwig_van_beethoven": {
+    "gameName": "Ludwig van Beethoven",
+    "creatorClass": "Great Musician",
+    "entryId": "ludwig-van-beethoven",
+    "entrySlug": "beethoven",
+    "entryPath": "docs/great-people/musicians/beethoven.md"
+  }
+}
+```
+
+작품 route는 표제 번역이나 영문 표기 변경과 분리한다. 모든 record는 다음 규칙을 따른다.
+
+- `id`: `great-work:<gameId>`
+- `slug`: `great-work-<creator canonical entryId>-<creator 안의 order>`
+- `path`: `<type>/<slug>.md`
+- `greatWork.creatorId`: route가 아니라 creator의 canonical `entryId`
+
+catalog 검사는 166개 총수와 유형·pack·게임 시대·creator class 분포, 71개 creator mapping, id·gameId·slug·path·영문 작품명의 유일성, creator별 1부터 시작하는 order 연속성, ruleset profile을 항상 강제한다. Sun Tzu는 `Great General`이 writing 작품을 만드는 유일한 명시적 예외다.
+
+Markdown 집필 상태는 별도 층이다. report mode는 catalog와 기존 문서의 오류를 실패로 처리하지만 아직 없는 문서는 coverage로만 출력한다. `--check`는 누락도 실패로 처리하는 최종 gate다. 자세한 집필 계약은 [`../great-works/README.md`](../great-works/README.md)를 따른다.
+
 ## 갱신과 검사
 
 ```bash
 npm run roster:sync       # 원격 roster 표를 읽어 스냅샷 갱신
 npm run roster:check      # 구조, 개수, status 예외, 중복 검사
+npm run great-works:report # catalog와 현재 문서 검사, 누락은 보고만 함
+npm run great-works:check  # 166/166 문서를 요구하는 최종 gate
 npm run coverage          # 현재 Markdown의 분류별 coverage
 npm run coverage:missing  # 아직 작성하지 않은 표제어 출력
 ```
@@ -63,5 +103,9 @@ npm run coverage:missing  # 아직 작성하지 않은 표제어 출력
 - [Civilization Wiki: capitals](https://civilization.fandom.com/wiki/Capital_(Civ6))
 - [Civilization Wiki: city-states](https://civilization.fandom.com/wiki/List_of_city-states_in_Civ6)
 - [Civilopedia: Great People](https://www.civilopedia.net/en-US/gathering-storm/greatpeople/intro/)
+- [Civilization Wiki game-data mirror: Great Works](https://civilization.fandom.com/wiki/Module:Data/Civ6/Base/GreatWorks)
+- [Babylon Pack 공식 업데이트 안내 — Steam](https://steamcommunity.com/games/289070/announcements/detail/2923361588257301686)
 
-최종 범위 확인일: 2026-08-02
+Roster 최종 범위 확인일: 2026-08-02
+
+Great Works 최종 범위 확인일: 2026-08-03

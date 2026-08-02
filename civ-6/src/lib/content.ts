@@ -5,10 +5,23 @@ export const categoryValues = [
   "civilizations",
   "cities",
   "great-people",
+  "great-works",
 ] as const;
 
 export const categorySchema = z.enum(categoryValues);
 export type Category = z.infer<typeof categorySchema>;
+
+export const greatWorkTypeValues = [
+  "writing",
+  "portrait",
+  "landscape",
+  "religious",
+  "sculpture",
+  "music",
+] as const;
+
+export const greatWorkTypeSchema = z.enum(greatWorkTypeValues);
+export type GreatWorkType = z.infer<typeof greatWorkTypeSchema>;
 
 export const greatPersonRoleValues = [
   "artists",
@@ -57,6 +70,15 @@ export const cityRoleMeta: Record<CityRole, RoleMetadata> = {
   },
 };
 
+export const greatWorkTypeMeta: Record<GreatWorkType, RoleMetadata> = {
+  writing: { label: "문학", longLabel: "위대한 저작", englishLabel: "Writing" },
+  portrait: { label: "초상화", longLabel: "위대한 초상화", englishLabel: "Portrait" },
+  landscape: { label: "풍경화", longLabel: "위대한 풍경화", englishLabel: "Landscape" },
+  religious: { label: "종교화", longLabel: "위대한 종교화", englishLabel: "Religious Art" },
+  sculpture: { label: "조각", longLabel: "위대한 조각", englishLabel: "Sculpture" },
+  music: { label: "음악", longLabel: "위대한 음악", englishLabel: "Music" },
+};
+
 type GreatPersonRoleMetadata = RoleMetadata & {
   kind: "standard" | "special";
 };
@@ -89,6 +111,153 @@ const commonsImageSchema = httpUrlSchema.refine((value) => {
   return url.protocol === "https:" && url.hostname === "upload.wikimedia.org";
 }, "이미지는 HTTPS Wikimedia upload URL이어야 합니다.");
 
+const commonsAudioFileSchema = httpUrlSchema.refine((value) => {
+  const url = new URL(value);
+  return url.protocol === "https:" && url.hostname === "upload.wikimedia.org";
+}, "오디오 파일은 HTTPS Wikimedia upload URL이어야 합니다.");
+
+const commonsFilePageSchema = httpUrlSchema.refine((value) => {
+  const url = new URL(value);
+  return (
+    url.protocol === "https:" &&
+    url.hostname === "commons.wikimedia.org" &&
+    url.pathname.startsWith("/wiki/File:")
+  );
+}, "오디오 출처 페이지는 HTTPS Wikimedia Commons File 페이지여야 합니다.");
+
+export const greatWorkHoldingStatusValues = [
+  "single",
+  "in-situ",
+  "distributed",
+  "lost",
+  "not-applicable",
+  "unknown",
+] as const;
+
+export const greatWorkRightsStatusValues = [
+  "public-domain",
+  "copyrighted",
+  "mixed",
+  "uncertain",
+] as const;
+
+export const greatWorkImageRoleValues = [
+  "work",
+  "detail",
+  "manuscript",
+  "score",
+  "edition",
+  "performance",
+  "representative",
+  "none",
+] as const;
+
+const historicalYearSchema = z.number().int().refine(
+  (year) => year !== 0,
+  "역사 연도에는 0년이 없습니다.",
+);
+
+export const greatWorkCreationSchema = z.object({
+  label: z.string().min(1),
+  yearStart: historicalYearSchema.optional(),
+  yearEnd: historicalYearSchema.optional(),
+  place: z.string().min(1).optional(),
+  medium: z.string().min(1).optional(),
+  note: z.string().min(1).optional(),
+}).strict().superRefine((creation, context) => {
+  if (
+    creation.yearStart !== undefined &&
+    creation.yearEnd !== undefined &&
+    creation.yearEnd < creation.yearStart
+  ) {
+    context.addIssue({
+      code: "custom",
+      path: ["yearEnd"],
+      message: "yearEnd는 yearStart보다 빠를 수 없습니다.",
+    });
+  }
+});
+
+export const greatWorkHoldingSchema = z.object({
+  status: z.enum(greatWorkHoldingStatusValues),
+  name: z.string().min(1).optional(),
+  location: z.string().min(1).optional(),
+  url: httpUrlSchema.optional(),
+  note: z.string().min(1).optional(),
+}).strict();
+
+export const greatWorkRightsSchema = z.object({
+  status: z.enum(greatWorkRightsStatusValues),
+  source: httpUrlSchema.optional(),
+  jurisdiction: z.string().min(1).optional(),
+  note: z.string().min(1).optional(),
+}).strict();
+
+export const greatWorkAudioSchema = z.discriminatedUnion("status", [
+  z.object({
+    status: z.literal("available"),
+    sourceFile: commonsAudioFileSchema,
+    sourcePage: commonsFilePageSchema,
+    title: z.string().min(1),
+    credit: z.string().min(1),
+    license: z.string().min(1),
+    mimeType: z.string().regex(/^audio\/[a-z0-9.+-]+$/i, "audio MIME type이어야 합니다."),
+  }).strict(),
+  z.object({
+    status: z.literal("unavailable"),
+    note: z.string().min(1),
+  }).strict(),
+]);
+
+export const greatWorkSchema = z.object({
+  gameId: z.string().min(1),
+  creatorId: z.string().min(1),
+  historicalTitle: z.string().min(1),
+  creation: greatWorkCreationSchema,
+  attribution: z.string().min(1),
+  holding: greatWorkHoldingSchema,
+  workRights: greatWorkRightsSchema,
+  imageRole: z.enum(greatWorkImageRoleValues),
+  audio: greatWorkAudioSchema,
+}).strict();
+
+export type GreatWorkHoldingStatus = (typeof greatWorkHoldingStatusValues)[number];
+export type GreatWorkRightsStatus = (typeof greatWorkRightsStatusValues)[number];
+export type GreatWorkImageRole = (typeof greatWorkImageRoleValues)[number];
+
+export const greatWorkRulesetValues = [
+  "Standard Rules",
+  "Rise and Fall",
+  "Gathering Storm",
+] as const;
+
+export type GreatWorkRuleset = (typeof greatWorkRulesetValues)[number];
+
+export type GreatWorkYield = {
+  culture: number;
+  tourism: number;
+};
+
+export type GreatWorkGameContext = {
+  gameEra: string;
+  pack: string;
+  rulesetProfile: string;
+  rulesets: Record<GreatWorkRuleset, GreatWorkYield>;
+  note?: string;
+};
+
+export type EntryReference = {
+  id: string;
+  slug: string;
+  name: string;
+  nameEn: string;
+};
+
+export type GreatWorkMetadata = z.infer<typeof greatWorkSchema> & {
+  creatorRef?: EntryReference;
+  gameContext?: GreatWorkGameContext;
+};
+
 export const sourceSchema = z.union([
   httpUrlSchema,
   z.object({
@@ -112,17 +281,18 @@ export const contentFrontmatterSchema = z.object({
   civilization: z.string().optional().default(""),
   region: z.string().optional().default(""),
   tags: z.array(z.string().min(1)).min(1),
-  image: commonsImageSchema,
-  imageAlt: z.string().min(1),
-  imageCredit: z.string().min(1),
-  imageLicense: z.string().min(1),
-  imageSource: httpUrlSchema,
+  image: commonsImageSchema.optional(),
+  imageAlt: z.string().min(1).optional(),
+  imageCredit: z.string().min(1).optional(),
+  imageLicense: z.string().min(1).optional(),
+  imageSource: httpUrlSchema.optional(),
   accent: z.string().optional().default("cobalt"),
   featured: z.boolean().optional().default(false),
   quote: z.string().optional().default(""),
   summary: z.string().optional().default(""),
   related: z.array(z.string()).optional().default([]),
   sources: z.array(sourceSchema).min(3),
+  greatWork: greatWorkSchema.optional(),
 }).strict().superRefine((entry, context) => {
   if (entry.category === "great-people" && !greatPersonRoleSchema.safeParse(entry.subcategory).success) {
     context.addIssue({
@@ -131,11 +301,22 @@ export const contentFrontmatterSchema = z.object({
       message: "위인 문서는 유효한 Great Person 분야가 필요합니다.",
     });
   }
-  if (entry.category !== "great-people" && entry.subcategory) {
+  if (entry.category === "great-works" && !greatWorkTypeSchema.safeParse(entry.subcategory).success) {
     context.addIssue({
       code: "custom",
       path: ["subcategory"],
-      message: "subcategory는 위인 문서에만 사용합니다.",
+      message: "위대한 작품 문서는 유효한 작품 유형이 필요합니다.",
+    });
+  }
+  if (
+    entry.category !== "great-people" &&
+    entry.category !== "great-works" &&
+    entry.subcategory
+  ) {
+    context.addIssue({
+      code: "custom",
+      path: ["subcategory"],
+      message: "subcategory는 위인 또는 위대한 작품 문서에만 사용합니다.",
     });
   }
   if (entry.category === "cities" && entry.cityRoles.length === 0) {
@@ -150,6 +331,70 @@ export const contentFrontmatterSchema = z.object({
       code: "custom",
       path: ["cityRoles"],
       message: "cityRoles는 도시 문서에만 사용합니다.",
+    });
+  }
+  if (entry.category === "great-works" && !entry.greatWork) {
+    context.addIssue({
+      code: "custom",
+      path: ["greatWork"],
+      message: "위대한 작품 문서는 greatWork metadata가 필요합니다.",
+    });
+  }
+  if (entry.category !== "great-works" && entry.greatWork) {
+    context.addIssue({
+      code: "custom",
+      path: ["greatWork"],
+      message: "greatWork는 위대한 작품 문서에만 사용합니다.",
+    });
+  }
+
+  const imageMetadata = [
+    ["imageAlt", entry.imageAlt],
+    ["imageCredit", entry.imageCredit],
+    ["imageLicense", entry.imageLicense],
+    ["imageSource", entry.imageSource],
+  ] as const;
+  if (entry.image) {
+    for (const [field, value] of imageMetadata) {
+      if (!value) {
+        context.addIssue({
+          code: "custom",
+          path: [field],
+          message: "image가 있으면 이미지 설명·credit·license·source가 모두 필요합니다.",
+        });
+      }
+    }
+  } else {
+    for (const [field, value] of imageMetadata) {
+      if (value) {
+        context.addIssue({
+          code: "custom",
+          path: [field],
+          message: "image가 없으면 다른 이미지 metadata도 생략해야 합니다.",
+        });
+      }
+    }
+  }
+
+  if (entry.category !== "great-works" && !entry.image) {
+    context.addIssue({
+      code: "custom",
+      path: ["image"],
+      message: "기존 프로필 문서는 이미지가 필요합니다.",
+    });
+  }
+  if (entry.greatWork?.imageRole === "none" && entry.image) {
+    context.addIssue({
+      code: "custom",
+      path: ["image"],
+      message: "imageRole이 none이면 이미지 필드를 생략해야 합니다.",
+    });
+  }
+  if (entry.greatWork && entry.greatWork.imageRole !== "none" && !entry.image) {
+    context.addIssue({
+      code: "custom",
+      path: ["image"],
+      message: "imageRole이 none이 아니면 이미지가 필요합니다.",
     });
   }
 });
@@ -174,11 +419,11 @@ export type Entry = {
   civilization: string;
   region: string;
   tags: string[];
-  image: string;
-  imageAlt: string;
-  imageCredit: string;
-  imageLicense: string;
-  imageSource: string;
+  image?: string;
+  imageAlt?: string;
+  imageCredit?: string;
+  imageLicense?: string;
+  imageSource?: string;
   accent: string;
   featured: boolean;
   quote: string;
@@ -187,6 +432,46 @@ export type Entry = {
   related: string[];
   sources: Source[];
   readingMinutes: number;
+  greatWork?: GreatWorkMetadata;
+};
+
+export type GreatWorkPreviewMetadata = {
+  creatorId: string;
+  creatorRef?: EntryReference;
+  creationLabel: string;
+  yearStart?: number;
+  yearEnd?: number;
+  gameEra: string;
+  pack: string;
+  imageRole: GreatWorkImageRole;
+  audioStatus: "available" | "unavailable";
+  hasAudio: boolean;
+};
+
+export type EntryPreview = Pick<
+  Entry,
+  | "id"
+  | "slug"
+  | "name"
+  | "nameEn"
+  | "category"
+  | "subcategory"
+  | "cityRoles"
+  | "era"
+  | "lifespan"
+  | "civilization"
+  | "region"
+  | "tags"
+  | "image"
+  | "imageAlt"
+  | "imageCredit"
+  | "imageLicense"
+  | "accent"
+  | "featured"
+  | "summary"
+  | "readingMinutes"
+> & {
+  greatWork?: GreatWorkPreviewMetadata;
 };
 
 export const categoryMeta: Record<
@@ -213,6 +498,11 @@ export const categoryMeta: Record<
     singular: "위인",
     description: "과학과 예술부터 무역과 군사까지, 시대를 움직인 인물의 삶을 따라갑니다.",
   },
+  "great-works": {
+    label: "위대한 작품",
+    singular: "위대한 작품",
+    description: "게임 속 작품을 실제 창작·전승·소장과 권리의 역사로 다시 읽습니다.",
+  },
 };
 
 export function normalizeSource(source: z.infer<typeof sourceSchema>): Source {
@@ -227,6 +517,10 @@ export function entryTypeLabel(entry: Pick<Entry, "category" | "subcategory" | "
   if (entry.category === "great-people") {
     const role = greatPersonRoleSchema.safeParse(entry.subcategory);
     if (role.success) return greatPersonRoleMeta[role.data].longLabel;
+  }
+  if (entry.category === "great-works") {
+    const type = greatWorkTypeSchema.safeParse(entry.subcategory);
+    if (type.success) return greatWorkTypeMeta[type.data].longLabel;
   }
   if (entry.category === "cities") {
     const preferredRole = cityRoleValues.find((role) => entry.cityRoles.includes(role));

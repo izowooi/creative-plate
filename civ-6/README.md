@@ -35,10 +35,14 @@ npm run sources:report # 권장 출처 깊이(총 4개·독립 역사 출처 2�
 npm run sources:check  # 권장 출처 깊이를 전수 검사하고 미달 시 실패
 npm run roster:sync    # Civ VI roster 원본을 docs/catalog 스냅샷으로 갱신(네트워크 필요)
 npm run roster:check   # roster 구조, 개수, scope/availability 예외 검증
+npm run great-works:report # Great Works catalog와 작성된 문서를 검사하고 누락은 보고만 함
+npm run great-works:check  # Great Works 166개 문서가 모두 있어야 통과하는 최종 gate
 npm run coverage       # roster 전체 대비 현재 Markdown 수록 현황 출력
 npm run images:sync    # Commons 원본을 검증해 public/images/archive/*.webp로 최적화
 npm run images:check   # Markdown·manifest·WebP 파일/크기/형식/SHA-256 교차 검증
 npm run images:audit   # Commons 원본 페이지의 license·credit metadata 재확인(네트워크 필요)
+npm run audio:sync     # audio.available인 자유 녹음을 public/audio/archive/로 동기화
+npm run audio:check    # audio metadata·manifest·로컬 파일의 형식/SHA-256 교차 검증
 npm run db:seed        # docs/ → data/the-turn.db
 ```
 
@@ -47,6 +51,8 @@ npm run db:seed        # docs/ → data/the-turn.db
 특정 항목의 Commons 권리 정보만 다시 확인하려면 `npm run images:audit -- --slugs=<slug,slug> --check`를 사용합니다. author/credit metadata 누락도 실패로 처리하려면 `--strict-credit`을 함께 지정합니다. 네트워크가 필요한 감사 명령이므로 오프라인 전체 품질 게이트인 `npm run check`와 분리되어 있습니다.
 
 `npm run sources:missing`은 최소 schema는 통과하지만 권장 출처 깊이에 아직 못 미치는 글을 분류별로 보여 줍니다. 네트워크 요청 없이 중복 URL을 제거한 frontmatter만 집계하므로 콘텐츠 보강 우선순위를 잡는 데 사용합니다. 전체 `npm run check`에도 같은 기준이 품질 게이트로 포함됩니다.
+
+Great Works 집필 중에는 `npm run great-works:report`가 고정 catalog 166개와 creator mapping 71개, 이미 작성된 문서의 경로·게임 ID·제작자 ID를 검사하되 누락 문서는 coverage로만 보고합니다. `npm run check`도 이 report mode를 사용합니다. 최종 공개 전에는 `npm run great-works:check`를 별도로 실행해 166/166 완성을 강제합니다. 누락 경로 전체는 `npm run great-works:report -- --missing`으로 확인합니다.
 
 개발 서버가 켜진 상태에서 `db:seed`를 직접 실행하면 기존 SQLite 읽기 연결은 이전 파일을 계속 볼 수 있습니다. 콘텐츠를 다시 반영할 때는 개발 서버를 재시작하세요.
 
@@ -62,7 +68,7 @@ npm run db:seed        # docs/ → data/the-turn.db
 npm run check
 ```
 
-콘텐츠와 이미지, ESLint, TypeScript, SQLite 검색 테스트, production build를 순서대로 검증합니다.
+콘텐츠와 이미지·오디오, ESLint, TypeScript, SQLite 검색 테스트, production build를 순서대로 검증합니다.
 
 ## 주요 경로
 

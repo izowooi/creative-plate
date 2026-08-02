@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Map, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, Map, Palette, Sparkles } from "lucide-react";
 import { categoryMeta, categoryValues, type Category, type Entry } from "@/lib/content";
 import { getAllEntries, getCategoryCounts } from "@/lib/db";
 import { EntryCard } from "@/components/entry-card";
@@ -9,7 +9,7 @@ import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 
 function chooseFeatured(entries: Entry[]) {
-  const desiredCategories: Category[] = ["leaders", "cities", "great-people"];
+  const desiredCategories: Category[] = ["leaders", "cities", "great-people", "great-works"];
   return desiredCategories
     .map(
       (category) =>
@@ -46,8 +46,8 @@ export default function Home() {
             <br />다음 턴이 달라진다.
           </h1>
           <p className="hero-description">
-            게임 속 한 줄의 이름을 실제로 숨 쉬었던 사람과 장소의 이야기로 되돌립니다.
-            선덕여왕부터 상트페테르부르크까지, 세계사를 알고 다시 플레이하세요.
+            게임 속 한 줄의 이름을 실제로 숨 쉬었던 사람과 장소, 작품의 이야기로 되돌립니다.
+            선덕여왕부터 상트페테르부르크와 《사계》까지, 세계사를 알고 다시 플레이하세요.
           </p>
           <div className="hero-actions">
             <Link href="/explore" className="primary-button gap-2">
@@ -75,10 +75,10 @@ export default function Home() {
           <SectionHeading
             eyebrow="Start somewhere"
             title="게임에서 만난 이름, 이제는 이야기로."
-            description="익숙한 초상과 도시 이름을 네 가지 렌즈로 펼쳐 보세요. 각 글은 역사 기록과 게임의 표현을 구분해 설명합니다."
+            description="익숙한 초상과 도시 이름, 게임 속 걸작을 다섯 가지 렌즈로 펼쳐 보세요. 각 글은 역사 기록과 게임의 표현을 구분해 설명합니다."
           />
         </Reveal>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {categoryValues.map((category, index) => {
             const meta = categoryMeta[category];
             const icons: Record<Category, React.ReactNode> = {
@@ -86,6 +86,7 @@ export default function Home() {
               civilizations: <BookOpen size={21} strokeWidth={1.6} />,
               cities: <Map size={21} strokeWidth={1.6} />,
               "great-people": <span className="text-xl leading-none">✦</span>,
+              "great-works": <Palette size={21} strokeWidth={1.6} />,
             };
             return (
               <Reveal key={category} delay={index * 0.06}>
@@ -111,8 +112,8 @@ export default function Home() {
           <div className="page-shell grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
             <Reveal className="relative aspect-[5/4] overflow-hidden rounded-[30px] bg-[#e4e2dc]">
               <HistoryImage
-                src={spotlight.image}
-                alt={spotlight.imageAlt}
+                src={spotlight.image ?? ""}
+                alt={spotlight.imageAlt || `${spotlight.name} 관련 자료 이미지`}
                 className="h-full w-full object-cover"
                 sizes="(max-width: 1024px) 100vw, 56vw"
               />
@@ -144,14 +145,18 @@ export default function Home() {
         <Reveal>
           <SectionHeading
             eyebrow="Curated stories"
-            title="오늘, 세 개의 시대로 떠나보세요."
-            description="한 명의 지도자, 하나의 도시, 한 사람의 위인을 차례로 읽으면 서로 멀어 보이던 사건들이 연결되기 시작합니다."
+            title="오늘, 네 개의 이야기로 떠나보세요."
+            description="한 명의 지도자와 하나의 도시, 한 사람의 위인과 한 작품을 차례로 읽으면 서로 멀어 보이던 사건들이 연결되기 시작합니다."
           />
         </Reveal>
-        <div className="grid gap-x-6 gap-y-14 md:grid-cols-3">
+        <div className="grid gap-x-6 gap-y-14 sm:grid-cols-2 xl:grid-cols-4">
           {featured.map((entry, index) => (
             <Reveal key={entry.slug} delay={index * 0.08}>
-              <EntryCard entry={entry} priority={index === 0} />
+              <EntryCard
+                entry={entry}
+                priority={index === 0}
+                sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 25vw"
+              />
             </Reveal>
           ))}
         </div>

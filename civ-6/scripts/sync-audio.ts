@@ -1,13 +1,15 @@
 import fs from "node:fs";
 import { createHash } from "node:crypto";
 import path from "node:path";
-import sharp from "sharp";
 import { loadMarkdownEntries } from "./content-utils";
 
-const outputDirectory = path.join(process.cwd(), "public", "images", "archive");
+const outputDirectory = path.join(process.cwd(), "public", "audio", "archive");
 const manifestPath = path.join(outputDirectory, "manifest.json");
 const entries = loadMarkdownEntries();
-const imageEntries = entries.filter((entry) => Boolean(entry.image));
+const audioEntries = entries.flatMap((entry) => {
+  const audio = entry.greatWork?.audio;
+  return audio?.status === "available" ? [{ entry, audio }] : [];
+});
 const forceAll = process.argv.includes("--force");
 const forcedSlugs = new Set(
   process.argv
@@ -16,35 +18,61 @@ const forcedSlugs = new Set(
     .filter(Boolean),
 );
 const knownSlugs = new Set(entries.map((entry) => entry.slug));
+const audioSlugs = new Set(audioEntries.map(({ entry }) => entry.slug));
 const unknownForcedSlugs = [...forcedSlugs].filter((slug) => !knownSlugs.has(slug));
 if (unknownForcedSlugs.length) {
   throw new Error(`알 수 없는 강제 동기화 slug: ${unknownForcedSlugs.join(", ")}`);
 }
-const forcedWithoutImage = [...forcedSlugs].filter(
-  (slug) => !imageEntries.some((entry) => entry.slug === slug),
-);
-if (forcedWithoutImage.length) {
-  throw new Error(`이미지가 없는 항목은 강제 동기화할 수 없습니다: ${forcedWithoutImage.join(", ")}`);
+const forcedWithoutAudio = [...forcedSlugs].filter((slug) => !audioSlugs.has(slug));
+if (forcedWithoutAudio.length) {
+  throw new Error(`공개 녹음이 없는 항목은 강제 동기화할 수 없습니다: ${forcedWithoutAudio.join(", ")}`);
 }
+
+const extensionByMimeType: Record<string, string> = {
+  "audio/ogg": "ogg",
+  "audio/mpeg": "mp3",
+  "audio/flac": "flac",
+  "audio/wav": "wav",
+  "audio/mp4": "m4a",
+};
+
+type ManifestRecord = {
+  source: string;
+  sourcePage: string;
+  sha256: string;
+  mimeType: string;
+  file: string;
+};
 
 fs.mkdirSync(outputDirectory, { recursive: true });
 const hadManifest = fs.existsSync(manifestPath);
 const previousManifest = hadManifest
   ? (JSON.parse(fs.readFileSync(manifestPath, "utf8")) as Record<string, unknown>)
   : {};
-const nextManifest: Record<string, { source: string; sha256: string }> = {};
+const nextManifest: Record<string, ManifestRecord> = {};
 
 function sha256(filePath: string) {
   return createHash("sha256").update(fs.readFileSync(filePath)).digest("hex");
+}
+
+function extensionFor(mimeType: string) {
+  const extension = extensionByMimeType[mimeType.toLowerCase()];
+  if (!extension) throw new Error(`지원하지 않는 audio MIME type: ${mimeType}`);
+  return extension;
 }
 
 function previousRecord(slug: string) {
   const value = previousManifest[slug];
   if (!value || typeof value !== "object" || Array.isArray(value)) return null;
   const record = value as Record<string, unknown>;
-  return typeof record.source === "string" && typeof record.sha256 === "string"
-    ? { source: record.source, sha256: record.sha256 }
-    : null;
+  if (
+    typeof record.source !== "string" ||
+    typeof record.sourcePage !== "string" ||
+    typeof record.sha256 !== "string" ||
+    typeof record.mimeType !== "string" ||
+    typeof record.file !== "string"
+  ) return null;
+  return record as ManifestRecord;
 }
 
 function wait(milliseconds: number) {
@@ -62,7 +90,7 @@ function retryDelay(header: string | null, fallback: number) {
 async function fetchWithRetry(url: string) {
   const requested = new URL(url);
   if (requested.protocol !== "https:" || requested.hostname !== "upload.wikimedia.org") {
-    throw new Error("HTTPS upload.wikimedia.org 이미지만 동기화할 수 있습니다.");
+    throw new Error("HTTPS upload.wikimedia.org audio만 동기화할 수 있습니다.");
   }
 
   for (let attempt = 0; attempt < 3; attempt += 1) {
@@ -70,10 +98,10 @@ async function fetchWithRetry(url: string) {
     try {
       response = await fetch(url, {
         redirect: "follow",
-        signal: AbortSignal.timeout(20_000),
+        signal: AbortSignal.timeout(60_000),
         headers: {
           "User-Agent": "TheTurnHistoryArchive/0.1 (https://github.com/izowooi/creative-plate)",
-          Accept: "image/avif,image/webp,image/png,image/jpeg,image/svg+xml,image/*;q=0.8",
+          Accept: "audio/ogg,audio/mpeg,audio/flac,audio/wav,audio/mp4,audio/*;q=0.8",
         },
       });
     } catch (error) {
@@ -94,31 +122,43 @@ async function fetchWithRetry(url: string) {
   throw new Error("unreachable");
 }
 
-async function syncImage(entry: (typeof entries)[number]) {
-  if (!entry.image) throw new Error(`${entry.slug}: image URL이 없습니다.`);
-  const outputPath = path.join(outputDirectory, `${entry.slug}.webp`);
+function compatibleMimeType(declared: string, received: string) {
+  if (declared === received) return true;
+  return declared === "audio/ogg" && received === "application/ogg";
+}
+
+async function syncAudio({ entry, audio }: (typeof audioEntries)[number]) {
+  const extension = extensionFor(audio.mimeType);
+  const file = `${entry.slug}.${extension}`;
+  const outputPath = path.join(outputDirectory, file);
   const previous = previousRecord(entry.slug);
-  if (!forceAll && !forcedSlugs.has(entry.slug) && hadManifest && fs.existsSync(outputPath) && previous?.source === entry.image) {
-    const metadata = await sharp(outputPath).metadata();
-    const digest = sha256(outputPath);
-    if (metadata.width && metadata.height && metadata.format === "webp" && digest === previous.sha256) {
-      nextManifest[entry.slug] = { source: entry.image, sha256: digest };
-      return { status: "kept", slug: entry.slug };
-    }
+  if (
+    !forceAll &&
+    !forcedSlugs.has(entry.slug) &&
+    hadManifest &&
+    fs.existsSync(outputPath) &&
+    previous?.source === audio.sourceFile &&
+    previous.sourcePage === audio.sourcePage &&
+    previous.mimeType === audio.mimeType &&
+    previous.file === file &&
+    sha256(outputPath) === previous.sha256
+  ) {
+    nextManifest[entry.slug] = previous;
+    return { status: "kept", slug: entry.slug } as const;
   }
 
-  const response = await fetchWithRetry(entry.image);
-  if (!response.ok) throw new Error(`${entry.slug}: 이미지 응답 ${response.status}`);
-
-  const contentType = response.headers.get("content-type")?.split(";")[0] ?? "";
-  if (!contentType.startsWith("image/")) {
-    throw new Error(`${entry.slug}: image가 아닌 MIME ${contentType || "unknown"}`);
+  const response = await fetchWithRetry(audio.sourceFile);
+  if (!response.ok) throw new Error(`${entry.slug}: audio 응답 ${response.status}`);
+  const contentType = response.headers.get("content-type")?.split(";")[0].toLowerCase() ?? "";
+  if (!compatibleMimeType(audio.mimeType, contentType)) {
+    throw new Error(`${entry.slug}: 선언 MIME ${audio.mimeType}과 응답 MIME ${contentType || "unknown"}이 다릅니다.`);
   }
 
+  const maximumBytes = 50 * 1024 * 1024;
   const declaredSize = Number(response.headers.get("content-length") ?? 0);
-  if (declaredSize > 30 * 1024 * 1024) throw new Error(`${entry.slug}: 이미지가 30MB를 초과합니다.`);
+  if (declaredSize > maximumBytes) throw new Error(`${entry.slug}: audio가 50MB를 초과합니다.`);
+  if (!response.body) throw new Error(`${entry.slug}: 빈 audio 응답입니다.`);
 
-  if (!response.body) throw new Error(`${entry.slug}: 빈 이미지 응답입니다.`);
   const reader = response.body.getReader();
   const chunks: Buffer[] = [];
   let byteLength = 0;
@@ -126,47 +166,50 @@ async function syncImage(entry: (typeof entries)[number]) {
     const { done, value } = await reader.read();
     if (done) break;
     byteLength += value.byteLength;
-    if (byteLength > 30 * 1024 * 1024) {
+    if (byteLength > maximumBytes) {
       await reader.cancel();
-      throw new Error(`${entry.slug}: 이미지가 30MB를 초과합니다.`);
+      throw new Error(`${entry.slug}: audio가 50MB를 초과합니다.`);
     }
     chunks.push(Buffer.from(value));
   }
-  const bytes = Buffer.concat(chunks, byteLength);
+  if (!byteLength) throw new Error(`${entry.slug}: audio 바이트가 비어 있습니다.`);
 
-  const temporaryPath = path.join(outputDirectory, `.${entry.slug}.next.webp`);
+  const temporaryPath = path.join(outputDirectory, `.${file}.next`);
   try {
-    await sharp(bytes, { failOn: "error", density: 300 })
-      .rotate()
-      .resize({ width: 1600, height: 1400, fit: "inside", withoutEnlargement: true })
-      .webp({ quality: 82, effort: 4, smartSubsample: true })
-      .toFile(temporaryPath);
+    fs.writeFileSync(temporaryPath, Buffer.concat(chunks, byteLength));
     fs.renameSync(temporaryPath, outputPath);
   } finally {
     if (fs.existsSync(temporaryPath)) fs.rmSync(temporaryPath);
   }
-  nextManifest[entry.slug] = { source: entry.image, sha256: sha256(outputPath) };
-  return { status: "downloaded", slug: entry.slug };
+
+  nextManifest[entry.slug] = {
+    source: audio.sourceFile,
+    sourcePage: audio.sourcePage,
+    sha256: sha256(outputPath),
+    mimeType: audio.mimeType,
+    file,
+  };
+  return { status: "downloaded", slug: entry.slug } as const;
 }
 
 async function main() {
   const results = [];
   const failures: string[] = [];
-  for (const [index, entry] of imageEntries.entries()) {
+  for (const [index, item] of audioEntries.entries()) {
     try {
-      const result = await syncImage(entry);
+      const result = await syncAudio(item);
       results.push(result);
-      console.log(`[${index + 1}/${imageEntries.length}] ${result.status}: ${entry.slug}`);
+      console.log(`[${index + 1}/${audioEntries.length}] ${result.status}: ${result.slug}`);
       if (result.status === "downloaded") await wait(1_500);
     } catch (error) {
-      failures.push(entry.slug);
-      console.error(`[${index + 1}/${imageEntries.length}] failed: ${entry.slug} — ${String(error)}`);
+      failures.push(item.entry.slug);
+      console.error(`[${index + 1}/${audioEntries.length}] failed: ${item.entry.slug} — ${String(error)}`);
     }
   }
 
   const downloaded = results.filter((result) => result.status === "downloaded").length;
   console.log(
-    `Synced ${results.length}/${imageEntries.length} archive images for ${entries.length} entries ` +
+    `Synced ${results.length}/${audioEntries.length} archive recordings ` +
     `(${downloaded} downloaded, ${results.length - downloaded} kept).`,
   );
 
@@ -178,8 +221,6 @@ async function main() {
     if (fs.existsSync(temporaryManifestPath)) fs.rmSync(temporaryManifestPath);
   }
 
-  // 성공한 항목은 실패가 섞인 실행에서도 기록해 다음 재시도가 해당 파일을 다시 받지 않게 한다.
-  // 누락된 실패 항목은 images:check가 계속 명확히 보고한다.
   if (failures.length) throw new Error(`동기화 실패: ${failures.join(", ")}`);
 }
 

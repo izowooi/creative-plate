@@ -22,11 +22,12 @@ function sha256(filePath: string) {
 
 async function main() {
   const entries = loadMarkdownEntries();
+  const imageEntries = entries.filter((entry) => Boolean(entry.image));
   if (!entries.length) throw new Error("검증할 Markdown 항목이 없습니다.");
   if (!fs.existsSync(archiveDirectory)) throw new Error("public/images/archive 디렉터리가 없습니다.");
   if (!fs.existsSync(manifestPath)) throw new Error("이미지 manifest.json이 없습니다. npm run images:sync를 실행하세요.");
 
-  const expectedSlugs = new Set(entries.map((entry) => entry.slug));
+  const expectedSlugs = new Set(imageEntries.map((entry) => entry.slug));
   const files = fs.readdirSync(archiveDirectory);
   const actualSlugs = new Set(
     files.filter((file) => file.endsWith(".webp")).map((file) => path.basename(file, ".webp")),
@@ -51,7 +52,7 @@ async function main() {
   if (orphanManifest.length) issues.push(`고아 manifest 항목: ${describe(orphanManifest)}`);
   if (temporaryFiles.length) issues.push(`남은 임시 파일: ${describe(temporaryFiles)}`);
 
-  for (const entry of entries) {
+  for (const entry of imageEntries) {
     const value = manifest[entry.slug];
     const record = value && typeof value === "object" && !Array.isArray(value)
       ? value as Record<string, unknown>
@@ -84,7 +85,9 @@ async function main() {
   if (issues.length) {
     throw new Error(`이미지 검증 실패:\n- ${issues.join("\n- ")}`);
   }
-  console.log(`Validated ${entries.length} archive images and manifest entries.`);
+  console.log(
+    `Validated ${imageEntries.length} archive images and manifest entries for ${entries.length} content entries.`,
+  );
 }
 
 main().catch((error) => {

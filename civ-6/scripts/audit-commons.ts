@@ -1,4 +1,5 @@
 import { loadMarkdownEntries } from "./content-utils";
+import type { Entry } from "../src/lib/content";
 
 type MetadataValue = { value?: string };
 
@@ -125,9 +126,19 @@ async function main() {
   const unknownSlugs = [...requestedSlugs].filter((slug) => !knownSlugs.has(slug));
   if (unknownSlugs.length) throw new Error(`알 수 없는 slug: ${unknownSlugs.join(", ")}`);
 
-  const entries = requestedSlugs.size
+  const selectedEntries = requestedSlugs.size
     ? allEntries.filter((entry) => requestedSlugs.has(entry.slug))
     : allEntries;
+  const entries = selectedEntries.filter((entry): entry is Entry & Required<Pick<
+    Entry,
+    "image" | "imageAlt" | "imageCredit" | "imageLicense" | "imageSource"
+  >> => Boolean(
+    entry.image &&
+    entry.imageAlt &&
+    entry.imageCredit &&
+    entry.imageLicense &&
+    entry.imageSource
+  ));
   const issues: string[] = [];
   const warnings: string[] = [];
   const rows = entries.map((entry) => ({ entry, title: fileTitle(entry.imageSource) }));
@@ -187,7 +198,7 @@ async function main() {
   }
 
   console.log("Wikimedia Commons metadata audit");
-  console.log(`- audited: ${entries.length}`);
+  console.log(`- audited images: ${entries.length}/${selectedEntries.length} selected entries`);
   console.log(`- page, image URL, and license metadata verified: ${verified}/${entries.length}`);
   console.log(`- author/credit metadata present: ${creditVerified}/${entries.length}`);
   if (issues.length) {

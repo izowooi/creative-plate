@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s — THE TURN",
   },
   description:
-    "문명 VI 속 지도자, 문명, 도시와 위대한 인물을 실제 역사와 연결하는 비공식 한국어 에디토리얼.",
+    "문명 VI 속 지도자, 문명, 도시, 위대한 인물과 걸작을 실제 역사와 연결하는 비공식 한국어 에디토리얼.",
   applicationName: "THE TURN",
   icons: { icon: "/mark.svg" },
   openGraph: {

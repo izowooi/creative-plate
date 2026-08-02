@@ -8,9 +8,9 @@
     "npm": ">=10.0.0"
   },
   "scripts": {
-    "predev": "npm run content:check && npm run images:check && npm run db:seed",
+    "predev": "npm run content:check && npm run images:check && npm run audio:check && npm run db:seed",
     "dev": "next dev --hostname 0.0.0.0",
-    "prebuild": "npm run content:check && npm run images:check && npm run db:seed",
+    "prebuild": "npm run content:check && npm run images:check && npm run audio:check && npm run db:seed",
     "build": "next build",
     "start": "next start --hostname 0.0.0.0",
     "lint": "eslint .",
@@ -23,15 +23,19 @@
     "sources:check": "tsx scripts/source-report.ts --needs-work --check",
     "roster:sync": "tsx scripts/sync-roster.ts",
     "roster:check": "tsx scripts/validate-roster.ts",
+    "great-works:report": "tsx scripts/validate-great-works.ts",
+    "great-works:check": "tsx scripts/validate-great-works.ts --check",
     "coverage": "tsx scripts/coverage-report.ts",
     "coverage:missing": "tsx scripts/coverage-report.ts --missing",
     "images:check": "tsx scripts/validate-images.ts",
     "images:audit": "tsx scripts/audit-commons.ts",
     "images:sync": "tsx scripts/sync-images.ts",
+    "audio:check": "tsx scripts/validate-audio.ts",
+    "audio:sync": "tsx scripts/sync-audio.ts",
     "db:seed": "tsx scripts/seed-content.ts",
     "pretest": "npm run db:seed",
     "test": "tsx --test tests/*.test.ts",
-    "check": "npm run content:check && npm run content:audit -- --check && npm run sources:check && npm run roster:check && npm run coverage && npm run images:check && npm run lint && npm run typecheck && npm test && npm run build"
+    "check": "npm run content:check && npm run content:audit -- --check && npm run sources:check && npm run roster:check && npm run great-works:report && npm run coverage && npm run images:check && npm run audio:check && npm run lint && npm run typecheck && npm test && npm run build"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

@@ -52,7 +52,9 @@ function duplicatesBy(
 ) {
   const groups = Map.groupBy(entries, (entry) => entry[field]);
   return [...groups.entries()]
-    .filter(([, group]) => group.length > 1 && group.some((entry) => selectedSlugs.has(entry.slug)))
+    .filter(([value, group]) => (
+      Boolean(value) && group.length > 1 && group.some((entry) => selectedSlugs.has(entry.slug))
+    ))
     .map(([value, group]) => ({ value, slugs: group.map((entry) => entry.slug).sort() }));
 }
 

@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS entries (
   slug TEXT NOT NULL UNIQUE,
   name TEXT NOT NULL,
   name_en TEXT NOT NULL,
-  category TEXT NOT NULL CHECK (category IN ('leaders', 'civilizations', 'cities', 'great-people')),
+  category TEXT NOT NULL CHECK (category IN ('leaders', 'civilizations', 'cities', 'great-people', 'great-works')),
   subcategory TEXT NOT NULL DEFAULT '',
   city_roles_json TEXT NOT NULL DEFAULT '[]',
   era TEXT NOT NULL,
@@ -33,6 +33,27 @@ CREATE INDEX IF NOT EXISTS entries_category_idx ON entries(category);
 CREATE INDEX IF NOT EXISTS entries_era_idx ON entries(era);
 CREATE INDEX IF NOT EXISTS entries_featured_idx ON entries(featured DESC);
 
+CREATE TABLE IF NOT EXISTS great_works (
+  entry_id TEXT PRIMARY KEY REFERENCES entries(id) ON DELETE CASCADE,
+  game_id TEXT NOT NULL UNIQUE,
+  creator_id TEXT NOT NULL REFERENCES entries(id),
+  game_era TEXT NOT NULL,
+  pack TEXT NOT NULL,
+  ruleset_profile TEXT NOT NULL,
+  rulesets_json TEXT NOT NULL CHECK (json_valid(rulesets_json)),
+  historical_title TEXT NOT NULL,
+  creation_json TEXT NOT NULL CHECK (json_valid(creation_json)),
+  attribution TEXT NOT NULL,
+  holding_json TEXT NOT NULL CHECK (json_valid(holding_json)),
+  work_rights_json TEXT NOT NULL CHECK (json_valid(work_rights_json)),
+  image_role TEXT NOT NULL CHECK (
+    image_role IN ('work', 'detail', 'manuscript', 'score', 'edition', 'performance', 'representative', 'none')
+  ),
+  audio_json TEXT NOT NULL CHECK (json_valid(audio_json))
+);
+
+CREATE INDEX IF NOT EXISTS great_works_creator_idx ON great_works(creator_id);
+
 CREATE VIRTUAL TABLE IF NOT EXISTS entries_fts USING fts5(
   slug UNINDEXED,
   name,
@@ -43,5 +64,7 @@ CREATE VIRTUAL TABLE IF NOT EXISTS entries_fts USING fts5(
   region,
   subcategory,
   city_roles,
+  creator,
+  great_work,
   content=''
 );

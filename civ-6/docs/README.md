@@ -8,6 +8,7 @@
 - `civilizations/`: 장기 변화와 교류를 중심으로 한 문명 개관
 - `cities/`: 도시의 시대별 역할과 게임에서의 위치
 - `great-people/`: 아홉 일반 분야와 Gran Colombia 전용 특수 위인 `Comandante General`로 구분한 위인
+- `great-works/`: 문학·초상·풍경·종교·조각·음악 여섯 유형의 위대한 작품
 - `catalog/`: 게임 roster 스냅샷, 범위 정책, 현재 문서 coverage 계산 기준
 
 ## 문서 규약
@@ -15,6 +16,8 @@
 각 문서는 `id`, 한·영문명, 분류, 시대, 연관 문명, 태그, 이미지 정보와 출처를 YAML frontmatter로 제공한다. `개요`는 역사적 맥락, `게임에서 다시 보기`는 Civ6의 선택적 재현, `핵심 연표/사실`은 빠른 확인용이다. 연대가 논쟁적이거나 후대 기록에 의존할 때는 단정하지 않는다.
 
 위인은 `subcategory`로 아홉 일반 분야와 특수 분야 `comandantes`를 구분한다. roster 전체 대비 수록 현황은 `npm run coverage`로 확인하고, 누락 목록은 `npm run coverage:missing`으로 출력한다. 수록 수를 이 문서에 고정하지 않는 이유는 Markdown이 추가될 때 집계가 자동으로 갱신되기 때문이다.
+
+위대한 작품은 `subcategory`로 여섯 작품 유형을 구분하고 `greatWork` 메타데이터에서 게임 식별자, 제작자, 실제 표제·연대, 귀속, 소장 상태와 작품 자체의 권리를 기록한다. 작품 권리와 재현 이미지·녹음의 권리는 서로 다른 층이므로 각각 독립된 출처와 라이선스로 확인한다. 게임의 표시명은 `nameEn`에 그대로 보존하며 실제 표제나 귀속이 다르면 별도 필드와 본문에서 차이를 설명한다.
 
 도시는 `cityRoles` 배열로 `capital`, `city-state`, `civilization-city`, `editorial-extra`를 구분한다. 한 장소가 수도와 도시국가 등 여러 역할로 등장하면 값을 둘 이상 기록한다.
 

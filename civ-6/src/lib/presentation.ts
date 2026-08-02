@@ -30,6 +30,12 @@ export function headingId(value: string) {
 }
 
 export function relationReason(current: Entry, related: Entry) {
+  if (current.greatWork?.creatorId === related.id) return "이 작품을 만든 인물";
+  if (related.greatWork?.creatorId === current.id) return "이 인물이 남긴 작품";
+  if (
+    current.greatWork?.creatorId &&
+    current.greatWork.creatorId === related.greatWork?.creatorId
+  ) return "같은 창작자의 작품";
   if (current.civilization && current.civilization === related.civilization) {
     return "같은 문명의 이야기";
   }
@@ -42,7 +48,7 @@ export function withoutTrailingSources(markdown: string) {
   return markdown.replace(/\n##\s+출처\s*[\s\S]*$/m, "").trim();
 }
 
-export function imageLicenseUrl(label: string) {
+export function imageLicenseUrl(label = "") {
   const normalized = label.toLowerCase();
   if (normalized.includes("cc0")) return "https://creativecommons.org/publicdomain/zero/1.0/";
   if (normalized.includes("public domain")) return "https://creativecommons.org/publicdomain/mark/1.0/";
