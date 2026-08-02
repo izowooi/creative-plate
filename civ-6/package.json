@@ -1,0 +1,54 @@
+{
+  "name": "the-turn",
+  "version": "0.1.0",
+  "private": true,
+  "description": "문명 VI 속 인물과 장소를 더 깊이 만나는 비공식 역사 에디토리얼",
+  "engines": {
+    "node": ">=22.13.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "predev": "npm run content:check && npm run images:check && npm run db:seed",
+    "dev": "next dev --hostname 0.0.0.0",
+    "prebuild": "npm run content:check && npm run images:check && npm run db:seed",
+    "build": "next build",
+    "start": "next start --hostname 0.0.0.0",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit",
+    "content:check": "tsx scripts/validate-content.ts",
+    "images:check": "tsx scripts/validate-images.ts",
+    "images:sync": "tsx scripts/sync-images.ts",
+    "db:seed": "tsx scripts/seed-content.ts",
+    "pretest": "npm run db:seed",
+    "test": "tsx --test tests/*.test.ts",
+    "check": "npm run content:check && npm run images:check && npm run lint && npm run typecheck && npm test && npm run build"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^1.28.0",
+    "motion": "^12.43.0",
+    "next": "^16.2.12",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "sharp": "0.35.3",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.2.12",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  },
+  "overrides": {
+    "postcss": "8.5.25",
+    "sharp": "0.35.3"
+  }
+}

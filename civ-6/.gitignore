@@ -1,0 +1,26 @@
+# Next.js and dependencies
+node_modules/
+.next/
+out/
+
+# Local-only database (rebuilt from docs/)
+data/*.db
+data/*.db-*
+data/*.sqlite
+data/*.sqlite-*
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.key
+*.pem
+
+# Tooling and OS
+.DS_Store
+*.tsbuildinfo
+npm-debug.log*
+.playwright-mcp/
+public/images/archive/.*.next.webp
+public/images/archive/.manifest.next.json

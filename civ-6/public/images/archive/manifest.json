@@ -1,0 +1,150 @@
+{
+  "athens": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/68/Athens_Acropolis_at_Daybreak.jpg",
+    "sha256": "529a8b1a60e15886ed0b9f02f6229adc09b290a1453834dbbe5413653c999317"
+  },
+  "busan": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Gwangan_Bridge1.jpg",
+    "sha256": "c6418ff032fee27688b980a53dbabaf8ac353512115e415cc82f9ff057e2ab96"
+  },
+  "gyeongju": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/24/Gyeongju_montage.png",
+    "sha256": "a402ba5599cc6206a32516d2813420f2b1715b4c043cb3a388663a61988e3cbb"
+  },
+  "kyoto": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Kyoto%2C_Japan_%2849667780482%29.jpg",
+    "sha256": "8d88af99b65d3b881c4dd48be41acea65b12a3da142bad560f7f1c8958e87ef1"
+  },
+  "london": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/67/London_Skyline_%28125508655%29.jpeg",
+    "sha256": "24d47e0100fc336df291dff90996b092be6dbcd214863fe8a38ff3db57891f1d"
+  },
+  "mecca": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Great_Mosque_of_Mecca1.jpg",
+    "sha256": "cae96f01ff00724a2ac785142ed8a3e7e0a526113c8387822995e70d1fe0e06a"
+  },
+  "rome": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Trevi_Fountain%2C_Rome%2C_Italy_2_-_May_2007.jpg",
+    "sha256": "97bccbdd4fcf496f2de223f011c9b22fd8837772d6cdef06cacb0c61f8fcac55"
+  },
+  "saint-petersburg": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/41/Spb_06-2017_img20_StMichael_Castle_%28cropped%29.jpg",
+    "sha256": "6c6b6860610eaa13ebf33d3fa2c20f4c5d7f8642b4f12ba52f3cfbaef6dbaf57"
+  },
+  "thebes": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Decorated_pillars_of_the_temple_at_Karnac%2C_Thebes%2C_Egypt._Co_Wellcome_V0049316.jpg",
+    "sha256": "bf7394d3ff8211e90166be0ed9b2545e8945d520d3c17a09cb4604c988820d77"
+  },
+  "xian": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/32/City_wall_of_Xi%27an_51550-Xian_%2827959363326%29.jpg",
+    "sha256": "f22ae46ed0bbf1e2ce4329c615a4f363e0aa991e813efa41950661187f178a50"
+  },
+  "arabia": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/fe/The_spiral_minaret_in_Samarra.jpg",
+    "sha256": "8d5859e17f17e652b087950471754d0e2c63a36c9675da870a9eeeb8a2d75454"
+  },
+  "china": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/23/The_Great_Wall_of_China_at_Jinshanling-edit.jpg",
+    "sha256": "57b74062ebb055881f146974180020fde95ba73914d5001cee40b3f4979afef0"
+  },
+  "egypt": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/17/Ancient_Egypt_map-en.svg",
+    "sha256": "5f4a3279382f05e1574ac5db73c06cce7875f6cfe6b7a2919a051668dcea2925"
+  },
+  "greece": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Parthenon_%2830276156187%29.jpg",
+    "sha256": "57b2e3415e026b954527d6f901c381de1470b05fa1728f9df8cb37132c34e3a9"
+  },
+  "japan": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Himeji_castle_in_may_2015.jpg",
+    "sha256": "f534fbf2299b01a013b253f67a21cf58d97fb5b775ceffc3f174fab7d815a3af"
+  },
+  "korean-civilization": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Donggwoldo.jpg",
+    "sha256": "3b35dbcf6d0b5fa0b4d5a94236e0effd68dd57ee75e91efb32c269d75e13454f"
+  },
+  "roman-civilization": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/00/Roman_Empire_Trajan_117AD.png",
+    "sha256": "e1021a6cfe077a56ad9e58e1b58813e583426c7b5448c8ddb90be65032c08a50"
+  },
+  "russian-civilization": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/43/1730_map_of_the_Russian_Empire_by_Philipp_Johann_Strahlenberg.jpg",
+    "sha256": "1713523019dfe39d93faa7e92020b668d62fb723f15b0a4b0de575d5ceb2d92f"
+  },
+  "hokusai": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Hokusai_as_an_old_man.jpg",
+    "sha256": "fea5d8d92f396a9a4614eee4db59aa19ac963a5aa014ba9ee0bfd0f6690b2d5d"
+  },
+  "michelangelo": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/02/Michelangelo_Daniele_da_Volterra_%28dettaglio%29.jpg",
+    "sha256": "a472ddc4418c199818aff6d07938b42ce54e448d09405fd4e014c67af4ea4f20"
+  },
+  "leonardo-da-vinci": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Francesco_Melzi_-_Portrait_of_Leonardo.png",
+    "sha256": "32f117d1a5e32a048889ffd0819acb2d890387ddea866571ab0d7d1eb4f8deb1"
+  },
+  "beethoven": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Joseph_Karl_Stieler%27s_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg",
+    "sha256": "c5a0a8e4c20ea505b82bb97260ce9bf176ba31f0ae76d17dbbd3e02612731c99"
+  },
+  "galileo-galilei": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg",
+    "sha256": "5471323f70dd791b07716e1dc7f4ac2c71cfc3e35ed3b5d95d4fad7dbb6cc6a1"
+  },
+  "hypatia": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Hypatia_%28Charles_William_Mitchell%29.jpg",
+    "sha256": "5d654a9c36af74856b2100db6e8e02c07480273f0b67e2832261c21bbaada9cb"
+  },
+  "isaac-newton": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Portrait_of_Sir_Isaac_Newton%2C_1689_%28brightened%29.jpg",
+    "sha256": "f76f3357a27bfe9b1f5d593325324c6320f4fda06e820f86b62e159a4f404ea1"
+  },
+  "homer": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Homer_At_the_British_Museum_2024_%283x4_cropped%29.jpg",
+    "sha256": "9f980e30b9f7259ba8f95520cb905a40f85a40e674f0dc9aacbb88497d676c09"
+  },
+  "murasaki-shikibu": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/19/Murasaki-Shikibu-composing-Genji-Monogatari.png",
+    "sha256": "9fbeed6e439201306e641ccacfeb0eb5890a60d7233a20402bfa6ff5eda83259"
+  },
+  "cleopatra": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Kleopatra-VII.-Altes-Museum-Berlin1.jpg",
+    "sha256": "ecc1334ecc8bfa83d3e480900f82acafb5f2c3c9d403011a17d8a4dadfdbdb80"
+  },
+  "hojo-tokimune": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/30/H%C5%8Dj%C5%8D_Tokimune.jpg",
+    "sha256": "fdba2530ee0feac885b95de7340226b5aabd96f6e4c00b8f6047431c803ff920"
+  },
+  "pericles": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Pericles_Pio-Clementino_Inv269_n2.jpg",
+    "sha256": "391675d6b69da9c2efd47875ab8a775c89c1e129ac30b31c57a3cd1ad875547c"
+  },
+  "peter-the-great": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Inconnu_d%27apr%C3%A8s_J.-M._Nattier%2C_Portrait_de_Pierre_Ier_%28mus%C3%A9e_de_l%E2%80%99Ermitage%29.jpg",
+    "sha256": "ab50c3834719204137cea237861f048f80344f5ebfc6cf479840dfdc4c53396e"
+  },
+  "qin-shi-huang": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/3f/QinShiHuang19century.jpg",
+    "sha256": "6f5121229bd714540d0974cf18cedfd8e45d371a6105be3939d99ff494d57a0b"
+  },
+  "saladin": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Al-Nasir_I_Salah_al-Din_Yusuf_%28Saladin%29._AH_564-589_%281169-1193_CE%29_%C3%86_Dirham_%2830.1mm%2C_13.28_g%2C_6h%29._Without_mint-name._Dated_AH_586_%28AD_1190-91%29._Sultan_sitting_facing%2C_cross-legged%2C_on_high-backed_throne_%28obverse%29.jpg",
+    "sha256": "60a85c4e1ce5e6c463dcf9bef91871e945adedc3767c29ad7bd5751bacb50021"
+  },
+  "seondeok": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7f/%EA%B2%BD%EC%A3%BC_%EB%82%A8%EC%82%B0_%EB%B6%88%EA%B3%A1_%EB%A7%88%EC%95%A0%EC%97%AC%EB%9E%98%EC%A2%8C%EC%83%81_01.jpg",
+    "sha256": "f7d365e36f7f603f536535c7e93bc970331c8788695879ff23636b796e5920e6"
+  },
+  "tokugawa-ieyasu": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/11/Tokugawa_Ieyasu2.JPG",
+    "sha256": "031a3cde3ae61172c30663d0afb0bd23db5741b8369536abdceeb81bd9eb76f9"
+  },
+  "trajan": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Traianus_Glyptothek_Munich_72.jpg",
+    "sha256": "69cc740cc6e6cad6bf61941430342e6ee2bc0d8a496297d4e87edde56e51321b"
+  },
+  "victoria": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Queen_Victoria_by_Bassano.jpg",
+    "sha256": "30a0fe235450533cfbf5a6491eaa4e787f2c607ed932c67a58a9e874bb95dfb9"
+  }
+}
