@@ -10,6 +10,75 @@ export const categoryValues = [
 export const categorySchema = z.enum(categoryValues);
 export type Category = z.infer<typeof categorySchema>;
 
+export const greatPersonRoleValues = [
+  "artists",
+  "writers",
+  "musicians",
+  "scientists",
+  "engineers",
+  "merchants",
+  "generals",
+  "admirals",
+  "prophets",
+  "comandantes",
+] as const;
+
+export const greatPersonRoleSchema = z.enum(greatPersonRoleValues);
+export type GreatPersonRole = z.infer<typeof greatPersonRoleSchema>;
+
+export const cityRoleValues = [
+  "capital",
+  "city-state",
+  "civilization-city",
+  "editorial-extra",
+] as const;
+
+export const cityRoleSchema = z.enum(cityRoleValues);
+export type CityRole = z.infer<typeof cityRoleSchema>;
+
+type RoleMetadata = {
+  label: string;
+  longLabel: string;
+  englishLabel: string;
+};
+
+export const cityRoleMeta: Record<CityRole, RoleMetadata> = {
+  capital: { label: "수도", longLabel: "게임 시작 수도", englishLabel: "Capital" },
+  "city-state": { label: "도시국가", longLabel: "도시국가", englishLabel: "City-State" },
+  "civilization-city": {
+    label: "문명 도시",
+    longLabel: "문명 도시 목록",
+    englishLabel: "Civilization City",
+  },
+  "editorial-extra": {
+    label: "편집 선별",
+    longLabel: "편집 선별 도시",
+    englishLabel: "Editorial Extra",
+  },
+};
+
+type GreatPersonRoleMetadata = RoleMetadata & {
+  kind: "standard" | "special";
+};
+
+export const greatPersonRoleMeta: Record<GreatPersonRole, GreatPersonRoleMetadata> = {
+  artists: { label: "미술가", longLabel: "위대한 미술가", englishLabel: "Great Artist", kind: "standard" },
+  writers: { label: "작가", longLabel: "위대한 작가", englishLabel: "Great Writer", kind: "standard" },
+  musicians: { label: "음악가", longLabel: "위대한 음악가", englishLabel: "Great Musician", kind: "standard" },
+  scientists: { label: "과학자", longLabel: "위대한 과학자", englishLabel: "Great Scientist", kind: "standard" },
+  engineers: { label: "공학자", longLabel: "위대한 공학자", englishLabel: "Great Engineer", kind: "standard" },
+  merchants: { label: "상인", longLabel: "위대한 상인", englishLabel: "Great Merchant", kind: "standard" },
+  generals: { label: "장군", longLabel: "위대한 장군", englishLabel: "Great General", kind: "standard" },
+  admirals: { label: "제독", longLabel: "위대한 제독", englishLabel: "Great Admiral", kind: "standard" },
+  prophets: { label: "예언자", longLabel: "위대한 예언자", englishLabel: "Great Prophet", kind: "standard" },
+  comandantes: {
+    label: "코만단테",
+    longLabel: "코만단테 헤네랄",
+    englishLabel: "Comandante General",
+    kind: "special",
+  },
+};
+
 const httpUrlSchema = z
   .string()
   .url()
@@ -34,6 +103,10 @@ export const contentFrontmatterSchema = z.object({
   nameEn: z.string().min(1),
   category: categorySchema,
   subcategory: z.string().optional().default(""),
+  cityRoles: z.array(cityRoleSchema)
+    .refine((roles) => new Set(roles).size === roles.length, "cityRoles에 중복 값이 있습니다.")
+    .optional()
+    .default([]),
   era: z.string().min(1),
   lifespan: z.string().optional().default(""),
   civilization: z.string().optional().default(""),
@@ -49,8 +122,37 @@ export const contentFrontmatterSchema = z.object({
   quote: z.string().optional().default(""),
   summary: z.string().optional().default(""),
   related: z.array(z.string()).optional().default([]),
-  sources: z.array(sourceSchema).min(1),
-}).strict();
+  sources: z.array(sourceSchema).min(3),
+}).strict().superRefine((entry, context) => {
+  if (entry.category === "great-people" && !greatPersonRoleSchema.safeParse(entry.subcategory).success) {
+    context.addIssue({
+      code: "custom",
+      path: ["subcategory"],
+      message: "위인 문서는 유효한 Great Person 분야가 필요합니다.",
+    });
+  }
+  if (entry.category !== "great-people" && entry.subcategory) {
+    context.addIssue({
+      code: "custom",
+      path: ["subcategory"],
+      message: "subcategory는 위인 문서에만 사용합니다.",
+    });
+  }
+  if (entry.category === "cities" && entry.cityRoles.length === 0) {
+    context.addIssue({
+      code: "custom",
+      path: ["cityRoles"],
+      message: "도시 문서는 하나 이상의 게임 내 역할이 필요합니다.",
+    });
+  }
+  if (entry.category !== "cities" && entry.cityRoles.length > 0) {
+    context.addIssue({
+      code: "custom",
+      path: ["cityRoles"],
+      message: "cityRoles는 도시 문서에만 사용합니다.",
+    });
+  }
+});
 
 export type ContentFrontmatter = z.infer<typeof contentFrontmatterSchema>;
 
@@ -66,6 +168,7 @@ export type Entry = {
   nameEn: string;
   category: Category;
   subcategory: string;
+  cityRoles: CityRole[];
   era: string;
   lifespan: string;
   civilization: string;
@@ -108,7 +211,7 @@ export const categoryMeta: Record<
   "great-people": {
     label: "위인",
     singular: "위인",
-    description: "과학과 예술, 글과 음악을 움직인 창작자의 삶을 따라갑니다.",
+    description: "과학과 예술부터 무역과 군사까지, 시대를 움직인 인물의 삶을 따라갑니다.",
   },
 };
 
@@ -118,6 +221,18 @@ export function normalizeSource(source: z.infer<typeof sourceSchema>): Source {
     return { title: hostname, url: source };
   }
   return source;
+}
+
+export function entryTypeLabel(entry: Pick<Entry, "category" | "subcategory" | "cityRoles">) {
+  if (entry.category === "great-people") {
+    const role = greatPersonRoleSchema.safeParse(entry.subcategory);
+    if (role.success) return greatPersonRoleMeta[role.data].longLabel;
+  }
+  if (entry.category === "cities") {
+    const preferredRole = cityRoleValues.find((role) => entry.cityRoles.includes(role));
+    if (preferredRole) return cityRoleMeta[preferredRole].label;
+  }
+  return categoryMeta[entry.category].singular;
 }
 
 export function makeSummary(markdown: string, explicit = "") {

@@ -3,6 +3,7 @@ id: athens
 name: 아테네
 nameEn: Athens
 category: cities
+cityRoles: [capital]
 accent: cobalt
 era: 고전 고대~현대
 civilization: 그리스

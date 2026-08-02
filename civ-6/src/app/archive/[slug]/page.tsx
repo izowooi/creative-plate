@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, BookOpenText, Clock3, Gamepad2, MapPin } from "lucide-react";
-import { categoryMeta } from "@/lib/content";
+import { categoryMeta, entryTypeLabel } from "@/lib/content";
 import { getAllEntries, getEntryBySlug, getRelatedEntries } from "@/lib/db";
 import { EntryCard } from "@/components/entry-card";
 import { HistoryImage } from "@/components/history-image";
@@ -44,6 +44,7 @@ export default async function ArchiveDetailPage({
   const headings = extractHeadings(articleBody);
   const related = getRelatedEntries(entry, 3);
   const meta = categoryMeta[entry.category];
+  const typeLabel = entryTypeLabel(entry);
 
   return (
     <article>
@@ -55,7 +56,7 @@ export default async function ArchiveDetailPage({
           </nav>
           <div className="detail-title-grid">
             <div>
-              <p className="eyebrow">{meta.label} · {entry.era}</p>
+              <p className="eyebrow">{typeLabel} · {entry.era}</p>
               <h1>{entry.name}</h1>
               <p className="detail-name-en">{entry.nameEn}{entry.lifespan ? ` · ${entry.lifespan}` : ""}</p>
             </div>

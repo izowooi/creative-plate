@@ -1,13 +1,25 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { Check, Filter, Search, SlidersHorizontal, X } from "lucide-react";
-import { categoryMeta, categoryValues, type Category, type Entry } from "@/lib/content";
+import {
+  categoryMeta,
+  categoryValues,
+  cityRoleMeta,
+  cityRoleValues,
+  greatPersonRoleMeta,
+  greatPersonRoleValues,
+  type Category,
+  type CityRole,
+  type Entry,
+  type GreatPersonRole,
+} from "@/lib/content";
 import { EntryCard } from "@/components/entry-card";
 import { trapDialogFocus } from "@/lib/dialog-focus";
 
 type SortMode = "editorial" | "name" | "era";
 type EraLens = "고대·고전" | "중세" | "르네상스·근세" | "산업·근대" | "여러 시대";
+type ArchiveRole = GreatPersonRole | CityRole;
 
 const eraLensOrder: EraLens[] = ["고대·고전", "중세", "르네상스·근세", "산업·근대", "여러 시대"];
 
@@ -24,25 +36,41 @@ function normalize(value: string) {
   return value.normalize("NFKC").toLocaleLowerCase("ko-KR").replace(/\s+/g, "");
 }
 
+function isGreatPersonRole(value: string): value is GreatPersonRole {
+  return greatPersonRoleValues.includes(value as GreatPersonRole);
+}
+
+function isCityRole(value: string): value is CityRole {
+  return cityRoleValues.includes(value as CityRole);
+}
+
 export function ExploreBrowser({
   entries,
   initialQuery = "",
   initialCategory = "",
+  initialRole = "",
   initialEra = "",
   initialSort = "editorial",
 }: {
   entries: Entry[];
   initialQuery?: string;
   initialCategory?: string;
+  initialRole?: string;
   initialEra?: string;
   initialSort?: string;
 }) {
   const filterDialogRef = useRef<HTMLDialogElement>(null);
-  const safeCategory = categoryValues.includes(initialCategory as Category)
+  const safeRole: ArchiveRole | "" = isGreatPersonRole(initialRole) || isCityRole(initialRole)
+    ? initialRole
+    : "";
+  const safeCategory = safeRole
+    ? isGreatPersonRole(safeRole) ? "great-people" : "cities"
+    : categoryValues.includes(initialCategory as Category)
     ? (initialCategory as Category)
     : "";
   const [query, setQuery] = useState(initialQuery);
   const [category, setCategory] = useState<Category | "">(safeCategory);
+  const [role, setRole] = useState<ArchiveRole | "">(safeRole);
   const safeEra = eraLensOrder.includes(initialEra as EraLens) ? initialEra : "";
   const [era, setEra] = useState(safeEra);
   const [sort, setSort] = useState<SortMode>(
@@ -50,7 +78,7 @@ export function ExploreBrowser({
   );
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [pagination, setPagination] = useState({ key: "", count: 12 });
-  const filterKey = `${query}\u0000${category}\u0000${era}\u0000${sort}`;
+  const filterKey = `${query}\u0000${category}\u0000${role}\u0000${era}\u0000${sort}`;
   const visibleCount = pagination.key === filterKey ? pagination.count : 12;
 
   const eras = useMemo(
@@ -66,6 +94,18 @@ export function ExploreBrowser({
     [entries],
   );
 
+  const roleCounts = useMemo(
+    () => Object.fromEntries(
+      [...greatPersonRoleValues, ...cityRoleValues].map((value) => [
+        value,
+        entries.filter((entry) => isGreatPersonRole(value)
+          ? entry.category === "great-people" && entry.subcategory === value
+          : entry.category === "cities" && entry.cityRoles.includes(value)).length,
+      ]),
+    ) as Record<ArchiveRole, number>,
+    [entries],
+  );
+
   const filtered = useMemo(() => {
     const needle = normalize(query);
     const result = entries.filter((entry) => {
@@ -77,10 +117,23 @@ export function ExploreBrowser({
           entry.civilization,
           entry.region,
           entry.tags.join(" "),
+          entry.subcategory,
+          entry.subcategory && greatPersonRoleMeta[entry.subcategory as GreatPersonRole]?.longLabel,
+          entry.subcategory && greatPersonRoleMeta[entry.subcategory as GreatPersonRole]?.englishLabel,
+          entry.cityRoles.join(" "),
+          ...entry.cityRoles.flatMap((value) => [
+            cityRoleMeta[value].label,
+            cityRoleMeta[value].longLabel,
+            cityRoleMeta[value].englishLabel,
+          ]),
         ].join(" "),
       );
+      const matchesRole = !role || (isGreatPersonRole(role)
+        ? entry.subcategory === role
+        : entry.cityRoles.includes(role));
       return (!needle || haystack.includes(needle)) &&
         (!category || entry.category === category) &&
+        matchesRole &&
         (!era || eraLens(entry.era) === era);
     });
 
@@ -92,20 +145,21 @@ export function ExploreBrowser({
       }
       return Number(b.featured) - Number(a.featured);
     });
-  }, [category, entries, era, query, sort]);
+  }, [category, entries, era, query, role, sort]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
       const params = new URLSearchParams();
       if (query.trim()) params.set("q", query.trim());
       if (category) params.set("category", category);
+      if (role) params.set("role", role);
       if (era) params.set("era", era);
       if (sort !== "editorial") params.set("sort", sort);
       const next = params.size ? `/explore?${params.toString()}` : "/explore";
       window.history.replaceState(null, "", next);
     }, 180);
     return () => window.clearTimeout(timer);
-  }, [category, era, query, sort]);
+  }, [category, era, query, role, sort]);
 
   useEffect(() => {
     const dialog = filterDialogRef.current;
@@ -137,11 +191,19 @@ export function ExploreBrowser({
   function clearFilters() {
     setQuery("");
     setCategory("");
+    setRole("");
     setEra("");
     setSort("editorial");
   }
 
-  const hasFilters = Boolean(query || category || era || sort !== "editorial");
+  function selectCategory(value: Category | "") {
+    setCategory(value);
+    const keepsRole = (value === "great-people" && isGreatPersonRole(role)) ||
+      (value === "cities" && isCityRole(role));
+    if (!keepsRole) setRole("");
+  }
+
+  const hasFilters = Boolean(query || category || role || era || sort !== "editorial");
 
   const filterContent = (
     <>
@@ -152,7 +214,7 @@ export function ExploreBrowser({
 
       <fieldset className="filter-group">
         <legend>유형</legend>
-        <button aria-pressed={!category} className={!category ? "is-active" : ""} onClick={() => setCategory("")}>
+        <button aria-pressed={!category} className={!category ? "is-active" : ""} onClick={() => selectCategory("")}>
           <span>전체</span><span>{entries.length}</span>
         </button>
         {categoryValues.map((value) => (
@@ -160,12 +222,56 @@ export function ExploreBrowser({
             key={value}
             aria-pressed={category === value}
             className={category === value ? "is-active" : ""}
-            onClick={() => setCategory(value)}
+            onClick={() => selectCategory(value)}
           >
             <span>{categoryMeta[value].label}</span><span>{counts[value]}</span>
           </button>
         ))}
       </fieldset>
+
+      {category === "great-people" ? (
+        <fieldset className="filter-group">
+          <legend>위인 분야</legend>
+          <button aria-pressed={!role} className={!role ? "is-active" : ""} onClick={() => setRole("")}>
+            <span>모든 위인</span><span>{counts["great-people"]}</span>
+          </button>
+          {greatPersonRoleValues.map((value) => (
+            <Fragment key={value}>
+              {greatPersonRoleMeta[value].kind === "special" ? (
+                <span className="filter-subheading">특수 위인</span>
+              ) : null}
+              <button
+                aria-pressed={role === value}
+                className={role === value ? "is-active" : ""}
+                disabled={roleCounts[value] === 0}
+                onClick={() => setRole(value)}
+              >
+                <span>{greatPersonRoleMeta[value].label}</span><span>{roleCounts[value]}</span>
+              </button>
+            </Fragment>
+          ))}
+        </fieldset>
+      ) : null}
+
+      {category === "cities" ? (
+        <fieldset className="filter-group">
+          <legend>도시 역할</legend>
+          <button aria-pressed={!role} className={!role ? "is-active" : ""} onClick={() => setRole("")}>
+            <span>모든 도시</span><span>{counts.cities}</span>
+          </button>
+          {cityRoleValues.map((value) => (
+            <button
+              key={value}
+              aria-pressed={role === value}
+              className={role === value ? "is-active" : ""}
+              disabled={roleCounts[value] === 0}
+              onClick={() => setRole(value)}
+            >
+              <span>{cityRoleMeta[value].label}</span><span>{roleCounts[value]}</span>
+            </button>
+          ))}
+        </fieldset>
+      ) : null}
 
       <fieldset className="filter-group">
         <legend>역사 시대</legend>
@@ -207,7 +313,7 @@ export function ExploreBrowser({
         </p>
         <div className="flex items-center gap-2">
           <button className="mobile-filter-trigger" onClick={() => setFiltersOpen(true)}>
-            <Filter size={16} /> 필터 {category || era ? <span className="filter-dot" /> : null}
+            <Filter size={16} /> 필터 {category || role || era ? <span className="filter-dot" /> : null}
           </button>
           <label className="sr-only" htmlFor="archive-sort">정렬</label>
           <select id="archive-sort" className="sort-select" value={sort} onChange={(event) => setSort(event.target.value as SortMode)}>

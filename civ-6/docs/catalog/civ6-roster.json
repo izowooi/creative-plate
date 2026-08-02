@@ -1,0 +1,4104 @@
+{
+  "schemaVersion": 2,
+  "checkedAt": "2026-08-02",
+  "catalogScope": "Civilization VI Anthology and Leader Pass non-scenario rosters, including marked bonus and legacy entries",
+  "sources": {
+    "officialGame": "https://civilization.2k.com/civ-vi/",
+    "officialLeaderPass": "https://support.civilization.com/hc/en-us/articles/37658016431891-Civilization-VI-Leader-Pass",
+    "civilopedia": {
+      "leaders": "https://www.civilopedia.net/en-US/gathering-storm/civilizations/leaders_intro/",
+      "cityStates": "https://www.civilopedia.net/en-US/gathering-storm/citystates/intro/",
+      "greatPeople": "https://www.civilopedia.net/en-US/gathering-storm/greatpeople/intro/"
+    },
+    "wiki": {
+      "leaders": "https://civilization.fandom.com/wiki/Leaders_(Civ6)",
+      "civilizations": "https://civilization.fandom.com/wiki/Civilizations_(Civ6)",
+      "capitals": "https://civilization.fandom.com/wiki/Capital_(Civ6)",
+      "cityStates": "https://civilization.fandom.com/wiki/List_of_city-states_in_Civ6",
+      "greatPeople": {
+        "artists": "https://civilization.fandom.com/wiki/Great_Artist_(Civ6)",
+        "writers": "https://civilization.fandom.com/wiki/Great_Writer_(Civ6)",
+        "musicians": "https://civilization.fandom.com/wiki/Great_Musician_(Civ6)",
+        "scientists": "https://civilization.fandom.com/wiki/Great_Scientist_(Civ6)",
+        "engineers": "https://civilization.fandom.com/wiki/Great_Engineer_(Civ6)",
+        "merchants": "https://civilization.fandom.com/wiki/Great_Merchant_(Civ6)",
+        "generals": "https://civilization.fandom.com/wiki/Great_General_(Civ6)",
+        "admirals": "https://civilization.fandom.com/wiki/Great_Admiral_(Civ6)",
+        "prophets": "https://civilization.fandom.com/wiki/Great_Prophet_(Civ6)",
+        "comandantes": "https://civilization.fandom.com/wiki/Comandante_General_(Civ6)"
+      }
+    }
+  },
+  "leaders": [
+    {
+      "id": "leader:abraham-lincoln",
+      "name": "Abraham Lincoln",
+      "rosterLabel": "Abraham Lincoln",
+      "slug": "abraham-lincoln",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:alexander",
+      "name": "Alexander",
+      "rosterLabel": "Alexander",
+      "slug": "alexander",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Alexander the Great"
+      ]
+    },
+    {
+      "id": "leader:amanitore",
+      "name": "Amanitore",
+      "rosterLabel": "Amanitore",
+      "slug": "amanitore",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:ambiorix",
+      "name": "Ambiorix",
+      "rosterLabel": "Ambiorix",
+      "slug": "ambiorix",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:ba-trieu",
+      "name": "Bà Triệu",
+      "rosterLabel": "Bà Triệu",
+      "slug": "ba-trieu",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:basil-ii",
+      "name": "Basil II",
+      "rosterLabel": "Basil II",
+      "slug": "basil-ii",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:catherine-de-medici",
+      "name": "Catherine de Medici",
+      "rosterLabel": "Catherine de Medici",
+      "slug": "catherine-de-medici",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Catherine de' Medici"
+      ]
+    },
+    {
+      "id": "leader:chandragupta",
+      "name": "Chandragupta",
+      "rosterLabel": "Chandragupta",
+      "slug": "chandragupta",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Chandragupta Maurya"
+      ]
+    },
+    {
+      "id": "leader:cleopatra",
+      "name": "Cleopatra",
+      "rosterLabel": "Cleopatra",
+      "slug": "cleopatra",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Cleopatra VII"
+      ]
+    },
+    {
+      "id": "leader:cyrus",
+      "name": "Cyrus",
+      "rosterLabel": "Cyrus",
+      "slug": "cyrus",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Cyrus II",
+        "Cyrus the Great"
+      ]
+    },
+    {
+      "id": "leader:dido",
+      "name": "Dido",
+      "rosterLabel": "Dido",
+      "slug": "dido",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:eleanor-of-aquitaine",
+      "name": "Eleanor of Aquitaine",
+      "rosterLabel": "Eleanor of Aquitaine",
+      "slug": "eleanor-of-aquitaine",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:elizabeth-i",
+      "name": "Elizabeth I",
+      "rosterLabel": "Elizabeth I",
+      "slug": "elizabeth-i",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:frederick-barbarossa",
+      "name": "Frederick Barbarossa",
+      "rosterLabel": "Frederick Barbarossa",
+      "slug": "frederick-barbarossa",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:gandhi",
+      "name": "Gandhi",
+      "rosterLabel": "Gandhi",
+      "slug": "gandhi",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Mahatma Gandhi"
+      ]
+    },
+    {
+      "id": "leader:genghis-khan",
+      "name": "Genghis Khan",
+      "rosterLabel": "Genghis Khan",
+      "slug": "genghis-khan",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:gilgamesh",
+      "name": "Gilgamesh",
+      "rosterLabel": "Gilgamesh",
+      "slug": "gilgamesh",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:gitarja",
+      "name": "Gitarja",
+      "rosterLabel": "Gitarja",
+      "slug": "gitarja",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:gorgo",
+      "name": "Gorgo",
+      "rosterLabel": "Gorgo",
+      "slug": "gorgo",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:hammurabi",
+      "name": "Hammurabi",
+      "rosterLabel": "Hammurabi",
+      "slug": "hammurabi",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:harald-hardrada",
+      "name": "Harald Hardrada",
+      "rosterLabel": "Harald Hardrada",
+      "slug": "harald-hardrada",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:hojo-tokimune",
+      "name": "Hojo Tokimune",
+      "rosterLabel": "Hojo Tokimune",
+      "slug": "hojo-tokimune",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:jadwiga",
+      "name": "Jadwiga",
+      "rosterLabel": "Jadwiga",
+      "slug": "jadwiga",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:jayavarman-vii",
+      "name": "Jayavarman VII",
+      "rosterLabel": "Jayavarman VII",
+      "slug": "jayavarman-vii",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:joao-iii",
+      "name": "João III",
+      "rosterLabel": "João III",
+      "slug": "joao-iii",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:john-curtin",
+      "name": "John Curtin",
+      "rosterLabel": "John Curtin",
+      "slug": "john-curtin",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:julius-caesar",
+      "name": "Julius Caesar",
+      "rosterLabel": "Julius Caesar",
+      "slug": "julius-caesar",
+      "scope": "bonus",
+      "availability": "active"
+    },
+    {
+      "id": "leader:kristina",
+      "name": "Kristina",
+      "rosterLabel": "Kristina",
+      "slug": "kristina",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:kublai-khan",
+      "name": "Kublai Khan",
+      "rosterLabel": "Kublai Khan",
+      "slug": "kublai-khan",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:kupe",
+      "name": "Kupe",
+      "rosterLabel": "Kupe",
+      "slug": "kupe",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:lady-six-sky",
+      "name": "Lady Six Sky",
+      "rosterLabel": "Lady Six Sky",
+      "slug": "lady-six-sky",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:lautaro",
+      "name": "Lautaro",
+      "rosterLabel": "Lautaro",
+      "slug": "lautaro",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:ludwig-ii",
+      "name": "Ludwig II",
+      "rosterLabel": "Ludwig II",
+      "slug": "ludwig-ii",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:mansa-musa",
+      "name": "Mansa Musa",
+      "rosterLabel": "Mansa Musa",
+      "slug": "mansa-musa",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:matthias-corvinus",
+      "name": "Matthias Corvinus",
+      "rosterLabel": "Matthias Corvinus",
+      "slug": "matthias-corvinus",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:menelik-ii",
+      "name": "Menelik II",
+      "rosterLabel": "Menelik II",
+      "slug": "menelik-ii",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:montezuma",
+      "name": "Montezuma",
+      "rosterLabel": "Montezuma",
+      "slug": "montezuma",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Montezuma I"
+      ]
+    },
+    {
+      "id": "leader:mvemba-a-nzinga",
+      "name": "Mvemba a Nzinga",
+      "rosterLabel": "Mvemba a Nzinga",
+      "slug": "mvemba-a-nzinga",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:nader-shah",
+      "name": "Nader Shah",
+      "rosterLabel": "Nader Shah",
+      "slug": "nader-shah",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:nzinga-mbande",
+      "name": "Nzinga Mbande",
+      "rosterLabel": "Nzinga Mbande",
+      "slug": "nzinga-mbande",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:pachacuti",
+      "name": "Pachacuti",
+      "rosterLabel": "Pachacuti",
+      "slug": "pachacuti",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:pedro-ii",
+      "name": "Pedro II",
+      "rosterLabel": "Pedro II",
+      "slug": "pedro-ii",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:pericles",
+      "name": "Pericles",
+      "rosterLabel": "Pericles",
+      "slug": "pericles",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:peter",
+      "name": "Peter",
+      "rosterLabel": "Peter",
+      "slug": "peter",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Peter the Great"
+      ]
+    },
+    {
+      "id": "leader:philip-ii",
+      "name": "Philip II",
+      "rosterLabel": "Philip II",
+      "slug": "philip-ii",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:poundmaker",
+      "name": "Poundmaker",
+      "rosterLabel": "Poundmaker",
+      "slug": "poundmaker",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:qin-shi-huang",
+      "name": "Qin Shi Huang",
+      "rosterLabel": "Qin Shi Huang",
+      "slug": "qin-shi-huang",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:ramses-ii",
+      "name": "Ramses II",
+      "rosterLabel": "Ramses II",
+      "slug": "ramses-ii",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:robert-the-bruce",
+      "name": "Robert the Bruce",
+      "rosterLabel": "Robert the Bruce",
+      "slug": "robert-the-bruce",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:saladin",
+      "name": "Saladin",
+      "rosterLabel": "Saladin",
+      "slug": "saladin",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:sejong",
+      "name": "Sejong",
+      "rosterLabel": "Sejong",
+      "slug": "sejong",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:seondeok",
+      "name": "Seondeok",
+      "rosterLabel": "Seondeok",
+      "slug": "seondeok",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Queen Seondeok"
+      ]
+    },
+    {
+      "id": "leader:shaka",
+      "name": "Shaka",
+      "rosterLabel": "Shaka",
+      "slug": "shaka",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:simon-bolivar",
+      "name": "Simón Bolívar",
+      "rosterLabel": "Simón Bolívar",
+      "slug": "simon-bolivar",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:suleiman",
+      "name": "Suleiman",
+      "rosterLabel": "Suleiman",
+      "slug": "suleiman",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:sundiata-keita",
+      "name": "Sundiata Keita",
+      "rosterLabel": "Sundiata Keita",
+      "slug": "sundiata-keita",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:tamar",
+      "name": "Tamar",
+      "rosterLabel": "Tamar",
+      "slug": "tamar",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:teddy-roosevelt",
+      "name": "Teddy Roosevelt",
+      "rosterLabel": "Teddy Roosevelt",
+      "slug": "teddy-roosevelt",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Theodore Roosevelt"
+      ]
+    },
+    {
+      "id": "leader:theodora",
+      "name": "Theodora",
+      "rosterLabel": "Theodora",
+      "slug": "theodora",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:tokugawa",
+      "name": "Tokugawa",
+      "rosterLabel": "Tokugawa",
+      "slug": "tokugawa",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Tokugawa Ieyasu"
+      ]
+    },
+    {
+      "id": "leader:tomyris",
+      "name": "Tomyris",
+      "rosterLabel": "Tomyris",
+      "slug": "tomyris",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:trajan",
+      "name": "Trajan",
+      "rosterLabel": "Trajan",
+      "slug": "trajan",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:victoria",
+      "name": "Victoria",
+      "rosterLabel": "Victoria",
+      "slug": "victoria",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Queen Victoria"
+      ]
+    },
+    {
+      "id": "leader:wilfrid-laurier",
+      "name": "Wilfrid Laurier",
+      "rosterLabel": "Wilfrid Laurier",
+      "slug": "wilfrid-laurier",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:wilhelmina",
+      "name": "Wilhelmina",
+      "rosterLabel": "Wilhelmina",
+      "slug": "wilhelmina",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:wu-zetian",
+      "name": "Wu Zetian",
+      "rosterLabel": "Wu Zetian",
+      "slug": "wu-zetian",
+      "scope": "core",
+      "availability": "active"
+    },
+    {
+      "id": "leader:yongle",
+      "name": "Yongle",
+      "rosterLabel": "Yongle",
+      "slug": "yongle",
+      "scope": "core",
+      "availability": "active"
+    }
+  ],
+  "civilizations": [
+    {
+      "id": "civilization:america",
+      "name": "America",
+      "rosterLabel": "American",
+      "slug": "america",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "American Civilization"
+      ]
+    },
+    {
+      "id": "civilization:arabia",
+      "name": "Arabia",
+      "rosterLabel": "Arabian",
+      "slug": "arabia",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Arabian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:australia",
+      "name": "Australia",
+      "rosterLabel": "Australian",
+      "slug": "australia",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Australian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:aztec",
+      "name": "Aztec",
+      "rosterLabel": "Aztec",
+      "slug": "aztec",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Aztec Civilization"
+      ]
+    },
+    {
+      "id": "civilization:babylon",
+      "name": "Babylon",
+      "rosterLabel": "Babylonian",
+      "slug": "babylon",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Babylonian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:brazil",
+      "name": "Brazil",
+      "rosterLabel": "Brazilian",
+      "slug": "brazil",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Brazilian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:byzantium",
+      "name": "Byzantium",
+      "rosterLabel": "Byzantine",
+      "slug": "byzantium",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Byzantine Civilization"
+      ]
+    },
+    {
+      "id": "civilization:canada",
+      "name": "Canada",
+      "rosterLabel": "Canadian",
+      "slug": "canada",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Canadian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:china",
+      "name": "China",
+      "rosterLabel": "Chinese",
+      "slug": "china",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Chinese Civilization"
+      ]
+    },
+    {
+      "id": "civilization:cree",
+      "name": "Cree",
+      "rosterLabel": "Cree",
+      "slug": "cree",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Cree Civilization"
+      ]
+    },
+    {
+      "id": "civilization:netherlands",
+      "name": "Netherlands",
+      "rosterLabel": "Dutch",
+      "slug": "netherlands",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Dutch Civilization"
+      ]
+    },
+    {
+      "id": "civilization:egypt",
+      "name": "Egypt",
+      "rosterLabel": "Egyptian",
+      "slug": "egypt",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Egyptian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:england",
+      "name": "England",
+      "rosterLabel": "English",
+      "slug": "england",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "English Civilization"
+      ]
+    },
+    {
+      "id": "civilization:ethiopia",
+      "name": "Ethiopia",
+      "rosterLabel": "Ethiopian",
+      "slug": "ethiopia",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Ethiopian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:france",
+      "name": "France",
+      "rosterLabel": "French",
+      "slug": "france",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "French Civilization"
+      ]
+    },
+    {
+      "id": "civilization:gaul",
+      "name": "Gaul",
+      "rosterLabel": "Gallic",
+      "slug": "gaul",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Gallic Civilization"
+      ]
+    },
+    {
+      "id": "civilization:georgia",
+      "name": "Georgia",
+      "rosterLabel": "Georgian",
+      "slug": "georgia",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Georgian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:germany",
+      "name": "Germany",
+      "rosterLabel": "German",
+      "slug": "germany",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "German Civilization"
+      ]
+    },
+    {
+      "id": "civilization:gran-colombia",
+      "name": "Gran Colombia",
+      "rosterLabel": "Gran Colombian",
+      "slug": "gran-colombia",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Gran Colombian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:greece",
+      "name": "Greece",
+      "rosterLabel": "Greek",
+      "slug": "greece",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Greek Civilization"
+      ]
+    },
+    {
+      "id": "civilization:hungary",
+      "name": "Hungary",
+      "rosterLabel": "Hungarian",
+      "slug": "hungary",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Hungarian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:inca",
+      "name": "Inca",
+      "rosterLabel": "Incan",
+      "slug": "inca",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Incan Civilization"
+      ]
+    },
+    {
+      "id": "civilization:india",
+      "name": "India",
+      "rosterLabel": "Indian",
+      "slug": "india",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Indian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:indonesia",
+      "name": "Indonesia",
+      "rosterLabel": "Indonesian",
+      "slug": "indonesia",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Indonesian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:japan",
+      "name": "Japan",
+      "rosterLabel": "Japanese",
+      "slug": "japan",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Japanese Civilization"
+      ]
+    },
+    {
+      "id": "civilization:khmer",
+      "name": "Khmer",
+      "rosterLabel": "Khmer",
+      "slug": "khmer",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Khmer Civilization"
+      ]
+    },
+    {
+      "id": "civilization:kongo",
+      "name": "Kongo",
+      "rosterLabel": "Kongolese",
+      "slug": "kongo",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Kongolese Civilization"
+      ]
+    },
+    {
+      "id": "civilization:korea",
+      "name": "Korea",
+      "rosterLabel": "Korean",
+      "slug": "korea",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Korean Civilization"
+      ]
+    },
+    {
+      "id": "civilization:macedon",
+      "name": "Macedon",
+      "rosterLabel": "Macedonian",
+      "slug": "macedon",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Macedonian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:mali",
+      "name": "Mali",
+      "rosterLabel": "Malian",
+      "slug": "mali",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Malian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:maori",
+      "name": "Māori",
+      "rosterLabel": "Māori",
+      "slug": "maori",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Māori Civilization"
+      ]
+    },
+    {
+      "id": "civilization:mapuche",
+      "name": "Mapuche",
+      "rosterLabel": "Mapuche",
+      "slug": "mapuche",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Mapuche Civilization"
+      ]
+    },
+    {
+      "id": "civilization:maya",
+      "name": "Maya",
+      "rosterLabel": "Mayan",
+      "slug": "maya",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Mayan Civilization"
+      ]
+    },
+    {
+      "id": "civilization:mongolia",
+      "name": "Mongolia",
+      "rosterLabel": "Mongolian",
+      "slug": "mongolia",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Mongolian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:norway",
+      "name": "Norway",
+      "rosterLabel": "Norwegian",
+      "slug": "norway",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Norwegian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:nubia",
+      "name": "Nubia",
+      "rosterLabel": "Nubian",
+      "slug": "nubia",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Nubian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:ottomans",
+      "name": "Ottomans",
+      "rosterLabel": "Ottoman",
+      "slug": "ottomans",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Ottoman Civilization"
+      ]
+    },
+    {
+      "id": "civilization:persia",
+      "name": "Persia",
+      "rosterLabel": "Persian",
+      "slug": "persia",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Persian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:phoenicia",
+      "name": "Phoenicia",
+      "rosterLabel": "Phoenician",
+      "slug": "phoenicia",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Phoenician Civilization"
+      ]
+    },
+    {
+      "id": "civilization:poland",
+      "name": "Poland",
+      "rosterLabel": "Polish",
+      "slug": "poland",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Polish Civilization"
+      ]
+    },
+    {
+      "id": "civilization:portugal",
+      "name": "Portugal",
+      "rosterLabel": "Portuguese",
+      "slug": "portugal",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Portuguese Civilization"
+      ]
+    },
+    {
+      "id": "civilization:rome",
+      "name": "Rome",
+      "rosterLabel": "Roman",
+      "slug": "rome",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Roman Civilization"
+      ]
+    },
+    {
+      "id": "civilization:russia",
+      "name": "Russia",
+      "rosterLabel": "Russian",
+      "slug": "russia",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Russian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:scotland",
+      "name": "Scotland",
+      "rosterLabel": "Scottish",
+      "slug": "scotland",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Scottish Civilization"
+      ]
+    },
+    {
+      "id": "civilization:scythia",
+      "name": "Scythia",
+      "rosterLabel": "Scythian",
+      "slug": "scythia",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Scythian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:spain",
+      "name": "Spain",
+      "rosterLabel": "Spanish",
+      "slug": "spain",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Spanish Civilization"
+      ]
+    },
+    {
+      "id": "civilization:sumeria",
+      "name": "Sumeria",
+      "rosterLabel": "Sumerian",
+      "slug": "sumeria",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Sumerian Civilization"
+      ]
+    },
+    {
+      "id": "civilization:sweden",
+      "name": "Sweden",
+      "rosterLabel": "Swedish",
+      "slug": "sweden",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Swedish Civilization"
+      ]
+    },
+    {
+      "id": "civilization:vietnam",
+      "name": "Vietnam",
+      "rosterLabel": "Vietnamese",
+      "slug": "vietnam",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Vietnamese Civilization"
+      ]
+    },
+    {
+      "id": "civilization:zulu",
+      "name": "Zulu",
+      "rosterLabel": "Zulu",
+      "slug": "zulu",
+      "scope": "core",
+      "availability": "active",
+      "aliases": [
+        "Zulu Civilization"
+      ]
+    }
+  ],
+  "cities": {
+    "capitals": [
+      {
+        "id": "capital:washington",
+        "name": "Washington",
+        "rosterLabel": "Washington",
+        "slug": "washington",
+        "scope": "core",
+        "availability": "active",
+        "aliases": [
+          "Washington, D.C."
+        ]
+      },
+      {
+        "id": "capital:cairo",
+        "name": "Cairo",
+        "rosterLabel": "Cairo",
+        "slug": "cairo",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:canberra",
+        "name": "Canberra",
+        "rosterLabel": "Canberra",
+        "slug": "canberra",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:tenochtitlan",
+        "name": "Tenochtitlan",
+        "rosterLabel": "Tenochtitlan",
+        "slug": "tenochtitlan",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:babylon",
+        "name": "Babylon",
+        "rosterLabel": "Babylon",
+        "slug": "babylon",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:rio-de-janeiro",
+        "name": "Rio de Janeiro",
+        "rosterLabel": "Rio de Janeiro",
+        "slug": "rio-de-janeiro",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:constantinople",
+        "name": "Constantinople",
+        "rosterLabel": "Constantinople",
+        "slug": "constantinople",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:ottawa",
+        "name": "Ottawa",
+        "rosterLabel": "Ottawa",
+        "slug": "ottawa",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:xian",
+        "name": "Xi’an",
+        "rosterLabel": "Xi’an",
+        "slug": "xian",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:beijing",
+        "name": "Beijing",
+        "rosterLabel": "Beijing",
+        "slug": "beijing",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:shendu",
+        "name": "Shendu",
+        "rosterLabel": "Shendu",
+        "slug": "shendu",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:mikisiw-wacihk",
+        "name": "Mikisiw-Wacîhk",
+        "rosterLabel": "Mikisiw-Wacîhk",
+        "slug": "mikisiw-wacihk",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:amsterdam",
+        "name": "Amsterdam",
+        "rosterLabel": "Amsterdam",
+        "slug": "amsterdam",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:ra-kedet",
+        "name": "Râ-Kedet",
+        "rosterLabel": "Râ-Kedet",
+        "slug": "ra-kedet",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:thebes",
+        "name": "Thebes",
+        "rosterLabel": "Thebes",
+        "slug": "thebes",
+        "scope": "core",
+        "availability": "active",
+        "aliases": [
+          "Thebes, Egypt"
+        ]
+      },
+      {
+        "id": "capital:london",
+        "name": "London",
+        "rosterLabel": "London",
+        "slug": "london",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:addis-ababa",
+        "name": "Addis Ababa",
+        "rosterLabel": "Addis Ababa",
+        "slug": "addis-ababa",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:paris",
+        "name": "Paris",
+        "rosterLabel": "Paris",
+        "slug": "paris",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:aduatuca",
+        "name": "Aduatuca",
+        "rosterLabel": "Aduatuca",
+        "slug": "aduatuca",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:tbilisi",
+        "name": "Tbilisi",
+        "rosterLabel": "Tbilisi",
+        "slug": "tbilisi",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:aachen",
+        "name": "Aachen",
+        "rosterLabel": "Aachen",
+        "slug": "aachen",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:munich",
+        "name": "Munich",
+        "rosterLabel": "Munich",
+        "slug": "munich",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:bogota",
+        "name": "Bogotá",
+        "rosterLabel": "Bogotá",
+        "slug": "bogota",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:athens",
+        "name": "Athens",
+        "rosterLabel": "Athens",
+        "slug": "athens",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:sparta",
+        "name": "Sparta",
+        "rosterLabel": "Sparta",
+        "slug": "sparta",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:buda",
+        "name": "Buda",
+        "rosterLabel": "Buda",
+        "slug": "buda",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:qusqu",
+        "name": "Qusqu",
+        "rosterLabel": "Qusqu",
+        "slug": "qusqu",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:delhi",
+        "name": "Delhi",
+        "rosterLabel": "Delhi",
+        "slug": "delhi",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:patna",
+        "name": "Patna",
+        "rosterLabel": "Patna",
+        "slug": "patna",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:majapahit",
+        "name": "Majapahit",
+        "rosterLabel": "Majapahit",
+        "slug": "majapahit",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:kyoto",
+        "name": "Kyoto",
+        "rosterLabel": "Kyoto",
+        "slug": "kyoto",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:tokyo",
+        "name": "Tokyo",
+        "rosterLabel": "Tokyo",
+        "slug": "tokyo",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:angkor-thom",
+        "name": "Angkor Thom",
+        "rosterLabel": "Angkor Thom",
+        "slug": "angkor-thom",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:mbanza-kongo",
+        "name": "Mbanza Kongo",
+        "rosterLabel": "Mbanza Kongo",
+        "slug": "mbanza-kongo",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:kabasa",
+        "name": "Kabasa",
+        "rosterLabel": "Kabasa",
+        "slug": "kabasa",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:gyeongju",
+        "name": "Gyeongju",
+        "rosterLabel": "Gyeongju",
+        "slug": "gyeongju",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:seoul",
+        "name": "Seoul",
+        "rosterLabel": "Seoul",
+        "slug": "seoul",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:pella",
+        "name": "Pella",
+        "rosterLabel": "Pella",
+        "slug": "pella",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:niani",
+        "name": "Niani",
+        "rosterLabel": "Niani",
+        "slug": "niani",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:te-hokianga-nui-a-kupe",
+        "name": "Te Hokianga-nui-a-Kupe",
+        "rosterLabel": "Te Hokianga-nui-a-Kupe",
+        "slug": "te-hokianga-nui-a-kupe",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:ngulu-mapu",
+        "name": "Ngulu Mapu",
+        "rosterLabel": "Ngulu Mapu",
+        "slug": "ngulu-mapu",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:wak-kabnal",
+        "name": "Wak Kab’nal",
+        "rosterLabel": "Wak Kab’nal",
+        "slug": "wak-kabnal",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:qaraqorum",
+        "name": "Qaraqorum",
+        "rosterLabel": "Qaraqorum",
+        "slug": "qaraqorum",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:xanadu",
+        "name": "Xanadu",
+        "rosterLabel": "Xanadu",
+        "slug": "xanadu",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:nidaros",
+        "name": "Nidaros",
+        "rosterLabel": "Nidaros",
+        "slug": "nidaros",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:meroe",
+        "name": "Meroë",
+        "rosterLabel": "Meroë",
+        "slug": "meroe",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:istanbul",
+        "name": "Istanbul",
+        "rosterLabel": "Istanbul",
+        "slug": "istanbul",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:pasargadae",
+        "name": "Pasargadae",
+        "rosterLabel": "Pasargadae",
+        "slug": "pasargadae",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:mashhad",
+        "name": "Mashhad",
+        "rosterLabel": "Mashhad",
+        "slug": "mashhad",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:tyre",
+        "name": "Tyre",
+        "rosterLabel": "Tyre",
+        "slug": "tyre",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:krakow",
+        "name": "Kraków",
+        "rosterLabel": "Kraków",
+        "slug": "krakow",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:lisbon",
+        "name": "Lisbon",
+        "rosterLabel": "Lisbon",
+        "slug": "lisbon",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:rome",
+        "name": "Rome",
+        "rosterLabel": "Rome",
+        "slug": "rome",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:st-petersburg",
+        "name": "St. Petersburg",
+        "rosterLabel": "St. Petersburg",
+        "slug": "st-petersburg",
+        "scope": "core",
+        "availability": "active",
+        "aliases": [
+          "Saint Petersburg"
+        ]
+      },
+      {
+        "id": "capital:stirling",
+        "name": "Stirling",
+        "rosterLabel": "Stirling",
+        "slug": "stirling",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:pokrovka",
+        "name": "Pokrovka",
+        "rosterLabel": "Pokrovka",
+        "slug": "pokrovka",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:madrid",
+        "name": "Madrid",
+        "rosterLabel": "Madrid",
+        "slug": "madrid",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:uruk",
+        "name": "Uruk",
+        "rosterLabel": "Uruk",
+        "slug": "uruk",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:stockholm",
+        "name": "Stockholm",
+        "rosterLabel": "Stockholm",
+        "slug": "stockholm",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:thang-long",
+        "name": "Thăng Long",
+        "rosterLabel": "Thăng Long",
+        "slug": "thang-long",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "capital:ulundi",
+        "name": "Ulundi",
+        "rosterLabel": "Ulundi",
+        "slug": "ulundi",
+        "scope": "core",
+        "availability": "active"
+      }
+    ],
+    "cityStates": [
+      {
+        "id": "city-state:akkad",
+        "name": "Akkad",
+        "rosterLabel": "Akkad",
+        "slug": "akkad",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:amsterdam",
+        "name": "Amsterdam",
+        "rosterLabel": "Amsterdam",
+        "slug": "amsterdam",
+        "scope": "core",
+        "availability": "legacy"
+      },
+      {
+        "id": "city-state:anshan",
+        "name": "Anshan",
+        "rosterLabel": "Anshan",
+        "slug": "anshan",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:antananarivo",
+        "name": "Antananarivo",
+        "rosterLabel": "Antananarivo",
+        "slug": "antananarivo",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:antioch",
+        "name": "Antioch",
+        "rosterLabel": "Antioch",
+        "slug": "antioch",
+        "scope": "core",
+        "availability": "legacy"
+      },
+      {
+        "id": "city-state:armagh",
+        "name": "Armagh",
+        "rosterLabel": "Armagh",
+        "slug": "armagh",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:auckland",
+        "name": "Auckland",
+        "rosterLabel": "Auckland",
+        "slug": "auckland",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:ayutthaya",
+        "name": "Ayutthaya",
+        "rosterLabel": "Ayutthaya",
+        "slug": "ayutthaya",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:babylon",
+        "name": "Babylon",
+        "rosterLabel": "Babylon",
+        "slug": "babylon",
+        "scope": "core",
+        "availability": "legacy"
+      },
+      {
+        "id": "city-state:bandar-brunei",
+        "name": "Bandar Brunei",
+        "rosterLabel": "Bandar Brunei",
+        "slug": "bandar-brunei",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:bologna",
+        "name": "Bologna",
+        "rosterLabel": "Bologna",
+        "slug": "bologna",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:brussels",
+        "name": "Brussels",
+        "rosterLabel": "Brussels",
+        "slug": "brussels",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:buenos-aires",
+        "name": "Buenos Aires",
+        "rosterLabel": "Buenos Aires",
+        "slug": "buenos-aires",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:caguana",
+        "name": "Caguana",
+        "rosterLabel": "Caguana",
+        "slug": "caguana",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:cahokia",
+        "name": "Cahokia",
+        "rosterLabel": "Cahokia",
+        "slug": "cahokia",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:cardiff",
+        "name": "Cardiff",
+        "rosterLabel": "Cardiff",
+        "slug": "cardiff",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:carthage",
+        "name": "Carthage",
+        "rosterLabel": "Carthage",
+        "slug": "carthage",
+        "scope": "core",
+        "availability": "legacy"
+      },
+      {
+        "id": "city-state:chinguetti",
+        "name": "Chinguetti",
+        "rosterLabel": "Chinguetti",
+        "slug": "chinguetti",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:fez",
+        "name": "Fez",
+        "rosterLabel": "Fez",
+        "slug": "fez",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:geneva",
+        "name": "Geneva",
+        "rosterLabel": "Geneva",
+        "slug": "geneva",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:granada",
+        "name": "Granada",
+        "rosterLabel": "Granada",
+        "slug": "granada",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:hattusa",
+        "name": "Hattusa",
+        "rosterLabel": "Hattusa",
+        "slug": "hattusa",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:hong-kong",
+        "name": "Hong Kong",
+        "rosterLabel": "Hong Kong",
+        "slug": "hong-kong",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:hunza",
+        "name": "Hunza",
+        "rosterLabel": "Hunza",
+        "slug": "hunza",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:jakarta",
+        "name": "Jakarta",
+        "rosterLabel": "Jakarta",
+        "slug": "jakarta",
+        "scope": "core",
+        "availability": "legacy"
+      },
+      {
+        "id": "city-state:jerusalem",
+        "name": "Jerusalem",
+        "rosterLabel": "Jerusalem",
+        "slug": "jerusalem",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:johannesburg",
+        "name": "Johannesburg",
+        "rosterLabel": "Johannesburg",
+        "slug": "johannesburg",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:kabul",
+        "name": "Kabul",
+        "rosterLabel": "Kabul",
+        "slug": "kabul",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:kandy",
+        "name": "Kandy",
+        "rosterLabel": "Kandy",
+        "slug": "kandy",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:kumasi",
+        "name": "Kumasi",
+        "rosterLabel": "Kumasi",
+        "slug": "kumasi",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:la-venta",
+        "name": "La Venta",
+        "rosterLabel": "La Venta",
+        "slug": "la-venta",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:lahore",
+        "name": "Lahore",
+        "rosterLabel": "Lahore",
+        "slug": "lahore",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:lisbon",
+        "name": "Lisbon",
+        "rosterLabel": "Lisbon",
+        "slug": "lisbon",
+        "scope": "core",
+        "availability": "legacy"
+      },
+      {
+        "id": "city-state:mexico-city",
+        "name": "Mexico City",
+        "rosterLabel": "Mexico City",
+        "slug": "mexico-city",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:mitla",
+        "name": "Mitla",
+        "rosterLabel": "Mitla",
+        "slug": "mitla",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:mogadishu",
+        "name": "Mogadishu",
+        "rosterLabel": "Mogadishu",
+        "slug": "mogadishu",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:mohenjo-daro",
+        "name": "Mohenjo-Daro",
+        "rosterLabel": "Mohenjo-Daro",
+        "slug": "mohenjo-daro",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:muscat",
+        "name": "Muscat",
+        "rosterLabel": "Muscat",
+        "slug": "muscat",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:nalanda",
+        "name": "Nalanda",
+        "rosterLabel": "Nalanda",
+        "slug": "nalanda",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:nan-madol",
+        "name": "Nan Madol",
+        "rosterLabel": "Nan Madol",
+        "slug": "nan-madol",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:nazca",
+        "name": "Nazca",
+        "rosterLabel": "Nazca",
+        "slug": "nazca",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:ngazargamu",
+        "name": "Ngazargamu",
+        "rosterLabel": "Ngazargamu",
+        "slug": "ngazargamu",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:palenque",
+        "name": "Palenque",
+        "rosterLabel": "Palenque",
+        "slug": "palenque",
+        "scope": "core",
+        "availability": "legacy"
+      },
+      {
+        "id": "city-state:preslav",
+        "name": "Preslav",
+        "rosterLabel": "Preslav",
+        "slug": "preslav",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:rapa-nui",
+        "name": "Rapa Nui",
+        "rosterLabel": "Rapa Nui",
+        "slug": "rapa-nui",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:samarkand",
+        "name": "Samarkand",
+        "rosterLabel": "Samarkand",
+        "slug": "samarkand",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:seoul",
+        "name": "Seoul",
+        "rosterLabel": "Seoul",
+        "slug": "seoul",
+        "scope": "core",
+        "availability": "legacy"
+      },
+      {
+        "id": "city-state:singapore",
+        "name": "Singapore",
+        "rosterLabel": "Singapore",
+        "slug": "singapore",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:stockholm",
+        "name": "Stockholm",
+        "rosterLabel": "Stockholm",
+        "slug": "stockholm",
+        "scope": "core",
+        "availability": "legacy"
+      },
+      {
+        "id": "city-state:taruga",
+        "name": "Taruga",
+        "rosterLabel": "Taruga",
+        "slug": "taruga",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:toronto",
+        "name": "Toronto",
+        "rosterLabel": "Toronto",
+        "slug": "toronto",
+        "scope": "core",
+        "availability": "legacy"
+      },
+      {
+        "id": "city-state:valletta",
+        "name": "Valletta",
+        "rosterLabel": "Valletta",
+        "slug": "valletta",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:vatican-city",
+        "name": "Vatican City",
+        "rosterLabel": "Vatican City",
+        "slug": "vatican-city",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:venice",
+        "name": "Venice",
+        "rosterLabel": "Venice",
+        "slug": "venice",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:vilnius",
+        "name": "Vilnius",
+        "rosterLabel": "Vilnius",
+        "slug": "vilnius",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:wolin",
+        "name": "Wolin",
+        "rosterLabel": "Wolin",
+        "slug": "wolin",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:yerevan",
+        "name": "Yerevan",
+        "rosterLabel": "Yerevan",
+        "slug": "yerevan",
+        "scope": "core",
+        "availability": "active"
+      },
+      {
+        "id": "city-state:zanzibar",
+        "name": "Zanzibar",
+        "rosterLabel": "Zanzibar",
+        "slug": "zanzibar",
+        "scope": "core",
+        "availability": "active"
+      }
+    ]
+  },
+  "greatPeople": {
+    "artists": [
+      {
+        "id": "great-person:artists:andrei-rublev",
+        "name": "Andrei Rublev",
+        "rosterLabel": "Andrei Rublev",
+        "slug": "andrei-rublev",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:michelangelo",
+        "name": "Michelangelo",
+        "rosterLabel": "Michelangelo",
+        "slug": "michelangelo",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:donatello",
+        "name": "Donatello",
+        "rosterLabel": "Donatello",
+        "slug": "donatello",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:hieronymus-bosch",
+        "name": "Hieronymus Bosch",
+        "rosterLabel": "Hieronymus Bosch",
+        "slug": "hieronymus-bosch",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:kamal-ud-din-behzad",
+        "name": "Kamāl ud-Dīn Behzād",
+        "rosterLabel": "Kamāl ud-Dīn Behzād",
+        "slug": "kamal-ud-din-behzad",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:rembrandt-van-rijn",
+        "name": "Rembrandt van Rijn",
+        "rosterLabel": "Rembrandt van Rijn",
+        "slug": "rembrandt-van-rijn",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:el-greco",
+        "name": "El Greco",
+        "rosterLabel": "El Greco",
+        "slug": "el-greco",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:qiu-ying",
+        "name": "Qiu Ying",
+        "rosterLabel": "Qiu Ying",
+        "slug": "qiu-ying",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:titian",
+        "name": "Titian",
+        "rosterLabel": "Titian",
+        "slug": "titian",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:hasegawa-tohaku",
+        "name": "Hasegawa Tōhaku",
+        "rosterLabel": "Hasegawa Tōhaku",
+        "slug": "hasegawa-tohaku",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:jang-seung-eop",
+        "name": "Jang Seung-eop",
+        "rosterLabel": "Jang Seung-eop",
+        "slug": "jang-seung-eop",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:sofonisba-anguissola",
+        "name": "Sofonisba Anguissola",
+        "rosterLabel": "Sofonisba Anguissola",
+        "slug": "sofonisba-anguissola",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:angelica-kauffman",
+        "name": "Angelica Kauffman",
+        "rosterLabel": "Angelica Kauffman",
+        "slug": "angelica-kauffman",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:katsushika-hokusai",
+        "name": "Katsushika Hokusai",
+        "rosterLabel": "Katsushika Hokusai",
+        "slug": "katsushika-hokusai",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:edmonia-lewis",
+        "name": "Edmonia Lewis",
+        "rosterLabel": "Edmonia Lewis",
+        "slug": "edmonia-lewis",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:claude-monet",
+        "name": "Claude Monet",
+        "rosterLabel": "Claude Monet",
+        "slug": "claude-monet",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:marie-anne-collot",
+        "name": "Marie-Anne Collot",
+        "rosterLabel": "Marie-Anne Collot",
+        "slug": "marie-anne-collot",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:vincent-van-gogh",
+        "name": "Vincent van Gogh",
+        "rosterLabel": "Vincent van Gogh",
+        "slug": "vincent-van-gogh",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:amrita-sher-gil",
+        "name": "Amrita Sher-Gil",
+        "rosterLabel": "Amrita Sher-Gil",
+        "slug": "amrita-sher-gil",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:boris-orlovsky",
+        "name": "Boris Orlovsky",
+        "rosterLabel": "Boris Orlovsky",
+        "slug": "boris-orlovsky",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:gustav-klimt",
+        "name": "Gustav Klimt",
+        "rosterLabel": "Gustav Klimt",
+        "slug": "gustav-klimt",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:mary-cassatt",
+        "name": "Mary Cassatt",
+        "rosterLabel": "Mary Cassatt",
+        "slug": "mary-cassatt",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:artists:wassily-kandinsky",
+        "name": "Wassily Kandinsky",
+        "rosterLabel": "Wassily Kandinsky",
+        "slug": "wassily-kandinsky",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      }
+    ],
+    "writers": [
+      {
+        "id": "great-person:writers:homer",
+        "name": "Homer",
+        "rosterLabel": "Homer",
+        "slug": "homer",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:bhasa",
+        "name": "Bhasa",
+        "rosterLabel": "Bhasa",
+        "slug": "bhasa",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:qu-yuan",
+        "name": "Qu Yuan",
+        "rosterLabel": "Qu Yuan",
+        "slug": "qu-yuan",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:ovid",
+        "name": "Ovid",
+        "rosterLabel": "Ovid",
+        "slug": "ovid",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:valmiki",
+        "name": "Valmiki",
+        "rosterLabel": "Valmiki",
+        "slug": "valmiki",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:geoffrey-chaucer",
+        "name": "Geoffrey Chaucer",
+        "rosterLabel": "Geoffrey Chaucer",
+        "slug": "geoffrey-chaucer",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:li-bai",
+        "name": "Li Bai",
+        "rosterLabel": "Li Bai",
+        "slug": "li-bai",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:murasaki-shikibu",
+        "name": "Murasaki Shikibu",
+        "rosterLabel": "Murasaki Shikibu",
+        "slug": "murasaki-shikibu",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:rumi",
+        "name": "Rumi",
+        "rosterLabel": "Rumi",
+        "slug": "rumi",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:miguel-de-cervantes",
+        "name": "Miguel de Cervantes",
+        "rosterLabel": "Miguel de Cervantes",
+        "slug": "miguel-de-cervantes",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:william-shakespeare",
+        "name": "William Shakespeare",
+        "rosterLabel": "William Shakespeare",
+        "slug": "william-shakespeare",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:niccolo-machiavelli",
+        "name": "Niccolò Machiavelli",
+        "rosterLabel": "Niccolò Machiavelli",
+        "slug": "niccolo-machiavelli",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:margaret-cavendish",
+        "name": "Margaret Cavendish",
+        "rosterLabel": "Margaret Cavendish",
+        "slug": "margaret-cavendish",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:marie-catherine-daulnoy",
+        "name": "Marie-Catherine d'Aulnoy",
+        "rosterLabel": "Marie-Catherine d'Aulnoy",
+        "slug": "marie-catherine-daulnoy",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:jane-austen",
+        "name": "Jane Austen",
+        "rosterLabel": "Jane Austen",
+        "slug": "jane-austen",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:edgar-allan-poe",
+        "name": "Edgar Allan Poe",
+        "rosterLabel": "Edgar Allan Poe",
+        "slug": "edgar-allan-poe",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:alexander-pushkin",
+        "name": "Alexander Pushkin",
+        "rosterLabel": "Alexander Pushkin",
+        "slug": "alexander-pushkin",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:johann-wolfgang-von-goethe",
+        "name": "Johann Wolfgang von Goethe",
+        "rosterLabel": "Johann Wolfgang von Goethe",
+        "slug": "johann-wolfgang-von-goethe",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:mary-shelley",
+        "name": "Mary Shelley",
+        "rosterLabel": "Mary Shelley",
+        "slug": "mary-shelley",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:james-joyce",
+        "name": "James Joyce",
+        "rosterLabel": "James Joyce",
+        "slug": "james-joyce",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:emily-dickinson",
+        "name": "Emily Dickinson",
+        "rosterLabel": "Emily Dickinson",
+        "slug": "emily-dickinson",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:leo-tolstoy",
+        "name": "Leo Tolstoy",
+        "rosterLabel": "Leo Tolstoy",
+        "slug": "leo-tolstoy",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:mark-twain",
+        "name": "Mark Twain",
+        "rosterLabel": "Mark Twain",
+        "slug": "mark-twain",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:beatrix-potter",
+        "name": "Beatrix Potter",
+        "rosterLabel": "Beatrix Potter",
+        "slug": "beatrix-potter",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:f-scott-fitzgerald",
+        "name": "F. Scott Fitzgerald",
+        "rosterLabel": "F. Scott Fitzgerald",
+        "slug": "f-scott-fitzgerald",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:rabindranath-tagore",
+        "name": "Rabindranath Tagore",
+        "rosterLabel": "Rabindranath Tagore",
+        "slug": "rabindranath-tagore",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:h-g-wells",
+        "name": "H. G. Wells",
+        "rosterLabel": "H. G. Wells",
+        "slug": "h-g-wells",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:karel-capek",
+        "name": "Karel Capek",
+        "rosterLabel": "Karel Capek",
+        "slug": "karel-capek",
+        "scope": "core",
+        "availability": "active",
+        "aliases": [
+          "Karel Čapek"
+        ],
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:writers:gabriela-mistral",
+        "name": "Gabriela Mistral",
+        "rosterLabel": "Gabriela Mistral",
+        "slug": "gabriela-mistral",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      }
+    ],
+    "musicians": [
+      {
+        "id": "great-person:musicians:ludwig-van-beethoven",
+        "name": "Ludwig van Beethoven",
+        "rosterLabel": "Ludwig van Beethoven",
+        "slug": "ludwig-van-beethoven",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:johann-sebastian-bach",
+        "name": "Johann Sebastian Bach",
+        "rosterLabel": "Johann Sebastian Bach",
+        "slug": "johann-sebastian-bach",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:yatsuhashi-kengyo",
+        "name": "Yatsuhashi Kengyo",
+        "rosterLabel": "Yatsuhashi Kengyo",
+        "slug": "yatsuhashi-kengyo",
+        "scope": "core",
+        "availability": "active",
+        "aliases": [
+          "Yatsuhashi Kengyō"
+        ],
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:antonio-vivaldi",
+        "name": "Antonio Vivaldi",
+        "rosterLabel": "Antonio Vivaldi",
+        "slug": "antonio-vivaldi",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:wolfgang-amadeus-mozart",
+        "name": "Wolfgang Amadeus Mozart",
+        "rosterLabel": "Wolfgang Amadeus Mozart",
+        "slug": "wolfgang-amadeus-mozart",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:dimitrie-cantemir",
+        "name": "Dimitrie Cantemir",
+        "rosterLabel": "Dimitrie Cantemir",
+        "slug": "dimitrie-cantemir",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:franz-liszt",
+        "name": "Franz Liszt",
+        "rosterLabel": "Franz Liszt",
+        "slug": "franz-liszt",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:peter-ilyich-tchaikovsky",
+        "name": "Peter Ilyich Tchaikovsky",
+        "rosterLabel": "Peter Ilyich Tchaikovsky",
+        "slug": "peter-ilyich-tchaikovsky",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:antonio-carlos-gomes",
+        "name": "Antônio Carlos Gomes",
+        "rosterLabel": "Antônio Carlos Gomes",
+        "slug": "antonio-carlos-gomes",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:liu-tianhua",
+        "name": "Liu Tianhua",
+        "rosterLabel": "Liu Tianhua",
+        "slug": "liu-tianhua",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:frederic-chopin",
+        "name": "Frédéric Chopin",
+        "rosterLabel": "Frédéric Chopin",
+        "slug": "frederic-chopin",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:scott-joplin",
+        "name": "Scott Joplin",
+        "rosterLabel": "Scott Joplin",
+        "slug": "scott-joplin",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:juventino-rosas",
+        "name": "Juventino Rosas",
+        "rosterLabel": "Juventino Rosas",
+        "slug": "juventino-rosas",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:antonin-dvorak",
+        "name": "Antonín Dvořák",
+        "rosterLabel": "Antonín Dvořák",
+        "slug": "antonin-dvorak",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:liliuokalani",
+        "name": "Lili'uokalani",
+        "rosterLabel": "Lili'uokalani",
+        "slug": "liliuokalani",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:clara-schumann",
+        "name": "Clara Schumann",
+        "rosterLabel": "Clara Schumann",
+        "slug": "clara-schumann",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:mykola-leontovych",
+        "name": "Mykola Leontovych",
+        "rosterLabel": "Mykola Leontovych",
+        "slug": "mykola-leontovych",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:musicians:gauhar-jaan",
+        "name": "Gauhar Jaan",
+        "rosterLabel": "Gauhar Jaan",
+        "slug": "gauhar-jaan",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      }
+    ],
+    "scientists": [
+      {
+        "id": "great-person:scientists:zhang-heng",
+        "name": "Zhang Heng",
+        "rosterLabel": "Zhang Heng",
+        "slug": "zhang-heng",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:aryabhata",
+        "name": "Aryabhata",
+        "rosterLabel": "Aryabhata",
+        "slug": "aryabhata",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:euclid",
+        "name": "Euclid",
+        "rosterLabel": "Euclid",
+        "slug": "euclid",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:hypatia",
+        "name": "Hypatia",
+        "rosterLabel": "Hypatia",
+        "slug": "hypatia",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:abu-al-qasim-al-zahrawi",
+        "name": "Abu al-Qasim al-Zahrawi",
+        "rosterLabel": "Abu al-Qasim al-Zahrawi",
+        "slug": "abu-al-qasim-al-zahrawi",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:hildegard-of-bingen",
+        "name": "Hildegard of Bingen",
+        "rosterLabel": "Hildegard of Bingen",
+        "slug": "hildegard-of-bingen",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:omar-khayyam",
+        "name": "Omar Khayyam",
+        "rosterLabel": "Omar Khayyam",
+        "slug": "omar-khayyam",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:ibn-khaldun",
+        "name": "Ibn Khaldun",
+        "rosterLabel": "Ibn Khaldun",
+        "slug": "ibn-khaldun",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:emilie-du-chatelet",
+        "name": "Emilie du Chatelet",
+        "rosterLabel": "Emilie du Chatelet",
+        "slug": "emilie-du-chatelet",
+        "scope": "core",
+        "availability": "active",
+        "aliases": [
+          "Émilie du Châtelet"
+        ],
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:galileo-galilei",
+        "name": "Galileo Galilei",
+        "rosterLabel": "Galileo Galilei",
+        "slug": "galileo-galilei",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:isaac-newton",
+        "name": "Isaac Newton",
+        "rosterLabel": "Isaac Newton",
+        "slug": "isaac-newton",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:charles-darwin",
+        "name": "Charles Darwin",
+        "rosterLabel": "Charles Darwin",
+        "slug": "charles-darwin",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:dmitri-mendeleev",
+        "name": "Dmitri Mendeleev",
+        "rosterLabel": "Dmitri Mendeleev",
+        "slug": "dmitri-mendeleev",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:james-young",
+        "name": "James Young",
+        "rosterLabel": "James Young",
+        "slug": "james-young",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:alan-turing",
+        "name": "Alan Turing",
+        "rosterLabel": "Alan Turing",
+        "slug": "alan-turing",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:albert-einstein",
+        "name": "Albert Einstein",
+        "rosterLabel": "Albert Einstein",
+        "slug": "albert-einstein",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:alfred-nobel",
+        "name": "Alfred Nobel",
+        "rosterLabel": "Alfred Nobel",
+        "slug": "alfred-nobel",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:erwin-schrodinger",
+        "name": "Erwin Schrödinger",
+        "rosterLabel": "Erwin Schrödinger",
+        "slug": "erwin-schrodinger",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:janaki-ammal",
+        "name": "Janaki Ammal",
+        "rosterLabel": "Janaki Ammal",
+        "slug": "janaki-ammal",
+        "scope": "core",
+        "availability": "active",
+        "aliases": [
+          "E. K. Janaki Ammal"
+        ],
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:mary-leakey",
+        "name": "Mary Leakey",
+        "rosterLabel": "Mary Leakey",
+        "slug": "mary-leakey",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:margaret-mead",
+        "name": "Margaret Mead",
+        "rosterLabel": "Margaret Mead",
+        "slug": "margaret-mead",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:carl-sagan",
+        "name": "Carl Sagan",
+        "rosterLabel": "Carl Sagan",
+        "slug": "carl-sagan",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:stephanie-kwolek",
+        "name": "Stephanie Kwolek",
+        "rosterLabel": "Stephanie Kwolek",
+        "slug": "stephanie-kwolek",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:scientists:abdus-salam",
+        "name": "Abdus Salam",
+        "rosterLabel": "Abdus Salam",
+        "slug": "abdus-salam",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      }
+    ],
+    "engineers": [
+      {
+        "id": "great-person:engineers:imhotep",
+        "name": "Imhotep",
+        "rosterLabel": "Imhotep",
+        "slug": "imhotep",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:bi-sheng",
+        "name": "Bi Sheng",
+        "rosterLabel": "Bi Sheng",
+        "slug": "bi-sheng",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:isidore-of-miletus",
+        "name": "Isidore of Miletus",
+        "rosterLabel": "Isidore of Miletus",
+        "slug": "isidore-of-miletus",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:james-of-st-george",
+        "name": "James of St. George",
+        "rosterLabel": "James of St. George",
+        "slug": "james-of-st-george",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:filippo-brunelleschi",
+        "name": "Filippo Brunelleschi",
+        "rosterLabel": "Filippo Brunelleschi",
+        "slug": "filippo-brunelleschi",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:leonardo-da-vinci",
+        "name": "Leonardo da Vinci",
+        "rosterLabel": "Leonardo da Vinci",
+        "slug": "leonardo-da-vinci",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:mimar-sinan",
+        "name": "Mimar Sinan",
+        "rosterLabel": "Mimar Sinan",
+        "slug": "mimar-sinan",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:ada-lovelace",
+        "name": "Ada Lovelace",
+        "rosterLabel": "Ada Lovelace",
+        "slug": "ada-lovelace",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:gustave-eiffel",
+        "name": "Gustave Eiffel",
+        "rosterLabel": "Gustave Eiffel",
+        "slug": "gustave-eiffel",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:james-watt",
+        "name": "James Watt",
+        "rosterLabel": "James Watt",
+        "slug": "james-watt",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:shah-jahan",
+        "name": "Shah Jahān",
+        "rosterLabel": "Shah Jahān",
+        "slug": "shah-jahan",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:alvar-aalto",
+        "name": "Alvar Aalto",
+        "rosterLabel": "Alvar Aalto",
+        "slug": "alvar-aalto",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:robert-goddard",
+        "name": "Robert Goddard",
+        "rosterLabel": "Robert Goddard",
+        "slug": "robert-goddard",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:nikola-tesla",
+        "name": "Nikola Tesla",
+        "rosterLabel": "Nikola Tesla",
+        "slug": "nikola-tesla",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:jane-drew",
+        "name": "Jane Drew",
+        "rosterLabel": "Jane Drew",
+        "slug": "jane-drew",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:john-roebling",
+        "name": "John Roebling",
+        "rosterLabel": "John Roebling",
+        "slug": "john-roebling",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:sergei-korolev",
+        "name": "Sergei Korolev",
+        "rosterLabel": "Sergei Korolev",
+        "slug": "sergei-korolev",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:joseph-paxton",
+        "name": "Joseph Paxton",
+        "rosterLabel": "Joseph Paxton",
+        "slug": "joseph-paxton",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:charles-correa",
+        "name": "Charles Correa",
+        "rosterLabel": "Charles Correa",
+        "slug": "charles-correa",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:wernher-von-braun",
+        "name": "Wernher von Braun",
+        "rosterLabel": "Wernher von Braun",
+        "slug": "wernher-von-braun",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:engineers:kenzo-tange",
+        "name": "Kenzo Tange",
+        "rosterLabel": "Kenzo Tange",
+        "slug": "kenzo-tange",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      }
+    ],
+    "merchants": [
+      {
+        "id": "great-person:merchants:colaeus",
+        "name": "Colaeus",
+        "rosterLabel": "Colaeus",
+        "slug": "colaeus",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:marcus-licinius-crassus",
+        "name": "Marcus Licinius Crassus",
+        "rosterLabel": "Marcus Licinius Crassus",
+        "slug": "marcus-licinius-crassus",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:zhang-qian",
+        "name": "Zhang Qian",
+        "rosterLabel": "Zhang Qian",
+        "slug": "zhang-qian",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:ibn-fadlan",
+        "name": "Ibn Fadlan",
+        "rosterLabel": "Ibn Fadlan",
+        "slug": "ibn-fadlan",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:irene-of-athens",
+        "name": "Irene of Athens",
+        "rosterLabel": "Irene of Athens",
+        "slug": "irene-of-athens",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:marco-polo",
+        "name": "Marco Polo",
+        "rosterLabel": "Marco Polo",
+        "slug": "marco-polo",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:piero-de-bardi",
+        "name": "Piero de' Bardi",
+        "rosterLabel": "Piero de' Bardi",
+        "slug": "piero-de-bardi",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:zhou-daguan",
+        "name": "Zhou Daguan",
+        "rosterLabel": "Zhou Daguan",
+        "slug": "zhou-daguan",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:giovanni-de-medici",
+        "name": "Giovanni de' Medici",
+        "rosterLabel": "Giovanni de' Medici",
+        "slug": "giovanni-de-medici",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:jakob-fugger",
+        "name": "Jakob Fugger",
+        "rosterLabel": "Jakob Fugger",
+        "slug": "jakob-fugger",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:raja-todar-mal",
+        "name": "Raja Todar Mal",
+        "rosterLabel": "Raja Todar Mal",
+        "slug": "raja-todar-mal",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:adam-smith",
+        "name": "Adam Smith",
+        "rosterLabel": "Adam Smith",
+        "slug": "adam-smith",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:john-jacob-astor",
+        "name": "John Jacob Astor",
+        "rosterLabel": "John Jacob Astor",
+        "slug": "john-jacob-astor",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:john-spilsbury",
+        "name": "John Spilsbury",
+        "rosterLabel": "John Spilsbury",
+        "slug": "john-spilsbury",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:stamford-raffles",
+        "name": "Stamford Raffles",
+        "rosterLabel": "Stamford Raffles",
+        "slug": "stamford-raffles",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:john-rockefeller",
+        "name": "John Rockefeller",
+        "rosterLabel": "John Rockefeller",
+        "slug": "john-rockefeller",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:sarah-breedlove",
+        "name": "Sarah Breedlove",
+        "rosterLabel": "Sarah Breedlove",
+        "slug": "sarah-breedlove",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:mary-katherine-goddard",
+        "name": "Mary Katherine Goddard",
+        "rosterLabel": "Mary Katherine Goddard",
+        "slug": "mary-katherine-goddard",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:helena-rubinstein",
+        "name": "Helena Rubinstein",
+        "rosterLabel": "Helena Rubinstein",
+        "slug": "helena-rubinstein",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:levi-strauss",
+        "name": "Levi Strauss",
+        "rosterLabel": "Levi Strauss",
+        "slug": "levi-strauss",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:melitta-bentz",
+        "name": "Melitta Bentz",
+        "rosterLabel": "Melitta Bentz",
+        "slug": "melitta-bentz",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:estee-lauder",
+        "name": "Estée Lauder",
+        "rosterLabel": "Estée Lauder",
+        "slug": "estee-lauder",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:jamsetji-tata",
+        "name": "Jamsetji Tata",
+        "rosterLabel": "Jamsetji Tata",
+        "slug": "jamsetji-tata",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:merchants:masaru-ibuka",
+        "name": "Masaru Ibuka",
+        "rosterLabel": "Masaru Ibuka",
+        "slug": "masaru-ibuka",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      }
+    ],
+    "generals": [
+      {
+        "id": "great-person:generals:boudica",
+        "name": "Boudica",
+        "rosterLabel": "Boudica",
+        "slug": "boudica",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:hannibal-barca",
+        "name": "Hannibal Barca",
+        "rosterLabel": "Hannibal Barca",
+        "slug": "hannibal-barca",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:sun-tzu",
+        "name": "Sun Tzu",
+        "rosterLabel": "Sun Tzu",
+        "slug": "sun-tzu",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:trung-trac",
+        "name": "Trưng Trắc",
+        "rosterLabel": "Trưng Trắc",
+        "slug": "trung-trac",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:aethelflaed",
+        "name": "Æthelflæd",
+        "rosterLabel": "Æthelflæd",
+        "slug": "aethelflaed",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:el-cid",
+        "name": "El Cid",
+        "rosterLabel": "El Cid",
+        "slug": "el-cid",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:genghis-khan",
+        "name": "Genghis Khan",
+        "rosterLabel": "Genghis Khan",
+        "slug": "genghis-khan",
+        "scope": "core",
+        "availability": "legacy",
+        "replacedBy": "great-person:generals:timur",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:timur",
+        "name": "Timur",
+        "rosterLabel": "Timur",
+        "slug": "timur",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:ana-nzinga",
+        "name": "Ana Nzinga",
+        "rosterLabel": "Ana Nzinga",
+        "slug": "ana-nzinga",
+        "scope": "core",
+        "availability": "legacy",
+        "replacedBy": "great-person:generals:amina",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:amina",
+        "name": "Amina",
+        "rosterLabel": "Amina",
+        "slug": "amina",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:gustavus-adolphus",
+        "name": "Gustavus Adolphus",
+        "rosterLabel": "Gustavus Adolphus",
+        "slug": "gustavus-adolphus",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:jeanne-darc",
+        "name": "Jeanne d'Arc",
+        "rosterLabel": "Jeanne d'Arc",
+        "slug": "jeanne-darc",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:dandara",
+        "name": "Dandara",
+        "rosterLabel": "Dandara",
+        "slug": "dandara",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:simon-bolivar",
+        "name": "Simón Bolívar",
+        "rosterLabel": "Simón Bolívar",
+        "slug": "simon-bolivar",
+        "scope": "core",
+        "availability": "legacy",
+        "replacedBy": "great-person:generals:jose-de-san-martin",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:jose-de-san-martin",
+        "name": "José de San Martín",
+        "rosterLabel": "José de San Martín",
+        "slug": "jose-de-san-martin",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:napoleon-bonaparte",
+        "name": "Napoleon Bonaparte",
+        "rosterLabel": "Napoleon Bonaparte",
+        "slug": "napoleon-bonaparte",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:rani-lakshmibai",
+        "name": "Rani Lakshmibai",
+        "rosterLabel": "Rani Lakshmibai",
+        "slug": "rani-lakshmibai",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:tupac-amaru",
+        "name": "Tupac Amaru",
+        "rosterLabel": "Tupac Amaru",
+        "slug": "tupac-amaru",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:john-monash",
+        "name": "John Monash",
+        "rosterLabel": "John Monash",
+        "slug": "john-monash",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:marina-raskova",
+        "name": "Marina Raskova",
+        "rosterLabel": "Marina Raskova",
+        "slug": "marina-raskova",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:samori-toure",
+        "name": "Samori Touré",
+        "rosterLabel": "Samori Touré",
+        "slug": "samori-toure",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:douglas-macarthur",
+        "name": "Douglas MacArthur",
+        "rosterLabel": "Douglas MacArthur",
+        "slug": "douglas-macarthur",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:dwight-eisenhower",
+        "name": "Dwight Eisenhower",
+        "rosterLabel": "Dwight Eisenhower",
+        "slug": "dwight-eisenhower",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:georgy-zhukov",
+        "name": "Georgy Zhukov",
+        "rosterLabel": "Georgy Zhukov",
+        "slug": "georgy-zhukov",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:sudirman",
+        "name": "Sudirman",
+        "rosterLabel": "Sudirman",
+        "slug": "sudirman",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:ahmad-shah-massoud",
+        "name": "Ahmad Shah Massoud",
+        "rosterLabel": "Ahmad Shah Massoud",
+        "slug": "ahmad-shah-massoud",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:generals:vijaya-wimalaratne",
+        "name": "Vijaya Wimalaratne",
+        "rosterLabel": "Vijaya Wimalaratne",
+        "slug": "vijaya-wimalaratne",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      }
+    ],
+    "admirals": [
+      {
+        "id": "great-person:admirals:artemisia",
+        "name": "Artemisia",
+        "rosterLabel": "Artemisia",
+        "slug": "artemisia",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:gaius-duilius",
+        "name": "Gaius Duilius",
+        "rosterLabel": "Gaius Duilius",
+        "slug": "gaius-duilius",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:themistocles",
+        "name": "Themistocles",
+        "rosterLabel": "Themistocles",
+        "slug": "themistocles",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:hanno-the-navigator",
+        "name": "Hanno the Navigator",
+        "rosterLabel": "Hanno the Navigator",
+        "slug": "hanno-the-navigator",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:himerios",
+        "name": "Himerios",
+        "rosterLabel": "Himerios",
+        "slug": "himerios",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:leif-erikson",
+        "name": "Leif Erikson",
+        "rosterLabel": "Leif Erikson",
+        "slug": "leif-erikson",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:rajendra-chola",
+        "name": "Rajendra Chola",
+        "rosterLabel": "Rajendra Chola",
+        "slug": "rajendra-chola",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:zheng-he",
+        "name": "Zheng He",
+        "rosterLabel": "Zheng He",
+        "slug": "zheng-he",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:francis-drake",
+        "name": "Francis Drake",
+        "rosterLabel": "Francis Drake",
+        "slug": "francis-drake",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:santa-cruz",
+        "name": "Santa Cruz",
+        "rosterLabel": "Santa Cruz",
+        "slug": "santa-cruz",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:yi-sun-sin",
+        "name": "Yi Sun-Sin",
+        "rosterLabel": "Yi Sun-Sin",
+        "slug": "yi-sun-sin",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:ferdinand-magellan",
+        "name": "Ferdinand Magellan",
+        "rosterLabel": "Ferdinand Magellan",
+        "slug": "ferdinand-magellan",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:ching-shih",
+        "name": "Ching Shih",
+        "rosterLabel": "Ching Shih",
+        "slug": "ching-shih",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:horatio-nelson",
+        "name": "Horatio Nelson",
+        "rosterLabel": "Horatio Nelson",
+        "slug": "horatio-nelson",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:laskarina-bouboulina",
+        "name": "Laskarina Bouboulina",
+        "rosterLabel": "Laskarina Bouboulina",
+        "slug": "laskarina-bouboulina",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:matthew-perry",
+        "name": "Matthew Perry",
+        "rosterLabel": "Matthew Perry",
+        "slug": "matthew-perry",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:franz-von-hipper",
+        "name": "Franz von Hipper",
+        "rosterLabel": "Franz von Hipper",
+        "slug": "franz-von-hipper",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:joaquim-marques-lisboa",
+        "name": "Joaquim Marques Lisboa",
+        "rosterLabel": "Joaquim Marques Lisboa",
+        "slug": "joaquim-marques-lisboa",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:togo-heihachiro",
+        "name": "Togo Heihachiro",
+        "rosterLabel": "Togo Heihachiro",
+        "slug": "togo-heihachiro",
+        "scope": "core",
+        "availability": "active",
+        "aliases": [
+          "Tōgō Heihachirō"
+        ],
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:chester-nimitz",
+        "name": "Chester Nimitz",
+        "rosterLabel": "Chester Nimitz",
+        "slug": "chester-nimitz",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:grace-hopper",
+        "name": "Grace Hopper",
+        "rosterLabel": "Grace Hopper",
+        "slug": "grace-hopper",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:sergei-gorshkov",
+        "name": "Sergei Gorshkov",
+        "rosterLabel": "Sergei Gorshkov",
+        "slug": "sergei-gorshkov",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:admirals:clancy-fernando",
+        "name": "Clancy Fernando",
+        "rosterLabel": "Clancy Fernando",
+        "slug": "clancy-fernando",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      }
+    ],
+    "prophets": [
+      {
+        "id": "great-person:prophets:confucius",
+        "name": "Confucius",
+        "rosterLabel": "Confucius",
+        "slug": "confucius",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:john-the-baptist",
+        "name": "John the Baptist",
+        "rosterLabel": "John the Baptist",
+        "slug": "john-the-baptist",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:laozi",
+        "name": "Laozi",
+        "rosterLabel": "Laozi",
+        "slug": "laozi",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:siddhartha-gautama",
+        "name": "Siddhartha Gautama",
+        "rosterLabel": "Siddhartha Gautama",
+        "slug": "siddhartha-gautama",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:simon-peter",
+        "name": "Simon Peter",
+        "rosterLabel": "Simon Peter",
+        "slug": "simon-peter",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:zoroaster",
+        "name": "Zoroaster",
+        "rosterLabel": "Zoroaster",
+        "slug": "zoroaster",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:adi-shankara",
+        "name": "Adi Shankara",
+        "rosterLabel": "Adi Shankara",
+        "slug": "adi-shankara",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:bodhidharma",
+        "name": "Bodhidharma",
+        "rosterLabel": "Bodhidharma",
+        "slug": "bodhidharma",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:irenaeus",
+        "name": "Irenaeus",
+        "rosterLabel": "Irenaeus",
+        "slug": "irenaeus",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:o-no-yasumaro",
+        "name": "O no Yasumaro",
+        "rosterLabel": "O no Yasumaro",
+        "slug": "o-no-yasumaro",
+        "scope": "core",
+        "availability": "active",
+        "aliases": [
+          "Ō no Yasumaro"
+        ],
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:songtsan-gampo",
+        "name": "Songtsan Gampo",
+        "rosterLabel": "Songtsan Gampo",
+        "slug": "songtsan-gampo",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:haji-huud",
+        "name": "Haji Huud",
+        "rosterLabel": "Haji Huud",
+        "slug": "haji-huud",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:madhva-acharya",
+        "name": "Madhva Acharya",
+        "rosterLabel": "Madhva Acharya",
+        "slug": "madhva-acharya",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:martin-luther",
+        "name": "Martin Luther",
+        "rosterLabel": "Martin Luther",
+        "slug": "martin-luther",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:thomas-aquinas",
+        "name": "Thomas Aquinas",
+        "rosterLabel": "Thomas Aquinas",
+        "slug": "thomas-aquinas",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      },
+      {
+        "id": "great-person:prophets:francis-of-assisi",
+        "name": "Francis of Assisi",
+        "rosterLabel": "Francis of Assisi",
+        "slug": "francis-of-assisi",
+        "scope": "core",
+        "availability": "active",
+        "kind": "standard"
+      }
+    ],
+    "comandantes": [
+      {
+        "id": "great-person:comandantes:jose-antonio-paez",
+        "name": "José Antonio Páez",
+        "rosterLabel": "José Antonio Páez",
+        "slug": "jose-antonio-paez",
+        "scope": "core",
+        "availability": "active",
+        "kind": "special"
+      },
+      {
+        "id": "great-person:comandantes:gregor-macgregor",
+        "name": "Gregor MacGregor",
+        "rosterLabel": "Gregor MacGregor",
+        "slug": "gregor-macgregor",
+        "scope": "core",
+        "availability": "active",
+        "kind": "special"
+      },
+      {
+        "id": "great-person:comandantes:antonio-narino",
+        "name": "Antonio Nariño",
+        "rosterLabel": "Antonio Nariño",
+        "slug": "antonio-narino",
+        "scope": "core",
+        "availability": "active",
+        "kind": "special"
+      },
+      {
+        "id": "great-person:comandantes:jose-felix-ribas",
+        "name": "José Félix Ribas",
+        "rosterLabel": "José Félix Ribas",
+        "slug": "jose-felix-ribas",
+        "scope": "core",
+        "availability": "active",
+        "kind": "special"
+      },
+      {
+        "id": "great-person:comandantes:rafael-urdaneta",
+        "name": "Rafael Urdaneta",
+        "rosterLabel": "Rafael Urdaneta",
+        "slug": "rafael-urdaneta",
+        "scope": "core",
+        "availability": "active",
+        "kind": "special"
+      },
+      {
+        "id": "great-person:comandantes:santiago-marino",
+        "name": "Santiago Mariño",
+        "rosterLabel": "Santiago Mariño",
+        "slug": "santiago-marino",
+        "scope": "core",
+        "availability": "active",
+        "kind": "special"
+      },
+      {
+        "id": "great-person:comandantes:manuel-piar",
+        "name": "Manuel Piar",
+        "rosterLabel": "Manuel Piar",
+        "slug": "manuel-piar",
+        "scope": "core",
+        "availability": "active",
+        "kind": "special"
+      },
+      {
+        "id": "great-person:comandantes:mariano-montilla",
+        "name": "Mariano Montilla",
+        "rosterLabel": "Mariano Montilla",
+        "slug": "mariano-montilla",
+        "scope": "core",
+        "availability": "active",
+        "kind": "special"
+      },
+      {
+        "id": "great-person:comandantes:francisco-de-paula-santander",
+        "name": "Francisco de Paula Santander",
+        "rosterLabel": "Francisco de Paula Santander",
+        "slug": "francisco-de-paula-santander",
+        "scope": "core",
+        "availability": "active",
+        "kind": "special"
+      },
+      {
+        "id": "great-person:comandantes:antonio-jose-de-sucre",
+        "name": "Antonio José de Sucre",
+        "rosterLabel": "Antonio José de Sucre",
+        "slug": "antonio-jose-de-sucre",
+        "scope": "core",
+        "availability": "active",
+        "kind": "special"
+      }
+    ]
+  }
+}

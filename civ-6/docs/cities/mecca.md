@@ -3,6 +3,7 @@ id: mecca
 name: 메카
 nameEn: Mecca
 category: cities
+cityRoles: [civilization-city]
 accent: cobalt
 era: 고대 후기~현대
 civilization: 아라비아

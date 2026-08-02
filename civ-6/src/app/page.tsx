@@ -145,7 +145,7 @@ export default function Home() {
           <SectionHeading
             eyebrow="Curated stories"
             title="오늘, 세 개의 시대로 떠나보세요."
-            description="한 명의 지도자, 하나의 도시, 한 사람의 창작자를 차례로 읽으면 서로 멀어 보이던 사건들이 연결되기 시작합니다."
+            description="한 명의 지도자, 하나의 도시, 한 사람의 위인을 차례로 읽으면 서로 멀어 보이던 사건들이 연결되기 시작합니다."
           />
         </Reveal>
         <div className="grid gap-x-6 gap-y-14 md:grid-cols-3">

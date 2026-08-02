@@ -3,6 +3,7 @@ id: thebes-egypt
 name: 테베
 nameEn: Thebes, Egypt
 category: cities
+cityRoles: [capital]
 accent: cobalt
 era: 고대 이집트
 civilization: 이집트

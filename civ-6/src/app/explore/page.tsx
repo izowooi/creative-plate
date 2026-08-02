@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default async function ExplorePage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; category?: string; era?: string; sort?: string }>;
+  searchParams: Promise<{ q?: string; category?: string; role?: string; era?: string; sort?: string }>;
 }) {
   const params = await searchParams;
   const entries = getAllEntries();
@@ -26,10 +26,11 @@ export default async function ExplorePage({
         </p>
       </div>
       <ExploreBrowser
-        key={`${params.q ?? ""}|${params.category ?? ""}|${params.era ?? ""}|${params.sort ?? ""}`}
+        key={`${params.q ?? ""}|${params.category ?? ""}|${params.role ?? ""}|${params.era ?? ""}|${params.sort ?? ""}`}
         entries={entries}
         initialQuery={params.q ?? ""}
         initialCategory={params.category ?? ""}
+        initialRole={params.role ?? ""}
         initialEra={params.era ?? ""}
         initialSort={params.sort ?? "editorial"}
       />

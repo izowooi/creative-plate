@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { loadMarkdownEntries } from "./content-utils";
+import { cityRoleMeta, greatPersonRoleMeta, greatPersonRoleSchema } from "../src/lib/content";
 
 const root = process.cwd();
 const dbPath = path.join(root, "data", "the-turn.db");
@@ -25,17 +26,17 @@ db.exec(fs.readFileSync(schemaPath, "utf8"));
 
 const insert = db.prepare(`
   INSERT INTO entries (
-    id, slug, name, name_en, category, subcategory, era, lifespan,
+    id, slug, name, name_en, category, subcategory, city_roles_json, era, lifespan,
     civilization, region, tags_json, image, image_alt, image_credit,
     image_license, image_source, accent, featured, quote, summary, body,
     related_json, sources_json, reading_minutes
   ) VALUES (
-    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
   )
 `);
 const insertFts = db.prepare(`
-  INSERT INTO entries_fts (slug, name, name_en, summary, tags, civilization, region)
-  VALUES (?, ?, ?, ?, ?, ?, ?)
+  INSERT INTO entries_fts (rowid, slug, name, name_en, summary, tags, civilization, region, subcategory, city_roles)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 `);
 
 db.exec("BEGIN");
@@ -46,13 +47,14 @@ try {
       throw new Error(`${entry.slug}: 로컬 이미지가 없습니다. npm run images:sync를 먼저 실행하세요.`);
     }
     const displayImage = `/images/archive/${entry.slug}.webp`;
-    insert.run(
+    const insertResult = insert.run(
       entry.id,
       entry.slug,
       entry.name,
       entry.nameEn,
       entry.category,
       entry.subcategory,
+      JSON.stringify(entry.cityRoles),
       entry.era,
       entry.lifespan,
       entry.civilization,
@@ -73,6 +75,7 @@ try {
       entry.readingMinutes,
     );
     insertFts.run(
+      insertResult.lastInsertRowid,
       entry.slug,
       entry.name,
       entry.nameEn,
@@ -80,6 +83,20 @@ try {
       entry.tags.join(" "),
       entry.civilization,
       entry.region,
+      (() => {
+        const role = greatPersonRoleSchema.safeParse(entry.subcategory);
+        return role.success
+          ? `${entry.subcategory} ${greatPersonRoleMeta[role.data].longLabel} ${greatPersonRoleMeta[role.data].englishLabel}`
+          : entry.subcategory;
+      })(),
+      entry.cityRoles
+        .flatMap((role) => [
+          role,
+          cityRoleMeta[role].label,
+          cityRoleMeta[role].longLabel,
+          cityRoleMeta[role].englishLabel,
+        ])
+        .join(" "),
     );
   }
   db.exec("COMMIT");

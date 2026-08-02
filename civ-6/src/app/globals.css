@@ -707,7 +707,22 @@ button {
 .filter-sidebar {
   position: sticky;
   top: 98px;
+  max-height: calc(100svh - 116px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 6px;
+  scrollbar-color: rgba(17, 17, 19, 0.2) transparent;
+  scrollbar-width: thin;
   align-self: start;
+}
+
+.filter-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.filter-sidebar::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(17, 17, 19, 0.2);
 }
 
 .filter-heading {
@@ -746,6 +761,14 @@ button {
   text-transform: uppercase;
 }
 
+.filter-subheading {
+  margin: 12px 10px 4px;
+  color: #85868b;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+
 .filter-group button {
   display: flex;
   min-height: 40px;
@@ -766,6 +789,11 @@ button {
 .filter-group button.is-active {
   background: rgba(17, 17, 19, 0.055);
   color: #111113;
+}
+
+.filter-group button:disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
 }
 
 .filter-group button.is-active {

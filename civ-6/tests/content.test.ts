@@ -1,22 +1,33 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { loadMarkdownEntries } from "../scripts/content-utils";
-import { makeSummary } from "../src/lib/content";
+import {
+  cityRoleMeta,
+  cityRoleSchema,
+  cityRoleValues,
+  entryTypeLabel,
+  greatPersonRoleMeta,
+  greatPersonRoleSchema,
+  greatPersonRoleValues,
+  makeSummary,
+} from "../src/lib/content";
 import { imageLicenseUrl, withoutTrailingSources } from "../src/lib/presentation";
 
 const entries = loadMarkdownEntries();
 
-test("the editorial dataset has the expected balanced archive", () => {
-  assert.equal(entries.length, 37);
-  assert.deepEqual(
-    Object.fromEntries(
-      Object.entries(Object.groupBy(entries, (entry) => entry.category)).map(([key, value]) => [
-        key,
-        value?.length ?? 0,
-      ]),
-    ),
-    { civilizations: 8, cities: 10, "great-people": 9, leaders: 10 },
+test("the editorial dataset preserves its balanced baseline as it expands", () => {
+  const counts = Object.fromEntries(
+    Object.entries(Object.groupBy(entries, (entry) => entry.category)).map(([key, value]) => [
+      key,
+      value?.length ?? 0,
+    ]),
   );
+
+  assert.ok(entries.length >= 140);
+  assert.ok(counts.civilizations >= 21);
+  assert.ok(counts.cities >= 28);
+  assert.ok(counts["great-people"] >= 54);
+  assert.ok(counts.leaders >= 37);
   assert.equal(new Set(entries.map((entry) => entry.id)).size, entries.length);
   assert.equal(new Set(entries.map((entry) => entry.slug)).size, entries.length);
 });
@@ -39,6 +50,50 @@ test("requested Civilization VI examples are present and sourced", () => {
     assert.ok(entry.summary.length > 0 && entry.summary.length <= 168, `${entry.slug} summary length`);
     assert.match(entry.image, /^https:\/\/upload\.wikimedia\.org\//);
     assert.match(entry.imageSource, /^https?:\/\//);
+    if (entry.category === "great-people") {
+      assert.equal(greatPersonRoleSchema.safeParse(entry.subcategory).success, true);
+      assert.ok(entryTypeLabel(entry).length > 0);
+    }
+    if (entry.category === "cities") {
+      assert.ok(entry.cityRoles.length > 0, `${entry.slug} needs a city role`);
+      for (const role of entry.cityRoles) assert.equal(cityRoleSchema.safeParse(role).success, true);
+      assert.ok(entryTypeLabel(entry).length > 0);
+    }
+  }
+});
+
+test("city taxonomy exposes a Korean label for every supported role", () => {
+  for (const [role, metadata] of Object.entries(cityRoleMeta)) {
+    assert.ok(metadata.label.length > 0, role);
+    assert.ok(metadata.longLabel.length > 0, role);
+    assert.ok(metadata.englishLabel.length > 0, role);
+  }
+  for (const role of cityRoleValues.filter((value) => value !== "editorial-extra")) {
+    assert.ok(
+      entries.some((entry) => entry.category === "cities" && entry.cityRoles.includes(role)),
+      `${role} needs at least one editorial profile`,
+    );
+  }
+});
+
+test("great-person taxonomy exposes a Korean label for every supported role", () => {
+  for (const [role, metadata] of Object.entries(greatPersonRoleMeta)) {
+    assert.ok(metadata.label.length > 0, role);
+    assert.ok(metadata.longLabel.length > 0, role);
+    assert.ok(metadata.englishLabel.length > 0, role);
+    assert.ok(["standard", "special"].includes(metadata.kind), role);
+  }
+  assert.deepEqual(
+    Object.entries(greatPersonRoleMeta)
+      .filter(([, metadata]) => metadata.kind === "special")
+      .map(([role]) => role),
+    ["comandantes"],
+  );
+  for (const role of greatPersonRoleValues) {
+    assert.ok(
+      entries.some((entry) => entry.category === "great-people" && entry.subcategory === role),
+      `${role} needs at least one editorial profile`,
+    );
   }
 });
 

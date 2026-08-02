@@ -16,6 +16,13 @@ test("SQLite contains every Markdown entry and matching FTS rows", () => {
   const ftsCount = db.prepare("SELECT COUNT(*) AS count FROM entries_fts").get() as { count: number };
   assert.equal(entryCount.count, entries.length);
   assert.equal(ftsCount.count, entries.length);
+  const missingFtsRowids = db.prepare(
+    `SELECT COUNT(*) AS count
+     FROM entries AS e
+     LEFT JOIN entries_fts AS f ON f.rowid = e.rowid
+     WHERE f.rowid IS NULL`,
+  ).get() as { count: number };
+  assert.equal(missingFtsRowids.count, 0);
 });
 
 test("FTS prefix search resolves both Korean and English names", () => {
@@ -29,6 +36,11 @@ test("FTS prefix search resolves both Korean and English names", () => {
 
   assert.ok(find('"선덕"*').some((row) => row.slug === "seondeok"));
   assert.ok(find('"Seondeok"*').some((row) => row.slug === "seondeok"));
+  assert.ok(find('"과학자"*').some((row) => row.slug === "galileo-galilei"));
+  assert.ok(find('"Great"* AND "Scientist"*').some((row) => row.slug === "galileo-galilei"));
+  assert.ok(find('"Comandante"* AND "General"*').some((row) => row.slug === "antonio-jose-de-sucre"));
+  assert.ok(find('"수도"*').some((row) => row.slug === "athens"));
+  assert.ok(find('"Capital"*').some((row) => row.slug === "athens"));
 });
 
 test("database image paths are local and source URLs remain attributed", () => {

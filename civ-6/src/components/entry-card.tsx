@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { categoryMeta, type Entry } from "@/lib/content";
+import { entryTypeLabel, type Entry } from "@/lib/content";
 import { HistoryImage } from "@/components/history-image";
 import { entryAccent } from "@/lib/presentation";
 
@@ -26,7 +26,7 @@ export function EntryCard({
             className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.025]"
             sizes={sizes}
           />
-          <span className="entry-category">{categoryMeta[entry.category].label}</span>
+          <span className="entry-category">{entryTypeLabel(entry)}</span>
           {priority ? <span className="entry-index">EDITOR&apos;S PICK</span> : null}
           <span className="entry-card-credit">{entry.imageCredit} · {entry.imageLicense}</span>
         </div>

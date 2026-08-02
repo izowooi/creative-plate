@@ -3,6 +3,7 @@ id: rome-city
 name: 로마
 nameEn: Rome
 category: cities
+cityRoles: [capital]
 accent: cobalt
 era: 고대~현대
 civilization: 로마

@@ -24,3 +24,4 @@ npm-debug.log*
 .playwright-mcp/
 public/images/archive/.*.next.webp
 public/images/archive/.manifest.next.json
+docs/catalog/civ6-roster.json.next

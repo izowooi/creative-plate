@@ -2,7 +2,7 @@ import "server-only";
 
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
-import type { Category, Entry, Source } from "@/lib/content";
+import type { Category, CityRole, Entry, Source } from "@/lib/content";
 
 type EntryRow = {
   id: string;
@@ -11,6 +11,7 @@ type EntryRow = {
   name_en: string;
   category: Category;
   subcategory: string;
+  city_roles_json: string;
   era: string;
   lifespan: string;
   civilization: string;
@@ -52,6 +53,7 @@ function fromRow(row: EntryRow): Entry {
     nameEn: row.name_en,
     category: row.category,
     subcategory: row.subcategory,
+    cityRoles: JSON.parse(row.city_roles_json) as CityRole[],
     era: row.era,
     lifespan: row.lifespan,
     civilization: row.civilization,

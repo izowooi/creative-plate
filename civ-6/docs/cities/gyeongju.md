@@ -3,6 +3,7 @@ id: gyeongju
 name: 경주
 nameEn: Gyeongju
 category: cities
+cityRoles: [capital]
 accent: cobalt
 era: 삼국·통일신라 시대~현대
 civilization: 한국

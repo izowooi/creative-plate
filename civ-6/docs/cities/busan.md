@@ -3,6 +3,7 @@ id: busan
 name: 부산
 nameEn: Busan
 category: cities
+cityRoles: [civilization-city]
 accent: cobalt
 era: 고대~현대
 civilization: 한국

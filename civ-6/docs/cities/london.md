@@ -3,6 +3,7 @@ id: london
 name: 런던
 nameEn: London
 category: cities
+cityRoles: [capital]
 accent: cobalt
 era: 로마 시대~현대
 civilization: 영국

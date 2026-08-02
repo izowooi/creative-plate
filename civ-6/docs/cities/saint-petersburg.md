@@ -3,6 +3,7 @@ id: saint-petersburg
 name: 상트페테르부르크
 nameEn: Saint Petersburg
 category: cities
+cityRoles: [capital]
 accent: cobalt
 era: 근세~현대
 civilization: 러시아

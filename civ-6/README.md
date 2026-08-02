@@ -30,10 +30,15 @@ npm run dev
 
 ```bash
 npm run content:check  # Markdown schema, 중복, 관계, 출처/이미지 권리 필드 검증
+npm run roster:sync    # Civ VI roster 원본을 docs/catalog 스냅샷으로 갱신(네트워크 필요)
+npm run roster:check   # roster 구조, 개수, scope/availability 예외 검증
+npm run coverage       # roster 전체 대비 현재 Markdown 수록 현황 출력
 npm run images:sync    # Commons 원본을 검증해 public/images/archive/*.webp로 최적화
 npm run images:check   # Markdown·manifest·WebP 파일/크기/형식/SHA-256 교차 검증
 npm run db:seed        # docs/ → data/the-turn.db
 ```
+
+이미지 원본은 바뀌지 않았지만 변환 설정만 다시 적용할 때는 `npm run images:sync -- --force=<slug>`로 한 항목을 강제 갱신할 수 있습니다. 전체 강제 갱신은 `--force`를 사용합니다.
 
 개발 서버가 켜진 상태에서 `db:seed`를 직접 실행하면 기존 SQLite 읽기 연결은 이전 파일을 계속 볼 수 있습니다. 콘텐츠를 다시 반영할 때는 개발 서버를 재시작하세요.
 
@@ -50,7 +55,7 @@ npm run check
 ## 주요 경로
 
 - `/` — 에디토리얼 홈
-- `/explore` — 검색, 유형·시대 필터, 정렬
+- `/explore` — 검색, 유형·위인 분야·도시 역할·시대 필터, 정렬
 - `/archive/[slug]` — 개별 역사 프로필과 출처
 - `/about` — 편집 원칙, 저작권·데이터 운영 방식
 - `/api/search?q=` — 로컬 DB 기반 간단한 검색 API

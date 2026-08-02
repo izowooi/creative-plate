@@ -3,6 +3,7 @@ id: xian
 name: 시안
 nameEn: Xi'an
 category: cities
+cityRoles: [capital]
 accent: cobalt
 era: 고대~현대
 civilization: 중국

@@ -3,6 +3,7 @@ id: kyoto
 name: 교토
 nameEn: Kyoto
 category: cities
+cityRoles: [capital]
 accent: cobalt
 era: 헤이안 시대~현대
 civilization: 일본

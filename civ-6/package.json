@@ -17,12 +17,16 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
     "content:check": "tsx scripts/validate-content.ts",
+    "roster:sync": "tsx scripts/sync-roster.ts",
+    "roster:check": "tsx scripts/validate-roster.ts",
+    "coverage": "tsx scripts/coverage-report.ts",
+    "coverage:missing": "tsx scripts/coverage-report.ts --missing",
     "images:check": "tsx scripts/validate-images.ts",
     "images:sync": "tsx scripts/sync-images.ts",
     "db:seed": "tsx scripts/seed-content.ts",
     "pretest": "npm run db:seed",
     "test": "tsx --test tests/*.test.ts",
-    "check": "npm run content:check && npm run images:check && npm run lint && npm run typecheck && npm test && npm run build"
+    "check": "npm run content:check && npm run roster:check && npm run coverage && npm run images:check && npm run lint && npm run typecheck && npm test && npm run build"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

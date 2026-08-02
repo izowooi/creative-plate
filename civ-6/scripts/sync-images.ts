@@ -7,7 +7,18 @@ import { loadMarkdownEntries } from "./content-utils";
 const outputDirectory = path.join(process.cwd(), "public", "images", "archive");
 const manifestPath = path.join(outputDirectory, "manifest.json");
 const entries = loadMarkdownEntries();
-const force = process.argv.includes("--force");
+const forceAll = process.argv.includes("--force");
+const forcedSlugs = new Set(
+  process.argv
+    .filter((argument) => argument.startsWith("--force="))
+    .map((argument) => argument.slice("--force=".length))
+    .filter(Boolean),
+);
+const knownSlugs = new Set(entries.map((entry) => entry.slug));
+const unknownForcedSlugs = [...forcedSlugs].filter((slug) => !knownSlugs.has(slug));
+if (unknownForcedSlugs.length) {
+  throw new Error(`알 수 없는 강제 동기화 slug: ${unknownForcedSlugs.join(", ")}`);
+}
 
 fs.mkdirSync(outputDirectory, { recursive: true });
 const hadManifest = fs.existsSync(manifestPath);
@@ -80,7 +91,7 @@ async function syncImage(entry: (typeof entries)[number]) {
   if (!entry.image) throw new Error(`${entry.slug}: image URL이 없습니다.`);
   const outputPath = path.join(outputDirectory, `${entry.slug}.webp`);
   const previous = previousRecord(entry.slug);
-  if (!force && hadManifest && fs.existsSync(outputPath) && previous?.source === entry.image) {
+  if (!forceAll && !forcedSlugs.has(entry.slug) && hadManifest && fs.existsSync(outputPath) && previous?.source === entry.image) {
     const metadata = await sharp(outputPath).metadata();
     const digest = sha256(outputPath);
     if (metadata.width && metadata.height && metadata.format === "webp" && digest === previous.sha256) {
@@ -118,7 +129,7 @@ async function syncImage(entry: (typeof entries)[number]) {
 
   const temporaryPath = path.join(outputDirectory, `.${entry.slug}.next.webp`);
   try {
-    await sharp(bytes, { failOn: "error" })
+    await sharp(bytes, { failOn: "error", density: 300 })
       .rotate()
       .resize({ width: 1600, height: 1400, fit: "inside", withoutEnlargement: true })
       .webp({ quality: 82, effort: 4, smartSubsample: true })
@@ -148,7 +159,6 @@ async function main() {
 
   const downloaded = results.filter((result) => result.status === "downloaded").length;
   console.log(`Synced ${results.length}/${entries.length} archive images (${downloaded} downloaded, ${results.length - downloaded} kept).`);
-  if (failures.length) throw new Error(`동기화 실패: ${failures.join(", ")}`);
 
   const temporaryManifestPath = path.join(outputDirectory, ".manifest.next.json");
   try {
@@ -157,6 +167,10 @@ async function main() {
   } finally {
     if (fs.existsSync(temporaryManifestPath)) fs.rmSync(temporaryManifestPath);
   }
+
+  // 성공한 항목은 실패가 섞인 실행에서도 기록해 다음 재시도가 해당 파일을 다시 받지 않게 한다.
+  // 누락된 실패 항목은 images:check가 계속 명확히 보고한다.
+  if (failures.length) throw new Error(`동기화 실패: ${failures.join(", ")}`);
 }
 
 main().catch((error) => {

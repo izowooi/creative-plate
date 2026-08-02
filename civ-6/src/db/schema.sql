@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS entries (
   name_en TEXT NOT NULL,
   category TEXT NOT NULL CHECK (category IN ('leaders', 'civilizations', 'cities', 'great-people')),
   subcategory TEXT NOT NULL DEFAULT '',
+  city_roles_json TEXT NOT NULL DEFAULT '[]',
   era TEXT NOT NULL,
   lifespan TEXT NOT NULL DEFAULT '',
   civilization TEXT NOT NULL DEFAULT '',
@@ -40,5 +41,7 @@ CREATE VIRTUAL TABLE IF NOT EXISTS entries_fts USING fts5(
   tags,
   civilization,
   region,
+  subcategory,
+  city_roles,
   content=''
 );
