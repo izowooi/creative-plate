@@ -23,10 +23,10 @@ test("the editorial dataset preserves its balanced baseline as it expands", () =
     ]),
   );
 
-  assert.ok(entries.length >= 287);
+  assert.ok(entries.length >= 448);
   assert.ok(counts.civilizations >= 50);
   assert.ok(counts.cities >= 116);
-  assert.ok(counts["great-people"] >= 54);
+  assert.ok(counts["great-people"] >= 215);
   assert.ok(counts.leaders >= 67);
   assert.equal(new Set(entries.map((entry) => entry.id)).size, entries.length);
   assert.equal(new Set(entries.map((entry) => entry.slug)).size, entries.length);

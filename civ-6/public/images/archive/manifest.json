@@ -384,8 +384,8 @@
     "sha256": "19e0950aa6031f35d49c0c2a4b9cf14646ef34262aa82a88d68fb00d26328c0d"
   },
   "te-hokianga-nui-a-kupe": {
-    "source": "https://upload.wikimedia.org/wikipedia/commons/d/de/Hokianga.jpg",
-    "sha256": "2d2c2143e59443497d3ec576bf75ba82467ff56afb8637d5bc8fb14dd6169f98"
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Hokianga_Harbour_%28panorama%29.jpg",
+    "sha256": "f5d3d11f4e559268b6ba768bae91adccb9262a35ee3f00182e20d4489813cb3f"
   },
   "tenochtitlan": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/7/77/Ruinas_del_Templo_Mayor_-_Centro_Hist%C3%B3rico_de_Ciudad_de_M%C3%A9xico.jpg",
@@ -667,41 +667,185 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Artemisia_at_the_Battle_of_Salamis.jpg",
     "sha256": "ad7f37971a7eacc9c98e28250a4609c7f32267b9b63a208ede587bfce685c4eb"
   },
+  "chester-nimitz": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Chester_Nimitz_as_CNO_%28cropped%29.jpg",
+    "sha256": "b6a467952082ea7d931bcfa22640a1662ab29390e51209b5ec85302941539b57"
+  },
+  "ching-shih": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/19/%E9%84%AD%E4%B8%80%E5%AB%82.jpg",
+    "sha256": "88c2a170cc8490a532ab0588a7a673b262caad3d7712c72b2af6e9adf5452622"
+  },
+  "clancy-fernando": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/60/Clancy_Fernando_Grave.jpg",
+    "sha256": "2ad6225dc765e6d5d1a1033524b05531c4c86e75cee4589eb7d39e7f9a1de4df"
+  },
+  "ferdinand-magellan": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Ferdinand_Magellan.jpg",
+    "sha256": "1eaa523b65bbb1d9f3aad83f1c851f21a12ee70945b1775bd6c36b3fae710b4c"
+  },
+  "francis-drake": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Gheeraerts_Francis_Drake_1591.jpg",
+    "sha256": "f57c7f33497fe5b0f83dbb096f522a205985cad7b514029b090d912ca8fa29c8"
+  },
+  "franz-von-hipper": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Vizeadmiral_Hipper%2C_der_Befehlshaber_der_deutschen_Aufkl%C3%A4rungsschiffe_in_der_Seeschlacht.png",
+    "sha256": "9a07cee4d96d575b7effff9214915118d2d2090eaeadcefd7139dce6165a2296"
+  },
+  "gaius-duilius": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/17/MCR_-_colonna_rostrata_di_C_Duilio_1150130.JPG",
+    "sha256": "e611e8b8c03834b4c146eef073e920fa89221088d85bf34afe5fc1996c194dee"
+  },
+  "grace-hopper": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/98/Commodore_Grace_M._Hopper%2C_USN_%28covered%29_head_and_shoulders_crop.jpg",
+    "sha256": "9ffd8e79f9bda2721eefbd1fcf758f6a3d41c1bb40d666512160c598d0f3c3c4"
+  },
   "hanno-the-navigator": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/2d/The_Periplus_of_Hanno_-_Map_to_illustrate_the_Periplus_of_Hanno.png",
     "sha256": "d17bc1a44a3a43dcb68c333e6fe18597db702da7ff73d767221d9be7fac6494c"
+  },
+  "himerios": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Greekfire-madridskylitzes1.jpg",
+    "sha256": "a486ea9dc1c84c3158e42ee9347d6c58e4c3c4ff45cdaed36699e58dd3ff8c9e"
+  },
+  "horatio-nelson": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/72/HoratioNelson1.jpg",
+    "sha256": "aac284c51e1c1453fbb4449546ed42737333f41192229eff9eaff53775104d25"
+  },
+  "joaquim-marques-lisboa": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/91/Marquis_of_tamandare_1873.jpg",
+    "sha256": "6738a2fe3eed93481a043656c78f6f6a41ca55acc7657846cc77481e20b66c9d"
+  },
+  "laskarina-bouboulina": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Bouboulina.JPG",
+    "sha256": "cd439219c2ac6dcd9890426d7bbbf95023dce0917af8bf80046ddb850a4a2c46"
   },
   "leif-erikson": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Christian-krohg-leiv-eriksson.jpg",
     "sha256": "e95eda97f18375190df9bcde230e40b1189cfa2a63dc33e096d88bbed864aff1"
   },
+  "matthew-perry": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Commodore_Matthew_Calbraith_Perry.png",
+    "sha256": "73d43b91817ad4bd0f3056922616a2c190376cf1ae6b5e5e17db88dd1b99cf5b"
+  },
+  "rajendra-chola": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/48/GangaiKonda_Cholapuram%28Front_View%29.JPG",
+    "sha256": "9891897d11f921a254b6796366dbb900a9d7f7a14f31ab57de7153bc04a93f94"
+  },
+  "santa-cruz": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/e7/%C3%81lvaroDeBaz%C3%A1nRafaelTegeo1828.jpg",
+    "sha256": "9825eab823b0abadd5b14c3e59ff0292692399e09c662ffc548bdbffa47255ca"
+  },
+  "sergei-gorshkov": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/da/Admiral_of_the_fleet_of_the_Soviet_Union_Sergey_Gorshkov.jpg",
+    "sha256": "573f91c718652398b9eb7627276aad58344ceb29bbc59f16f9a938c7e2b7a1f0"
+  },
   "themistocles": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Ostraka_against_Themistocles%2C_482_BC%2C_Agora_Museum_Athens%2C_080636.jpg",
     "sha256": "4950de8dc187533d6303f9e74a3166581980017e645db70693df657fd5a4dba4"
+  },
+  "togo-heihachiro": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/02/T%C5%8Dg%C5%8D_Heihachir%C5%8D.jpg",
+    "sha256": "b320064524ec11449b063b2777395d876512fb13fc13f870ac775271c31d6d6d"
+  },
+  "yi-sun-sin": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Bust_of_Yi_Sun-sin_01.jpg",
+    "sha256": "e0280572e4f9caa1299c8b29ffc09472ad4ad4bfd3f8fdca52ecdfd0216e3272"
   },
   "zheng-he": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Portrait_of_Zheng_He%2C_published_about_1600.jpg",
     "sha256": "71b76e665b371d4347cbd64c7e05722d518d7dd196610e4c5a7e93bb724c9498"
   },
+  "amrita-sher-gil": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/91/Amrita_Sher-Gil_2.jpg",
+    "sha256": "d296a6f27d656c0f5ac6a98b236d8862ff237771d41f9b0e62ca638c82b79338"
+  },
+  "andrei-rublev": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Andrej_Rubl%C3%ABv_-_Holy_Trinity_-_WGA20456.jpg",
+    "sha256": "eaff58e86d1e11f3ca0565720f68d236aef8bbe4a3cd3ac18bc57fb11e403890"
+  },
+  "angelica-kauffman": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Angelika_Kauffmann_-_Self_Portrait_-_1784.jpg",
+    "sha256": "e0e03555a053f2f8390e3bb8c256dc548220217254a780feffd123984ebc32ef"
+  },
+  "boris-orlovsky": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Mikhail_Tarasovich_Markov,_Boris_Orlovsky_in_Thorvaldsen's_Studio,_c._1827;_from_Knebel's_History_of_Russian_Art.jpg",
+    "sha256": "9ce962d6301d0d2bb83b53f0dd66913ab6881af358f9f0217fe0b89293b3de41"
+  },
+  "claude-monet": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Claude_Monet_1899_Nadar_crop.jpg",
+    "sha256": "ef10651b48f2844b1bc153fd9cfaad396fdc7012d261e75550bef986a1b805e2"
+  },
   "donatello": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/9/96/Donatello%2C_miracolo_della_mula%2C_1446-49_ca._%28pd%2C_museo_antoniano%29_37_uomo_che_si_allontana%2C_forse_autoritratto_%28cropped%29.jpg",
     "sha256": "4d4e1a6f0994c6c6a8ecd07313f8dfcb46a1d865fd9b0ce294850f1ccaf592ba"
+  },
+  "edmonia-lewis": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Edmonia_Lewis_by_Henry_Rocher.jpg",
+    "sha256": "24f1dc51b02b89ca5a8f44285008a4ad366598d0dc589612df02f1c574ceef05"
   },
   "el-greco": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/e/eb/El_Greco_-_Portrait_of_a_Man_-_WGA10554.jpg",
     "sha256": "cad810d773e1a46cc41ea614c79b6a401b480b57e3331da6601513c0a1bd9a69"
   },
+  "gustav-klimt": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Klimt.jpg",
+    "sha256": "0fa8279b599b1c4dea62112927fa4932f4308757497454e5e765ddfa15adf509"
+  },
+  "hasegawa-tohaku": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Hasegawa_Tohaku,_Pine_Trees_-_low_resolution.jpg",
+    "sha256": "ca02488a9d5886b49e029cde83c1906114e1b50f7510b82790901c918020d5bd"
+  },
+  "hieronymus-bosch": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/e5/The_Garden_of_Earthly_Delights_by_Hieronymus_Bosch.jpg",
+    "sha256": "d9c905351eefd615800024f12601a40df2bcda47516d4278c806fe43ff19e116"
+  },
   "hokusai": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Hokusai_as_an_old_man.jpg",
     "sha256": "fea5d8d92f396a9a4614eee4db59aa19ac963a5aa014ba9ee0bfd0f6690b2d5d"
+  },
+  "jang-seung-eop": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/f2/%EC%A0%84(%E5%82%B3)_%EC%98%A4%EC%9B%90_%EC%9E%A5%EC%8A%B9%EC%97%85_(1843%E2%80%931897)_%EC%B2%AD%EB%8F%99%EA%B8%B0%EC%99%80_%ED%99%94%EC%B4%88%EA%B0%80_%EC%9E%88%EB%8A%94_%EC%A0%95%EB%AC%BC%ED%99%94_%EC%A1%B0%EC%84%A0-%E5%82%B3_%E5%90%BE%E5%9C%92_%E5%BC%B5%E6%89%BF%E6%A5%AD_%E5%99%A8%E7%9A%BF%E6%8A%98%E6%9E%9D%E5%9C%96_%E6%9C%9D%E9%AE%AE-Still_life_with_bronze_vessels_and_flowering_plants_MET_DP328598.jpg",
+    "sha256": "662c8581e9550c749946a4408d6e1c5e2e2943b826412aba201ab6f235c5ca86"
+  },
+  "kamal-ud-din-behzad": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Yusef_Zuleykha.jpg",
+    "sha256": "bd7a088b77150ba5010d7223b384cdbde3e54380a7c844798af662c57a019056"
+  },
+  "marie-anne-collot": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Collot-par-Falconet-fils_(cropped).JPG",
+    "sha256": "659d9ac77f699bcf02b7562a282ab77080e86483e9ce7fa987393b7966d1a8a6"
+  },
+  "mary-cassatt": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/18/Mary_Cassatt_photograph_1913.jpg",
+    "sha256": "3c2b8e937c23a4a4a5d272c6e6a9b85bda8d22d7fb1241d958f6c507689667d3"
   },
   "michelangelo": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/0/02/Michelangelo_Daniele_da_Volterra_%28dettaglio%29.jpg",
     "sha256": "a472ddc4418c199818aff6d07938b42ce54e448d09405fd4e014c67af4ea4f20"
   },
+  "qiu-ying": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Spring_Morning_in_the_Han_Palace_(%E6%B1%89%E5%AE%AB%E6%98%A5%E6%99%93%E5%9B%BE).jpg",
+    "sha256": "1d751ca92d0cbe69620256994f3ef372bafb81ca901874e8c8640c993c288cfa"
+  },
   "rembrandt": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg/1920px-Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg",
     "sha256": "54e8f1b9fa0fb23e36dd012bc6e845d5ac20b8fd67ca0dcb595f0fe419021b00"
+  },
+  "sofonisba-anguissola": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Sofonisba_Anguissola,_Selvportr%C3%A6t_ved_staffeliet,_1556,_Museum_Castle_in_%C5%81a%C5%84cut.jpg",
+    "sha256": "2b0b76c887fafd99525232aa12d054264a382d0d8933a34a6baeee43788c284f"
+  },
+  "titian": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Titian_-_Self-portrait_(Museo_del_Prado).jpg",
+    "sha256": "2ffd4f751240e8e7a14fa3ac3c03676689a01703b9aae15bf51304fc7a3b9616"
+  },
+  "vincent-van-gogh": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_(454045).jpg",
+    "sha256": "f6e805b057cb2d8e3e8ccebb53c19ea2021cc74ec9049fa51186d1ea1a469e83"
+  },
+  "wassily-kandinsky": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Wassily_Kandinsky_Composition_VIII.jpg",
+    "sha256": "677634eeb2cadb3330d6605b505e05cb8d8e227134cf0cbf2fd92c928e098696"
   },
   "antonio-jose-de-sucre": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Antonio_Jos%C3%A9_de_Sucre._Michelena%2C_Arturo._1895%2C_Legislative_Palace%2C_La_Paz.png/1920px-Antonio_Jos%C3%A9_de_Sucre._Michelena%2C_Arturo._1895%2C_Legislative_Palace%2C_La_Paz.png",
@@ -747,41 +891,213 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Ada_Lovelace_daguerreotype_by_Antoine_Claudet_1843_-_cropped.png",
     "sha256": "b09cf79fafdc5f2fbd276e1158904146a5ee0dc97d09203db58797cdfc396b50"
   },
+  "alvar-aalto": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Alvar-Aalto-1960s.jpg",
+    "sha256": "de3994db040288202d7897bb33906583ab51bff425372bbeded0b45a1d4dcf1f"
+  },
+  "bi-sheng": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/20/Beijing.Musee_imprimerie.caracteres_mobiles.Bisheng.jpg",
+    "sha256": "eafe78afe805a75cf58c12c1264b7ae6260291ede038fe1622066da56cb37c8e"
+  },
+  "charles-correa": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/48/Central_courtyard%2C_Jawahar_Kala_Kendra%2C_Jaipur%2C_Rajasthan.jpg",
+    "sha256": "58487ea5f791c033afdc542b45cea8ff896f6f97451bc5a2118b15ff885aff4e"
+  },
+  "filippo-brunelleschi": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/72/Masaccio%2C_cappella_brancacci%2C_san_pietro_in_cattedra._ritratto_di_filippo_brunelleschi-184.jpg",
+    "sha256": "2bf2ce3ac28c1ace4595a73338aad2276e6b72042755db3c1bd43d1ea47ef421"
+  },
+  "gustave-eiffel": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Gustave_Eiffel_1888_Nadar2.jpg",
+    "sha256": "952d03fd9ed9473dc601eb20631616c1336bd4852396167a7050327931ee4bc3"
+  },
+  "imhotep": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Imhotep%2C_donated_by_Padisu_MET_DP164134.jpg",
+    "sha256": "40c67c5951d1600cbfbfc54b43ebfdbb6cf27234220897933e67ba1d910c2391"
+  },
+  "isidore-of-miletus": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/c3/AT_13763_Roof_figure%2C_Isidor_von_Milet_at_the_Kunsthistorisches_Museum%2C_Vienna-74-Bearbeitet.jpg",
+    "sha256": "c1a46d90ab88c8a9cefc9b08f90327f566cce1e06676bec9c661ee00542e831f"
+  },
+  "james-of-st-george": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/20/Beaumaris_Castle_2015_003.jpg",
+    "sha256": "5164d3332643b83bb56520c896c043cdaf394220570589c3009154c385f73e02"
+  },
   "james-watt": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/1/15/Watt_James_von_Breda.jpg",
     "sha256": "1ebd167bd992c6646856e8eaf9967166e6b65362129b3da3b4f7a527aeb82704"
+  },
+  "jane-drew": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Jane_Drew_-_A_pencil_sketch_by_Sarbjit_Bahga.jpg",
+    "sha256": "b4886c9d1e757b9d5f0cda8ded612fe19879f59397122ebddf4aafceffe27afe"
+  },
+  "john-roebling": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/87/John_Augustus_Roebling_by_unidentified_photographer%2C_c._1869%2C_albumen_slver_print%2C_from_the_National_Portrait_Gallery_-_NPG-NPG_79_222.jpg",
+    "sha256": "680f766904389194ca70565b95f2944078e2742d80327fb618f95e6fe6c5f2b1"
+  },
+  "joseph-paxton": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/24/Bust_of_Joseph_Paxton%2C_Crystal_Palace.jpg",
+    "sha256": "c2c733e1650df9870dfa85d5959e71eddb0e09affce6af37d66bd72e6247e00c"
+  },
+  "kenzo-tange": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/81/Kenzo_Tange_1981_%283x4_cropped%29.jpg",
+    "sha256": "f033412a1c6a89c9d0cb6c3dc5306cf6613a510a0c240430c8c5d414be7724c0"
   },
   "leonardo-da-vinci": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Francesco_Melzi_-_Portrait_of_Leonardo.png",
     "sha256": "32f117d1a5e32a048889ffd0819acb2d890387ddea866571ab0d7d1eb4f8deb1"
   },
+  "mimar-sinan": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Mezquita_de_Solim%C3%A1n%2C_Estambul%2C_Turqu%C3%ADa%2C_2024-09-28%2C_DD_147-149_HDR.jpg",
+    "sha256": "871cfc0fe1cf1ba5ee99ab3fed2ad9e03b9f88ed58d734733e48e96fc1b5e6c0"
+  },
   "nikola-tesla": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/7/79/Tesla_circa_1890.jpeg",
     "sha256": "b6660866b2e989f65ce96ce1558f7a10859487d7f6690c03a707e432da8741d1"
+  },
+  "robert-goddard": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Goddard_and_Rocket.jpg",
+    "sha256": "7f9547d4ecc5fe7d09407d6320c8da49a8041e05d217558e01450ada35ebe12b"
+  },
+  "sergei-korolev": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Sergei_Korolev_portrait.jpg",
+    "sha256": "a382fec42b5c895aeb010dba255442d5a49bb7072b0a0f411f8f61b5b90b1806"
+  },
+  "shah-jahan": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/45/Chitarman._Shah_Jahan_on_a_Terrace%2C_Holding_a_Pendant_Set_With_His_Portrait%2C_Folio_from_the_Shah_Jahan_Album_1630-50_Metmuseum.jpg",
+    "sha256": "228543ced8bf350e8058d05ea5f6b5be00560f000a7c6b8d1eafe56aece264a6"
+  },
+  "wernher-von-braun": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/38/Wernher_von_Braun%2C_1964_portrait_%28cropped%29.jpg",
+    "sha256": "b182803445cf75ca8d0ff66129dd148d9e75176b46e86b7f34583130f425f0b0"
   },
   "aethelflaed": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/3/34/%C3%86thelfl%C3%A6d_as_depicted_in_the_cartulary_of_Abingdon_Abbey.png",
     "sha256": "bb0a41aa853f4774935b8ed6b249a874c525391095c2f9e1dbc512229b116dd1"
   },
+  "ahmad-shah-massoud": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/39/Ahmad_Shah_Massoud_EP_2001_%285%29_%28cropped%29.jpg",
+    "sha256": "a91504170d0d4c7bf483ee4311177f1530d8a2ab93626808c917595d139c2b3a"
+  },
+  "amina": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Queen_Amina_Statue_%28cropped%29.jpg",
+    "sha256": "6d296111938c72eb38960f9784183fe10bc06e2c3515a188d8810af853c0e644"
+  },
+  "ana-nzinga": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/14/Ann_Zingha%2C_queen_of_Matamba.jpg",
+    "sha256": "d316a6d0e81a64eb6c7c1fbda1dbcb86f3f2a148a7e759e7ff7073c74fe05d27"
+  },
   "boudica": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Queen_Boudica_by_John_Opie.jpg",
     "sha256": "024170e660a2678903d1ebbf06e24b27b1657da3f70ef93f33e45c0528b5ae0b"
+  },
+  "dandara": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Serra_da_Barriga_-_AL.jpg",
+    "sha256": "9c15e5ace1489018bf9ff5a8d69543ab76ee055f0e9fd345c620c1e895bffc67"
+  },
+  "douglas-macarthur": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/bc/MacArthur_Manila_%28cropped2%29.jpg",
+    "sha256": "614eae2ac11e9bd1ceae3eab15629b2240602bf85d86d7ee920c3adc4fdc0325"
+  },
+  "dwight-eisenhower": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/02/Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959_%28cropped%29%283%29.jpg",
+    "sha256": "a5e7a05669c69690ceedf45f2788e801f0d171f1d93ff287baaf8e1d94abf5bd"
+  },
+  "el-cid": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/14/Monumento_al_Cid_%28Burgos%29_01.jpg",
+    "sha256": "02f414a5baf779a167d99fbb3797e89bf137e34c4cc04eb67f0afc59631a1b59"
+  },
+  "genghis-khan-great-general": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/84/Genghis_Khan_monument_02.jpg",
+    "sha256": "d0ae75420cb6eeeb6abcc66903fe79ca8ad1ed0e0950e28d79c93023ca6f0933"
+  },
+  "georgy-zhukov": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/43/Zhukov-LIFE-1944-1945.jpg",
+    "sha256": "8c0e1772e26e5a987dcc8d33974e0c688b2c5535e643e08c36cfce3518c1b63d"
+  },
+  "gustavus-adolphus": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/22/Attributed_to_Jacob_Hoefnagel_-_Gustavus_Adolphus%2C_King_of_Sweden_1611-1632_-_Google_Art_Project.jpg",
+    "sha256": "3b7c695bf623eeca21db929cfd9b779bbf7c08001fb510bc997e83d6ff370fb2"
   },
   "hannibal-barca": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Hannibal_traverse_le_Rh%C3%B4ne_Henri_Motte_1878.jpg/1920px-Hannibal_traverse_le_Rh%C3%B4ne_Henri_Motte_1878.jpg",
     "sha256": "9097e675b3a3632c1e977ba473c1c74758dadadf2cd523a41996e54e370f26b1"
   },
+  "jeanne-darc": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Joan_of_Arc_miniature_graded.jpg",
+    "sha256": "b8769bf999ac47d59236529c54d8cb474cbc54756f0708747b9cf08edb0999b8"
+  },
+  "john-monash": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/58/John_Monash_portrait.jpg",
+    "sha256": "4c70c5521cdac5e1e0d2e851b0c2b4ed407583e3aca1d261cced24e5cccac6e6"
+  },
+  "jose-de-san-martin": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Retrato_m%C3%A1s_can%C3%B3nico_de_Jos%C3%A9_de_San_Mart%C3%ADn.jpg",
+    "sha256": "0b641c65c7146d58487fcb15605804e0938cf513c0cf89b3ffcf1d0143e3796b"
+  },
+  "marina-raskova": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/77/Marina_Raskova_portrait.png",
+    "sha256": "1ee3ce8b7004df6a64d6c23e22b798686fd1146cf0115b030d2dbebce6fd4c22"
+  },
+  "napoleon-bonaparte": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/50/Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project.jpg",
+    "sha256": "b2043b2b27d798d5b51365cc2ce43623dd0e3b62d54fd411fddc4a81bfb6db1d"
+  },
+  "rani-lakshmibai": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Rani_Lakshmibai_contemporary_portrait.jpg",
+    "sha256": "a90883a7f58714201bc0275969158a79cc45aa6b694568abc5de8bc1b0c7a3a5"
+  },
+  "samori-toure": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/65/Samory_Tour%C3%A9_apr%C3%A8s_sa_capture%2C_29_septembre_1898.jpg",
+    "sha256": "5dfee223b380dbb00ace22952942620a5107e2769abdca38d69f52daf7174c0e"
+  },
+  "simon-bolivar-great-general": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Sim%C3%B3n_Bol%C3%ADvar._Toro_Moreno%2C_Luis._1922%2C_Legislative_Palace%2C_La_Paz.png/1920px-Sim%C3%B3n_Bol%C3%ADvar._Toro_Moreno%2C_Luis._1922%2C_Legislative_Palace%2C_La_Paz.png",
+    "sha256": "a2673c73ef3c34ae262aa7d4e865d23a2541fe05c23547ed2ffe3e2af7a5ba5d"
+  },
+  "sudirman": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Sudirman.jpg",
+    "sha256": "b2fa8dd5979837aa562c6e73ada5bb658658f0dcba30be89fab80470cad2b85c"
+  },
   "sun-tzu": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/3/37/Enchoen27n3200.jpg",
     "sha256": "129db4b9471daf7586f864e2613bf13d48c8ab42d406f7b3c4dcf1c807b383b0"
+  },
+  "timur": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/00/Timur_reconstruction03.jpg",
+    "sha256": "b36e705830336b8024f0b34b90c050ae7e99d7be9e86e054f565a9e4bf24826d"
   },
   "trung-trac": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/4/44/Hai_ba_trung_Dong_Ho_painting.jpg",
     "sha256": "1a7047425229d7a8073ce1673670a959f4b53be37635a099899049fa43b14bcd"
   },
+  "tupac-amaru": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/00/T%C3%BApac_Amaru.jpg",
+    "sha256": "415e9a43b91b577c0b70359fc551f0129c0bf8cf31e06d4000039798561d0c7d"
+  },
+  "vijaya-wimalaratne": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Major_General_Vijaya_Wimalaratne_Statue_at_Kiribathgoda_-_I.jpg",
+    "sha256": "667bb42bcdc4e69741ce011eb0af94dedd36b8351b1387c93b0efce8ebe1bf29"
+  },
+  "adam-smith": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Adam_Smith%2C_1723_-_1790._Political_economist_-_Google_Art_Project.jpg",
+    "sha256": "23311272d153de3a14c16d123449df761005367308a319da929a4d54eb246d3e"
+  },
   "colaeus": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Black_figure_Kylix_%28drinking_cup%29_depicting_Dionysus_crossing_the_sea%2C_ca._530_BC%2C_Staatliche_Antikensammlungen%2C_Munich_%288958045452%29.jpg",
     "sha256": "4bc4f4bc101da934330e5472edadea77affcc3c6c09413a75ef7fdc88d6c2be8"
+  },
+  "estee-lauder": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Estee_Lauder_NYWTS.jpg",
+    "sha256": "bc18f6990b730b39ae877ab731e7620ba1b9ab4c98211273f932100f6160281b"
+  },
+  "giovanni-de-medici": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/33/Giovanni_di_Bicci_de%27_Medici.jpg",
+    "sha256": "1f49a93c592a1654359b387f83792ee6651fd000c744ea4cba68aaf8a4d85c71"
+  },
+  "helena-rubinstein": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/99/Helena_Rubinstein_%28997009326968305171%29.jpg",
+    "sha256": "f7a56f9a485f2c2768d22a6d1fe09d51a74bb5e29640ed75a950d3350aba0a77"
   },
   "ibn-fadlan": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Ibn_fadlan_Travel%2C_Bagdad_to_Boukhara_%28Colored%29.svg",
@@ -791,13 +1107,85 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/29/Gold_Solidus_of_Irene_%26_Constantine_VI.png",
     "sha256": "a0a85c9b7c33e9619300e65a6bd17204b6ba62d656f728a9455b22b7ec51a15a"
   },
+  "jakob-fugger": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Jakob_Fugger_by_D%C3%BCrer_%28cropped%29.jpg",
+    "sha256": "8285a534edfe7816279a98aa5ea727ed3b1a58e4db6e7c8c4404dafbf4a021bf"
+  },
+  "jamsetji-tata": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/71/JAMSETJI_N._TATA.jpg",
+    "sha256": "ce3c69a45482e6dc35438b6ebad218ae0207aac34aaef322238257d468393d2d"
+  },
+  "john-jacob-astor": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/89/John_Wesley_Jarvis_-_John_Jacob_Astor_-_Google_Art_Project.jpg",
+    "sha256": "9187dc3150efe6abd3decb4afa584a69c4287d702a55ee1949cd010a699099c2"
+  },
+  "john-rockefeller": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Portrait_of_John_D._Rockefeller.jpg",
+    "sha256": "331e968eeafee90ca9f5ac1d294de9a312f97a5394cdf91cd0ee0cd85704d26d"
+  },
+  "john-spilsbury": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/89/Spilsbury_jigsaw_-_John_Spilsbury%2C_1766_-_BL.jpg",
+    "sha256": "d9670c1abcb39b533750f55b2cb8f8c4b777fa8d5b1aa17eb03b0b43cd3140d0"
+  },
+  "levi-strauss": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Levi_Strauss_1.jpg",
+    "sha256": "d4a4d4cdc129b8fa8cd62f63f90633155b8bd1cbf3ee1922f57f3ebf2929db23"
+  },
   "marco-polo": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Le_livre_des_merveilles_de_Marco_Polo-pepper.jpg",
     "sha256": "ea321e1183338ba01591c5b1550f6a5648ca98b7f16170c9a39f641854ae9867"
   },
+  "marcus-licinius-crassus": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Head_of_Marcus_Licinius_Crassus%2C_middle_of_1st_century_BC%2C_from_Italy%2C_Moi%2C_Auguste%2C_Empereur_de_Rome_exhibition%2C_Grand_Palais%2C_Paris_-_14649017884.jpg",
+    "sha256": "496a2e176612ee0a1723a6b6ce5252c9faba1a02fec9f11243228814f891faa6"
+  },
+  "mary-katherine-goddard": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Goddard_broadside.jpg",
+    "sha256": "6701abc3c819c154a1db5a702de0b889e1e4824a8aae6731f18c2197cc3006ba"
+  },
+  "masaru-ibuka": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Ibuka_Masaru.jpg",
+    "sha256": "960a9d5406285762bb4787cdbef06468c10a72df9145d4484a43428665d2c640"
+  },
+  "melitta-bentz": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/76/Melitta_Bentz.jpg",
+    "sha256": "5635e50c2385da54b00e1ffbcc2182b46106737550bbcda8d3ada936d01c67b7"
+  },
+  "piero-de-bardi": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Cinganelli%2C_piero_bardi_compra_vernio_dala_marchesa_margherita_salimbeni%2C_1332.JPG",
+    "sha256": "cb1a9b82efe90cf44ef275c0603b646ebb59733bbcaa172221beac43ff0798dd"
+  },
+  "raja-todar-mal": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Raja_Todar_Mall%2C_Finance_Minister_of_Akbar.jpg",
+    "sha256": "76bbe19bb344644111db93791898e6a5e24bbd13a9557355f12d4ae627299ab2"
+  },
+  "sarah-breedlove": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Madam_C._J._Walker_by_Addison_N._Scurlock.jpg",
+    "sha256": "67b584271acb07718dad02f649442a6c6b6b00a21655b7fd44680c06c47b3a58"
+  },
+  "stamford-raffles": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Miniature_portrait_of_Sir_Stamford_Raffles.jpg",
+    "sha256": "67dedf90d91c867415290bc59eb6592c2cebc80cbc526e035ef2c06811d4af60"
+  },
   "zhang-qian": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/9/90/Zhang_Qian.jpg",
     "sha256": "79d01d55d4c709c4fb99049a49930fb50f433a30a63d4bf506a18a7c5b4dae4a"
+  },
+  "zhou-daguan": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Merchant_ship_from_the_Bayon_temple_at_Angkor_Thom%2C_Cambodia.jpg",
+    "sha256": "6e97b7c2da34d6932e897c3ae5d48b9f5d104d1abfa3b047ab887feeb9ec1ce5"
+  },
+  "antonin-dvorak": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/12/Dvorak.jpg",
+    "sha256": "c764301e6c8d8ed351957f8d8a7360c3394e6581154700c4af5f57791c657635"
+  },
+  "antonio-carlos-gomes": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Retrato_de_Carlos_Gomes.jpg",
+    "sha256": "fbd22047ac114ba71998a190f8a9dd5f9879224ed86e269a291c32ec708c2098"
+  },
+  "antonio-vivaldi": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Vivaldi.jpg",
+    "sha256": "29adce31a959fe86aaf40d3219838e49f9e1658a10d178d527de259db6d82ae7"
   },
   "beethoven": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Joseph_Karl_Stieler%27s_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg",
@@ -807,17 +1195,81 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Franz_Hanfstaengl_-_Clara_Schumann_%281857%29.jpg",
     "sha256": "5b46231a450519bc4cde07132fc4d74b193803db0d4293234c4572b1a67a22c8"
   },
+  "dimitrie-cantemir": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Dimitrie_Cantemir_-_Portrait_from_Descriptio_Moldaviae,_1716_(crop).jpg",
+    "sha256": "76e8461fc39617feb6c8da3b92b285112491cbfc2702c83f6628b12e1d8f6609"
+  },
+  "franz-liszt": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Franz_Liszt_by_Herman_Biow-_1843.png",
+    "sha256": "202b031b67706250c113be754f468c5d74109684d8efe540f99530d1822f7e63"
+  },
+  "frederic-chopin": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Frederic_Chopin_photo.jpeg",
+    "sha256": "c5c4c7bacae36f36f9a752b6caf32428eafaacfe361b55adcb61561e0489a2e9"
+  },
+  "gauhar-jaan": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Gohar_Jaan.jpg",
+    "sha256": "4f9f7611304a1ccea6d4e7888ac7d7d33ca72303f64055474a08bd7ee7105e06"
+  },
   "johann-sebastian-bach": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Johann_Sebastian_Bach.jpg",
     "sha256": "206d260b06dadd9f9502f7b4fb69db941ddcb42b264a0cbc90f59bcbb8146ca7"
+  },
+  "juventino-rosas": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Fotograf%C3%ADa_de_Juventino_Rosas.png",
+    "sha256": "ddbe72c88fae0ef6982069eb507967e2e5f500fc74907eb7ac4a5a6f8cfacbcf"
+  },
+  "liliuokalani": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Lili%CA%BBuokalani.jpg",
+    "sha256": "dbf0fa047a90a5e976a97bf2c2aed871355a1628caa5345b315b0709929f4842"
+  },
+  "liu-tianhua": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/e1/%E5%A4%A7%E9%9F%B3%E4%B9%90%E5%AE%B6%E5%88%98%E5%A4%A9%E5%8D%8E.jpg",
+    "sha256": "4e58303d7ef570bfbacf3a9e7cb85d7563ee25dd33d65de8ce9d9b91d530595d"
+  },
+  "mykola-leontovych": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Mykola_Dmytrovych_Leontovych.png",
+    "sha256": "e64f17a3c98c32457fb9b5c6cd5b789088f2e487701b8bf1f658003c83021fac"
+  },
+  "peter-ilyich-tchaikovsky": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/20/Tchaikovsky_by_Reutlinger_(cropped).jpg",
+    "sha256": "a541b560b5ed18d0b45fe16db08689a0b19eb2a2b3340bad674df37ef9cd9f24"
+  },
+  "scott-joplin": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/68/Scott_Joplin_in_1912.jpg",
+    "sha256": "7f9a62792e20971dd68119f75d11e8ae83b8ddce84caad959b6376abe6fdf3e2"
   },
   "wolfgang-amadeus-mozart": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/a/ad/The_Mozart_Family_-_Wolfgang_Amadeus_Mozart_headshot.jpg",
     "sha256": "b97636b2777ecca601cad4e7bec8412a703d52fff2fc0a0e7a3445a9bfeb3e65"
   },
+  "yatsuhashi-kengyo": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Tomb_of_Yatsuhasi-kengyo_in_Konkai-komyo-ji,_Kyoto.JPG",
+    "sha256": "9ec4b6d7b3288013fda7236b0b529463c487ad556f7d2f834c25ed48bed3c3e6"
+  },
+  "adi-shankara": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Raja_Ravi_Varma_-_Sankaracharya_-_cropped2.png",
+    "sha256": "81974bb89b3b04b260ef7757b2d051a70e645138a3d3066688169c81d57f6cfd"
+  },
+  "bodhidharma": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/a2/BodhidharmaYoshitoshi1887.jpg",
+    "sha256": "95baee9b1432d303a4092ca7ff7b8928b2dc972aff50ab860016a6f8f1a9b96c"
+  },
   "confucius": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/0/04/Confucius_1727.jpg",
     "sha256": "05b3e82b12496d0b80db92348889441c4b5243037a0ae8471367628dfcfbcaa8"
+  },
+  "francis-of-assisi": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/33/Philip_Fruytiers_-_St._Francis_of_Assisi.jpg",
+    "sha256": "b54c1b8044c6d5bc051b98994334b5e4736c9d383008b31ae72b2859520ddea4"
+  },
+  "haji-huud": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Sahasraling_Talav_at_Pattan.jpg",
+    "sha256": "8842de8443d3e6c0523d0559f78afcf3e29c2c27add85b2bcb64751f14691dbd"
+  },
+  "irenaeus": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/38/Saint_irenee_saint_irenee.jpg",
+    "sha256": "e2eed47520b5d60044066a8be428c92bb1fddc30f7d300d84e5552a8ea34ac17"
   },
   "john-the-baptist": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Leonardo_da_Vinci_-_Saint_John_the_Baptist_C2RMF_retouched.jpg/1920px-Leonardo_da_Vinci_-_Saint_John_the_Baptist_C2RMF_retouched.jpg",
@@ -827,53 +1279,245 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Zhang_Lu-Laozi_Riding_an_Ox.jpg",
     "sha256": "07a763565928e1fa504398a39b6b77820475bb606b7f551dab484052750fb60b"
   },
+  "madhva-acharya": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/44/Madhvacharya_Krishna_Matha_Udupi_Karnataka.jpg",
+    "sha256": "83174f3300706f2893b36cdc2deae56242bf4f52567a74a6981a0f09a033fddc"
+  },
+  "martin-luther": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/90/Lucas_Cranach_d.%C3%84._-_Martin_Luther%2C_1528_%28Veste_Coburg%29.jpg",
+    "sha256": "f8caedb2596202d99b1d366adea348558297a51595eb39c4cdfba5f352fff984"
+  },
+  "o-no-yasumaro": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Kojiki-Kokushitaikei1936-Kinoshita1940-KinoshitaRomaji1940.jpg",
+    "sha256": "a8b45406dc0f07cedab55e12477e8acf8ca5c9a1635c40fe4c5109229affb159"
+  },
   "siddhartha-gautama": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/6/67/Buddha_in_Sarnath_Museum_%28Dhammajak_Mutra%29_%28cropped%29.jpg",
     "sha256": "f51a48702a2a39fa1a57d53c9fadcef6e1a9dbff59c4249e69672a8f324086c0"
+  },
+  "simon-peter": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/56/Medallion_with_Saint_Peter_from_an_Icon_Frame_MET_DT200216.jpg",
+    "sha256": "a9ed3dc666a5137fb99d0c59611fd65306311c779833a40644ad0b1a6370ec49"
+  },
+  "songtsan-gampo": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/72/The_King_Songtsen_Gampo.jpg",
+    "sha256": "d191f120750338901b2de32b9a989b4fbc2f2f6be5dd4c705d36b12fc86660c2"
+  },
+  "thomas-aquinas": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/0a/St-thomas-aquinasFXD.jpg",
+    "sha256": "25287998516a8852fca4710e0a15ae299289cfe1c64046f43e97294e0c70b104"
   },
   "zoroaster": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/7/76/Zoroaster_1.jpg",
     "sha256": "52aa9dd9a223edfce27ed1648b551dc8250982306b4912d832223bdc8e574887"
   },
+  "abdus-salam": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/53/Abdus_Salam_1987.jpg",
+    "sha256": "ea2d536c24a97dabeff72e27fb5ccf3ab9a4b046a5200befa82941ac93505d7c"
+  },
+  "abu-al-qasim-al-zahrawi": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Albucasis_blistering_a_patient_in_the_hospital_at_Cordova._Wellcome_L0015000.jpg",
+    "sha256": "16261406a0c815187e82e054a051bd54f8d5b7a330b3413046e93b5cfa71cad4"
+  },
+  "alan-turing": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Alan_turing_header.jpg",
+    "sha256": "5780040f1276977b66fcf8701c6609c7649ffc24bd38e500fdcda25cb71f63c7"
+  },
   "albert-einstein": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/28/Albert_Einstein_Head_cleaned.jpg",
     "sha256": "e18d2f9d56227131a3be61dd0456a21d237af28e4ad740ccf7288c8547e68d20"
+  },
+  "alfred-nobel": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/07/Alfred_Nobel3.jpg",
+    "sha256": "4f7ee4b901743b60b59b0a5e0d4a93066029c2f6932d2b10b5d9ea7eab6235e3"
+  },
+  "aryabhata": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Aryabhatta_of_Bihar.jpg",
+    "sha256": "bf4749bf7d71cf3b8406d3aa724f2484400f14789cecc76b5185b9dd9036a551"
+  },
+  "carl-sagan": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Astronomer_Carl_Sagan_in_1987%2C_crop.jpg",
+    "sha256": "ba0db6815f65caa3961ec8ed8b98db5eef56c5408250233dc1119bacef1135dc"
   },
   "charles-darwin": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Charles_Darwin_seated_crop.jpg",
     "sha256": "b0b5d4ef112e84ada2d8968ef3122118e3c970d7dbe3371ce5c1237366293efb"
   },
+  "dmitri-mendeleev": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/af/Dmitri_Mendeleev.jpg",
+    "sha256": "b8e8f84b14c2e15c5975229d606602f6bdcb2c406ea8f3ade31fb71d6d37d5b5"
+  },
+  "emilie-du-chatelet": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Emilie_Chatelet_portrait_by_Latour.jpg",
+    "sha256": "beb78b2043751ebc515c1353aec2813e3e3884e3d256cf6e62912536a5d954b7"
+  },
+  "erwin-schrodinger": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/77/Erwin_Schr%C3%B6dinger_-_Narodowe_Archiwum_Cyfrowe_%281-E-939%29.jpg",
+    "sha256": "a91aa5d16c83ad10b310a344c4c03302950725a6c529a6d2931e717e94b9b646"
+  },
+  "euclid": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/73/Italian_-_Euclid_-_Google_Art_Project.jpg",
+    "sha256": "9f6f45a71299da86b5f113f5d76ae1a91822f3c02d6acc4ea8619a5e36c25507"
+  },
   "galileo-galilei": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg",
     "sha256": "5471323f70dd791b07716e1dc7f4ac2c71cfc3e35ed3b5d95d4fad7dbb6cc6a1"
+  },
+  "hildegard-of-bingen": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Hildegard_von_Bingen.jpg",
+    "sha256": "8df54ccfd73ac51dfd463f6098e443148334da0726308080f4e7ffa7f235b795"
   },
   "hypatia": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Hypatia_%28Charles_William_Mitchell%29.jpg",
     "sha256": "5d654a9c36af74856b2100db6e8e02c07480273f0b67e2832261c21bbaada9cb"
   },
+  "ibn-khaldun": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Bust_of_Ibn_Khaldun_%28Casbah_of_Bejaia%2C_Algeria%29.jpg",
+    "sha256": "41d9e49cc5030240d35b85d56089678ab41b0ced383142ace8c8623bcd4b8599"
+  },
   "isaac-newton": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Portrait_of_Sir_Isaac_Newton%2C_1689_%28brightened%29.jpg",
     "sha256": "f76f3357a27bfe9b1f5d593325324c6320f4fda06e820f86b62e159a4f404ea1"
+  },
+  "james-young": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/2a/James_Young_-_WWOTS1908.jpg",
+    "sha256": "5988118069708881c0413ee94f04b37ecfde6481440e89b52ce8c86e0ea2c088"
   },
   "janaki-ammal": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/0/03/E_K_Janaki_Ammal.jpg",
     "sha256": "a5ad4985b7193e672dd1df39bdd77eee7ae708c6755d13d72e2258ef53214255"
   },
+  "margaret-mead": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/99/Margaret_Mead_%281901-1978%29.jpg",
+    "sha256": "560872ef377de411a526b55f22c24aacd9cbc0377679dbc803eaf0dc7f4c58fb"
+  },
+  "mary-leakey": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/61/%28left_to_right%29_Mary_Douglas_Nicol_Leakey_%281913-1996%29_and_her_husband_Louis_Seymour_Bazett_Leakey_%281903-1972%29_%282%29_%28cropped%29.jpg",
+    "sha256": "55b27b8aa34112712260723c82543d2dbdcb793affcd5341c25594db93370a45"
+  },
+  "omar-khayyam": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Hakim_Omar_Khayam_-_panoramio.jpg",
+    "sha256": "b1de96533bca45d14ee7bbfb49d36398785325a41b40f77fd2225eea20c942c9"
+  },
+  "stephanie-kwolek": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Stephanie_Kwolek_by_Harry_Kalish.png",
+    "sha256": "52e18666490bffe1c2447ad73e319388406a61457c436ed83cd2330bdd6e9a80"
+  },
+  "zhang-heng": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/df/20251004_Tomb_of_Zhang_Heng_03.jpg",
+    "sha256": "5dc0f859f03bfbd514ff5be114fc260f9974d29f2b8a52667718e3d5f01df552"
+  },
+  "alexander-pushkin": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Orest_Kiprensky_-_%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%BF%D0%BE%D1%8D%D1%82%D0%B0_%D0%90.%D0%A1.%D0%9F%D1%83%D1%88%D0%BA%D0%B8%D0%BD%D0%B0_-_Google_Art_Project.jpg/1280px-Orest_Kiprensky_-_%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%BF%D0%BE%D1%8D%D1%82%D0%B0_%D0%90.%D0%A1.%D0%9F%D1%83%D1%88%D0%BA%D0%B8%D0%BD%D0%B0_-_Google_Art_Project.jpg",
+    "sha256": "ddf8663416007758f771c95bd037600bb4eb1f22c7cd32b9b9a5f7e68eb966fe"
+  },
+  "beatrix-potter": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Beatrix_Potter_by_King.jpg",
+    "sha256": "7f5f4dac363779b4297ab276f5fd74fccea081d04ee08ec9ea73ef350a7d5905"
+  },
+  "bhasa": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/The_Madhyama_Vyayoga%3B_a_drama_composed_by_the_poet_Bhasa_%28IA_madhyamavyayogad00bhas%29.pdf/page1-960px-The_Madhyama_Vyayoga%3B_a_drama_composed_by_the_poet_Bhasa_%28IA_madhyamavyayogad00bhas%29.pdf.jpg",
+    "sha256": "ead16843980d3f11ffef26a37b7713c05ac94efdb10da1b035d84eb06445f327"
+  },
+  "edgar-allan-poe": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/10/Daguerreotype_of_Edgar_Allan_Poe_1849.png",
+    "sha256": "1fc294030523c2e17e58f3501156c8f150b994a7e289e8b47f8b0f5ca3b8ab95"
+  },
+  "emily-dickinson": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Emily_Dickinson_daguerreotype_%28Restored%29.jpg",
+    "sha256": "85955ce27c0b0aa00081a5cd09ee596bf4d9beb0fbcc0e05a795085e69251b0f"
+  },
+  "f-scott-fitzgerald": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/95/Portrait_of_F._Scott_Fitzgerald_LCCN2004662882.jpg",
+    "sha256": "d3025de9570341e251c359a3a0eecf30c11466b583a2b42b4d6e00efa7778799"
+  },
+  "gabriela-mistral": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Gabriela_Mistral_%281922%29.jpg",
+    "sha256": "1b5258ca2b37c63661cfd935b1f0f9a79e4c5b6648ceecd4887578bf58ab3845"
+  },
+  "geoffrey-chaucer": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Chaucerportrait.jpg",
+    "sha256": "87ed67ef83b2456d0594384307eb5aa8286989990f9d169704ac4e57bfc594d6"
+  },
+  "h-g-wells": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4b/H.G._Wells_by_Beresford.jpg",
+    "sha256": "21d29db7dd392829bd817ed780fc3cd8f285fd72fc5d0c3ae66e55a551f2d9e2"
+  },
   "homer": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Homer_At_the_British_Museum_2024_%283x4_cropped%29.jpg",
     "sha256": "9f980e30b9f7259ba8f95520cb905a40f85a40e674f0dc9aacbb88497d676c09"
+  },
+  "james-joyce": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/ef/James_Joyce_by_Alex_Ehrenzweig%2C_1915_restored.jpg",
+    "sha256": "aaaa828c4f284d660b2e4eda2a7a9f22ab2902f45dbf9380b76d414205f45928"
   },
   "jane-austen": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg",
     "sha256": "22be0e3c0ce59a7601ce0562e16348d6ae3edaee82e868bd2260fdbc52d70d35"
   },
+  "johann-wolfgang-von-goethe": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Goethe_%28Stieler_1828%29.jpg",
+    "sha256": "ae7cc8e532faae1f4b076046fdcae207b683e9464a465f2d0ee5c9af0bb5388f"
+  },
+  "karel-capek": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Karel_%C4%8Capek.jpg",
+    "sha256": "17ea5b514567ea53abb5b3c09a33f27d17bc8389d6b4b76ade4848da9957c044"
+  },
+  "leo-tolstoy": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/be/Leo_Tolstoy_1908_Portrait_%283x4_cropped%29.jpg",
+    "sha256": "6754a0b698fac5050e9682891755707a496cc1f8dc3b8167fdaf0603ed1f02c7"
+  },
+  "li-bai": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Liang_Kai_-_Li_Bai_In_Stroll.jpg",
+    "sha256": "3f8e8f4a11ed7fe20bd07cf2c05640b036b9931f9de73b7a890e44e406bba186"
+  },
+  "margaret-cavendish": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Margaret_Cavendish%2C_Duchess_of_Newcastle%2C_by_Peter_Lely.jpg",
+    "sha256": "a5e15f8c01b40c3d02cc7769817eed1a9831031e1d934dbec8a2cb81944f9139"
+  },
+  "marie-catherine-daulnoy": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Recueil._Portraits_de_Marie_Catherine_Le_Jumel_de_Barneville%2C_comtesse_d%27Aulnoy_%281650-1705%29_-_btv1b85406437.jpg",
+    "sha256": "4e5e944f03725838cc7ce2dd38b071ea1f23647295d3973aba0e175cc4b6b314"
+  },
   "mark-twain": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Mark_Twain_by_AF_Bradley_%28cropped_2%29.jpg",
     "sha256": "d3ae9a9906c4b597cf2c740d39f1ee972ffe284cbb5e463747b481e0a25d5bf9"
   },
+  "mary-shelley": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/65/RothwellMaryShelley.jpg",
+    "sha256": "f59e6b229597418b22a9c8d21168c9cb62924d3e89c9ace782fd34cf50934219"
+  },
+  "miguel-de-cervantes": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Cervantes_J%C3%A1uregui.jpg/1280px-Cervantes_J%C3%A1uregui.jpg",
+    "sha256": "60970bd4ef196e42b3597f8a2a7315311f18504223485354e669e6c2dd0082b0"
+  },
   "murasaki-shikibu": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/1/19/Murasaki-Shikibu-composing-Genji-Monogatari.png",
     "sha256": "9fbeed6e439201306e641ccacfeb0eb5890a60d7233a20402bfa6ff5eda83259"
+  },
+  "niccolo-machiavelli": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Santi_di_Tito_-_Niccolo_Machiavelli%27s_portrait.jpg",
+    "sha256": "187ab4395583d130f79415dad41f909c8d44effb76038019cc1f3d76f9db7f35"
+  },
+  "ovid": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Ovide_chez_les_Scythes_%28Delacroix%29_National_Gallery.jpg/1280px-Ovide_chez_les_Scythes_%28Delacroix%29_National_Gallery.jpg",
+    "sha256": "c5f112a729878a48ebed4b9e2ef0e406f6b3c236b5bdc8636b802cfe095159ed"
+  },
+  "qu-yuan": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Qu_Yuan_Chen_Hongshou_2.jpg",
+    "sha256": "d4c63e3764c04870558844ec103b85c7c46d1fce28b270bcbae7feab4c3b899a"
+  },
+  "rabindranath-tagore": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/af/Rabindranath_Tagore%2C_full-length_portrait%2C_seated%2C_facing_front_LCCN99403031.jpg",
+    "sha256": "2d96dd24fc2c9dce5f617043b32f9025f3d85503696f46b58b0a38d1c9ad94af"
+  },
+  "rumi": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Masnavi_of_Jalal-al_Din_Rumi_MET_DP299178.jpg/1280px-Masnavi_of_Jalal-al_Din_Rumi_MET_DP299178.jpg",
+    "sha256": "361c8dfe79e9da10758530d75da210b9b8d47d9653adf454abee510a63cfdc79"
+  },
+  "valmiki": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Valmiki_Reciting_the_Ramayana_to_His_Pupil_Bharadvaja%2C_Folio_from_the_%27Shangri%27_Ramayana_%28Adventures_of_Rama%29_LACMA_M.83.105.9.jpg/1280px-Valmiki_Reciting_the_Ramayana_to_His_Pupil_Bharadvaja%2C_Folio_from_the_%27Shangri%27_Ramayana_%28Adventures_of_Rama%29_LACMA_M.83.105.9.jpg",
+    "sha256": "ef67cf50fe7bf0281beabcd7a37607ee2e167fd866c45be8448cb477692290e5"
   },
   "william-shakespeare": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/2/21/William_Shakespeare_by_John_Taylor%2C_edited.jpg",
@@ -1024,8 +1668,8 @@
     "sha256": "eca09f80511f4ae7682432ee2df4a2dfebd1d1d5cdedba91795878d4bca8c60e"
   },
   "montezuma": {
-    "source": "https://upload.wikimedia.org/wikipedia/commons/9/99/Huehuemoteuczoma_mendoza.jpg",
-    "sha256": "fd80e7ae95f545ee009d116ca0de5dd2ab2da00882a1294d0dd7725d178f1d63"
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/30/Moctezuma_I%2C_the_Fifth_Aztec_King_%28Reigned_1440%E2%80%9369%29_WDL6730.png",
+    "sha256": "6f73f223e836265547876ac84356fa82c0c3c3a094241df5e158ed6155a765a7"
   },
   "mvemba-a-nzinga": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Royal_banner_of_Kongo_%28Afonso_I%29.svg",
@@ -1040,8 +1684,8 @@
     "sha256": "832e7185aeb2b8accf92911607e0c8f0cfb830098b951c3188a04940a1ff0d29"
   },
   "pachacuti": {
-    "source": "https://upload.wikimedia.org/wikipedia/commons/5/53/Pachacutec-small.png",
-    "sha256": "f361b2452214174b7265cf3d1bc2538990f17138c21b09e9f5724e781f7b81fb"
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/26/Statue_de_Pachac%C3%BAtec_Avenida_San_Mart%C3%ADn_Cusco_%281%29.jpg",
+    "sha256": "63d889926722086868c2b59b5034eb308f9f32c48daaf083d3c0cee86b23da9a"
   },
   "pedro-ii": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Pedro_II_of_Brazil_-_Brady-Handy.jpg",

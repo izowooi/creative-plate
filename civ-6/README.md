@@ -30,6 +30,7 @@ npm run dev
 
 ```bash
 npm run content:check  # Markdown schema, 중복, 관계, 출처/이미지 권리 필드 검증
+npm run content:audit  # 본문 깊이·연표·출처 독립성·이미지 중복 감사
 npm run sources:report # 권장 출처 깊이(총 4개·독립 역사 출처 2개) 충족률 출력
 npm run sources:check  # 권장 출처 깊이를 전수 검사하고 미달 시 실패
 npm run roster:sync    # Civ VI roster 원본을 docs/catalog 스냅샷으로 갱신(네트워크 필요)
@@ -50,6 +51,10 @@ npm run db:seed        # docs/ → data/the-turn.db
 개발 서버가 켜진 상태에서 `db:seed`를 직접 실행하면 기존 SQLite 읽기 연결은 이전 파일을 계속 볼 수 있습니다. 콘텐츠를 다시 반영할 때는 개발 서버를 재시작하세요.
 
 폴더별 자료 구조와 frontmatter 규격은 [`docs/README.md`](./docs/README.md)를 참고하세요.
+
+대규모 집필 배치만 더 엄격하게 확인할 때는 예를 들어
+`npm run content:audit -- --slugs=<slug,slug> --min-overview=650 --min-game=180 --min-timeline=6 --check`를 사용합니다.
+옵션을 생략하면 기존 전체 컬렉션과 호환되는 기본 기준으로 검사하며, `--category=great-people`처럼 분류를 제한할 수도 있습니다.
 
 ## 전체 검증
 
