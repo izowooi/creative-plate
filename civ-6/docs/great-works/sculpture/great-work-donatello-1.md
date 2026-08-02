@@ -38,7 +38,7 @@ greatWork:
     note: "시각 작품이므로 대표 오디오를 제공하지 않는다."
 image: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Orsanmichele_Florenz_Donatello_Markus.jpg"
 imageAlt: "피렌체 오르산미켈레 외벽 감실에 놓인 도나텔로 성 마르코상의 대리석 복제품"
-imageCredit: "Stefan Bauer"
+imageCredit: "Stefan Bauer, http://www.ferras.at; Own work"
 imageLicense: "CC BY-SA 2.5"
 imageSource: "https://commons.wikimedia.org/wiki/File:Orsanmichele_Florenz_Donatello_Markus.jpg"
 featured: false
@@ -50,8 +50,8 @@ sources:
     url: "https://smarthistory.org/donatello-st-mark/"
   - title: "Orsanmichele visitor guide — Musei del Bargello"
     url: "https://bargellomusei.it/wp-content/uploads/2024/01/ORS-brochure-1.pdf"
-  - title: "San Marco conservation history — Ministero della Cultura"
-    url: "https://cultura.gov.it/comunicato/avviati-i-lavori-per-il-restauro-del-san-marco-di-donatello-al-museo-di-orsanmichele-di-firenzeun-progetto-realizzato-in-collaborazione-fra-i-musei-del-bargello-e-l-opificio-delle-pietre-dure-e-grazie-alla-donazione-dei-friends-of-florence"
+  - title: "Orsanmichele: Restoration and Analysis of Donatello’s San Marco — Friends of Florence"
+    url: "https://www.friendsofflorence.org/projects/orsanmichele-restoration-and-analysis-of-donatellos-san-marco-statue/"
   - title: "Commons 이미지 기록"
     url: "https://commons.wikimedia.org/wiki/File:Orsanmichele_Florenz_Donatello_Markus.jpg"
 ---
@@ -87,5 +87,5 @@ sources:
 - [게임 표시명·제작자·유형 — Civilization VI Civilopedia](https://www.civilopedia.net/en-US/gathering-storm/greatpeople/great_person_individual_donatello/)
 - [주문 길드·형식·설치 시점 해설 — Smarthistory](https://smarthistory.org/donatello-st-mark/)
 - [원본의 현재 위치와 오르산미켈레 안내 — Musei del Bargello](https://bargellomusei.it/wp-content/uploads/2024/01/ORS-brochure-1.pdf)
-- [원본 철거·복원 연혁 — 이탈리아 문화부](https://cultura.gov.it/comunicato/avviati-i-lavori-per-il-restauro-del-san-marco-di-donatello-al-museo-di-orsanmichele-di-firenzeun-progetto-realizzato-in-collaborazione-fra-i-musei-del-bargello-e-l-opificio-delle-pietre-dure-e-grazie-alla-donazione-dei-friends-of-florence)
+- [원본 철거·복원 연혁 — Friends of Florence](https://www.friendsofflorence.org/projects/orsanmichele-restoration-and-analysis-of-donatellos-san-marco-statue/)
 - [외벽 복제품 사진·CC BY-SA 2.5 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Orsanmichele_Florenz_Donatello_Markus.jpg)

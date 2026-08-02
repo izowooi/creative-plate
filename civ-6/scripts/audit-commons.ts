@@ -8,6 +8,7 @@ type CommonsPage = {
   missing?: boolean;
   imageinfo?: Array<{
     url?: string;
+    size?: number;
     extmetadata?: Record<string, MetadataValue>;
   }>;
 };
@@ -23,6 +24,7 @@ type CommonsResponse = {
 const apiUrl = "https://commons.wikimedia.org/w/api.php";
 const checkMode = process.argv.includes("--check");
 const strictCredit = process.argv.includes("--strict-credit");
+const exactCredit = process.argv.includes("--exact-credit");
 const requestedSlugs = new Set(
   process.argv
     .filter((argument) => argument.startsWith("--slugs="))
@@ -97,7 +99,7 @@ async function queryCommons(titles: string[]) {
     formatversion: "2",
     redirects: "1",
     prop: "imageinfo",
-    iiprop: "url|extmetadata",
+    iiprop: "url|size|extmetadata",
     titles: titles.join("|"),
   });
 
@@ -111,7 +113,18 @@ async function queryCommons(titles: string[]) {
       body,
       signal: AbortSignal.timeout(30_000),
     });
-    if (response.ok) return response.json() as Promise<CommonsResponse>;
+    if (response.ok) {
+      const responseBody = await response.text();
+      try {
+        return JSON.parse(responseBody) as CommonsResponse;
+      } catch (error) {
+        if (/too many requests/i.test(responseBody) && attempt < 2) {
+          await new Promise((resolve) => setTimeout(resolve, [1_500, 4_000][attempt]));
+          continue;
+        }
+        throw new Error(`Commons API JSON 해석 실패: ${String(error)}`);
+      }
+    }
     if (![408, 429, 500, 502, 503, 504].includes(response.status) || attempt === 2) {
       throw new Error(`Commons API 응답 ${response.status}`);
     }
@@ -163,6 +176,7 @@ async function main() {
 
   let verified = 0;
   let creditVerified = 0;
+  let exactCreditVerified = 0;
   for (const row of titleRows) {
     const page = resultByTitle.get(row.title);
     const imageInfo = page?.imageinfo?.[0];
@@ -172,6 +186,15 @@ async function main() {
     }
     if (imageFileName(row.entry.image) !== imageFileName(imageInfo.url)) {
       issues.push(`${row.entry.slug}: image URL과 imageSource Commons 파일이 서로 다릅니다.`);
+      continue;
+    }
+    if (
+      !new URL(row.entry.image).pathname.includes("/thumb/") &&
+      (imageInfo.size ?? 0) > 30 * 1024 * 1024
+    ) {
+      issues.push(
+        `${row.entry.slug}: 원본 이미지가 30MB를 초과해 images:sync할 수 없습니다. 같은 File의 Commons thumbnail URL을 사용하세요.`,
+      );
       continue;
     }
 
@@ -195,12 +218,27 @@ async function main() {
       continue;
     }
     creditVerified += 1;
+
+    if (exactCredit) {
+      const credit = plainText(metadata.Credit?.value ?? metadata.Source?.value ?? "");
+      const expectedCredit = credit && credit !== artist ? `${artist}; ${credit}` : artist;
+      if (plainText(row.entry.imageCredit) !== expectedCredit) {
+        issues.push(
+          `${row.entry.slug}: imageCredit이 Commons metadata와 다릅니다. expected "${expectedCredit}"`,
+        );
+      } else {
+        exactCreditVerified += 1;
+      }
+    }
   }
 
   console.log("Wikimedia Commons metadata audit");
   console.log(`- audited images: ${entries.length}/${selectedEntries.length} selected entries`);
   console.log(`- page, image URL, and license metadata verified: ${verified}/${entries.length}`);
   console.log(`- author/credit metadata present: ${creditVerified}/${entries.length}`);
+  if (exactCredit) {
+    console.log(`- exact imageCredit metadata matches: ${exactCreditVerified}/${entries.length}`);
+  }
   if (issues.length) {
     console.log("- issues:");
     for (const issue of issues) console.log(`  - ${issue}`);

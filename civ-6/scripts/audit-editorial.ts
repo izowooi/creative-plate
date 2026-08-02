@@ -27,6 +27,16 @@ function integerOption(name: string, fallback: number) {
   return value;
 }
 
+function optionalIntegerOption(name: string) {
+  const raw = option(name);
+  if (raw === undefined) return undefined;
+  const value = Number(raw);
+  if (!Number.isSafeInteger(value) || value < 0) {
+    throw new Error(`--${name}에는 0 이상의 정수가 필요합니다: ${raw}`);
+  }
+  return value;
+}
+
 function section(body: string, heading: string) {
   const marker = `## ${heading}`;
   const markerIndex = body.indexOf(marker);
@@ -84,15 +94,22 @@ function main() {
   ));
   if (!entries.length) throw new Error("감사할 Markdown 항목이 없습니다.");
 
-  const thresholds = {
-    overview: integerOption("min-overview", 300),
-    game: integerOption("min-game", 100),
-    timeline: integerOption("min-timeline", 4),
+  const thresholdOverrides = {
+    overview: optionalIntegerOption("min-overview"),
+    game: optionalIntegerOption("min-game"),
+    timeline: optionalIntegerOption("min-timeline"),
     sources: integerOption("min-sources", 4),
     historySources: integerOption("min-history-sources", 2),
   };
   const issues: string[] = [];
   const metrics = entries.map((entry) => {
+    const thresholds = {
+      overview: thresholdOverrides.overview ?? (entry.category === "great-works" ? 600 : 300),
+      game: thresholdOverrides.game ?? (entry.category === "great-works" ? 200 : 100),
+      timeline: thresholdOverrides.timeline ?? (entry.category === "great-works" ? 8 : 4),
+      sources: thresholdOverrides.sources,
+      historySources: thresholdOverrides.historySources,
+    };
     const overviewLength = compactLength(section(entry.body, "개요"));
     const gameLength = compactLength(section(entry.body, "게임에서 다시 보기"));
     const timeline = section(entry.body, "핵심 연표/사실");

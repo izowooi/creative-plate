@@ -60,12 +60,22 @@ greatWork:
 
 `audio.status: available`이고 재사용 조건이 확인된 녹음만 `npm run audio:sync`의 로컬 archive 대상이다. `audio.status: unavailable`은 찾지 못했거나 권리를 확인하지 못했다는 편집 metadata로 남기며 파일을 생성하지 않는다. 게임에서 추출한 음원은 사용하지 않는다. `npm run audio:check`는 available 항목의 metadata·manifest·로컬 파일을 교차 검증한다.
 
+시각 작품은 작품과 실제로 대응하는 고유 Wikimedia Commons File을 우선한다. `imageCredit`은 소장처를 추측해 적지 않고 해당 File의 `Artist` 및 필요한 `Credit/Source` metadata를 그대로 반영하며, `imageLicense`도 File metadata와 같은 license family여야 한다. 후대 재각본·복제·별도 edition을 쓴다면 그 제작자와 연대를 `imageCredit`, 작품 note, 본문에서 원작과 구분한다. Commons 원본이 30MB를 넘으면 같은 File의 직접 thumbnail URL을 써서 `images:sync` 상한을 지킨다. 작품에 대응하고 재사용 조건이 명확한 File을 확보하지 못한 경우에만 이유를 기록하고 `imageRole: none`으로 둔다.
+
 ## 부분 집필과 최종 gate
+
+Great Works는 일반 프로필보다 작품 식별·판본·권리 층을 더 자세히 설명해야 한다. 별도 option 없이 실행하는 editorial audit도 이 폴더에는 다음 강화 기준을 적용한다.
+
+- `개요`: 공백 제외 600자 이상
+- `게임에서 다시 보기`: 공백 제외 200자 이상
+- `핵심 연표/사실`: 8개 이상
+- 고유 출처: 4개 이상, 그중 게임·이미지 기록이 아닌 독립 역사 출처 2개 이상
 
 ```bash
 npm run great-works:report
 npm run great-works:report -- --missing
 npm run great-works:check
+npm run images:audit -- --slugs=<comma-separated-slugs> --strict-credit --exact-credit --check
 npm run audio:sync
 npm run audio:check
 ```

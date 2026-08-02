@@ -38,7 +38,7 @@ greatWork:
     note: "시각 작품이므로 대표 오디오를 제공하지 않는다."
 image: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Rembrandt_van_Rijn%2C_Abraham_and_Isaac%2C_1645%2C_NGA_46905.jpg"
 imageAlt: "소년 이사악 곁에서 하늘을 가리키는 아브라함을 선과 명암으로 묘사한 렘브란트의 에칭"
-imageCredit: "Rembrandt van Rijn; National Gallery of Art, Washington"
+imageCredit: "Rembrandt van Rijn; This file was donated to Wikimedia Commons as part of a project by the National Gallery of Art . Please see the Gallery's Open Access Policy ."
 imageLicense: "CC0"
 imageSource: "https://commons.wikimedia.org/wiki/File:Rembrandt_van_Rijn,_Abraham_and_Isaac,_1645,_NGA_46905.jpg"
 featured: false

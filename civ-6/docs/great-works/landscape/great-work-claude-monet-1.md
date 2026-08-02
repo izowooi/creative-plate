@@ -38,7 +38,7 @@ greatWork:
     note: "시각 작품이므로 대표 오디오를 제공하지 않는다."
 image: "https://upload.wikimedia.org/wikipedia/commons/0/07/Claude_Monet_-_Waterlilies_-_Nympheas_%281908%29.jpg"
 imageAlt: "푸른 물 위의 수련과 반사광을 짧은 붓질로 겹쳐 그린 모네의 1908년 수련 그림"
-imageCredit: "Claude Monet; digital reproduction via Sotheby's"
+imageCredit: "Claude Monet; Sotheby's, London, 19 June 2019, lot 10"
 imageLicense: "Public domain"
 imageSource: "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Waterlilies_-_Nympheas_(1908).jpg"
 featured: false

@@ -25,7 +25,7 @@ greatWork:
     status: single
     name: "Gemäldegalerie Alte Meister, Museumslandschaft Hessen Kassel"
     location: "카셀, 독일"
-    url: "https://altemeister.museum-kassel.de/33762/36917/r/147/b4/0/3/objekt.html"
+    url: "https://blog.museum-kassel.de/2021/10/20/nennt-mich-de-graeff-ein-kasseler-rembrandt-zu-gast-in-frankfurt/"
     note: "1752년 빌헬름 8세를 위해 구입된 뒤 카셀 컬렉션에 보존된다."
   workRights:
     status: public-domain
@@ -38,7 +38,7 @@ greatWork:
     note: "시각 작품이므로 대표 오디오를 제공하지 않는다."
 image: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Portrait_of_Andries_de_Graeff_%E2%80%93_Rembrandt.jpg"
 imageAlt: "검은 옷과 넓은 챙 모자를 쓴 남성이 기둥 곁에 전신으로 서 있는 렘브란트의 1639년 초상"
-imageCredit: "Rembrandt; digital reproduction via Web Gallery of Art"
+imageCredit: 'Rembrandt; Web Gallery of Art : Image Info about artwork wga QS:P11807,"r/rembran/painting/portrai2/graeff"'
 imageLicense: "Public domain"
 imageSource: "https://commons.wikimedia.org/wiki/File:Portrait_of_Andries_de_Graeff_%E2%80%93_Rembrandt.jpg"
 featured: false
@@ -46,10 +46,10 @@ related: []
 sources:
   - title: "Rembrandt van Rijn — Civilization VI Civilopedia"
     url: "https://www.civilopedia.net/en-US/gathering-storm/greatpeople/great_person_individual_rembrandt_van_rijn/"
-  - title: "Portrait of a Man Standing — Gemäldegalerie Alte Meister Kassel"
-    url: "https://altemeister.museum-kassel.de/33762/36917/r/147/b4/0/3/objekt.html"
-  - title: "Rembrandt in Amsterdam — Städel Museum"
-    url: "https://newsroom.staedelmuseum.de/en/content/rembrandt-amsterdam-creativitiy-and-competition"
+  - title: "Nennt mich de Graeff? — Museumslandschaft Hessen Kassel"
+    url: "https://blog.museum-kassel.de/2021/10/20/nennt-mich-de-graeff-ein-kasseler-rembrandt-zu-gast-in-frankfurt/"
+  - title: "Rembrandt in Amsterdam: Creativity and Competition — Städel Museum"
+    url: "https://www.staedelmuseum.de/en/rembrandt-in-amsterdam"
   - title: "Commons 이미지 기록"
     url: "https://commons.wikimedia.org/wiki/File:Portrait_of_Andries_de_Graeff_%E2%80%93_Rembrandt.jpg"
 ---
@@ -58,7 +58,7 @@ sources:
 
 ## 개요
 
-1639년에 제작된 이 초상은 높이 약 199cm의 캔버스에 한 남성을 거의 실물 크기로 세운 렘브란트의 드문 전신 초상이다. 인물은 검은 옷과 넓은 챙 모자를 쓰고 한 손을 허리에 둔 채 건축물 모서리에 기대어 있다. 검은 직물은 단색 덩어리가 아니라 광택과 주름, 모피와 가죽의 서로 다른 표면으로 나뉘며, 얼굴과 흰 칼라·손에 집중된 빛이 사회적 존재감을 만든다. 궁정 귀족의 전유물처럼 여겨지던 큰 전신 형식을 암스테르담 시민 엘리트가 채택했다는 점에서, 부와 공적 지위를 시각적으로 협상하던 네덜란드 공화국의 초상 문화를 보여 준다.
+1639년에 제작된 이 초상은 높이 약 199cm의 캔버스에 한 남성을 거의 실물 크기로 세운 렘브란트의 드문 전신 초상이다. 인물은 검은 옷과 넓은 챙 모자를 쓰고 한쪽 맨손과 팔꿈치를 난간에 얹으며, 반대 손에는 장갑을 낀 채 서 있다. 검은 직물은 단색 덩어리가 아니라 광택과 주름, 모피와 가죽의 서로 다른 표면으로 나뉘며, 얼굴과 흰 칼라·손에 집중된 빛이 사회적 존재감을 만든다. 궁정 귀족의 전유물처럼 여겨지던 큰 전신 형식을 암스테르담 시민 엘리트가 채택했다는 점에서, 부와 공적 지위를 시각적으로 협상하던 네덜란드 공화국의 초상 문화를 보여 준다.
 
 게임은 작품을 단정적으로 《Andries de Graeff》라 부르지만 현재 카셀 미술관의 표제는 ‘서 있는 남자의 전신 초상(안드리스 더흐라프로 추정)’에 가깝다. 안드리스 더흐라프는 훗날 여러 차례 암스테르담 시장을 지낸 섭정 가문의 인물이며 중요한 미술 후원자였다. 그가 1639년 렘브란트에게 전신 초상을 주문했다는 문헌 정황은 식별을 지지한다. 반면 확실히 신원이 알려진 다른 초상과 얼굴이 충분히 닮지 않았다는 지적도 있어, 소장관은 물음표를 지우지 않는다. 서명과 연도는 작가 귀속을 강하게 뒷받침하지만 모델의 이름까지 보증하지는 않는 것이다.
 
@@ -82,6 +82,6 @@ sources:
 ## 출처
 
 - [게임 표시명·제작자·유형 — Civilization VI Civilopedia](https://www.civilopedia.net/en-US/gathering-storm/greatpeople/great_person_individual_rembrandt_van_rijn/)
-- [연도·재료·크기·소장 이력과 시터 논쟁 — Gemäldegalerie Alte Meister Kassel](https://altemeister.museum-kassel.de/33762/36917/r/147/b4/0/3/objekt.html)
-- [1639년 초상과 암스테르담 제작 맥락 — Städel Museum](https://newsroom.staedelmuseum.de/en/content/rembrandt-amsterdam-creativitiy-and-competition)
+- [1639년 표제·1752년 편입·현재 소장과 시터 논쟁 — Museumslandschaft Hessen Kassel](https://blog.museum-kassel.de/2021/10/20/nennt-mich-de-graeff-ein-kasseler-rembrandt-zu-gast-in-frankfurt/)
+- [1639년 초상과 암스테르담 제작 맥락 — Städel Museum](https://www.staedelmuseum.de/en/rembrandt-in-amsterdam)
 - [이미지·작품 메타데이터·라이선스 — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Portrait_of_Andries_de_Graeff_%E2%80%93_Rembrandt.jpg)

@@ -1527,17 +1527,269 @@
     "source": "https://upload.wikimedia.org/wikipedia/commons/0/07/Claude_Monet_-_Waterlilies_-_Nympheas_%281908%29.jpg",
     "sha256": "9e6aa6f4238071faccb6feb9e875d51e6e5af61f673880f6b7142479ed099797"
   },
+  "great-work-claude-monet-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/54/Claude_Monet%2C_Impression%2C_soleil_levant.jpg",
+    "sha256": "3d09968f05199cc3d6c50ba51fe215e317b6c46786d4a8deaf2dd6b1b0012c91"
+  },
+  "great-work-claude-monet-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Monet%2C_Claude_-_Haystack_at_Giverny.jpg",
+    "sha256": "537e795e7906ef4340742aa39e7296b9150a63f85c25bed345625cf4b5a97566"
+  },
+  "great-work-el-greco-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/02/El_Greco_View_of_Toledo.jpg",
+    "sha256": "243397e4892a3e4c771cd8ef9d6cf68bf43d9192e52d703f8bab855d57a5572f"
+  },
+  "great-work-gustav-klimt-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Gustav_Klimt_-_Allee_zum_Schloss_Kammer_-_2892_-_%C3%96sterreichische_Galerie_Belvedere.jpg",
+    "sha256": "03ad2c247a826aefd46345f7f6c33bb00c0bd0adefb96955f8f1562b1ea39a24"
+  },
+  "great-work-gustav-klimt-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Gustav_Klimt_-_Bauerngarten_mit_Sonnenblumen_-_3685_-_%C3%96sterreichische_Galerie_Belvedere.jpg",
+    "sha256": "dfafd3d66e964aaba48f5dfcd1c4313071acd6b925bcf9e5c66a61874e525f64"
+  },
+  "great-work-hasegawa-tohaku-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Hasegawa_Tohaku_-_Pine_Trees_%28Sh%C5%8Drin-zu_by%C5%8Dbu%29_-_left_hand_screen.jpg/1920px-Hasegawa_Tohaku_-_Pine_Trees_%28Sh%C5%8Drin-zu_by%C5%8Dbu%29_-_left_hand_screen.jpg",
+    "sha256": "031d87286fb4f2ca0fe6514633b9df35c0d64093ee0a55a40170e13b2f69bccb"
+  },
+  "great-work-hasegawa-tohaku-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/59/MAPLE_CHISHAKU-IN.JPG",
+    "sha256": "2e9ccab1a85d39756a79e3c4d83546a5a607805ed7c3abae78852c270cf826c4"
+  },
+  "great-work-hasegawa-tohaku-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/07/TOHAKU-Birds_and_flowers.jpg",
+    "sha256": "b397f06c2f1646aef0944f47bf4eb67fa9b2ea64505d3956442ed6ee687b1609"
+  },
+  "great-work-jang-seung-eop-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Owon-Samin.munnyeondo.jpg",
+    "sha256": "53e4e325fb64b294fac80c9c84673643f41cde3ddcb78869c7e61b4e90cc3c0f"
+  },
+  "great-work-jang-seung-eop-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Owon-Rooster-1.jpg",
+    "sha256": "d8c98e0751030c9a3e50d8c60d00955549a232c7fbff71e3ebd1b503c093cf42"
+  },
+  "great-work-jang-seung-eop-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Owon-Ssangma.inmuldo-1.jpg",
+    "sha256": "5c33f3319b2215296460c6c9e87b9b38f71c2138f61d937b3be66ef98bbbbeef"
+  },
+  "great-work-kamal-ud-din-behzad-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/36/Behzad_timur_egyptian.jpg",
+    "sha256": "df5b4d75fbb286ef0524b064c35a04bdc94d8951ff6806561002574f6a368b70"
+  },
+  "great-work-kamal-ud-din-behzad-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/17/Yusuf_fleeing_the_Advances_of_Zulaikha.jpg",
+    "sha256": "1023d6e675566ed94116b9f22bb73af8e3574cfff683908e3b6250c85d0e789c"
+  },
+  "great-work-katsushika-hokusai-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/0a/The_Great_Wave_off_Kanagawa.jpg",
+    "sha256": "74f07b28d6e39e46f0e68b8a789b1511b96fa848e5ad27b7eb86e89271700425"
+  },
+  "great-work-katsushika-hokusai-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Lake_Suwa_in_the_Shinano_province.jpg",
+    "sha256": "2ec63f07519b7432544b1f4fe2d0e37501327e514c58c2868ae294951117a550"
+  },
+  "great-work-katsushika-hokusai-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/25/Katsushika_Hokusai_-_Fine_Wind%2C_Clear_Morning_%28Gaif%C5%AB_kaisei%29_-_Google_Art_Project.jpg",
+    "sha256": "c81b2702ed727eb8b512d8d18ddfdaa945293354238f8e07d3fd1a4b723aedbf"
+  },
+  "great-work-qiu-ying-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Qiu_Ying_Spring_morning_in_the_Han_palace.jpg",
+    "sha256": "5a382cd988844e237adc1cceb1dd3e88c38f4ca3664dc5bb4b488e645565190b"
+  },
+  "great-work-qiu-ying-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/79/Qiu_Ying_-_Red_Cliff.jpg",
+    "sha256": "a6de22dcfccc7e536646084332039e0f4742c4e87ab1b0f89e62825f3a52960d"
+  },
+  "great-work-vincent-van-gogh-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1920px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+    "sha256": "4b7dc5c16421cab535d750095f0b3545b2a56c7706ed77d0a83caef6a301d491"
+  },
+  "great-work-vincent-van-gogh-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/09/Van_Gogh_-_Terrasse_des_Caf%C3%A9s_an_der_Place_du_Forum_in_Arles_am_Abend1.jpeg",
+    "sha256": "40f31a045b9bab48aa9f0398d1d398bfced47a5317e2d644a4c53cb483936c8c"
+  },
+  "great-work-vincent-van-gogh-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Van_Gogh_The_Night_Cafe.jpg",
+    "sha256": "c88b06196e724f9ef35fb0d0b20030d50770c38ef04fbd4874509df584ab4deb"
+  },
+  "great-work-wassily-kandinsky-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/47/Vassily_Kandinsky%2C_1923_-_Composition_8%2C_huile_sur_toile%2C_140_cm_x_201_cm%2C_Mus%C3%A9e_Guggenheim%2C_New_York.jpg",
+    "sha256": "629f220851a9618ba60db87232a3cf360832c8947efb6b734e2a0978a509eb9b"
+  },
+  "great-work-wassily-kandinsky-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Wassily_Kandinsky_Moscow._Red_Square.jpg",
+    "sha256": "adb022bfaa472af7cf5f27a452b3df720e5aadc2fbb22de03686f7ba14b6fa19"
+  },
+  "great-work-amrita-sher-gil-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Amrita_Sher-Gil_Group_of_Three_Girls.jpg",
+    "sha256": "444571f6541ad2f1f1d86072f1082f458a19c256891249286d1164bbc2a0ecd9"
+  },
+  "great-work-amrita-sher-gil-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Amrita_Sger-Gil_Bride%27s_Toilet.jpg",
+    "sha256": "73c32ca31cec396191dc38e0c6c5e69aaf4fcf248e555fa18fce93544b12dbf6"
+  },
+  "great-work-amrita-sher-gil-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Amrita_Sher-Gil_Self-portrait.jpg",
+    "sha256": "4edb3356bde84b3b1d3ea78ea80d98e0be64ea7a2cc2c4f51caf321b4ff7977a"
+  },
+  "great-work-angelica-kauffman-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Anna_Maria_Jenkins%3B_Thomas_Jenkins_by_Angelica_Kauffmann.jpg",
+    "sha256": "49120951255aff1ebfaf6e84245e1aa6cfeb491129e3c6bd907388a702c1b130"
+  },
+  "great-work-angelica-kauffman-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Angelika_Kauffmann_-_Bildnis_Johann_Joachim_Winckelmann_-_98_-_Kunsthaus_Z%C3%BCrich.jpg",
+    "sha256": "0f6547cc2a47b540b3a391ce1786fa141a7b54ddc89dc4462b3cdd3b7e2bc8fc"
+  },
+  "great-work-angelica-kauffman-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/47/Angelica_Kauffmann_-_Portrait_of_Sarah_Harrop_%28Mrs._Bates%29_as_a_Muse_-_2010-101_-_Princeton_University_Art_Museum.jpg",
+    "sha256": "981541656de5d51641089b2bcb87ec0393caabeec99958a02e8c07342428f8f0"
+  },
+  "great-work-gustav-klimt-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Gustav_Klimt_-_Der_Kuss_%28Liebespaar%29_-_912_-_%C3%96sterreichische_Galerie_Belvedere.jpg/1920px-Gustav_Klimt_-_Der_Kuss_%28Liebespaar%29_-_912_-_%C3%96sterreichische_Galerie_Belvedere.jpg",
+    "sha256": "c0460d681c6f87ec08be5ff2b634a94906474219e243b45dcf3e35139bf67b3f"
+  },
+  "great-work-kamal-ud-din-behzad-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Timur_granting_audience_on_the_occasion_of_his_accession_%28right%29.jpg",
+    "sha256": "8746d874bffaabe7c59326474ab7c5a22965bf5b38f3baaa73ff32ad79d42dde"
+  },
+  "great-work-mary-cassatt-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Cassatt_Mary_At_the_Theater_1879.jpg",
+    "sha256": "bb11b2b589c09a3f923f107e31f09d06c8660f175dbda883ff7552db1768d54c"
+  },
+  "great-work-mary-cassatt-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Mary_Cassatt_-_The_Child%27s_Bath_-_1910.2_-_Art_Institute_of_Chicago.jpg",
+    "sha256": "627eb509dbf7b3deb490ddb6b43482463862c86122739a99b7f24e11653cef73"
+  },
+  "great-work-mary-cassatt-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/47/Mary_Cassatt_-_The_Cup_of_Tea_-_MMA_22.16.17.jpg",
+    "sha256": "1ffcc33c8f415deed84925ea8051c9803d7f86de295e5563f681729edcc1910e"
+  },
   "great-work-rembrandt-1": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Portrait_of_Andries_de_Graeff_%E2%80%93_Rembrandt.jpg",
     "sha256": "8aa6da65595a3443199cad9edef86f4cf63ac6b1bb9b45d9bbbe55b664d50aee"
+  },
+  "great-work-rembrandt-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Rembrandt_van_Rijn_%28Leiden_1606-Amsterdam_1669%29_-_Agatha_Bas_%281611-1658%29_-_RCIN_405352_-_Royal_Collection.jpg",
+    "sha256": "e0cd4aeddf514f86b096a47c72d25d09f0f11387d326c925ecc87907aeb81d74"
+  },
+  "great-work-sofonisba-anguissola-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Sofonisba_Anguissola_-_Portrait_of_the_Artist%27s_Sisters_Playing_Chess_-_WGA00697.jpg",
+    "sha256": "d60ebb1ebed0cf5332becb99514924bfd70a07efd549461006859fcb525043e9"
+  },
+  "great-work-sofonisba-anguissola-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Felipe_II_por_Sofonisba_Anguissola%2C_1573.jpg",
+    "sha256": "4362a0f76d6e2def4d444407c48dab124c0e87e7a6ad3f310ff0eec6af12176b"
+  },
+  "great-work-sofonisba-anguissola-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Sofonisba_-_portrait_of_a_monk_c._1556.jpg",
+    "sha256": "2f697ce8fbb98f09b45ce07655ebd2bc1b880395b1fceed51dfdae01ee2b6af4"
+  },
+  "great-work-titian-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Carlos_V_en_M%C3%BChlberg%2C_by_Titian%2C_from_Prado_in_Google_Earth.jpg/1920px-Carlos_V_en_M%C3%BChlberg%2C_by_Titian%2C_from_Prado_in_Google_Earth.jpg",
+    "sha256": "17459f93912b264524b52d19a419be54e4a63b65a7934572d44a5f46387fe75c"
+  },
+  "great-work-wassily-kandinsky-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Wassily_Kandinsky%2C_1903%2C_The_Blue_Rider_%28Der_Blaue_Reiter%29%2C_oil_on_canvas%2C_52.1_x_54.6_cm%2C_Stiftung_Sammlung_E.G._B%C3%BChrle%2C_Zurich.jpg",
+    "sha256": "d2c05694d2c5e18f874c59debf60ac55e4a779f82dc986df27f2fee8e19011a3"
+  },
+  "great-work-andrei-rublev-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Annunciation_from_Vasilyevskiy_chin_(1408%2C_Tretyakov_gallery).jpg",
+    "sha256": "f23248a0e559ef6a1c6588fc14a0e18873e405c39bc8df8b64c43b0385d968d2"
+  },
+  "great-work-andrei-rublev-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Spas_v_silach_from_Vasilyevskiy_chin_(15th_c.%2C_GTG).jpg",
+    "sha256": "d625e8a3a1f7b155d6b84f8bd38d53782e862a219cffed0fbd8affadb2f9953f"
+  },
+  "great-work-andrei-rublev-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Ascension_from_Vasilyevskiy_chin_(15th_c.%2C_GTG).jpg",
+    "sha256": "602c26ebc708af71de0d7ded819fef458fdb69a48063b35126afc4a8bc79596c"
+  },
+  "great-work-el-greco-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/cf/El_Greco_-_The_Adoration_of_the_Magi_-_Google_Art_Project_%28721007%29.jpg",
+    "sha256": "5a4235f129921c056e3ae33e1e9ee68e618232a2f2eed5fb5f5a56c974253ff8"
+  },
+  "great-work-el-greco-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Domenico_Theotok%C3%B3poulos%2C_called_El_Greco_-_The_Assumption_of_the_Virgin_-_1906.99_-_Art_Institute_of_Chicago.jpg",
+    "sha256": "17ff74152c386323eedd046adeb3a2fe1ea105213bab61a95fa7c9da6f398796"
+  },
+  "great-work-hieronymus-bosch-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/The_Garden_of_Earthly_Delights_by_Bosch_High_Resolution.jpg/1920px-The_Garden_of_Earthly_Delights_by_Bosch_High_Resolution.jpg",
+    "sha256": "928001bd3aa7176377ece8b5d32a803298c748da8eab51f78309d3477e5b6acd"
+  },
+  "great-work-hieronymus-bosch-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/47/Last_judgement_Bosch.jpg",
+    "sha256": "b2ad431edee5cdf862e8a8b2b776ba249134f4bd434251614dc15f4e7dc768fe"
+  },
+  "great-work-hieronymus-bosch-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Bosch_-_Haywain_Triptych.jpg",
+    "sha256": "c8989bcb08554fc69d4498f9a717d91863da7a2799498b52e7b1394b13e52796"
+  },
+  "great-work-michelangelo-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Sistine_ceiling.jpg",
+    "sha256": "534c590b191902067c30ba9b1e98588324ee5457af6ed126e6f835a7381ad41a"
   },
   "great-work-rembrandt-3": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Rembrandt_van_Rijn%2C_Abraham_and_Isaac%2C_1645%2C_NGA_46905.jpg",
     "sha256": "2a74e81f6840a168936ac2812dc04832286892f9f23a116b73f057da3575307a"
   },
+  "great-work-titian-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Tizian_041.jpg",
+    "sha256": "3afadd928482e44f155a2273a5ae6719c12b33dca8360c70cb2de23555a97e16"
+  },
+  "great-work-titian-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Tiziano_Vecellio_-_Salom%C3%A8_con_la_testa_del_Battista_-_FC_517_-_Galleria_Doria_Pamphilj.jpg",
+    "sha256": "e81d28c101aba74be358413ff720260dddbd9a60eabd8722073ff8598e2ee298"
+  },
+  "great-work-boris-orlovsky-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/99/Monument_to_Kutuzov_in_SPB.jpg",
+    "sha256": "d43127ac5f420810aba1e30ae0d9e7b2fe5fc3bc136e797cde50ba1aaea9d7dd"
+  },
+  "great-work-boris-orlovsky-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Angel_on_Alexander_Column_SPB.jpg",
+    "sha256": "8151b07ac8bd5c30af3677239daf1fb8e711adca1a3be8cba09648018ccac6f4"
+  },
+  "great-work-boris-orlovsky-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/33/%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%B8%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%B0_I._%D0%A1%D0%BA%D1%83%D0%BB%D1%8C%D0%BF%D1%82%D0%BE%D1%80_%D0%9E%D1%80%D0%BB%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9_%D0%91._%D0%98.%2C_1822%2C_%D0%93%D0%AD.jpg",
+    "sha256": "2b364cb2ce4cdbef5033c8350f07dca8a0874cac466f36e8dd7e550edd850603"
+  },
   "great-work-donatello-1": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Orsanmichele_Florenz_Donatello_Markus.jpg",
     "sha256": "060083f3c44e71cd32885e867f64356b8a5e963bb336e2f61e3aba9017514885"
+  },
+  "great-work-donatello-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Statue_of_Gattamelata_by_Donatello_-_Padua_2016.jpg",
+    "sha256": "159f57f495daf787d51c9b4c33bc5bfc809b0397f191cf7eb1cf75f4ae012b62"
+  },
+  "great-work-donatello-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Donatello_Judit_02.JPG",
+    "sha256": "ffc19f0466e1496e922c6a9f3ee174791157e752e8f052bbd56a5f423cb68b54"
+  },
+  "great-work-edmonia-lewis-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/4d/The_Death_of_Cleopatra_by_Edmonia_Lewis_-_5.jpg",
+    "sha256": "9ed320f280fd367adcd656a20118741d297c57b58171bdaebf4d43f9e3429019"
+  },
+  "great-work-edmonia-lewis-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Hagar%2C_by_Edmonia_Lewis_%28SAAM_1983.95.178%29_02.jpg",
+    "sha256": "994fcb47563aab2c2b406558cc1fe3fdefc2711611b54afd58aafff67267a06d"
+  },
+  "great-work-marie-anne-collot-1": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/40/Portrait_de_Pierre_Etienne_Falconet_par_Marie-Anne_Collot.jpg",
+    "sha256": "cf0f603e7e2709152975ce935a1312f249ce8643872472b0126b722d4288812b"
+  },
+  "great-work-marie-anne-collot-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Catherine-the-Great-by-Collot.jpg",
+    "sha256": "608f56508206477df7ee7f1c9ab16535f5cf9f68c224980dbb42078cbd56fd83"
+  },
+  "great-work-marie-anne-collot-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/88/Collot-Falconet%2C_Mary_Cathcart_%28cropped%29.jpg",
+    "sha256": "7bfe146686cf92bd242158d7ec55309b85c86205fb26184c11ce2c7931cd5904"
+  },
+  "great-work-michelangelo-2": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/84/Michelangelo%27s_David_2015.jpg",
+    "sha256": "784bdfd5995817fb5480f5ed771cd03564a443ae51510ce14fa633b22c202d2f"
+  },
+  "great-work-michelangelo-3": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Michelangelo%27s_Piet%C3%A0_Saint_Peter%27s_Basilica_Vatican_City.jpg",
+    "sha256": "c41a3d5640a7a755b66fc705c2b593007a00b4c1b922797f3a2626bb7410d1c5"
   },
   "abraham-lincoln": {
     "source": "https://upload.wikimedia.org/wikipedia/commons/4/44/Abraham_Lincoln_head_on_shoulders_photo_portrait.jpg",
