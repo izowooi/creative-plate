@@ -6,6 +6,7 @@ from typing import Callable
 from urllib.parse import urlparse
 
 import httpx
+from curl_cffi import requests as curl_requests
 from playwright.sync_api import sync_playwright
 
 
@@ -32,6 +33,34 @@ _UUID_RE = re.compile(
 )
 
 _TAIL_NUM_RE = re.compile(r"^(.*?)(\d+)$")
+_TARGET_HOST = "missav123.com"
+
+
+def _is_target_site(url: str) -> bool:
+    hostname = (urlparse(url).hostname or "").lower()
+    return hostname == _TARGET_HOST or hostname.endswith(f".{_TARGET_HOST}")
+
+
+def _uses_browser_http(referer: str) -> bool:
+    """CDN 요청에 browser TLS fingerprint가 필요한 대상 사이트인지 확인한다."""
+    return _is_target_site(referer)
+
+
+def _playwright_launch_options(page_url: str) -> dict:
+    """사이트별 Playwright browser launch 옵션을 반환한다.
+
+    대상 사이트는 headless Chromium의 TLS/browser fingerprint 연결을 reset하므로
+    설치된 Google Chrome을 headed 모드로 화면 밖에서 실행해야 한다.
+    """
+    args = ["--disable-blink-features=AutomationControlled"]
+    if _is_target_site(page_url):
+        return {
+            "channel": "chrome",
+            "headless": False,
+            "args": args
+            + ["--window-position=-10000,-10000", "--window-size=1,1"],
+        }
+    return {"headless": True, "args": args}
 
 
 def expand_range_urls(start_url: str, end_url: str) -> list[str]:
@@ -72,46 +101,54 @@ def _surrit_headers(referer: str) -> dict[str, str]:
 
 
 def get_hls_info(page_url: str) -> HlsInfo:
-    """Playwright(headless) 로 페이지를 렌더해 HLS 정보를 추출.
+    """Playwright로 페이지를 렌더해 HLS 정보를 추출.
 
     추출 우선순위:
       1) `window.hls` 객체에서 직접 — missav123.com 등 HTML 에 UUID 가 박히지 않는 사이트
       2) HTML 내 `surrit.com/<uuid>` regex — legacy HTML 형식
     """
     referer = _origin_from_page_url(page_url)
+    launch_options = _playwright_launch_options(page_url)
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(
-            headless=True,
-            args=["--disable-blink-features=AutomationControlled"],
-        )
-        ctx = browser.new_context(
-            user_agent=_UA,
-            viewport={"width": 1280, "height": 720},
-        )
-        page = ctx.new_page()
-        page.goto(page_url, wait_until="domcontentloaded", timeout=20000)
-
-        info_from_js = None
         try:
-            page.wait_for_function(
-                "() => window.hls && window.hls.url && (window.hls.levels||[]).length > 0",
-                timeout=12000,
-            )
-            info_from_js = page.evaluate(
-                """() => ({
-                    masterUrl: window.hls.url,
-                    levels: window.hls.levels.map(l => ({
-                        height: l.height,
-                        url: Array.isArray(l.url) ? l.url[0] : l.url,
-                    })),
-                })"""
-            )
-        except Exception:
-            info_from_js = None
+            browser = p.chromium.launch(**launch_options)
+        except Exception as exc:
+            if launch_options.get("channel") == "chrome":
+                raise RuntimeError(
+                    "대상 사이트 분석에는 데스크톱용 Google Chrome이 필요합니다"
+                ) from exc
+            raise
 
-        html = None if info_from_js else page.content()
-        browser.close()
+        try:
+            context_options = {"viewport": {"width": 1280, "height": 720}}
+            if launch_options["headless"]:
+                context_options["user_agent"] = _UA
+            ctx = browser.new_context(**context_options)
+            page = ctx.new_page()
+            page.goto(page_url, wait_until="domcontentloaded", timeout=20000)
+
+            info_from_js = None
+            try:
+                page.wait_for_function(
+                    "() => window.hls && window.hls.url && (window.hls.levels||[]).length > 0",
+                    timeout=12000,
+                )
+                info_from_js = page.evaluate(
+                    """() => ({
+                        masterUrl: window.hls.url,
+                        levels: window.hls.levels.map(l => ({
+                            height: l.height,
+                            url: Array.isArray(l.url) ? l.url[0] : l.url,
+                        })),
+                    })"""
+                )
+            except Exception:
+                info_from_js = None
+
+            html = None if info_from_js else page.content()
+        finally:
+            browser.close()
 
     if info_from_js:
         levels = [
@@ -134,7 +171,21 @@ def get_hls_info(page_url: str) -> HlsInfo:
     uuid = m.group(1)
 
     master_url = f"https://surrit.com/{uuid}/playlist.m3u8"
-    resp = httpx.get(master_url, headers=_surrit_headers(referer), timeout=15)
+    if _uses_browser_http(referer):
+        resp = curl_requests.get(
+            master_url,
+            headers=_surrit_headers(referer),
+            impersonate="chrome",
+            allow_redirects=True,
+            timeout=15,
+        )
+    else:
+        resp = httpx.get(
+            master_url,
+            headers=_surrit_headers(referer),
+            follow_redirects=True,
+            timeout=15,
+        )
     resp.raise_for_status()
     levels = _parse_master(resp.text, uuid)
     if not levels:
@@ -171,29 +222,41 @@ def download_hls(
     """m3u8 세그먼트를 병렬로 다운로드하고 output_path 에 .ts 로 저장한다.
     반환값: 다운로드한 세그먼트 수."""
     headers = _surrit_headers(referer)
-    resp = httpx.get(m3u8_url, headers=headers, follow_redirects=True, timeout=30)
-    resp.raise_for_status()
+    if _uses_browser_http(referer):
+        client = curl_requests.Session(headers=headers, impersonate="chrome")
+        request_options = {"allow_redirects": True, "timeout": 30}
+    else:
+        client = httpx.Client(headers=headers, follow_redirects=True, timeout=30)
+        request_options = {}
 
-    base = m3u8_url.rsplit("/", 1)[0] + "/"
-    segments = [
-        line if line.startswith("http") else base + line
-        for line in resp.text.splitlines()
-        if line.strip() and not line.startswith("#")
-    ]
-    if not segments:
-        raise ValueError("세그먼트를 찾을 수 없습니다")
+    with client:
+        resp = client.get(m3u8_url, **request_options)
+        resp.raise_for_status()
 
-    total = len(segments)
-    buffers: list[bytes | None] = [None] * total
+        base = m3u8_url.rsplit("/", 1)[0] + "/"
+        segments = [
+            line if line.startswith("http") else base + line
+            for line in resp.text.splitlines()
+            if line.strip() and not line.startswith("#")
+        ]
+        if not segments:
+            raise ValueError("세그먼트를 찾을 수 없습니다")
 
-    CONCURRENCY = 8
-    with httpx.Client(headers=headers, timeout=30) as client:
+        total = len(segments)
+        buffers: list[bytes | None] = [None] * total
+
+        CONCURRENCY = 8
         with ThreadPoolExecutor(max_workers=CONCURRENCY) as ex:
-            futures = {ex.submit(client.get, url): i for i, url in enumerate(segments)}
+            futures = {
+                ex.submit(client.get, url, **request_options): i
+                for i, url in enumerate(segments)
+            }
             done = 0
             for fut in as_completed(futures):
                 idx = futures[fut]
-                buffers[idx] = fut.result().content
+                segment_resp = fut.result()
+                segment_resp.raise_for_status()
+                buffers[idx] = segment_resp.content
                 done += 1
                 if progress_cb:
                     progress_cb(done, total)

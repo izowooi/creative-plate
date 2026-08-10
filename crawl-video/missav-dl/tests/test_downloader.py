@@ -8,8 +8,10 @@ import pytest
 from downloader import (
     HlsInfo,
     HlsLevel,
+    _playwright_launch_options,
     _origin_from_page_url,
     _parse_master,
+    _uses_browser_http,
     build_filename,
     expand_range_urls,
 )
@@ -24,6 +26,28 @@ def test_origin_from_target_site():
 
 def test_origin_strips_path_and_query():
     assert _origin_from_page_url("https://example.com/foo/bar?x=1#y") == "https://example.com"
+
+
+def test_target_site_uses_real_headed_chrome():
+    options = _playwright_launch_options(
+        "https://missav123.com/dm106/ko/umso-605"
+    )
+
+    assert options["channel"] == "chrome"
+    assert options["headless"] is False
+    assert "--window-position=-10000,-10000" in options["args"]
+
+
+def test_other_sites_keep_bundled_headless_chromium():
+    options = _playwright_launch_options("https://example.com/video")
+
+    assert "channel" not in options
+    assert options["headless"] is True
+
+
+def test_target_site_uses_browser_fingerprint_for_hls_requests():
+    assert _uses_browser_http("https://missav123.com/dm106/ko/umso-605")
+    assert not _uses_browser_http("https://example.com/video")
 
 
 def test_parse_master_picks_resolutions():
@@ -127,7 +151,7 @@ def test_get_hls_info_target_site_returns_levels():
     """
     from downloader import get_hls_info
 
-    info = get_hls_info("https://missav123.com/hmn-730")
+    info = get_hls_info("https://missav123.com/dm106/ko/umso-605")
     assert isinstance(info, HlsInfo)
     assert info.master_url.startswith("https://surrit.com/")
     assert info.master_url.endswith("playlist.m3u8")
