@@ -8,6 +8,7 @@ import pytest
 from downloader import (
     HlsInfo,
     HlsLevel,
+    _download_policy,
     _playwright_launch_options,
     _origin_from_page_url,
     _parse_master,
@@ -48,6 +49,22 @@ def test_other_sites_keep_bundled_headless_chromium():
 def test_target_site_uses_browser_fingerprint_for_hls_requests():
     assert _uses_browser_http("https://missav123.com/dm106/ko/umso-605")
     assert not _uses_browser_http("https://example.com/video")
+
+
+def test_target_site_download_policy_prioritizes_reliability():
+    policy = _download_policy("https://missav123.com")
+
+    assert policy.concurrency == 2
+    assert policy.timeout == 120
+    assert policy.retry_count == 3
+
+
+def test_generic_download_policy_keeps_existing_defaults():
+    policy = _download_policy("https://example.com")
+
+    assert policy.concurrency == 8
+    assert policy.timeout == 30
+    assert policy.retry_count == 0
 
 
 def test_parse_master_picks_resolutions():

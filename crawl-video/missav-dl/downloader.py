@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 
 import httpx
 from curl_cffi import requests as curl_requests
+from curl_cffi.requests import RetryStrategy
 from playwright.sync_api import sync_playwright
 
 
@@ -21,6 +22,13 @@ class HlsInfo:
     master_url: str
     levels: list[HlsLevel]
     referer: str  # CDN 이 요구하는 Referer (페이지 origin, 예: https://missav123.com)
+
+
+@dataclass(frozen=True)
+class DownloadPolicy:
+    concurrency: int
+    timeout: int
+    retry_count: int
 
 
 _UA = (
@@ -44,6 +52,13 @@ def _is_target_site(url: str) -> bool:
 def _uses_browser_http(referer: str) -> bool:
     """CDN 요청에 browser TLS fingerprint가 필요한 대상 사이트인지 확인한다."""
     return _is_target_site(referer)
+
+
+def _download_policy(referer: str) -> DownloadPolicy:
+    """사이트별 segment 다운로드 안정성 정책을 반환한다."""
+    if _uses_browser_http(referer):
+        return DownloadPolicy(concurrency=2, timeout=120, retry_count=3)
+    return DownloadPolicy(concurrency=8, timeout=30, retry_count=0)
 
 
 def _playwright_launch_options(page_url: str) -> dict:
@@ -222,11 +237,28 @@ def download_hls(
     """m3u8 세그먼트를 병렬로 다운로드하고 output_path 에 .ts 로 저장한다.
     반환값: 다운로드한 세그먼트 수."""
     headers = _surrit_headers(referer)
+    policy = _download_policy(referer)
     if _uses_browser_http(referer):
-        client = curl_requests.Session(headers=headers, impersonate="chrome")
-        request_options = {"allow_redirects": True, "timeout": 30}
+        retry = RetryStrategy(
+            count=policy.retry_count,
+            delay=0.5,
+            jitter=0.25,
+            backoff="exponential",
+        )
+        client = curl_requests.Session(
+            headers=headers,
+            impersonate="chrome",
+            allow_redirects=True,
+            timeout=policy.timeout,
+            retry=retry,
+        )
+        request_options = {}
     else:
-        client = httpx.Client(headers=headers, follow_redirects=True, timeout=30)
+        client = httpx.Client(
+            headers=headers,
+            follow_redirects=True,
+            timeout=policy.timeout,
+        )
         request_options = {}
 
     with client:
@@ -245,8 +277,7 @@ def download_hls(
         total = len(segments)
         buffers: list[bytes | None] = [None] * total
 
-        CONCURRENCY = 8
-        with ThreadPoolExecutor(max_workers=CONCURRENCY) as ex:
+        with ThreadPoolExecutor(max_workers=policy.concurrency) as ex:
             futures = {
                 ex.submit(client.get, url, **request_options): i
                 for i, url in enumerate(segments)
