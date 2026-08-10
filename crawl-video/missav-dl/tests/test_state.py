@@ -11,7 +11,7 @@ def test_load_returns_empty_when_file_missing(tmp_path: Path):
 def test_save_then_load_roundtrip(tmp_path: Path):
     p = tmp_path / "state.json"
     save_state(
-        {"urls_text": "https://missav.ws/hmn_744\nhttps://missav.ws/hmn_745",
+        {"urls_text": "https://missav123.com/hmn_744\nhttps://missav123.com/hmn_745",
          "save_dir": "/Users/foo/Downloads"},
         p,
     )

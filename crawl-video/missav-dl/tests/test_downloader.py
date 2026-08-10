@@ -18,12 +18,8 @@ from downloader import (
 # =================== 단위 테스트 ===================
 
 
-def test_origin_from_missav_ai():
-    assert _origin_from_page_url("https://missav.ai/ko/h_1724a141g00017") == "https://missav.ai"
-
-
-def test_origin_from_missav_ws():
-    assert _origin_from_page_url("https://missav.ws/hmn-730") == "https://missav.ws"
+def test_origin_from_target_site():
+    assert _origin_from_page_url("https://missav123.com/hmn-730") == "https://missav123.com"
 
 
 def test_origin_strips_path_and_query():
@@ -65,18 +61,18 @@ def test_build_filename_replaces_forbidden_chars():
 
 def test_expand_range_basic():
     assert expand_range_urls(
-        "https://missav.ws/hmn_744", "https://missav.ws/hmn_747"
+        "https://missav123.com/hmn_744", "https://missav123.com/hmn_747"
     ) == [
-        "https://missav.ws/hmn_744",
-        "https://missav.ws/hmn_745",
-        "https://missav.ws/hmn_746",
-        "https://missav.ws/hmn_747",
+        "https://missav123.com/hmn_744",
+        "https://missav123.com/hmn_745",
+        "https://missav123.com/hmn_746",
+        "https://missav123.com/hmn_747",
     ]
 
 
 def test_expand_range_zero_padding_kept():
     urls = expand_range_urls(
-        "https://missav.ws/abc_007", "https://missav.ws/abc_010"
+        "https://missav123.com/abc_007", "https://missav123.com/abc_010"
     )
     assert urls[0].endswith("abc_007")
     assert urls[-1].endswith("abc_010")
@@ -85,38 +81,38 @@ def test_expand_range_zero_padding_kept():
 
 def test_expand_range_padding_dropped_when_widths_differ():
     assert expand_range_urls(
-        "https://missav.ws/x_99", "https://missav.ws/x_101"
+        "https://missav123.com/x_99", "https://missav123.com/x_101"
     ) == [
-        "https://missav.ws/x_99",
-        "https://missav.ws/x_100",
-        "https://missav.ws/x_101",
+        "https://missav123.com/x_99",
+        "https://missav123.com/x_100",
+        "https://missav123.com/x_101",
     ]
 
 
 def test_expand_range_single():
     assert expand_range_urls(
-        "https://missav.ws/hmn_744", "https://missav.ws/hmn_744"
-    ) == ["https://missav.ws/hmn_744"]
+        "https://missav123.com/hmn_744", "https://missav123.com/hmn_744"
+    ) == ["https://missav123.com/hmn_744"]
 
 
 def test_expand_range_prefix_mismatch():
     with pytest.raises(ValueError, match="prefix"):
         expand_range_urls(
-            "https://missav.ws/abc_001", "https://missav.ws/xyz_005"
+            "https://missav123.com/abc_001", "https://missav123.com/xyz_005"
         )
 
 
 def test_expand_range_reversed():
     with pytest.raises(ValueError, match="시작 번호"):
         expand_range_urls(
-            "https://missav.ws/x_010", "https://missav.ws/x_005"
+            "https://missav123.com/x_010", "https://missav123.com/x_005"
         )
 
 
 def test_expand_range_no_trailing_number():
     with pytest.raises(ValueError, match="숫자"):
         expand_range_urls(
-            "https://missav.ws/title", "https://missav.ws/title_001"
+            "https://missav123.com/title", "https://missav123.com/title_001"
         )
 
 
@@ -124,29 +120,18 @@ def test_expand_range_no_trailing_number():
 
 
 @pytest.mark.integration
-def test_get_hls_info_missav_ws_returns_levels():
-    """missav.ws 도메인에서도 master URL + levels 를 추출해야 한다.
+def test_get_hls_info_target_site_returns_levels():
+    """현재 대상 도메인에서 master URL + levels 를 추출해야 한다.
 
     이 테스트가 실패하는 것이 사용자 보고된 회귀의 본질.
     """
     from downloader import get_hls_info
 
-    info = get_hls_info("https://missav.ws/hmn-730")
+    info = get_hls_info("https://missav123.com/hmn-730")
     assert isinstance(info, HlsInfo)
     assert info.master_url.startswith("https://surrit.com/")
     assert info.master_url.endswith("playlist.m3u8")
     assert len(info.levels) > 0
     assert all(isinstance(l, HlsLevel) for l in info.levels)
     assert all(l.height in {240, 360, 480, 720, 1080} for l in info.levels)
-    assert info.referer == "https://missav.ws"
-
-
-@pytest.mark.integration
-def test_get_hls_info_missav_ai_still_works():
-    """기존 missav.ai 도메인도 깨지지 않아야 한다 (회귀 방지)."""
-    from downloader import get_hls_info
-
-    info = get_hls_info("https://missav.ai/ko/h_1724a141g00017")
-    assert info.master_url.startswith("https://surrit.com/")
-    assert len(info.levels) > 0
-    assert info.referer == "https://missav.ai"
+    assert info.referer == "https://missav123.com"

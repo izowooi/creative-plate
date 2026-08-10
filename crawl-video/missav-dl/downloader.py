@@ -19,7 +19,7 @@ class HlsLevel:
 class HlsInfo:
     master_url: str
     levels: list[HlsLevel]
-    referer: str  # CDN 이 요구하는 Referer (페이지 origin, 예: https://missav.ws)
+    referer: str  # CDN 이 요구하는 Referer (페이지 origin, 예: https://missav123.com)
 
 
 _UA = (
@@ -75,8 +75,8 @@ def get_hls_info(page_url: str) -> HlsInfo:
     """Playwright(headless) 로 페이지를 렌더해 HLS 정보를 추출.
 
     추출 우선순위:
-      1) `window.hls` 객체에서 직접 — missav.ws 등 HTML 에 UUID 가 박히지 않는 사이트
-      2) HTML 내 `surrit.com/<uuid>` regex — legacy missav.ai 형식
+      1) `window.hls` 객체에서 직접 — missav123.com 등 HTML 에 UUID 가 박히지 않는 사이트
+      2) HTML 내 `surrit.com/<uuid>` regex — legacy HTML 형식
     """
     referer = _origin_from_page_url(page_url)
 

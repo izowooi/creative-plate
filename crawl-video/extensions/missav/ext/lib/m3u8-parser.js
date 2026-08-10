@@ -35,7 +35,7 @@ function parseMasterPlaylist(text, baseUrl) {
 
 /**
  * Parses an HLS media playlist and returns absolute segment URLs.
- * Handles missav.ai's pattern where segments are named video{N}.jpeg (actual MPEG-TS).
+ * Handles missav123.com's pattern where segments are named video{N}.jpeg (actual MPEG-TS).
  * @param {string} text - Raw m3u8 media playlist content
  * @param {string} baseUrl - URL of the media playlist
  * @returns {string[]} Absolute segment URLs in order

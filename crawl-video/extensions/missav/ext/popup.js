@@ -11,7 +11,7 @@ const status = document.getElementById('status');
 let hlsInfo = null;
 
 chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-  if (!tab || !tab.url || !tab.url.startsWith('https://missav.ai/')) {
+  if (!tab || !tab.url || !tab.url.startsWith('https://missav123.com/')) {
     return;
   }
   chrome.tabs.sendMessage(tab.id, { type: 'GET_HLS_INFO' }, info => {
