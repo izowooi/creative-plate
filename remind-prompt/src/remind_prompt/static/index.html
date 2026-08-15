@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#f5f1e8">
+    <meta
+      name="description"
+      content="AI 프롬프트를 원하는 세션과 프로젝트에 연결해 잊지 않도록 알려 주는 로컬 대시보드"
+    >
+    <title>Remind Prompt</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="/assets/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
+
+    <div class="app-shell">
+      <header class="site-header">
+        <div class="brand-block" aria-label="Remind Prompt 홈">
+          <span class="brand-mark" aria-hidden="true">
+            <span></span>
+          </span>
+          <div>
+            <p class="eyebrow">LOCAL PROMPT DESK</p>
+            <h1>Remind Prompt</h1>
+          </div>
+        </div>
+
+        <div class="header-tools">
+          <div class="health-strip" aria-label="서비스 상태">
+            <div class="health-item" id="worker-health" data-tone="neutral">
+              <span class="health-dot" aria-hidden="true"></span>
+              <span>
+                <span class="health-label">워커</span>
+                <strong id="worker-health-text">확인 중</strong>
+              </span>
+            </div>
+            <div class="health-item" id="slack-health" data-tone="neutral">
+              <span class="health-dot" aria-hidden="true"></span>
+              <span>
+                <span class="health-label">Slack</span>
+                <strong id="slack-health-text">확인 중</strong>
+              </span>
+            </div>
+          </div>
+
+          <button class="button button-primary header-add" id="open-create" type="button">
+            <span aria-hidden="true">＋</span>
+            새 리마인더
+          </button>
+        </div>
+      </header>
+
+      <main id="main-content" tabindex="-1">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="section-kicker">오늘의 프롬프트</p>
+            <h2 id="hero-title">좋은 생각이 제때 다시 찾아오도록.</h2>
+            <p>
+              실행할 프롬프트와 목적지를 한곳에 보관하고, 필요한 순간 웹과 Slack에서
+              이어서 작업하세요.
+            </p>
+          </div>
+          <div class="hero-clock" aria-label="기준 시간">
+            <span id="timezone-label">시간대 확인 중</span>
+            <strong id="server-clock">--:--</strong>
+            <small id="server-date">서버 시간 동기화 중</small>
+          </div>
+        </section>
+
+        <section class="summary-section" aria-labelledby="summary-title">
+          <div class="section-heading compact-heading">
+            <div>
+              <p class="section-kicker">AT A GLANCE</p>
+              <h2 id="summary-title">한눈에 보기</h2>
+            </div>
+            <p class="sync-status" id="sync-status" role="status" aria-live="polite">
+              데이터를 불러오는 중입니다
+            </p>
+          </div>
+
+          <div class="stat-grid">
+            <button class="stat-card overdue" type="button" data-view-target="overdue">
+              <span class="stat-label">놓친 리마인더</span>
+              <strong id="count-overdue">—</strong>
+              <span>지금 확인이 필요해요</span>
+            </button>
+            <button class="stat-card upcoming" type="button" data-view-target="upcoming">
+              <span class="stat-label">다가오는 일정</span>
+              <strong id="count-upcoming">—</strong>
+              <span>차분히 준비할 항목</span>
+            </button>
+            <button class="stat-card acknowledged" type="button" data-view-target="acknowledged">
+              <span class="stat-label">확인한 항목</span>
+              <strong id="count-acknowledged">—</strong>
+              <span>완료를 기다리고 있어요</span>
+            </button>
+            <button class="stat-card completed" type="button" data-view-target="completed">
+              <span class="stat-label">완료</span>
+              <strong id="count-completed">—</strong>
+              <span>차곡차곡 쌓인 기록</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="workspace" aria-labelledby="workspace-title">
+          <div class="section-heading workspace-heading">
+            <div>
+              <p class="section-kicker">REMINDER LIBRARY</p>
+              <h2 id="workspace-title">리마인더</h2>
+            </div>
+            <div class="workspace-actions">
+              <button class="button button-secondary" id="open-import" type="button">
+                Markdown 가져오기
+              </button>
+              <button class="button button-primary mobile-add" id="open-create-mobile" type="button">
+                새 리마인더
+              </button>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <div class="tabs-scroll" aria-label="리마인더 보기">
+              <div class="tabs" role="tablist" aria-label="상태별 리마인더">
+                <button
+                  class="tab is-active"
+                  id="tab-active"
+                  type="button"
+                  role="tab"
+                  aria-selected="true"
+                  aria-controls="reminder-panel"
+                  data-view="active"
+                >
+                  진행 중 <span class="tab-count" id="tab-count-active">0</span>
+                </button>
+                <button
+                  class="tab"
+                  id="tab-overdue"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="reminder-panel"
+                  data-view="overdue"
+                  tabindex="-1"
+                >
+                  놓침 <span class="tab-count" id="tab-count-overdue">0</span>
+                </button>
+                <button
+                  class="tab"
+                  id="tab-upcoming"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="reminder-panel"
+                  data-view="upcoming"
+                  tabindex="-1"
+                >
+                  예정 <span class="tab-count" id="tab-count-upcoming">0</span>
+                </button>
+                <button
+                  class="tab"
+                  id="tab-acknowledged"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="reminder-panel"
+                  data-view="acknowledged"
+                  tabindex="-1"
+                >
+                  확인함 <span class="tab-count" id="tab-count-acknowledged">0</span>
+                </button>
+                <button
+                  class="tab"
+                  id="tab-completed"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="reminder-panel"
+                  data-view="completed"
+                  tabindex="-1"
+                >
+                  완료 <span class="tab-count" id="tab-count-completed">0</span>
+                </button>
+                <button
+                  class="tab"
+                  id="tab-cancelled"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="reminder-panel"
+                  data-view="cancelled"
+                  tabindex="-1"
+                >
+                  취소 <span class="tab-count" id="tab-count-cancelled">0</span>
+                </button>
+                <button
+                  class="tab"
+                  id="tab-all"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="reminder-panel"
+                  data-view="all"
+                  tabindex="-1"
+                >
+                  전체
+                </button>
+              </div>
+            </div>
+
+            <form class="search-form" id="search-form" role="search">
+              <label class="sr-only" for="search-input">리마인더 검색</label>
+              <span class="search-icon" aria-hidden="true">⌕</span>
+              <input
+                id="search-input"
+                name="q"
+                type="search"
+                placeholder="제목, 프롬프트, 목적지 검색"
+                autocomplete="off"
+              >
+              <button class="clear-search" id="clear-search" type="button" hidden>
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">검색어 지우기</span>
+              </button>
+            </form>
+          </div>
+
+          <div
+            class="error-banner"
+            id="global-error"
+            role="alert"
+            aria-live="assertive"
+            hidden
+          >
+            <div>
+              <strong>리마인더를 불러오지 못했습니다.</strong>
+              <p id="global-error-message">잠시 후 다시 시도해 주세요.</p>
+            </div>
+            <button class="button button-small button-secondary" id="retry-load" type="button">
+              다시 시도
+            </button>
+          </div>
+
+          <div
+            class="reminder-panel"
+            id="reminder-panel"
+            role="tabpanel"
+            aria-labelledby="tab-active"
+            aria-busy="true"
+          >
+            <div class="loading-state" id="loading-state" role="status">
+              <span class="spinner" aria-hidden="true"></span>
+              <span>리마인더를 정리하고 있어요</span>
+            </div>
+
+            <div class="empty-state" id="empty-state" hidden>
+              <span class="empty-mark" aria-hidden="true">✓</span>
+              <h3 id="empty-title">아직 리마인더가 없습니다</h3>
+              <p id="empty-description">첫 프롬프트를 등록하면 이곳에서 다시 만날 수 있어요.</p>
+              <button class="button button-primary" id="empty-create" type="button">
+                첫 리마인더 만들기
+              </button>
+            </div>
+
+            <ul class="reminder-list" id="reminder-list" aria-label="리마인더 목록"></ul>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>프롬프트는 이 기기에 머물고, 필요한 때만 Slack으로 전달됩니다.</p>
+        <p id="footer-health">서버 상태를 확인하고 있습니다.</p>
+      </footer>
+    </div>
+
+    <dialog class="modal modal-wide" id="reminder-dialog" aria-labelledby="reminder-dialog-title">
+      <form class="modal-form" id="reminder-form">
+        <header class="modal-header">
+          <div>
+            <p class="section-kicker" id="reminder-dialog-kicker">NEW REMINDER</p>
+            <h2 id="reminder-dialog-title">새 리마인더</h2>
+            <p id="reminder-dialog-description">다시 꺼내 볼 프롬프트와 시간을 정해 주세요.</p>
+          </div>
+          <button class="icon-button dialog-close" type="button" aria-label="창 닫기">×</button>
+        </header>
+
+        <div class="modal-body form-layout">
+          <div class="form-main">
+            <div class="field">
+              <label for="reminder-title">제목 <span aria-hidden="true">*</span></label>
+              <input id="reminder-title" name="title" type="text" maxlength="160" required>
+            </div>
+
+            <div class="field">
+              <div class="label-row">
+                <label for="reminder-prompt">프롬프트 <span aria-hidden="true">*</span></label>
+                <span id="prompt-counter" aria-live="polite">0자</span>
+              </div>
+              <textarea
+                id="reminder-prompt"
+                name="prompt_text"
+                rows="9"
+                maxlength="30000"
+                required
+                spellcheck="true"
+                placeholder="AI 세션에서 실행할 프롬프트를 그대로 적어 두세요."
+              ></textarea>
+            </div>
+
+            <div class="two-column-fields">
+              <div class="field">
+                <label for="destination-label">목적지 <span aria-hidden="true">*</span></label>
+                <input
+                  id="destination-label"
+                  name="destination_label"
+                  type="text"
+                  maxlength="180"
+                  placeholder="예: ChatGPT · 브랜드 전략 프로젝트"
+                  required
+                >
+              </div>
+              <div class="field">
+                <label for="destination-url">목적지 URL <span class="optional">선택</span></label>
+                <input
+                  id="destination-url"
+                  name="destination_url"
+                  type="url"
+                  inputmode="url"
+                  placeholder="https://"
+                >
+              </div>
+              <div class="field">
+                <label for="project">프로젝트 <span class="optional">선택</span></label>
+                <input id="project" name="project" type="text" maxlength="180">
+              </div>
+              <div class="field">
+                <label for="reminder-timezone">시간대</label>
+                <input
+                  id="reminder-timezone"
+                  name="timezone"
+                  type="text"
+                  list="timezone-options"
+                  autocomplete="off"
+                  required
+                >
+              </div>
+            </div>
+
+            <fieldset class="schedule-fieldset">
+              <legend>언제 알려 드릴까요?</legend>
+              <div class="segmented-control" role="radiogroup" aria-label="일정 방식">
+                <label>
+                  <input id="reminder-schedule-relative" type="radio" name="schedule_type" value="relative" checked>
+                  <span>지금부터</span>
+                </label>
+                <label>
+                  <input id="reminder-schedule-exact" type="radio" name="schedule_type" value="exact">
+                  <span>날짜와 시간</span>
+                </label>
+              </div>
+
+              <div class="schedule-pane" id="reminder-relative-pane">
+                <div class="quick-schedule" aria-label="빠른 일정 선택">
+                  <button type="button" data-schedule-prefix="reminder" data-amount="1" data-unit="hour">1시간</button>
+                  <button class="is-selected" type="button" data-schedule-prefix="reminder" data-amount="1" data-unit="day">1일</button>
+                  <button type="button" data-schedule-prefix="reminder" data-amount="1" data-unit="week">1주</button>
+                  <button type="button" data-schedule-prefix="reminder" data-amount="1" data-unit="month">1개월</button>
+                </div>
+                <div class="schedule-input-row">
+                  <div class="field compact-field">
+                    <label for="reminder-amount">수량</label>
+                    <input id="reminder-amount" type="number" min="1" max="10000" value="1" inputmode="numeric">
+                  </div>
+                  <div class="field compact-field grow-field">
+                    <label for="reminder-unit">단위</label>
+                    <select id="reminder-unit">
+                      <option value="hour">시간 후</option>
+                      <option value="day" selected>일 후</option>
+                      <option value="week">주 후</option>
+                      <option value="month">개월 후</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="schedule-pane" id="reminder-exact-pane" hidden>
+                <div class="schedule-input-row">
+                  <div class="field grow-field">
+                    <label for="reminder-local-datetime">현지 날짜와 시간</label>
+                    <input id="reminder-local-datetime" type="datetime-local" step="60">
+                  </div>
+                  <div class="field compact-field fold-field">
+                    <label for="reminder-fold">중복 시각</label>
+                    <select id="reminder-fold">
+                      <option value="">자동 확인</option>
+                      <option value="0">첫 번째 시각</option>
+                      <option value="1">두 번째 시각</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="schedule-preview" id="reminder-schedule-preview" role="status" aria-live="polite">
+                <span class="preview-icon" aria-hidden="true">◷</span>
+                <span id="reminder-preview-text">일정을 입력하면 실제 알림 시각을 확인할 수 있어요.</span>
+              </div>
+            </fieldset>
+
+            <details class="optional-fields">
+              <summary>출처와 메모 추가</summary>
+              <div class="optional-fields-grid">
+                <div class="field">
+                  <label for="source-label">출처 이름</label>
+                  <input id="source-label" name="source_label" type="text" maxlength="240">
+                </div>
+                <div class="field">
+                  <label for="source-ref">출처 참조</label>
+                  <input id="source-ref" name="source_ref" type="text" maxlength="1000">
+                </div>
+                <div class="field full-field">
+                  <label for="reminder-notes">메모</label>
+                  <textarea id="reminder-notes" name="notes" rows="3" maxlength="5000"></textarea>
+                </div>
+              </div>
+            </details>
+
+            <div class="inline-message" id="candidate-message" role="status" hidden></div>
+            <div class="form-error" id="reminder-form-error" role="alert" hidden></div>
+          </div>
+        </div>
+
+        <footer class="modal-footer">
+          <button class="button button-ghost dialog-close" type="button">취소</button>
+          <button class="button button-primary" id="reminder-submit" type="submit">
+            리마인더 저장
+          </button>
+        </footer>
+      </form>
+    </dialog>
+
+    <dialog class="modal modal-compact" id="schedule-dialog" aria-labelledby="schedule-dialog-title">
+      <form class="modal-form" id="schedule-form">
+        <header class="modal-header">
+          <div>
+            <p class="section-kicker" id="schedule-dialog-kicker">SNOOZE</p>
+            <h2 id="schedule-dialog-title">잠시 미루기</h2>
+            <p id="schedule-dialog-description">새로 알림 받을 시간을 정해 주세요.</p>
+          </div>
+          <button class="icon-button dialog-close" type="button" aria-label="창 닫기">×</button>
+        </header>
+
+        <div class="modal-body">
+          <div class="field">
+            <label for="schedule-timezone">시간대</label>
+            <input
+              id="schedule-timezone"
+              type="text"
+              list="timezone-options"
+              autocomplete="off"
+              required
+            >
+          </div>
+
+          <fieldset class="schedule-fieldset compact-schedule">
+            <legend>새 일정</legend>
+            <div class="segmented-control" role="radiogroup" aria-label="일정 방식">
+              <label>
+                <input id="schedule-schedule-relative" type="radio" name="secondary_schedule_type" value="relative" checked>
+                <span>지금부터</span>
+              </label>
+              <label>
+                <input id="schedule-schedule-exact" type="radio" name="secondary_schedule_type" value="exact">
+                <span>날짜와 시간</span>
+              </label>
+            </div>
+
+            <div class="schedule-pane" id="schedule-relative-pane">
+              <div class="quick-schedule" aria-label="빠른 일정 선택">
+                <button class="is-selected" type="button" data-schedule-prefix="schedule" data-amount="1" data-unit="hour">1시간</button>
+                <button type="button" data-schedule-prefix="schedule" data-amount="1" data-unit="day">1일</button>
+                <button type="button" data-schedule-prefix="schedule" data-amount="1" data-unit="week">1주</button>
+                <button type="button" data-schedule-prefix="schedule" data-amount="1" data-unit="month">1개월</button>
+              </div>
+              <div class="schedule-input-row">
+                <div class="field compact-field">
+                  <label for="schedule-amount">수량</label>
+                  <input id="schedule-amount" type="number" min="1" max="10000" value="1" inputmode="numeric">
+                </div>
+                <div class="field compact-field grow-field">
+                  <label for="schedule-unit">단위</label>
+                  <select id="schedule-unit">
+                    <option value="hour" selected>시간 후</option>
+                    <option value="day">일 후</option>
+                    <option value="week">주 후</option>
+                    <option value="month">개월 후</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="schedule-pane" id="schedule-exact-pane" hidden>
+              <div class="schedule-input-row">
+                <div class="field grow-field">
+                  <label for="schedule-local-datetime">현지 날짜와 시간</label>
+                  <input id="schedule-local-datetime" type="datetime-local" step="60">
+                </div>
+                <div class="field compact-field fold-field">
+                  <label for="schedule-fold">중복 시각</label>
+                  <select id="schedule-fold">
+                    <option value="">자동 확인</option>
+                    <option value="0">첫 번째 시각</option>
+                    <option value="1">두 번째 시각</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="schedule-preview" id="schedule-schedule-preview" role="status" aria-live="polite">
+              <span class="preview-icon" aria-hidden="true">◷</span>
+              <span id="schedule-preview-text">일정을 입력하면 실제 알림 시각을 확인할 수 있어요.</span>
+            </div>
+          </fieldset>
+          <div class="form-error" id="schedule-form-error" role="alert" hidden></div>
+        </div>
+
+        <footer class="modal-footer">
+          <button class="button button-ghost dialog-close" type="button">취소</button>
+          <button class="button button-primary" id="schedule-submit" type="submit">이 시간으로 미루기</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <dialog class="modal modal-wide" id="import-dialog" aria-labelledby="import-dialog-title">
+      <div class="modal-form">
+        <header class="modal-header">
+          <div>
+            <p class="section-kicker">MARKDOWN IMPORT</p>
+            <h2 id="import-dialog-title">Markdown에서 후보 찾기</h2>
+            <p>파일은 미리보기 분석에만 사용되며, 확인 없이 리마인더를 만들지 않습니다.</p>
+          </div>
+          <button class="icon-button dialog-close" type="button" aria-label="창 닫기">×</button>
+        </header>
+
+        <div class="modal-body import-body">
+          <div class="privacy-note">
+            <span aria-hidden="true">⌂</span>
+            <p><strong>로컬 우선</strong> 선택한 Markdown 내용은 이 서버의 후보 분석 API로만 전달됩니다.</p>
+          </div>
+
+          <div class="drop-zone" id="drop-zone" tabindex="0" role="group" aria-label="Markdown 파일 선택">
+            <span class="drop-icon" aria-hidden="true">↓</span>
+            <h3>파일이나 폴더를 놓아 주세요</h3>
+            <p><code>.md</code>, <code>.markdown</code>, <code>.txt</code> · 파일당 최대 1 MB</p>
+            <div class="drop-actions">
+              <label class="button button-secondary" for="markdown-files">파일 선택</label>
+              <label class="button button-ghost bordered" for="markdown-directory">폴더 선택</label>
+            </div>
+            <input id="markdown-files" class="visually-hidden-input" type="file" accept=".md,.markdown,.txt,text/markdown,text/plain" multiple>
+            <input id="markdown-directory" class="visually-hidden-input" type="file" accept=".md,.markdown,.txt,text/markdown,text/plain" multiple webkitdirectory directory>
+          </div>
+
+          <div class="selected-files" id="selected-files" hidden>
+            <div class="label-row">
+              <h3>선택한 문서</h3>
+              <button class="text-button" id="clear-files" type="button">모두 지우기</button>
+            </div>
+            <ul id="selected-file-list"></ul>
+          </div>
+
+          <div class="form-error" id="import-error" role="alert" hidden></div>
+          <div class="import-results" id="import-results" hidden>
+            <div class="import-summary">
+              <div>
+                <p class="section-kicker">PREVIEW RESULT</p>
+                <h3 id="import-result-title">후보를 확인해 주세요</h3>
+              </div>
+              <span id="import-result-count">0개</span>
+            </div>
+            <div class="warning-list" id="import-warnings" hidden></div>
+            <div class="candidate-list" id="candidate-list"></div>
+          </div>
+        </div>
+
+        <footer class="modal-footer import-footer">
+          <span id="import-status" role="status" aria-live="polite"></span>
+          <div>
+            <button class="button button-ghost dialog-close" type="button">닫기</button>
+            <button class="button button-primary" id="preview-import" type="button" disabled>
+              후보 미리보기
+            </button>
+          </div>
+        </footer>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal-compact" id="history-dialog" aria-labelledby="history-dialog-title">
+      <div class="modal-form">
+        <header class="modal-header">
+          <div>
+            <p class="section-kicker">ACTIVITY LOG</p>
+            <h2 id="history-dialog-title">리마인더 기록</h2>
+            <p id="history-dialog-description">알림과 상태 변경 내역입니다.</p>
+          </div>
+          <button class="icon-button dialog-close" type="button" aria-label="창 닫기">×</button>
+        </header>
+        <div class="modal-body history-body" id="history-content">
+          <div class="loading-state">
+            <span class="spinner" aria-hidden="true"></span>
+            <span>기록을 불러오는 중입니다</span>
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button class="button button-secondary dialog-close" type="button">닫기</button>
+        </footer>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal-confirm" id="confirm-dialog" aria-labelledby="confirm-title">
+      <form class="modal-form" id="confirm-form">
+        <div class="confirm-mark" id="confirm-mark" aria-hidden="true">!</div>
+        <h2 id="confirm-title">확인이 필요합니다</h2>
+        <p id="confirm-message">이 작업을 계속할까요?</p>
+        <div class="confirm-actions">
+          <button class="button button-ghost" id="confirm-cancel" type="button">돌아가기</button>
+          <button class="button button-danger" id="confirm-submit" type="submit">계속</button>
+        </div>
+      </form>
+    </dialog>
+
+    <datalist id="timezone-options">
+      <option value="Asia/Seoul"></option>
+      <option value="Asia/Tokyo"></option>
+      <option value="America/Los_Angeles"></option>
+      <option value="America/New_York"></option>
+      <option value="Europe/London"></option>
+      <option value="Europe/Paris"></option>
+      <option value="UTC"></option>
+    </datalist>
+
+    <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>
