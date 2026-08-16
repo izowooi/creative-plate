@@ -132,6 +132,11 @@ celerybeat.pid
 .env
 .env.*
 !.env.*.example
+
+# Private keys and credentials
+*.key
+*.pem
+id_rsa
 .venv
 env/
 venv/

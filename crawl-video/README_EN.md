@@ -2,21 +2,32 @@
 
 <div align="center">
 
-[![Python](https://img.shields.io/badge/Python-3.11%2B-3776ab?style=for-the-badge&logo=python)](https://www.python.org)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.35%2B-ff4b4b?style=for-the-badge&logo=streamlit)](https://streamlit.io)
+[![Python](https://img.shields.io/badge/Python-3.13-3776ab?style=for-the-badge&logo=python)](https://www.python.org)
+[![Starlette](https://img.shields.io/badge/Starlette-ASGI-2e7d6b?style=for-the-badge)](https://www.starlette.io/)
 [![Playwright](https://img.shields.io/badge/Playwright-1.44%2B-2ead33?style=for-the-badge&logo=playwright)](https://playwright.dev)
 [![Chrome Extension](https://img.shields.io/badge/Chrome-MV3-4285f4?style=for-the-badge&logo=googlechrome)](https://developer.chrome.com/docs/extensions/mv3/intro/)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Harness-9b59b6?style=for-the-badge)](https://docs.anthropic.com/en/docs/claude-code)
 
 > 🇰🇷 [한국어 README](./README.md)
 
-**Batch-download HLS streams with Playwright + Streamlit. Two-phase analyze/download with parallel processing** ✨
+**Persistent, memory-bounded parallel HLS downloads with Playwright and SQLite** ✨
 
 [🎯 Features](#-features) | [💻 Run Locally](#-running-locally) | [🎮 Usage](#-usage) | [🛠️ Harness](#-harness-claude-code)
 
 </div>
 
 ---
+
+> **New recommended app:** [`missav-dl-next/`](./missav-dl-next/) replaces the in-memory Streamlit queue with a Starlette SPA, SQLite history, retry/pause/cancel controls, four concurrent video downloads, bounded segment streaming, atomic `.part` publishing, and a portable PM2 configuration.
+>
+> ```bash
+> cd missav-dl-next
+> uv sync --frozen
+> ./start.sh
+> # http://127.0.0.1:3102
+> ```
+>
+> The detailed sections below document the legacy `missav-dl/` implementation.
 
 ## 🎯 Project Overview
 

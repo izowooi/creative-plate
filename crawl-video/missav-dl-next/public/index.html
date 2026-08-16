@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#111311">
+    <meta name="description" content="로컬에서 실행하는 가벼운 HLS 다운로드 작업 관리자">
+    <title>스트림 데스크</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
+
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="주 메뉴">
+        <a class="brand" href="#top" aria-label="스트림 데스크 홈">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>
+            <strong>스트림 데스크</strong>
+            <small>LOCAL HLS MANAGER</small>
+          </span>
+        </a>
+
+        <nav class="side-nav" aria-label="화면 바로가기">
+          <a class="is-current" href="#top"><span aria-hidden="true">01</span>개요</a>
+          <a href="#composer"><span aria-hidden="true">02</span>새 작업</a>
+          <a href="#queue"><span aria-hidden="true">03</span>진행 큐</a>
+          <a href="#history"><span aria-hidden="true">04</span>기록</a>
+        </nav>
+
+        <div class="local-note">
+          <span class="local-note-icon" aria-hidden="true">⌂</span>
+          <p><strong>로컬 우선</strong><br>파일은 지정한 내 컴퓨터 경로에 저장됩니다.</p>
+        </div>
+      </aside>
+
+      <main id="main-content" tabindex="-1">
+        <header class="topbar" id="top">
+          <div>
+            <p class="eyebrow">DOWNLOAD CONTROL ROOM</p>
+            <h1>다운로드 현황</h1>
+          </div>
+          <div class="connection" id="connectionStatus" role="status" aria-live="polite">
+            <span class="connection-dot" aria-hidden="true"></span>
+            <span>
+              <strong id="connectionLabel">서버 확인 중</strong>
+              <small id="connectionDetail">연결 상태를 확인하고 있습니다</small>
+            </span>
+          </div>
+        </header>
+
+        <section class="summary-grid" aria-label="작업 요약" aria-busy="true" id="summaryGrid">
+          <article class="summary-card summary-active">
+            <div class="summary-heading">
+              <span>진행 중</span>
+              <span class="summary-symbol" aria-hidden="true">↗</span>
+            </div>
+            <strong class="summary-value" id="summaryActive">—</strong>
+            <p><span class="pulse-dot" aria-hidden="true"></span>분석·다운로드·일시정지</p>
+          </article>
+          <article class="summary-card">
+            <div class="summary-heading">
+              <span>대기</span>
+              <span class="summary-symbol" aria-hidden="true">≡</span>
+            </div>
+            <strong class="summary-value" id="summaryQueued">—</strong>
+            <p>차례를 기다리는 작업</p>
+          </article>
+          <article class="summary-card">
+            <div class="summary-heading">
+              <span>완료</span>
+              <span class="summary-symbol is-success" aria-hidden="true">✓</span>
+            </div>
+            <strong class="summary-value" id="summaryCompleted">—</strong>
+            <p id="summaryTotal">전체 —개 중</p>
+          </article>
+          <article class="summary-card">
+            <div class="summary-heading">
+              <span>실패</span>
+              <span class="summary-symbol is-danger" aria-hidden="true">!</span>
+            </div>
+            <strong class="summary-value" id="summaryFailed">—</strong>
+            <p>확인이 필요한 작업</p>
+          </article>
+        </section>
+
+        <section class="panel composer-panel" id="composer" aria-labelledby="composer-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">NEW BATCH</p>
+              <h2 id="composer-title">새 다운로드 추가</h2>
+              <p>영상 페이지 주소를 한 줄에 하나씩 입력하세요.</p>
+            </div>
+            <span class="section-number" aria-hidden="true">01</span>
+          </div>
+
+          <form id="addJobsForm" class="composer-form" novalidate>
+            <div class="field field-wide">
+              <div class="label-line">
+                <label for="urlsInput">페이지 URL</label>
+                <span id="urlCount" aria-live="polite">0개</span>
+              </div>
+              <textarea id="urlsInput" name="urls" rows="6" required spellcheck="false" autocomplete="off" placeholder="https://example.com/video/001&#10;https://example.com/video/002" aria-describedby="urlsHint urlsError"></textarea>
+              <div class="field-meta">
+                <span id="urlsHint">여러 주소를 붙여넣어 한 번에 등록할 수 있습니다.</span>
+                <span class="field-error" id="urlsError" role="alert"></span>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="field path-field">
+                <label for="outputDir">저장할 절대 경로</label>
+                <div class="input-prefix">
+                  <span aria-hidden="true">↳</span>
+                  <input id="outputDir" name="outputDir" type="text" required spellcheck="false" autocomplete="off" list="recentOutputDirs" placeholder="/Users/me/Downloads/videos" aria-describedby="pathHint pathError">
+                  <datalist id="recentOutputDirs"></datalist>
+                </div>
+                <div class="field-meta">
+                  <span id="pathHint">예: /Users/me/Downloads/videos</span>
+                  <span class="field-error" id="pathError" role="alert"></span>
+                </div>
+              </div>
+
+              <div class="field compact-field">
+                <label for="qualityInput">선호 화질</label>
+                <select id="qualityInput" name="preferredQuality">
+                  <option value="2160">2160p</option>
+                  <option value="1440">1440p</option>
+                  <option value="1080">1080p</option>
+                  <option value="720" selected>720p</option>
+                  <option value="480">480p</option>
+                  <option value="360">360p</option>
+                </select>
+              </div>
+
+              <div class="field compact-field">
+                <label for="concurrencyInput">동시 작업</label>
+                <div class="stepper">
+                  <button type="button" data-step="-1" aria-label="동시 작업 수 줄이기">−</button>
+                  <input id="concurrencyInput" name="concurrency" type="number" value="4" min="1" max="8" step="1" inputmode="numeric" aria-describedby="concurrencyHint">
+                  <button type="button" data-step="1" aria-label="동시 작업 수 늘리기">+</button>
+                </div>
+                <span class="visually-hidden" id="concurrencyHint">1개에서 8개 사이</span>
+              </div>
+
+              <label class="switch-field" for="overwriteInput">
+                <span>
+                  <strong>기존 파일 덮어쓰기</strong>
+                  <small>같은 이름의 파일이 있으면 교체</small>
+                </span>
+                <input id="overwriteInput" name="overwrite" type="checkbox">
+                <span class="switch" aria-hidden="true"></span>
+              </label>
+            </div>
+
+            <div class="composer-actions">
+              <details class="range-builder" id="rangeBuilder">
+                <summary>숫자 범위 URL 만들기 <span aria-hidden="true">＋</span></summary>
+                <div class="range-content">
+                  <p>시작과 끝 주소에서 달라지는 숫자를 찾아 주소 목록을 만듭니다.</p>
+                  <div class="range-fields">
+                    <div class="field">
+                      <label for="rangeStart">시작 URL</label>
+                      <input id="rangeStart" type="url" inputmode="url" spellcheck="false" placeholder="https://example.com/video/001">
+                    </div>
+                    <div class="field">
+                      <label for="rangeEnd">끝 URL</label>
+                      <input id="rangeEnd" type="url" inputmode="url" spellcheck="false" placeholder="https://example.com/video/010">
+                    </div>
+                  </div>
+                  <button class="button button-secondary button-small" type="button" id="expandRangeButton">목록에 추가</button>
+                </div>
+              </details>
+
+              <button class="button button-primary submit-button" type="submit" id="submitJobsButton">
+                <span>다운로드 큐에 추가</span>
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section class="content-section" id="queue" aria-labelledby="queue-title">
+          <div class="section-heading inline-heading">
+            <div>
+              <p class="section-kicker">ACTIVE QUEUE</p>
+              <h2 id="queue-title">진행 큐 <span class="heading-count" id="activeCount">0</span></h2>
+            </div>
+            <button class="button button-ghost button-danger" type="button" id="cancelAllButton" disabled>활성 작업 모두 취소</button>
+          </div>
+
+          <div class="state-box loading-state" id="queueLoading" role="status">
+            <span class="spinner" aria-hidden="true"></span>
+            <span>작업 목록을 불러오는 중입니다.</span>
+          </div>
+          <div class="state-box error-state" id="queueError" role="alert" hidden>
+            <div><strong>진행 큐를 불러오지 못했습니다.</strong><p></p></div>
+            <button class="button button-secondary button-small" type="button" data-refresh>다시 시도</button>
+          </div>
+          <div class="state-box empty-state" id="queueEmpty" hidden>
+            <span class="empty-symbol" aria-hidden="true">◎</span>
+            <div><strong>진행 중인 작업이 없습니다.</strong><p>위에서 URL을 추가하면 여기에 진행률이 표시됩니다.</p></div>
+          </div>
+          <div class="queue-list" id="queueList" aria-live="polite"></div>
+        </section>
+
+        <section class="content-section history-section" id="history" aria-labelledby="history-title">
+          <div class="section-heading inline-heading">
+            <div>
+              <p class="section-kicker">JOB ARCHIVE</p>
+              <h2 id="history-title">작업 기록</h2>
+            </div>
+            <button class="button button-ghost" type="button" id="retryFailedButton" disabled>실패 작업 모두 재시도</button>
+          </div>
+
+          <div class="history-toolbar">
+            <div class="tabs" role="tablist" aria-label="상태별 작업 필터">
+              <button id="statusAll" type="button" role="tab" aria-controls="historyList" aria-selected="true" data-status="">전체</button>
+              <button id="statusCompleted" type="button" role="tab" aria-controls="historyList" aria-selected="false" tabindex="-1" data-status="completed">완료</button>
+              <button id="statusFailed" type="button" role="tab" aria-controls="historyList" aria-selected="false" tabindex="-1" data-status="failed">실패</button>
+              <button id="statusCancelled" type="button" role="tab" aria-controls="historyList" aria-selected="false" tabindex="-1" data-status="cancelled">취소</button>
+              <button id="statusPaused" type="button" role="tab" aria-controls="historyList" aria-selected="false" tabindex="-1" data-status="paused">일시정지</button>
+            </div>
+            <label class="search-field">
+              <span class="visually-hidden">작업 검색</span>
+              <span aria-hidden="true">⌕</span>
+              <input id="searchInput" type="search" placeholder="제목, URL, 저장 경로 검색" autocomplete="off">
+            </label>
+          </div>
+
+          <div class="history-column-head" aria-hidden="true">
+            <span>작업</span><span>상태</span><span>진행 정보</span><span>등록 시각</span><span>작업</span>
+          </div>
+          <div class="state-box loading-state" id="historyLoading" role="status">
+            <span class="spinner" aria-hidden="true"></span>
+            <span>작업 기록을 불러오는 중입니다.</span>
+          </div>
+          <div class="state-box error-state" id="historyError" role="alert" hidden>
+            <div><strong>작업 기록을 불러오지 못했습니다.</strong><p></p></div>
+            <button class="button button-secondary button-small" type="button" data-refresh>다시 시도</button>
+          </div>
+          <div class="state-box empty-state" id="historyEmpty" hidden>
+            <span class="empty-symbol" aria-hidden="true">□</span>
+            <div><strong id="historyEmptyTitle">아직 작업 기록이 없습니다.</strong><p id="historyEmptyDescription">첫 다운로드를 추가해 기록을 만들어 보세요.</p></div>
+          </div>
+          <div class="history-list" id="historyList" role="tabpanel" aria-labelledby="statusAll" tabindex="0" aria-live="polite"></div>
+
+          <nav class="pagination" id="pagination" aria-label="작업 기록 페이지" hidden>
+            <button class="button button-secondary button-small" type="button" id="previousPage">← 이전</button>
+            <span id="pageLabel" aria-live="polite">1 / 1 페이지</span>
+            <button class="button button-secondary button-small" type="button" id="nextPage">다음 →</button>
+          </nav>
+        </section>
+
+        <footer class="footer">
+          <p>스트림 데스크 · 브라우저를 닫아도 서버의 작업은 계속됩니다.</p>
+          <button type="button" id="manualRefreshButton">지금 새로고침</button>
+        </footer>
+      </main>
+    </div>
+
+    <dialog class="confirm-dialog" id="confirmDialog" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
+      <form method="dialog">
+        <span class="dialog-mark" aria-hidden="true">!</span>
+        <h2 id="confirmTitle">작업을 계속할까요?</h2>
+        <p id="confirmMessage"></p>
+        <div class="dialog-actions">
+          <button class="button button-secondary" value="cancel">돌아가기</button>
+          <button class="button button-danger-solid" value="confirm" id="confirmButton">확인</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="false"></div>
+
+    <noscript>
+      <div class="noscript-message">이 화면을 사용하려면 브라우저에서 JavaScript를 켜 주세요.</div>
+    </noscript>
+  </body>
+</html>

@@ -2,15 +2,15 @@
 
 <div align="center">
 
-[![Python](https://img.shields.io/badge/Python-3.11%2B-3776ab?style=for-the-badge&logo=python)](https://www.python.org)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.35%2B-ff4b4b?style=for-the-badge&logo=streamlit)](https://streamlit.io)
+[![Python](https://img.shields.io/badge/Python-3.13-3776ab?style=for-the-badge&logo=python)](https://www.python.org)
+[![Starlette](https://img.shields.io/badge/Starlette-ASGI-2e7d6b?style=for-the-badge)](https://www.starlette.io/)
 [![Playwright](https://img.shields.io/badge/Playwright-1.44%2B-2ead33?style=for-the-badge&logo=playwright)](https://playwright.dev)
 [![Chrome Extension](https://img.shields.io/badge/Chrome-MV3-4285f4?style=for-the-badge&logo=googlechrome)](https://developer.chrome.com/docs/extensions/mv3/intro/)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Harness-9b59b6?style=for-the-badge)](https://docs.anthropic.com/en/docs/claude-code)
 
 > 🇺🇸 [English README](./README_EN.md)
 
-**Playwright + Streamlit 로 HLS 스트림을 한 번에 일괄 다운로드. 분석/다운로드 분리 + 병렬 처리** ✨
+**영속 큐와 bounded streaming으로 HLS 영상을 안전하게 병렬 다운로드** ✨
 
 [🎯 주요 기능](#-주요-기능) | [💻 로컬 실행](#-로컬에서-실행하기) | [🎮 사용 방법](#-사용-방법) | [🛠️ 하네스](#-하네스-claude-code-harness)
 
@@ -20,20 +20,34 @@
 
 ## 🎯 프로젝트 소개
 
-**crawl-video**는 두 가지 산출물을 한 저장소에서 함께 관리하는 프로젝트입니다.
+**crawl-video**는 HLS 다운로드 앱과 Chrome Extension, 자동화 하네스를 함께 관리합니다.
 
-1. **🐍 `missav-dl/` — Python Streamlit HLS 다운로더 (메인 도구)**
+1. **🚀 `missav-dl-next/` — HLS Download Manager (권장)**
+   Starlette UI/API, SQLite 히스토리, 실패 재시도, 일시정지·취소, 기본 4개 병렬 다운로드를 제공합니다. 세그먼트를 `.part` 파일에 즉시 기록해 영상 전체를 RAM에 보관하지 않습니다.
+
+2. **🐍 `missav-dl/` — 기존 Python Streamlit 다운로더 (legacy)**
    복수의 xxxx.xx URL을 입력해 한 번에 분석하고, 순차/병렬로 일괄 다운로드합니다. Playwright headless 브라우저로 페이지를 렌더링한 뒤 xxxx.xx UUID를 추출해 m3u8 master playlist를 fetch합니다.
 
-2. **🔧 `extensions/missav/` — Chrome Extension (대안 구현, 참고용)**
-   Manifest V3 기반의 익스텐션. Chrome content script `isolated world` 제약 때문에 `<script>` 태그 주입 브릿지로 `window.hls`에 접근합니다. Python 도구를 권장하지만 In-page 버튼이 필요할 때 유용합니다.
+3. **🔧 `extensions/missav/` — Chrome Extension (대안 구현, 참고용)**
+   Manifest V3 기반의 익스텐션. Chrome content script `isolated world` 제약 때문에 `<script>` 태그 주입 브릿지로 `window.hls`에 접근합니다. In-page 버튼이 필요할 때 유용합니다.
 
-3. **🤖 `.claude/` — Claude Code Harness**
+4. **🤖 `.claude/` — Claude Code Harness**
    Playwright MCP로 임의의 영상 사이트를 분석해 Chrome Extension을 자동 생성하는 다단계 에이전트 파이프라인. 새 사이트에 대응할 때 처음부터 다시 구현하지 않고 하네스를 통해 자동화합니다.
 
 ### ✨ 주요 기능
 
-#### `missav-dl/` (Python Streamlit) — **권장**
+#### `missav-dl-next/` — **권장**
+
+- 📋 **다중 URL 영속 큐** — 탭을 닫거나 앱을 재시작해도 SQLite에서 복구
+- 🌊 **bounded streaming** — segment chunk를 즉시 디스크에 기록
+- ⚡ **영상 4개 병렬 처리** — UI에서 1~8개로 조절
+- 🔁 **실패 재시도** — 개별/전체 재시도와 오류 히스토리
+- ⏸️ **작업 제어** — 일시정지, 재개, 취소
+- 📈 **실시간 대시보드** — SSE 진행률, 상태 filter, 검색
+- 🧱 **안전한 파일 publish** — `.part` 완료 후 atomic rename
+- 🖥️ **PM2 운영 파일 제공** — localhost `3102` 기본값
+
+#### `missav-dl/` (Python Streamlit) — legacy
 
 - 📋 **다중 URL 일괄 처리** — 텍스트영역에 한 줄에 하나씩 입력
 - 🔍 **분석/다운로드 2단계 분리** — 모든 URL을 먼저 분석 → 결과 확인 후 다운로드
@@ -58,6 +72,17 @@
 ---
 
 ## 🎮 사용 방법
+
+권장 앱은 URL과 저장 경로를 입력한 뒤 바로 영속 대기열에 추가합니다. 분석과 다운로드가 이어서 실행되며, 실패 탭에서 작업을 다시 시작할 수 있습니다.
+
+```bash
+cd missav-dl-next
+uv sync --frozen
+./start.sh
+# http://127.0.0.1:3102
+```
+
+아래 흐름은 기존 Streamlit 앱의 2단계 UI를 설명합니다.
 
 ```mermaid
 graph TD
@@ -107,18 +132,19 @@ graph TD
 
 | 카테고리 | 기술 | 용도 |
 |----------|------|------|
-| UI | Streamlit 1.35+ | 일괄 다운로드 웹 UI |
-| 페이지 렌더링 | Playwright (headless Chromium) | 봇 감지 우회 + JS 실행 |
-| HTTP 클라이언트 | httpx | m3u8 / 세그먼트 fetch |
-| 동시성 | ThreadPoolExecutor | 다중 URL + 세그먼트 병렬 처리 |
+| UI/API | Starlette + vanilla JS | 일괄 다운로드 웹 UI, REST, SSE |
+| 상태 저장 | SQLite WAL | 작업 큐, 설정, 히스토리 |
+| 페이지 렌더링 | Playwright + shared Chrome | JS 실행과 HLS 정보 분석 |
+| HTTP 클라이언트 | curl-cffi | browser TLS, segment streaming |
+| 동시성 | asyncio | bounded 다중 URL 처리 |
 | 익스텐션 | Chrome Manifest V3 | In-page 다운로드 (대안) |
 | 익스텐션 테스트 | Jest 29 | TDD 단위 테스트 |
 | 하네스 | Claude Code Agents + Skills | 사이트 분석 자동화 |
-| Python | 3.11+ | 런타임 |
+| Python | 3.13 | 런타임 |
 
 </div>
 
-### 🎨 아키텍처 — `missav-dl/`
+### 🎨 기존 아키텍처 — `missav-dl/`
 
 ```mermaid
 graph LR
@@ -203,7 +229,12 @@ graph TB
 crawl-video/
 ├── 📄 README.md
 ├── 📄 CLAUDE.md                       # 하네스 트리거 + 변경 이력
-├── 📂 missav-dl/                      # 🐍 Python Streamlit 다운로더 (메인)
+├── 📂 missav-dl-next/                 # 🚀 영속·streaming 다운로더 (권장)
+│   ├── 📄 pyproject.toml / uv.lock    # Python 3.13 dependency lock
+│   ├── 📂 src/hls_manager/            # API, queue, SQLite, downloader
+│   ├── 📂 public/                     # 정적 SPA
+│   └── ⚙️ ecosystem.config.cjs        # PM2 설정
+├── 📂 missav-dl/                      # 🐍 기존 Streamlit 다운로더
 │   ├── 📄 pyproject.toml              # uv 프로젝트 정의 (playwright, httpx, streamlit)
 │   ├── 🔒 uv.lock                     # 의존성 잠금 파일
 │   ├── 🔧 downloader.py               # get_hls_info / download_hls / build_filename
@@ -238,16 +269,27 @@ crawl-video/
 
 ### 📋 사전 준비물
 
-- Python 3.11 또는 3.12
+- Python 3.13
 - [uv](https://github.com/astral-sh/uv) 패키지 매니저
-- (선택) Chrome 111+ — 익스텐션 사용 시
+- 데스크톱 Google Chrome
 
 ```bash
 # uv 설치 (없는 경우, macOS / Linux)
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-### 🚀 실행 방법 — Python 다운로더 (권장)
+### 🚀 실행 방법 — HLS Download Manager (권장)
+
+```bash
+cd creative-plate/crawl-video/missav-dl-next
+uv sync --frozen
+./start.sh
+# → http://127.0.0.1:3102
+```
+
+상세 설정, PM2 운영, 복구 동작은 [`missav-dl-next/README.md`](./missav-dl-next/README.md)를 참고합니다.
+
+### 기존 Streamlit 다운로더
 
 > 💡 **참고:** `streamlit` 은 단순 라이브러리가 아니라 동봉된 CLI 입니다.
 > uv 가상환경 안에서 호출해야 의존성과 함께 동작하므로 `uv run streamlit ...`
@@ -390,6 +432,6 @@ MIT License — 자유롭게 사용, 수정, 배포 가능합니다.
 
 **⭐ 이 프로젝트가 도움이 됐다면 Star를 눌러주세요! ⭐**
 
-Made with ❤️ using Streamlit + Playwright + Claude Code
+Made with ❤️ using Starlette + Playwright + Claude Code
 
 </div>
