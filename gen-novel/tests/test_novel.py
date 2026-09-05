@@ -165,6 +165,7 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(2, len(logs))
         self.assertIn(read(request), read(logs[0]))
         self.assertIn(read(response), read(logs[0]))
+        self.assertRegex(logs[0].name, r"^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}_\d{6}_대화기록\.md$")
 
     def test_old_summary_search_and_explicit_recall(self):
         first = self.ready("one")
@@ -178,6 +179,19 @@ class PipelineTest(unittest.TestCase):
         self.assertIn("episode 1", output.getvalue())
         run = self.novel.start("three", "약속의 회수", recalls=[1])
         self.assertIn("은빛목걸이", read(run / "context.md"))
+
+    def test_korean_journal_title_cannot_escape_directory(self):
+        request = self.root / "request.md"
+        response = self.root / "response.md"
+        write(request, "첫 회차 수정")
+        write(response, "수정 완료")
+        with redirect_stdout(io.StringIO()):
+            self.assertEqual(0, main(["--root", str(self.root), "log", "--request-file",
+                                    str(request), "--response-file", str(response),
+                                    "--title", "../../첫 회차/피드백"]))
+        logs = list((self.root / "local/journal").glob("*.md"))
+        self.assertEqual(1, len(logs))
+        self.assertTrue(logs[0].name.endswith("_첫_회차_피드백.md"))
 
 
 if __name__ == "__main__":

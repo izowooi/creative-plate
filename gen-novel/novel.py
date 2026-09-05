@@ -9,6 +9,7 @@ import re
 import shutil
 import sys
 import tempfile
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parent
 
@@ -222,6 +223,7 @@ def main(argv=None):
     log = sub.add_parser("log")
     log.add_argument("--request-file", type=Path, required=True)
     log.add_argument("--response-file", type=Path, required=True)
+    log.add_argument("--title", default="대화기록", help="기록 파일의 한국어 제목")
     args = parser.parse_args(argv)
     novel = Novel(args.root)
     try:
@@ -238,8 +240,9 @@ def main(argv=None):
             print(novel.approve(args.id, args.approval))
         elif args.command == "log":
             # Caller must redact secrets before giving files to this local-only recorder.
-            stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
-            path = args.root / "local/journal" / f"{stamp}.md"
+            title = re.sub(r"[^\w가-힣-]+", "_", args.title, flags=re.UNICODE).strip("_-")[:60] or "대화기록"
+            stamp = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d_%H-%M-%S_%f")
+            path = args.root / "local/journal" / f"{stamp}_{title}.md"
             write(path, "# 사용자 요청\n\n" + read(args.request_file) + "\n\n# 응답 요약\n\n" + read(args.response_file))
             print(path)
         elif args.command == "search":
