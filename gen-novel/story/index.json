@@ -1,0 +1,7 @@
+[
+  {"id":"premise","path":"core/premise.md","always":true,"keywords":[],"requires":[]},
+  {"id":"style","path":"core/style.md","always":true,"keywords":[],"requires":[]},
+  {"id":"hero","path":"characters/hero.md","always":true,"keywords":["주인공"],"requires":[]},
+  {"id":"heroine","path":"characters/heroine.md","always":true,"keywords":["히로인"],"requires":[]},
+  {"id":"world","path":"world/foundation.md","always":true,"keywords":["마법","왕국"],"requires":[]}
+]
