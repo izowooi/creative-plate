@@ -1,0 +1,12 @@
+[
+  {"id":"premise","path":"core/premise.md","always":true,"keywords":[],"requires":[]},
+  {"id":"style","path":"core/style.md","always":true,"keywords":[],"requires":[]},
+  {"id":"hero","path":"characters/hero.md","always":true,"keywords":["주인공"],"requires":[]},
+  {"id":"heroine","path":"characters/heroine.md","always":false,"keywords":["히로인","공주","리아나"],"requires":["academy"]},
+  {"id":"world","path":"world/foundation.md","always":true,"keywords":["왕국"],"requires":[]},
+  {"id":"author-policy","path":"core/author-policy.md","always":true,"keywords":[],"requires":[]},
+  {"id":"family","path":"characters/family.md","always":false,"keywords":["아버지","동생","도란","미나"],"requires":[]},
+  {"id":"hometown","path":"world/hometown.md","always":false,"keywords":["브렌","대장간","네라","시장"],"requires":["family"]},
+  {"id":"magic","path":"world/magic.md","always":false,"keywords":["마법","마나","마석","보온함"],"requires":[]},
+  {"id":"academy","path":"world/academy.md","always":false,"keywords":["학교","입학","진학"],"requires":["magic"]}
+]

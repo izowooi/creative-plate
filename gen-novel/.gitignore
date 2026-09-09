@@ -4,4 +4,17 @@
 id_rsa*
 __pycache__/
 .DS_Store
-local/
+# 공개 승인된 작품 자료만 추적한다. 임시 파일과 기타 형식은 제외한다.
+local/**
+!local/**/
+!local/**/*.md
+!local/**/*.json
+# 확장자 허용 규칙보다 민감 파일 제외가 우선한다.
+local/**/.env*
+local/**/*.key
+local/**/*.pem
+local/**/id_rsa*
+local/**/credentials*.json
+local/**/secret*.json
+local/**/.prepare-*/
+local/**/.publish-*/

@@ -1,0 +1,23 @@
+{
+  "id": "ep001-v1",
+  "base": "f20c91ba61480dbfcdf39b1a4be89780957d40dc2cbb3491f6437a4b29d38af6",
+  "episode": 1,
+  "selected": [
+    "academy",
+    "author-policy",
+    "family",
+    "hero",
+    "heroine",
+    "hometown",
+    "magic",
+    "premise",
+    "style",
+    "world"
+  ],
+  "recalls": [],
+  "context_bytes": 17671,
+  "budget_bytes": 60000,
+  "context_sha256": "2aa856e6ca47c396292fcdf69809c450885610fa447d2acceb45ae93bc63b03c",
+  "brief_sha256": "fc44dd4ad12ef1d2b19889b6a432881db59061df430b025273b84590daf92038",
+  "created_at": "2026-09-05T01:17:45.252629+00:00"
+}
