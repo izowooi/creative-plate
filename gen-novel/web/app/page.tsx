@@ -1,6 +1,6 @@
-import { getBooks, bookInfo } from '@/lib/catalog';
-import { Library } from '@/components/library';
+import { Suspense } from 'react';
+import { RemoteLibrary, Loading } from '@/components/remote-library';
 
 export default function Home() {
-  return <Library books={getBooks().map(bookInfo)} />;
+  return <Suspense fallback={<Loading/>}><RemoteLibrary/></Suspense>;
 }

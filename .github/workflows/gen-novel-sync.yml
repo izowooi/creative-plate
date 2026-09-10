@@ -1,0 +1,37 @@
+name: Gen Novel Supabase Sync
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'gen-novel/local/**'
+      - 'gen-novel/web/content/**'
+      - 'gen-novel/web/lib/catalog.ts'
+      - 'gen-novel/web/scripts/sync.ts'
+      - '.github/workflows/gen-novel-sync.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: gen-novel-supabase-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    if: vars.GN_SYNC_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: gen-novel/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: gen-novel/web/package-lock.json
+      - run: npm ci
+      - run: npm run sync
+        env:
+          GN_SUPABASE_URL: ${{ secrets.GN_SUPABASE_URL }}
+          GN_SUPABASE_ANON_KEY: ${{ secrets.GN_SUPABASE_ANON_KEY }}
+          GN_SYNC_TOKEN: ${{ secrets.GN_SYNC_TOKEN }}

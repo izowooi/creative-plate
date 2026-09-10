@@ -6,3 +6,5 @@ out/
 *.key
 *.pem
 .DS_Store
+.wrangler/
+.dev.vars*

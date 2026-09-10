@@ -1,4 +1,5 @@
 'use client';
+import { bookHref, episodeHref } from '@/lib/links';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import Link from 'next/link';
 import Markdown from 'react-markdown';
@@ -21,7 +22,7 @@ export function Reader({ book, episode }: { book: BookInfo; episode: Episode }) 
   const index=book.episodes.findIndex(e=>e.id===episode.id);
   const previous=book.episodes[index-1];
   const next=book.episodes[index+1];
-  const href=(id:string)=>`/books/${book.id}/read/${id}/`;
+  const href=(id:string)=>episodeHref(book.id,id);
 
   useEffect(()=> {
     const saved=parsePosition(localRead(positionKey(book.id)));
@@ -77,11 +78,11 @@ export function Reader({ book, episode }: { book: BookInfo; episode: Episode }) 
     fontFamily:prefs.font==='serif'?"'Iowan Old Style', 'Batang', 'Noto Serif KR', serif":undefined } as CSSProperties;
 
   return <div className="reader" data-theme={prefs.theme}>
-    <header className={`reader-header ${chrome?'':'hidden-chrome'}`}><div className="reader-header-inner"><Link href={`/books/${book.id}/`} className="icon-button" aria-label="작품으로 돌아가기"><ArrowLeft size={21}/></Link><Link href={`/books/${book.id}/`} className="truncate text-sm flex-1 font-semibold">{book.title}</Link><button className="icon-button" aria-label="읽기 설정" onClick={()=>settingsRef.current?.showModal()}><Settings2 size={20}/></button></div><div className="reader-progress" role="progressbar" aria-label="읽은 비율" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress)}><span style={{width:`${progress}%`}}/></div></header>
+    <header className={`reader-header ${chrome?'':'hidden-chrome'}`}><div className="reader-header-inner"><Link href={bookHref(book.id)} className="icon-button" aria-label="작품으로 돌아가기"><ArrowLeft size={21}/></Link><Link href={bookHref(book.id)} className="truncate text-sm flex-1 font-semibold">{book.title}</Link><button className="icon-button" aria-label="읽기 설정" onClick={()=>settingsRef.current?.showModal()}><Settings2 size={20}/></button></div><div className="reader-progress" role="progressbar" aria-label="읽은 비율" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress)}><span style={{width:`${progress}%`}}/></div></header>
     <main className="reading-content">
       <div className="mb-10"><div className="flex items-center gap-2 mb-5"><span className="text-sm" style={{color:'var(--reader-muted)'}}>EPISODE {String(episode.number).padStart(2,'0')}</span><span className={`pill ${episode.status==='draft'?'draft-pill':''}`}>{episode.status==='draft'?'초안':'확정본'}</span></div><h1 className="text-[1.7rem] font-bold tracking-tight leading-snug">{episode.title}</h1><p className="text-sm mt-4" style={{color:'var(--reader-muted)'}}>약 {episode.minutes}분 · {episode.characters.toLocaleString('ko-KR')}자</p></div>
       <div className="prose-novel" ref={articleRef} style={style}><Markdown skipHtml components={{img:()=>null,a:({children})=><span>{children}</span>}}>{body}</Markdown></div>
-      <div className="text-center mt-16 mb-8"><span style={{color:'var(--reader-muted)'}} className="text-sm">{episode.number}화 끝</span><div className="mt-6">{next?<Link className="primary" href={href(next.id)}>다음 화 읽기<ArrowRight size={18}/></Link>:<><p className="text-base font-semibold mb-2">준비된 이야기를 모두 읽었어요.</p><p className="text-sm mb-6" style={{color:'var(--reader-muted)'}}>다음 이야기가 쌓이면 이곳에서 만나요.</p><Link className="secondary !bg-transparent" href={`/books/${book.id}/`}>회차 목록으로</Link></>}</div></div>
+      <div className="text-center mt-16 mb-8"><span style={{color:'var(--reader-muted)'}} className="text-sm">{episode.number}화 끝</span><div className="mt-6">{next?<Link className="primary" href={href(next.id)}>다음 화 읽기<ArrowRight size={18}/></Link>:<><p className="text-base font-semibold mb-2">준비된 이야기를 모두 읽었어요.</p><p className="text-sm mb-6" style={{color:'var(--reader-muted)'}}>다음 이야기가 쌓이면 이곳에서 만나요.</p><Link className="secondary !bg-transparent" href={bookHref(book.id)}>회차 목록으로</Link></>}</div></div>
       {!storageOk && <p role="status" className="text-sm text-center mt-6" style={{color:'var(--reader-muted)'}}>이 브라우저에서는 읽던 위치를 저장할 수 없어요. 저장 공간 설정을 확인해 주세요.</p>}
     </main>
     <button className="icon-button fixed right-4 bottom-24 z-10 shadow-sm" style={{background:'var(--paper)',border:'1px solid var(--reader-line)'}} onClick={()=>setChrome(!chrome)} aria-label={chrome?'읽기 도구 숨기기':'읽기 도구 보이기'} aria-pressed={!chrome}><Eye size={19}/></button>

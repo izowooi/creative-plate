@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
-import { getBooks, bookInfo } from '@/lib/catalog';
-import { BookDetail } from '@/components/book-detail';
+import { getBooks } from '@/lib/catalog';
+import { Suspense } from 'react';
+import { RemoteLibrary, Loading } from '@/components/remote-library';
 
 export const dynamicParams = false;
 export function generateStaticParams() { return getBooks().map(b=>({bookId:b.id})); }
@@ -13,5 +14,5 @@ export default async function Page({ params }: {params:Promise<{bookId:string}>}
   const { bookId } = await params;
   const book = getBooks().find(b=>b.id===bookId);
   if (!book) notFound();
-  return <BookDetail book={bookInfo(book)}/>;
+  return <Suspense fallback={<Loading/>}><RemoteLibrary mode="book" fixedBook={bookId}/></Suspense>;
 }

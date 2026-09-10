@@ -4,6 +4,14 @@ Next.js App Router + TypeScript + Tailwind CSS. 네이버 시리즈의 서재→
 독자적인 이름과 타이포그래피 표지를 사용하며 원본 서비스의 로고·이미지는 사용하지 않는다.
 현재 작품은 「불씨를 건네는 아이」이며 실제 Markdown 1화 초안을 읽는다.
 
+## Supabase/Cloudflare 연동 준비
+
+2026-09-10: Supabase 런타임 조회와 GitHub push 기반 동기화 코드를 추가했다.
+**대상 Supabase 프로젝트 선택 대기 중으로 원격 DB 생성·적재·배포는 아직 미실행**이다.
+설정과 남은 절차는 [Supabase 동기화 안내](../docs/supabase-sync.md)를 따른다.
+이하 정적 원고 안내는 로컬 개발/preview에 해당한다. 배포한 Worker는 `/api/*`를 Supabase로 연결한다.
+`/book/?id=...`, `/read/?book=...&episode=...` 주소로 새 작품을 재배포 없이 읽도록 구성했다.
+
 ## 로컬 실행
 
 Node.js 22 이상과 npm을 사용한다. cwd: `gen-novel/web`.
@@ -44,7 +52,7 @@ DB나 API key는 필요 없다. Git은 원고의 버전 저장소이고 웹앱�
 
 작품 추가는 같은 JSON 배열에 고유한 id와 별도 source를 등록한다. source마다 동일한 runs/final 구조를 둔다.
 카탈로그는 `lib/catalog.ts`, UI 전달 타입은 `lib/types.ts`에 분리했다.
-나중에 Supabase나 Cloudflare D1/R2를 사용할 때 이 로더를 교체할 수 있다.
+  Supabase 배포에서는 `worker/index.ts`가 DB를 읽고 이 로더는 로컬 preview와 CI 동기화에 사용한다.
 쓰기·로그인·기기간 동기화는 현재 구현 범위에 없다.
 
 ## 빌드와 사용자 직접 배포

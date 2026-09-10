@@ -7,23 +7,31 @@
     "build": "next build",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts",
-    "preview": "python3 -m http.server 3100 --bind 0.0.0.0 --directory out"
+    "preview": "python3 -m http.server 3100 --bind 0.0.0.0 --directory out",
+    "sync": "tsx scripts/sync.ts",
+    "worker:dev": "wrangler dev --port 3101",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "lucide-react": "^0.577.0",
     "next": "16.3.4",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "lucide-react": "^0.577.0",
     "react-markdown": "^10.1.0"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "@tailwindcss/postcss": "4.3.3",
-    "tailwindcss": "4.3.3",
-    "typescript": "^5.9.3",
     "@types/node": "^22.19.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
-    "tsx": "^4.21.0"
+    "tailwindcss": "4.3.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.130.0"
   },
-  "engines": { "node": ">=22" }
+  "overrides": { "sharp": "0.35.4" },
+  "engines": {
+    "node": ">=22"
+  }
 }
