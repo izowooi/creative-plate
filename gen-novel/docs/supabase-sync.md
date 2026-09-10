@@ -1,12 +1,16 @@
 # Supabase 동기화와 Cloudflare Worker
 
-## 현재 준비 상태 (2026-09-10)
+## 운영 상태 (2026-09-10)
 
-연결된 Supabase 프로젝트는 `fresh-mint`, `wmp-clever-lemon` 두 개다.
-사용자 선택 전이라 원격 migration·데이터 적재·credential 설정·실제 Worker 배포는 아직 하지 않았다.
-`gn_` SQL migration, 클라이언트의 런타임 조회, Worker 읽기 API, GitHub 자동 동기화 코드를 준비했다.
-GitHub workflow는 repository variable `GN_SYNC_ENABLED=true`가 설정된 뒤에만 실행된다.
-따라서 준비 코드를 push해도 아직 DB에 쓰지 않는다.
+사용자가 선택한 `fresh-mint`에 gn_ 테이블 5개와 import RPC를 Supabase MCP로 생성했다.
+기존 작품 「불씨를 건네는 아이」와 1화 「불을 끄는 순서」 초안이 적재됐다.
+`GN_SYNC_ENABLED=true`로 GitHub push 동기화를 활성화했다.
+최초 실제 동기화 실행: https://github.com/izowooi/creative-plate/actions/runs/34472407757 (success).
+서비스: https://gen-novel-reader.izowooi.workers.dev
+1화: https://gen-novel-reader.izowooi.workers.dev/read/?book=embers&episode=ep-0001
+Worker version: `708e439c-a25b-412f-88e6-8e02b3bd166c` (접속 설정 반영 시점).
+이제 새 회차는 Git push 후 DB 동기화가 끝나면 사이트를 새로 열거나 새로고침해 읽는다.
+원고 공개·DB 적재는 작가의 회차 확정과 별개다. 1화는 아직 퇴고 전 초안이다.
 
 ## 저장 구조
 
@@ -42,7 +46,7 @@ RPC는 토큰을 검증하고 하나의 DB transaction에서 적용한다. 같�
 오래된 snapshot으로 조용히 대체하지 않고, DB 오류 시 재시도 화면을 표시한다.
 읽던 위치·글자 설정은 여전히 기기별 localStorage다. 로그인·기기간 읽기 위치 동기화는 추가하지 않았다.
 
-## 프로젝트 선택 후 이어서 할 작업
+## 설치 절차와 재설정 참고 (현재 설치 완료)
 
 1. 선택한 프로젝트의 gn_ 중복 여부를 다시 조회하고 Supabase MCP로 migration 적용.
 2. `web/scripts/provision-sync-secret.mjs`로 gn 전용 토큰을 메모리에서 생성하고 GitHub secret에 저장.
@@ -56,6 +60,21 @@ RPC는 토큰을 검증하고 하나의 DB transaction에서 적용한다. 같�
 6. `web/`에서 `npm run deploy`로 기존 로그인된 Cloudflare 계정에 `gen-novel-reader` Worker를 배포한다.
    동일 이름의 Worker가 생겨 있다면 덮어쓰기 전에 대상이 이 앱인지 다시 확인한다.
 7. 배포 URL에서 서재·실제 1화 API·회차 화면·오류 경로를 확인하고 사용자에게 URL 제공.
+
+초기 migration 이후 `20260910_gn_function_grants.sql`도 적용했다.
+Supabase의 기본 function grant로 들어온 authenticated RPC 권한을 명시적으로 제거한다.
+이미 설치된 환경에서 초기 migration이나 token provisioning을 다시 실행하지 않는다.
+
+## 실제 검증 결과
+
+- RLS 5개 테이블 모두 활성화. anon은 books/episodes만 SELECT 가능하며 INSERT/UPDATE/DELETE 불가.
+- 실제 REST API에서 credentials SELECT, books INSERT, 잘못된 token의 import가 모두 HTTP 401로 거부됨.
+- Worker 홈·작품·읽기 URL 및 API가 200, 없는 회차 404, API POST는 405.
+- Worker가 반환한 1화 본문과 로컬 catalog 본문이 완전히 일치함(4,401자, 제목 제외).
+- Supabase security advisor의 private 테이블 RLS/no policy 알림은 의도한 접근 차단이다.
+- anon SECURITY DEFINER RPC 알림은 의도한 토큰 검증 import에 해당한다. 일반 공개 쓰기를 허용한 것이 아니며
+  이 함수는 gn_ 테이블만 다룬다. [Supabase 함수 보안 안내](https://supabase.com/docs/guides/database/functions)를 참고한다.
+- 브라우저 기기간 글꼴/읽기 위치 동기화와 모바일 실기기 테스트는 별도 범위다.
 
 GitHub secret 설정 권한은 현재 gh 로그인에서 확인했다. Wrangler 로그인도 확인했다.
 Supabase MCP는 연결돼 있으나 Wrangler MCP는 현재 도구 목록에 없어서 로그인된 CLI를 사용한다.

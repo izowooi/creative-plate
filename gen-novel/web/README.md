@@ -4,11 +4,11 @@ Next.js App Router + TypeScript + Tailwind CSS. 네이버 시리즈의 서재→
 독자적인 이름과 타이포그래피 표지를 사용하며 원본 서비스의 로고·이미지는 사용하지 않는다.
 현재 작품은 「불씨를 건네는 아이」이며 실제 Markdown 1화 초안을 읽는다.
 
-## Supabase/Cloudflare 연동 준비
+## Supabase/Cloudflare 운영
 
-2026-09-10: Supabase 런타임 조회와 GitHub push 기반 동기화 코드를 추가했다.
-**대상 Supabase 프로젝트 선택 대기 중으로 원격 DB 생성·적재·배포는 아직 미실행**이다.
-설정과 남은 절차는 [Supabase 동기화 안내](../docs/supabase-sync.md)를 따른다.
+2026-09-10: `fresh-mint`에 gn_ 테이블과 기존 1화를 적재하고 GitHub push 동기화를 활성화했다.
+**접속: https://gen-novel-reader.izowooi.workers.dev**
+설정·검증·복구 절차는 [Supabase 동기화 안내](../docs/supabase-sync.md)를 따른다.
 이하 정적 원고 안내는 로컬 개발/preview에 해당한다. 배포한 Worker는 `/api/*`를 Supabase로 연결한다.
 `/book/?id=...`, `/read/?book=...&episode=...` 주소로 새 작품을 재배포 없이 읽도록 구성했다.
 
@@ -24,7 +24,7 @@ npm run dev
 컴퓨터: http://localhost:3100
 휴대폰: 같은 Wi-Fi에서 `http://컴퓨터의-LAN-IP:3100`에 접속한다.
 휴대폰에서 localhost는 휴대폰 자신이므로 컴퓨터 주소를 사용한다. 컴퓨터가 켜져 있어야 하며 OS 방화벽에서 연결을 허용해야 한다.
-인터넷 배포나 시스템 설정 변경은 수행하지 않았다.
+공개 배포는 위 Worker 주소를 사용한다. 이 로컬 실행 방법은 개발용이다.
 
 ## 기능
 
@@ -52,7 +52,7 @@ DB나 API key는 필요 없다. Git은 원고의 버전 저장소이고 웹앱�
 
 작품 추가는 같은 JSON 배열에 고유한 id와 별도 source를 등록한다. source마다 동일한 runs/final 구조를 둔다.
 카탈로그는 `lib/catalog.ts`, UI 전달 타입은 `lib/types.ts`에 분리했다.
-  Supabase 배포에서는 `worker/index.ts`가 DB를 읽고 이 로더는 로컬 preview와 CI 동기화에 사용한다.
+Supabase 배포에서는 `worker/index.ts`가 DB를 읽고 이 로더는 로컬 preview와 CI 동기화에 사용한다.
 쓰기·로그인·기기간 동기화는 현재 구현 범위에 없다.
 
 ## 빌드와 사용자 직접 배포
@@ -66,10 +66,11 @@ npm run preview
 
 `npm run build`는 `out/`에 정적 HTML/CSS/JS를 생성한다. 서버나 DB가 없는 정적 호스팅에 올릴 수 있다.
 `preview`는 Python 3으로 out/을 3100 포트에 제공한다. dev 서버와 동시에 같은 포트에 띄우지 않는다.
-배포는 사용자가 수행한다. Cloudflare Pages에서 설정한다면 저장소 checkout에 `gen-novel/local`도 있어야 한다.
+현재 서비스는 Cloudflare Worker로 배포했다. 정적 preview만 별도로 호스팅한다면 저장소 checkout에 `gen-novel/local`도 있어야 한다.
 빌드 작업 폴더는 `gen-novel/web`, 명령은 `npm ci && npm run build`, 결과 디렉터리는 그 폴더 기준 `out`이다.
 Cloudflare 런타임에서 Node fs를 읽는 구조가 아니라 빌드 시에만 읽는 구조다.
-원고 변경은 commit/push 후 재빌드·재배포해야 반영된다. GitHub Pages의 하위 경로 배포는 별도 basePath 설정이 필요하다.
+정적 preview의 원고 변경은 재빌드가 필요하지만 운영 Worker는 Git push→DB 동기화 후 즉시 새 원고를 조회한다.
+UI/Worker 코드가 바뀔 때만 `npm run deploy`로 재배포한다. GitHub Pages 하위 경로 배포는 별도 basePath 설정이 필요하다.
 
 오프라인 캐시/service worker는 넣지 않았다. 설치 앱과 동일한 오프라인 동작을 보장하지 않는다.
 스타일은 시스템 글꼴을 사용하므로 외부 폰트 서버에 의존하지 않는다.

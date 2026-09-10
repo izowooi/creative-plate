@@ -6,10 +6,13 @@
 ## 모바일 웹앱으로 읽기
 
 [책갈피 웹앱](web/README.md)은 Next.js + Tailwind로 만든 소설 뷰어입니다.
+**모바일·맥북 접속: https://gen-novel-reader.izowooi.workers.dev**
+원고는 fresh-mint Supabase의 gn_ 테이블에 동기화되며 Git push 후 최신 회차를 읽을 수 있습니다.
+처음이라면 [매일 집필하는 법](docs/daily-writing.md)부터 읽어 주세요.
 `web/`에서 `npm ci` 후 `npm run dev`를 실행하면 http://localhost:3100 에서 읽을 수 있습니다.
 같은 Wi-Fi의 휴대폰에서는 컴퓨터의 LAN IP와 3100 포트를 사용합니다.
-서재·회차 목록·글자 크기·줄 간격·배경색·읽던 위치 저장을 지원하며 DB 없이 Git의 원고를 읽습니다.
-`npm run build` 결과인 `web/out/`을 정적 호스팅에 배포할 수 있습니다. 배포는 사용자가 별도로 진행합니다.
+서재·회차 목록·글자 크기·줄 간격·배경색·읽던 위치 저장을 지원합니다. 로컬 개발은 Git 원고, 운영 사이트는 DB를 읽습니다.
+`web/out/`과 읽기 API Worker를 함께 배포했습니다. [DB 동기화와 배포 안내](docs/supabase-sync.md)를 참고하세요.
 
 ## 지금 할 일
 

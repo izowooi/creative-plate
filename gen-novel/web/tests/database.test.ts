@@ -9,6 +9,9 @@ test('gn schema: RLS, token authentication, atomic sync, history, retry and stal
   try {
     await db.exec('create role anon; create role authenticated;');
     await db.exec(fs.readFileSync('../supabase/migrations/20260910_gn_library.sql','utf8'));
+    await db.exec('grant execute on function public.gn_import_catalog(jsonb,text) to authenticated;');
+    await db.exec(fs.readFileSync('../supabase/migrations/20260910_gn_function_grants.sql','utf8'));
+    assert.equal((await db.query<{allowed:boolean}>("select has_function_privilege('authenticated','public.gn_import_catalog(jsonb,text)','EXECUTE') as allowed")).rows[0].allowed,false);
     const token='test-only-token-'.repeat(5);
     await db.query('insert into public.gn_sync_credentials values ($1,$2)',['github',createHash('sha256').update(token).digest('hex')]);
     const book={id:'test',title:'테스트',author:'작가',genre:'판타지',tags:[],description:'소개',quote:'',episodes:[{
