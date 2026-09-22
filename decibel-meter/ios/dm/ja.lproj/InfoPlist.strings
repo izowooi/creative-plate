@@ -1,0 +1,2 @@
+"CFBundleDisplayName" = "Sori";
+"NSMicrophoneUsageDescription" = "Soriは端末内で音レベルを測定するためにマイクを使用します。音声は保存・送信しません。";

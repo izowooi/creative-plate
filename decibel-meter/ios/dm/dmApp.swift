@@ -1,32 +1,19 @@
-//
-//  dmApp.swift
-//  dm
-//
-//  Created by izowooi on 9/22/26.
-//
-
 import SwiftUI
-import SwiftData
 
 @main
-struct dmApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+@MainActor
+struct SoriApp: App {
+    @StateObject private var model = MeterModel()
+    @Environment(\.scenePhase) private var scenePhase
 
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    init() { Diagnostics.configure() }
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(model: model)
+                .onChange(of: scenePhase) { _, phase in
+                    if phase == .background { model.stop(reason: "background_stopped") }
+                }
         }
-        .modelContainer(sharedModelContainer)
     }
 }

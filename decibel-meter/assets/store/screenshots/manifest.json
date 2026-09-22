@@ -1,0 +1,201 @@
+{
+  "captured": "2026-09-23",
+  "images": [
+    {
+      "file": "screenshots/android/en/01-meter-demo.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/android/en/02-summary-demo.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/android/en/03-settings.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "native simulator/emulator capture",
+      "demo": false
+    },
+    {
+      "file": "screenshots/android/en/04-calibration.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "native simulator/emulator capture",
+      "demo": false
+    },
+    {
+      "file": "screenshots/android/en/05-meter-demo-dark.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/android/ko/01-meter-demo.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/android/ko/02-summary-demo.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/android/ko/03-settings.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "native simulator/emulator capture",
+      "demo": false
+    },
+    {
+      "file": "screenshots/android/ko/04-calibration.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "native simulator/emulator capture",
+      "demo": false
+    },
+    {
+      "file": "screenshots/android/ko/05-meter-demo-dark.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ios/en/01-meter-demo.png",
+      "width": 1320,
+      "height": 2868,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ios/en/02-summary-demo.png",
+      "width": 1320,
+      "height": 2868,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ios/en/03-settings.png",
+      "width": 1320,
+      "height": 2868,
+      "source": "native simulator/emulator capture",
+      "demo": false
+    },
+    {
+      "file": "screenshots/ios/en/04-meter-demo-dark.png",
+      "width": 1320,
+      "height": 2868,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ios/en/05-settings-dark.png",
+      "width": 1320,
+      "height": 2868,
+      "source": "native simulator/emulator capture",
+      "demo": false
+    },
+    {
+      "file": "screenshots/ios/en/06-summary-demo-dark.png",
+      "width": 1320,
+      "height": 2868,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ios/ko/01-meter-demo.png",
+      "width": 1320,
+      "height": 2868,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ios/ko/02-summary-demo.png",
+      "width": 1320,
+      "height": 2868,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ios/ko/03-settings.png",
+      "width": 1320,
+      "height": 2868,
+      "source": "native simulator/emulator capture",
+      "demo": false
+    },
+    {
+      "file": "screenshots/ios/ko/04-meter-demo-dark.png",
+      "width": 1320,
+      "height": 2868,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ios/ko/05-settings-dark.png",
+      "width": 1320,
+      "height": 2868,
+      "source": "native simulator/emulator capture",
+      "demo": false
+    },
+    {
+      "file": "screenshots/ios/ko/06-summary-demo-dark.png",
+      "width": 1320,
+      "height": 2868,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ipad/en/01-meter-demo.png",
+      "width": 2064,
+      "height": 2752,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ipad/en/02-summary-demo.png",
+      "width": 2064,
+      "height": 2752,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ipad/en/03-settings.png",
+      "width": 2064,
+      "height": 2752,
+      "source": "native simulator/emulator capture",
+      "demo": false
+    },
+    {
+      "file": "screenshots/ipad/ko/01-meter-demo.png",
+      "width": 2064,
+      "height": 2752,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ipad/ko/02-summary-demo.png",
+      "width": 2064,
+      "height": 2752,
+      "source": "native simulator/emulator capture",
+      "demo": true
+    },
+    {
+      "file": "screenshots/ipad/ko/03-settings.png",
+      "width": 2064,
+      "height": 2752,
+      "source": "native simulator/emulator capture",
+      "demo": false
+    }
+  ]
+}

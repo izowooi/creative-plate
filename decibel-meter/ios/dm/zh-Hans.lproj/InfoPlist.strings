@@ -1,0 +1,2 @@
+"CFBundleDisplayName" = "Sori 声级计";
+"NSMicrophoneUsageDescription" = "Sori使用麦克风在设备上测量声音电平。音频不会被保存或发送。";

@@ -1,0 +1,18 @@
+{
+  "built": "2026-09-23",
+  "artifacts": [
+    {
+      "path": "android/app/build/outputs/apk/release/app-release-unsigned.apk",
+      "bytes": 1748117,
+      "sha256": "5bdfd88f09f1601fca54784e16f964c3b87d0fcd547e6385d7c1d4e7d814b515"
+    },
+    {
+      "path": "android/app/build/outputs/bundle/release/app-release.aab",
+      "bytes": 3771075,
+      "sha256": "27f6d9198f538c1e0c1c2db620d6e500c64e203b7e904ef5acdd60f08515ac44"
+    }
+  ],
+  "android_native_16kb_alignment": true,
+  "ios_archive": "ios/build/Sori.xcarchive",
+  "ios_archive_signed": false
+}

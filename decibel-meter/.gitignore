@@ -43,3 +43,7 @@ xcuserdata/
 *.apk
 *.aab
 *.ipa
+
+# Downloaded third-party research artifacts and local verification output
+.research/
+.verification/

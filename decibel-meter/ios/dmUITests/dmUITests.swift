@@ -23,21 +23,122 @@ final class dmUITests: XCTestCase {
     }
 
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testEnglishMeterSummaryAndSettings() throws {
         let app = XCUIApplication()
+        app.launchArguments = ["--sori-demo", "-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
         app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // XCUIAutomation Documentation
-        // https://developer.apple.com/documentation/xcuiautomation
+        XCTAssertTrue(app.buttons["summary"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts["Demo data"].exists)
+        let main = XCTAttachment(screenshot: app.screenshot()); main.name = "Sori-English-meter"; main.lifetime = .keepAlways; add(main)
+        app.buttons["summary"].tap()
+        XCTAssertTrue(app.buttons["share_csv"].waitForExistence(timeout: 5))
+        let summary = XCTAttachment(screenshot: app.screenshot()); summary.name = "Sori-English-summary"; summary.lifetime = .keepAlways; add(summary)
+        app.buttons["Done"].tap()
+        app.buttons["settings"].tap()
+        XCTAssertTrue(app.switches["diagnostics"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.switches["diagnostics"].value as? String, "0")
+        for _ in 0..<3 {
+            if app.staticTexts["Privacy"].exists || app.buttons["Privacy"].exists { break }
+            app.swipeUp()
+        }
+        XCTAssertTrue(app.staticTexts["Privacy"].exists || app.buttons["Privacy"].exists)
     }
 
     @MainActor
-    func testLaunchPerformance() throws {
-        // This measures how long it takes to launch your application.
-        measure(metrics: [XCTApplicationLaunchMetric()]) {
-            XCUIApplication().launch()
+    func testKoreanCalibrationRequiresLiveInput() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["--sori-demo", "-AppleLanguages", "(ko)", "-AppleLocale", "ko_KR"]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["소리결"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons["calibration"].exists)
+        app.buttons["calibration"].tap()
+        XCTAssertTrue(app.textFields["profile_name"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["save_calibration"].isEnabled)
+        let image = XCTAttachment(screenshot: app.screenshot()); image.name = "Sori-Korean-calibration"; image.lifetime = .keepAlways; add(image)
+    }
+    @MainActor
+    func testMicrophoneStartStopAndBackground() throws {
+        let app = XCUIApplication()
+        app.resetAuthorizationStatus(for: .microphone)
+        app.launchArguments = ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
+        app.launch()
+        XCTAssertTrue(app.buttons["measure"].waitForExistence(timeout: 10))
+        app.buttons["measure"].tap()
+        let system = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let allow = system.alerts.buttons.matching(NSPredicate(format: "label IN %@", ["Allow", "허용", "OK", "확인"])).firstMatch
+        if allow.waitForExistence(timeout: 5) { allow.tap() }
+        let stop = app.buttons.matching(identifier: "measure").matching(NSPredicate(format: "label CONTAINS %@", "Stop measuring")).firstMatch
+        XCTAssertTrue(stop.waitForExistence(timeout: 12))
+        let duration = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@ AND label != %@", "Duration: ", "Duration: 00:00:00")).firstMatch
+        XCTAssertTrue(duration.waitForExistence(timeout: 6))
+        stop.tap()
+        XCTAssertTrue(app.buttons["summary"].waitForExistence(timeout: 5))
+        app.buttons["measure"].tap()
+        XCTAssertTrue(stop.waitForExistence(timeout: 10))
+        XCUIDevice.shared.press(.home)
+        app.activate()
+        XCTAssertTrue(app.staticTexts["Measurement stopped when Sori left the foreground."].waitForExistence(timeout: 6))
+        XCTAssertFalse(stop.exists)
+    }
+
+    @MainActor
+    func testPermissionDenialOffersRecoveryWithoutStarting() throws {
+        let app = XCUIApplication()
+        app.resetAuthorizationStatus(for: .microphone)
+        app.launchArguments = ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
+        app.launch()
+        XCTAssertTrue(app.buttons["measure"].waitForExistence(timeout: 10))
+        app.buttons["measure"].tap()
+        let system = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let deny = system.alerts.buttons.matching(NSPredicate(format: "label IN %@", ["Don’t Allow", "Don't Allow", "허용 안 함"])).firstMatch
+        XCTAssertTrue(deny.waitForExistence(timeout: 6))
+        deny.tap()
+        XCTAssertTrue(app.buttons["Open Settings"].waitForExistence(timeout: 6))
+        XCTAssertFalse(app.buttons.matching(identifier: "measure").matching(NSPredicate(format: "label CONTAINS %@", "Stop measuring")).firstMatch.exists)
+    }
+
+    @MainActor
+    func testStoreScreenshots() throws {
+        for (language, locale, done) in [("ko", "ko_KR", "완료"), ("en", "en_US", "Done")] {
+            let app = XCUIApplication()
+            app.launchArguments = ["--sori-demo", "-AppleLanguages", "(\(language))", "-AppleLocale", locale]
+            app.launch()
+            XCTAssertTrue(app.buttons["summary"].waitForExistence(timeout: 10))
+            capture(app, name: "Sori-\(language)-01-meter-demo")
+            app.buttons["summary"].tap()
+            XCTAssertTrue(app.buttons["share_csv"].waitForExistence(timeout: 5))
+            capture(app, name: "Sori-\(language)-02-summary-demo")
+            app.buttons[done].tap()
+            app.buttons["settings"].tap()
+            XCTAssertTrue(app.switches["diagnostics"].waitForExistence(timeout: 5))
+            capture(app, name: "Sori-\(language)-03-settings")
+            app.terminate()
         }
     }
+
+    @MainActor
+    private func capture(_ app: XCUIApplication, name: String) {
+        let attachment = XCTAttachment(screenshot: app.screenshot())
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+
+    @MainActor
+    func testCsvShareSheet() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["--sori-demo", "-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
+        app.launch()
+        XCTAssertTrue(app.buttons["summary"].waitForExistence(timeout: 10))
+        app.buttons["summary"].tap()
+        let share = app.buttons["share_csv"]
+        XCTAssertTrue(share.waitForExistence(timeout: 5))
+        if !share.isHittable { app.swipeUp() }
+        share.tap()
+        let file = app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS %@", "Sori-measurement")).firstMatch
+        XCTAssertTrue(file.waitForExistence(timeout: 8))
+        XCTAssertEqual(app.state, .runningForeground)
+        capture(app, name: "Sori-CSV-share-sheet")
+    }
+
 }

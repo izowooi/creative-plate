@@ -1,0 +1,2 @@
+"CFBundleDisplayName" = "소리결";
+"NSMicrophoneUsageDescription" = "소리결이 기기에서 소리 레벨을 측정하기 위해 마이크를 사용합니다. 원음은 저장하거나 전송하지 않습니다.";
