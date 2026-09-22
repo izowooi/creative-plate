@@ -1,0 +1,45 @@
+# Environment files and local configuration
+.env*
+!.env.example
+!.env.sample
+!.env.*.example
+local.properties
+signing.properties
+keystore.properties
+
+# Credentials and signing material
+*.key
+*.pem
+*.p8
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.mobileprovision
+*.provisionprofile
+id_rsa
+id_ed25519
+*-firebase-adminsdk-*.json
+service-account*.json
+serviceAccount*.json
+
+# Keep Firebase client configuration local under this repository's key policy
+google-services.json
+GoogleService-Info.plist
+
+# IDE state and generated output
+.DS_Store
+.idea/
+*.iml
+.gradle/
+.kotlin/
+.swiftpm/
+build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xcarchive
+*.xcresult
+*.apk
+*.aab
+*.ipa
