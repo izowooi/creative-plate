@@ -33,6 +33,10 @@ assert application.attrib[attr + "allowBackup"] == "false"
 metadata = {node.attrib[attr + "name"]: node.attrib.get(attr + "value") for node in application.findall("meta-data")}
 assert metadata["firebase_crashlytics_collection_enabled"] == "false"
 assert metadata["firebase_data_collection_default_enabled"] == "false"
+ios_info = plistlib.loads((ROOT / "ios/Config/Info.plist").read_bytes())
+assert ios_info["FirebaseCrashlyticsCollectionEnabled"] is False
+assert ios_info["FirebaseDataCollectionDefaultEnabled"] is False
+assert ios_info["NSMicrophoneUsageDescription"]
 privacy = plistlib.loads((ROOT / "ios/dm/PrivacyInfo.xcprivacy").read_bytes())
 assert privacy["NSPrivacyTracking"] is False
 assert privacy["NSPrivacyAccessedAPITypes"][0]["NSPrivacyAccessedAPITypeReasons"] == ["CA92.1"]

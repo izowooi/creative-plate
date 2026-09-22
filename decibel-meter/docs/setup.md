@@ -25,7 +25,7 @@ decibel-meter/
 
 이 파일들은 Git에서 제외된다. 다른 Mac/checkout에서는 본인의 설정 파일을 같은 경로에 복사한다. 서비스 계정 private key는 필요하지 않다. Firebase Console에 실제로 등록된 두 앱 ID와 로컬 구성의 일치도 Firebase CLI로 확인했다.
 
-Firebase Core와 Crashlytics를 사용하며 기본 데이터 수집과 오류 보고는 꺼져 있다. 사용자가 설정에서 진단 공유를 켜면 활성화된다. 원음·측정값·프로필 메모를 진단 보고서에 첨부하지 않는다.
+Firebase Core와 Crashlytics를 사용하며 기본 데이터 수집과 오류 보고는 꺼져 있다. iOS 초기 기본값은 `ios/Config/Info.plist`에 명시해 SDK 초기화 전에도 적용한다. 사용자가 설정에서 진단 공유를 켜면 활성화된다. 원음·측정값·프로필 메모를 진단 보고서에 첨부하지 않는다.
 
 ## Android
 

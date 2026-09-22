@@ -105,3 +105,11 @@ struct AcousticsTests {
         #expect(decoded.csv() == csv)
     }
 }
+
+struct AppConfigurationTests {
+    @Test func diagnosticsAreOffBeforeFirebaseInitialization() {
+        #expect(Bundle.main.object(forInfoDictionaryKey: "FirebaseCrashlyticsCollectionEnabled") as? Bool == false)
+        #expect(Bundle.main.object(forInfoDictionaryKey: "FirebaseDataCollectionDefaultEnabled") as? Bool == false)
+        #expect(Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") as? String != nil)
+    }
+}

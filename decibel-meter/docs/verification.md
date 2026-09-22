@@ -7,7 +7,7 @@
 | 영역 | 확인한 내용 | 결과 |
 | --- | --- | --- |
 | Android 단위 테스트 | 8개: 진폭 절반, 에너지 평균·샘플 수, 무음/NaN/Infinity, clipping/부분 구간, A 응답, 입력 조건별 보정 무효화, 그래프/CSV 경계, CSV formula escaping | 통과 |
-| iOS 단위 테스트 | 8개 정의 / A 응답의 3개 샘플레이트를 포함한 10개 경우. 계산·보정·안정도·JSON/CSV round-trip·버퍼 경계 | iOS 17.5 및 27.0에서 통과 |
+| iOS 단위 테스트 | 9개 정의 / A 응답의 3개 샘플레이트를 포함한 11개 경우. 계산·보정·안정도·JSON/CSV round-trip·버퍼 경계·초기 진단 기본값 | iOS 17.5 및 27.0에서 통과 |
 | Android native UI | 실제 AudioRecord 입력, 중복 시작/종료, 백그라운드 마이크 해제와 비자동 재시작, 설정과 기본 진단 꺼짐, 수치 CSV 공유 | Android 15 emulator에서 4개 통과 |
 | iOS native UI | 영어 측정/요약/설정, 한국어 보정 입력 제한, 실제 마이크 시작/종료·백그라운드 중단, 권한 거부 후 설정 이동 안내 | iOS 27.0에서 4개 통과 |
 | 작은 iPhone / 이전 OS | iPhone SE 3세대, iOS 17.5의 계산 테스트와 측정·요약·설정 흐름 | 통과 |
@@ -44,7 +44,7 @@ Android lint의 남은 warning은 SDK/의존성 새 버전 알림, SharedPrefere
 ## 개인정보·권한 확인
 
 - Android Release merged manifest: RECORD_AUDIO, MODIFY_AUDIO_SETTINGS, INTERNET, Firebase의 ACCESS_NETWORK_STATE 및 앱 내부 signature receiver permission. 광고 ID·위치·사진/외부 저장소 권한은 없다.
-- 두 플랫폼에서 Firebase 기본 데이터 수집과 Crashlytics 자동 보고를 false로 시작한다.
+- 두 플랫폼에서 Firebase 기본 데이터 수집과 Crashlytics 자동 보고를 false로 시작한다. iOS는 `Config/Info.plist`에 명시하고 실제 빌드된 앱의 Info dictionary까지 회귀 테스트로 확인한다.
 - Firebase Analytics·광고·인증·Firestore·Storage SDK를 기능에 연결하지 않았다. SwiftPM lockfile에 다른 Firebase 제품의 의존성 저장소가 보일 수 있으나, 실제 링크한 제품은 Core/Crashlytics와 필요한 하위 모듈이다.
 - iOS archive에 앱과 Firebase 종속 모듈의 privacy manifest가 포함됨을 확인했다.
 - Firebase 설정 파일과 APK/AAB/IPA·서명 키는 Git에서 제외한다.
