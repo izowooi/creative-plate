@@ -19,7 +19,7 @@
     <string name="relative_hint">Digital input, not physical sound pressure. Calibrate with a reference meter.</string>
     <string name="estimated_hint">Single-point estimate. Accuracy varies by device and sound.</string>
     <string name="minimum">Minimum</string>
-    <string name="average">Energy avg.</string>
+    <string name="average">Average</string>
     <string name="maximum">Maximum</string>
     <string name="recent60">Last 60 seconds</string>
     <string name="elapsed">Duration</string>
@@ -51,7 +51,7 @@
     <string name="diagnostics">Share crash diagnostics</string>
     <string name="diagnostics_explainer">Optional. Firebase Crashlytics receives crash reports, app/device information and an installation identifier to help fix problems. Audio and sound levels are never included. You can turn this off at any time.</string>
     <string name="about">About Sori</string>
-    <string name="accuracy_explainer">Without calibration, values are digital input levels (dBFS), not physical sound pressure. A reference calibration gives an estimate for that microphone, gain and setup only. This app is not a certified instrument and does not assess hearing, safe exposure time or legal compliance.</string>
+    <string name="accuracy_explainer">Default readings use a common microphone reference for a rough estimate and can vary between phones. They are not a measured calibration for your device. You can adjust them with a reference sound meter here.</string>
     <string name="filter_explainer">A weighting reduces low-frequency input. The digital filter is tested with tones from 31.5 Hz to 8 kHz; microphone response and very high frequencies still vary. Flat leaves the PCM unweighted. Statistics use 100 ms RMS windows and a sample-weighted energy average. The display floor is −120 dBFS. Sessions stop after 4 hours.</string>
     <string name="permission_title">Microphone access</string>
     <string name="permission_message">Allow microphone access to measure sound. Audio stays on your device and is never saved.</string>
@@ -82,4 +82,18 @@
     <string name="microphone_usage">Sori uses the microphone to measure sound levels on your device. Audio is never saved or sent.</string>
     <string name="stopping">Finishing…</string>
     <string name="licenses">Open-source licenses</string>
+    <string name="advanced">Advanced</string>
+    <string name="sound_now">Sound around you</string>
+    <string name="estimate_short">Estimated with your phone.</string>
+    <string name="start_hint">Tap Measure to hear your surroundings.</string>
+    <string name="raw_input">Microphone input</string>
+    <string name="estimate_method">Estimation method</string>
+    <string name="estimate_default">Default estimate</string>
+    <string name="estimate_calibrated">Your calibration</string>
+    <string name="estimate_adjustment">Input-to-dB offset</string>
+    <string name="estimate_explainer">Default readings use a common microphone reference for a rough estimate and can vary between phones. They are not a measured calibration for your device. You can adjust them with a reference sound meter here.</string>
+    <string name="simple_about">Explore how loud your surroundings are and how sound changes. Phone readings are estimates and vary with the device and environment. Audio is never saved.</string>
+    <string name="share_result">Share results</string>
+    <string name="advanced_open">Expanded</string>
+    <string name="advanced_closed">Collapsed</string>
 </resources>

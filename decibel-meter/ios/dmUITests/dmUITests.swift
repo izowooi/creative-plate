@@ -29,6 +29,9 @@ final class dmUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.buttons["summary"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.staticTexts["Demo data"].exists)
+        XCTAssertFalse(app.buttons["calibration"].exists)
+        XCTAssertFalse(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "dBFS")).firstMatch.exists)
+        XCTAssertTrue(app.otherElements["level"].value as? String != nil)
         let main = XCTAttachment(screenshot: app.screenshot()); main.name = "Sori-English-meter"; main.lifetime = .keepAlways; add(main)
         app.buttons["summary"].tap()
         XCTAssertTrue(app.buttons["share_csv"].waitForExistence(timeout: 5))
@@ -50,11 +53,41 @@ final class dmUITests: XCTestCase {
         app.launchArguments = ["--sori-demo", "-AppleLanguages", "(ko)", "-AppleLocale", "ko_KR"]
         app.launch()
         XCTAssertTrue(app.staticTexts["소리결"].waitForExistence(timeout: 10))
-        XCTAssertTrue(app.buttons["calibration"].exists)
+        XCTAssertFalse(app.buttons["calibration"].exists)
+        app.buttons["advanced"].tap()
+        app.swipeUp()
+        XCTAssertTrue(app.buttons["calibration"].waitForExistence(timeout: 3))
+        if !app.buttons["calibration"].isHittable { app.swipeUp() }
         app.buttons["calibration"].tap()
         XCTAssertTrue(app.textFields["profile_name"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.buttons["save_calibration"].isEnabled)
         let image = XCTAttachment(screenshot: app.screenshot()); image.name = "Sori-Korean-calibration"; image.lifetime = .keepAlways; add(image)
+    }
+
+    @MainActor
+    func testSimpleDisplayAndAdvancedDetails() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["--sori-demo", "-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
+        app.launch()
+        XCTAssertTrue(app.buttons["advanced"].waitForExistence(timeout: 10))
+        let gauge = app.otherElements["level"]
+        let before = try XCTUnwrap(gauge.value as? String)
+        XCTAssertTrue(before.contains(" dB,"))
+        XCTAssertFalse(before.contains("dBFS"))
+        XCTAssertFalse(app.buttons["calibration"].exists)
+        XCTAssertFalse(app.staticTexts["Uncalibrated"].exists)
+        capture(app, name: "Sori-simple-default")
+        app.buttons["advanced"].tap()
+        app.swipeUp()
+        XCTAssertTrue(app.buttons["calibration"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "dBFS")).firstMatch.exists)
+        XCTAssertEqual(gauge.value as? String, before)
+        if !app.buttons["advanced"].isHittable { app.swipeDown() }
+        app.buttons["advanced"].tap()
+        XCTAssertFalse(app.buttons["calibration"].exists)
+        app.buttons["summary"].tap()
+        XCTAssertTrue(app.buttons["share_csv"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "dBFS")).firstMatch.exists)
     }
     @MainActor
     func testMicrophoneStartStopAndBackground() throws {
@@ -92,6 +125,10 @@ final class dmUITests: XCTestCase {
         for seconds in [60, 3, 3, 3] {
             measure.tap()
             XCTAssertTrue(stop.waitForExistence(timeout: 10), app.debugDescription)
+            let reading = app.otherElements["level"].value as? String ?? ""
+            XCTAssertTrue(reading.contains(" dB,"))
+            XCTAssertFalse(reading.contains("dBFS"))
+            XCTAssertFalse(app.buttons["calibration"].exists)
             let target = String(format: "Duration: 00:%02d:%02d", seconds / 60, seconds % 60)
             let advanced = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label >= %@", target), object: duration)
             XCTAssertEqual(XCTWaiter.wait(for: [advanced], timeout: Double(seconds) + 10), .completed,

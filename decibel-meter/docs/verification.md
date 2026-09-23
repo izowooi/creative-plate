@@ -6,10 +6,10 @@
 
 | 영역 | 확인한 내용 | 결과 |
 | --- | --- | --- |
-| Android 단위 테스트 | 8개: 진폭 절반, 에너지 평균·샘플 수, 무음/NaN/Infinity, clipping/부분 구간, A 응답, 입력 조건별 보정 무효화, 그래프/CSV 경계, CSV formula escaping | 통과 |
-| iOS 단위 테스트 | 9개 정의 / A 응답의 3개 샘플레이트를 포함한 11개 경우. 계산·보정·안정도·JSON/CSV round-trip·버퍼 경계·초기 진단 기본값 | iOS 17.5 및 27.0에서 통과 |
-| Android native UI | 실제 AudioRecord 입력, 중복 시작/종료, 백그라운드 마이크 해제와 비자동 재시작, 설정과 기본 진단 꺼짐, 수치 CSV 공유 | Android 15 emulator에서 4개 통과 |
-| iOS native UI | 영어 측정/요약/설정, 한국어 보정 입력 제한, 실제 마이크 시작/종료·백그라운드 중단, 권한 거부 후 설정 이동 안내 | iOS 27.0에서 4개 통과 |
+| Android 단위 테스트 | 12개: 기존 음향 계산·보정·CSV 검증 + 입력별 기본 추정·무음·보정 우선순위·저장된 추정값 내보내기 | 통과 |
+| iOS 단위 테스트 | 16개 정의 / parameterized case 포함 18개 경우. 계산·보정·입력 변경·JSON/CSV·기본 추정·이전 기록 호환·초기 진단 기본값 | iOS 27.0에서 통과. 기존 계산은 17.5에서도 검증 |
+| Android native UI | 실제 AudioRecord 입력, 중복 시작/종료, 백그라운드 마이크 해제, 설정과 기본 진단 꺼짐, 추정값 저장·CSV 공유, 기본/고급 표시 전환 | Android 15 emulator에서 5개 통과 |
+| iOS native UI | 기본/고급 펼침·접기, 영어 요약/설정/공유, 한국어 보정 입력 제한, 실제 마이크 시작/종료·백그라운드 중단, 권한 거부 안내 | iOS 27.0 simulator에서 통과. 실기기 검증은 아래 기록 |
 | 작은 iPhone / 이전 OS | iPhone SE 3세대, iOS 17.5의 계산 테스트와 측정·요약·설정 흐름 | 통과 |
 | iPad | iPad Pro 13인치에서 한국어/영어 주요 화면과 실제 시스템 CSV share sheet | 통과 |
 | 큰 글자 | Android 독일어 font scale 1.6 화면, iOS accessibility-extra-extra-large에서 주요 화면과 설정 스크롤 | 시각 확인 및 iOS UI 테스트 통과 |
@@ -18,9 +18,19 @@
 | Android 16KB | 최종 APK ZIP alignment 및 포함된 native ELF의 LOAD segment alignment | 16KB 정렬 확인 |
 | iOS Release | 실제 iphoneos arm64 타깃의 서명 없는 archive, Firebase symbols build phase | 통과 |
 | Firebase | 두 앱의 클라우드 등록 ID와 로컬 구성 일치, 런타임 초기화, iOS Crashlytics dSYM 서버 업로드 | 확인 |
-| 로컬 검증 스크립트 | 82개 UI key × 10개 언어, native resources, 진단 기본값, privacy manifest, 라이선스·Git 제외 | 통과 |
+| 로컬 검증 스크립트 | 96개 UI key × 10개 언어, native resources, 진단 기본값, privacy manifest, 라이선스·Git 제외 | 통과 |
 
 Android lint의 남은 warning은 SDK/의존성 새 버전 알림, SharedPreferences KTX 사용 제안, API 33 이상에서만 쓰이는 localeConfig 안내다. 실제 config는 compile/target 36·min 26이며 그 범위에 맞춘 의존성을 유지한다. Xcode의 AppIntents metadata 미추출 안내는 AppIntents 기능을 포함하지 않아서 발생한다.
+
+## 일반 사용자를 위한 기본 화면 (2026-09-23)
+
+- 기본 화면을 정수 dB, 최소·평균·최대와 측정 버튼으로 정리했다. 그래프·원본 dBFS·보정·입력/RMS/가중 정보는 접힌 고급 설정에 있다. 요약 화면에도 같은 규칙을 적용했다.
+- iOS 기본·요약 화면에서 dBFS와 보정 버튼이 숨겨지는지, 고급 설정을 펼치면 다시 나타나는지, 펼침 여부가 표시 수치를 바꾸지 않는지 검증했다. Android에서도 같은 UI 동작을 검증했다.
+- 새 [추정 모델](estimation.md)은 유효한 사용자 보정을 우선하며, 기본값을 기종별 실측 교정으로 주장하지 않는다. 원본 음향 계산을 보존하고 세션별 모델을 저장한다. 이전 기록을 읽는 경우와 화면/CSV의 환산 일관성도 검증했다.
+- **연결된 iPhone 15 Plus / iOS 26.6.1**에 새 앱을 설치하고 실제 UI로 60초 연속 측정, 3회 재시작, 홈 전환 시 중단·복귀 안내를 확인했다. 각 시작 후 표시 단위가 dB이고 기본 화면에 보정 버튼이 없는지도 확인했다. 약 91.3초, 통과.
+- 한국어·영어 기본/요약/설정 및 Light/Dark 화면을 새로 캡처했다. iPhone SE / iOS 17.5의 작은 화면과 큰 글자에서도 본문을 스크롤하고 측정 버튼을 사용할 수 있다.
+- 원본 보고서: `.verification/friendly-ui/ios-unit.xcresult`, `ios-ui.xcresult` 및 보완 후 통과한 `ios-details.xcresult`, `device-live.xcresult`; Android의 `app/build/test-results/`, `app/build/outputs/androidTest-results/` (로컬, Git 제외). Android lintDebug는 error 0이다.
+- 사용자의 수동 서명·Info.plist 설정과 Xcode에서 추가한 String Catalog 항목을 보존했다. 번역 생성기도 이 추가 항목을 유지한다.
 
 ## iPhone 15 Plus 입력 변경 오탐 수정 (2026-09-23)
 
@@ -49,10 +59,10 @@ Android lint의 남은 warning은 SDK/의존성 새 버전 알림, SharedPrefere
 
 - PCM 샘플은 기기 내 메모리에서만 처리한다.
 - 현재 레벨·최소/최대는 100ms RMS 구간이다. 전체 평균은 실제 제곱합 / 샘플 수에 대해 로그를 취한다.
-- 디지털 0의 표시 하한은 −120 dBFS다. NaN/Infinity 입력은 유효 측정으로 처리하지 않는다.
+- 원본 입력의 계산 하한은 −120 dBFS다. 기본 화면은 추정 정수 dB이며 디지털 무음은 0으로 표시한다. NaN/Infinity 입력은 유효 측정으로 처리하지 않는다.
 - A 가중은 3개 second-order section으로 구현하고 1kHz에서 정규화한다. 44.1/48/96kHz 입력에서 31.5Hz~8kHz의 참조 응답과 비교했다. 8kHz 초과 대역과 실제 마이크 응답의 오차는 별도다.
 - clipping 표시는 정규화된 원본 PCM의 절댓값 0.999 이상을 감지한다. 기기 내부 AGC나 마이크 자체 포화를 모두 감지할 수 있다는 뜻은 아니다.
-- CSV는 1초 에너지 평균과 최종 부분 구간, 단위·보정·기기/경로·샘플레이트·가중·gain·profile 정보를 포함한다. `elapsed_seconds`는 구간 종료 시각이며, `raw_dbfs`는 보정 offset을 더하기 전의 선택한 가중 방식 입력 레벨이다.
+- CSV는 1초 에너지 평균과 최종 부분 구간, 추정 방식·offset·단위·보정·기기/경로·샘플레이트·가중·gain·profile 정보를 포함한다. `elapsed_seconds`는 구간 종료 시각이며, `raw_dbfs`는 환산 전의 선택한 가중 방식 입력 레벨이다.
 - 60초 그래프는 최대 600개, 세션은 최대 4시간, 프로필은 최대 20개다.
 
 ## 개인정보·권한 확인

@@ -10,6 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.izowooi.dm.core.Weighting
+import com.izowooi.dm.core.SessionReport
+import com.izowooi.dm.data.LocalStore
+import androidx.compose.ui.semantics.SemanticsProperties
+import java.util.concurrent.atomic.AtomicReference
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -51,6 +55,10 @@ class MeterUiTest {
         assertTrue(report.snapshot.average.isFinite())
         assertTrue(report.readings.isNotEmpty())
         assertFalse(report.calibrated)
+        val restored = AtomicReference<SessionReport?>()
+        LocalStore(compose.activity).loadReport { restored.set(it) }
+        compose.waitUntil(5000) { restored.get() != null }
+        assertEquals(report.estimate, restored.get()!!.estimate)
         startAndAwaitFrames()
         stopAndAwaitReport()
     }
@@ -72,7 +80,8 @@ class MeterUiTest {
 
     @Test fun settingsUseNativeControlsAndDiagnosticsRemainOptIn() {
         compose.onNodeWithTag("settings").performClick()
-        compose.onNodeWithText("Flat", substring = false).performClick()
+        compose.onNodeWithTag("settings_advanced").performScrollTo().performClick()
+        compose.onNodeWithText(compose.activity.getString(R.string.flat), substring = false).performScrollTo().performClick()
         assertEquals(Weighting.FLAT, model.state.value.weighting)
         compose.onNodeWithTag("diagnostics").performScrollTo().assertIsOff()
         assertFalse(compose.activity.getSharedPreferences("sori", Context.MODE_PRIVATE).getBoolean("diagnostics", true))
@@ -89,7 +98,29 @@ class MeterUiTest {
         val csv = file.readText()
         assertTrue(csv.contains("elapsed_seconds,level,unit,raw_dbfs,sample_count,clipped_samples"))
         assertTrue(csv.contains("dBFS"))
+        assertTrue(csv.contains("dB (estimated)"))
+        assertTrue(csv.contains("estimate_basis"))
         assertTrue(csv.contains("sample_rate_hz"))
         InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("input keyevent 4").close()
+    }
+
+    @Test fun simpleDisplayHidesTechnicalDetailsUntilAdvancedIsOpened() {
+        compose.onNodeWithTag("calibration").assertDoesNotExist()
+        compose.onNodeWithTag("raw_input").assertDoesNotExist()
+        startAndAwaitFrames()
+        compose.onNodeWithTag("level").assert(SemanticsMatcher("shows friendly dB units") { node ->
+            val label = node.config[SemanticsProperties.ContentDescription].joinToString()
+            label.contains(" dB,") && !label.contains("dBFS")
+        })
+        compose.onNodeWithTag("advanced").performScrollTo().performClick()
+        compose.onNodeWithTag("raw_input").assertExists()
+        compose.onNodeWithTag("calibration").assertExists()
+        compose.onNodeWithTag("calibration").performScrollTo().performClick()
+        compose.onNodeWithTag("profile_name").assertExists()
+        compose.onNodeWithTag("save_calibration").assertIsNotEnabled()
+        compose.onNodeWithContentDescription(compose.activity.getString(R.string.done)).performClick()
+        compose.onNodeWithTag("advanced").performScrollTo().performClick()
+        compose.onNodeWithTag("raw_input").assertDoesNotExist()
+        stopAndAwaitReport()
     }
 }

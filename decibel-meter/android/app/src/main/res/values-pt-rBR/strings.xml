@@ -19,7 +19,7 @@
     <string name="relative_hint">Entrada digital, não pressão sonora. Calibre com um sonômetro de referência.</string>
     <string name="estimated_hint">Estimativa de um ponto. A precisão varia com o dispositivo e o som.</string>
     <string name="minimum">Mínimo</string>
-    <string name="average">Média energética</string>
+    <string name="average">Média</string>
     <string name="maximum">Máximo</string>
     <string name="recent60">Últimos 60 segundos</string>
     <string name="elapsed">Duração</string>
@@ -51,7 +51,7 @@
     <string name="diagnostics">Compartilhar diagnósticos</string>
     <string name="diagnostics_explainer">Opcional. O Firebase Crashlytics recebe relatórios de falhas, informações do app e do dispositivo e um identificador de instalação para corrigir problemas. Áudio e níveis sonoros nunca são incluídos. Você pode desativar a qualquer momento.</string>
     <string name="about">Sobre o Sori</string>
-    <string name="accuracy_explainer">Sem calibração, os valores são níveis de entrada digitais (dBFS), não pressão sonora física. A calibração de referência fornece uma estimativa apenas para aquele microfone, ganho e condições. O app não é um instrumento certificado e não avalia audição, tempo seguro de exposição ou conformidade legal.</string>
+    <string name="accuracy_explainer">Os valores padrão são estimativas com uma referência comum de microfone e variam entre celulares. Não são uma calibração medida do seu aparelho. Você pode ajustá-los aqui com um medidor de referência.</string>
     <string name="filter_explainer">A ponderação A atenua frequências baixas. O filtro digital é testado de 31,5 Hz a 8 kHz; a resposta do microfone e frequências muito altas podem variar. Sem ponderação, o PCM é calculado diretamente. Estatísticas: janelas RMS de 100 ms e média energética ponderada por amostras. Limite inferior: −120 dBFS. Duração máxima: 4 horas.</string>
     <string name="permission_title">Acesso ao microfone</string>
     <string name="permission_message">Permita o acesso ao microfone para medir o som. O áudio é processado no dispositivo e nunca é salvo.</string>
@@ -82,4 +82,18 @@
     <string name="microphone_usage">O Sori usa o microfone para medir o som no dispositivo. O áudio nunca é salvo ou enviado.</string>
     <string name="stopping">Finalizando…</string>
     <string name="licenses">Licenças de código aberto</string>
+    <string name="advanced">Opções avançadas</string>
+    <string name="sound_now">Som ao seu redor</string>
+    <string name="estimate_short">Uma estimativa com seu celular.</string>
+    <string name="start_hint">Inicie a medição para conhecer o som ao seu redor.</string>
+    <string name="raw_input">Entrada do microfone</string>
+    <string name="estimate_method">Método de estimativa</string>
+    <string name="estimate_default">Estimativa padrão</string>
+    <string name="estimate_calibrated">Sua calibração</string>
+    <string name="estimate_adjustment">Ajuste de conversão para dB</string>
+    <string name="estimate_explainer">Os valores padrão são estimativas com uma referência comum de microfone e variam entre celulares. Não são uma calibração medida do seu aparelho. Você pode ajustá-los aqui com um medidor de referência.</string>
+    <string name="simple_about">Explore a intensidade e as mudanças dos sons ao seu redor. Os valores são estimativas que variam conforme o aparelho e o ambiente. Nenhum áudio é salvo.</string>
+    <string name="share_result">Compartilhar resultados</string>
+    <string name="advanced_open">Expandido</string>
+    <string name="advanced_closed">Recolhido</string>
 </resources>

@@ -8,7 +8,7 @@ Bundle ID / applicationId: `com.izowooi.dm`. 가격: 무료. 광고·구독·앱
 
 - 앱 이름: **소리결 - 소음계**
 - App Store 부제: **소리의 변화를 한눈에**
-- Google Play 짧은 설명: **실시간 소리 레벨, 그래프, 기준 보정과 CSV 공유. 원음 저장 없이 무료로.**
+- Google Play 짧은 설명: **측정 한 번으로 현재·최소·평균·최대 데시벨을 쉽게. 원음 저장 없이 무료로.**
 - App Store 키워드 초안: `소음계,데시벨,소리,측정,마이크,보정,그래프,사운드,소음측정`
 - 카테고리 후보: App Store 유틸리티 / Google Play 도구.
 
@@ -16,19 +16,19 @@ Bundle ID / applicationId: `com.izowooi.dm`. 가격: 무료. 광고·구독·앱
 
 소리의 변화를 한눈에, 소리결.
 
-측정 버튼 하나로 현재 소리 레벨과 최근 60초의 변화를 확인하세요. 큰 숫자와 간결한 그래프로 측정에 집중할 수 있습니다.
+측정을 누르면 내 주변의 소리 크기를 큰 dB 숫자로 알려드려요. 어려운 설정 없이 최소·평균·최대 데시벨도 한눈에 확인하세요.
 
-• 현재 레벨과 최소·에너지 평균·최대값
-• 약 100ms 간격으로 갱신되는 수치와 최근 60초 그래프
-• A 가중과 무가중 입력
-• 기준 소음계를 이용한 수동 보정 프로필
-• 종료한 측정의 요약과 CSV 공유
+• 현재·최소·평균·최대 데시벨 추정치
+• 측정 버튼 하나로 바로 시작하는 간단한 화면
+• 고급 설정 안의 그래프·원본 입력·가중 선택
+• 원할 때 사용하는 기준 소음계 보정
+• 측정 결과 요약과 공유
 • 밝은 화면과 어두운 화면, 10개 언어 지원
 • 광고와 구독 없이 무료
 
 원음은 저장하거나 전송하지 않습니다. 측정은 기기 안에서 처리되며 보정 프로필과 마지막 측정 결과가 기기에 보관됩니다. 측정은 앱을 사용하는 동안만 진행하며 백그라운드로 전환하면 마이크를 해제합니다.
 
-보정 전에는 실제 음압이 아닌 디지털 입력 레벨(dBFS)을 표시합니다. 같은 가중 방식의 기준 소음계로 보정하면 해당 입력 조건에서의 음압 추정치를 볼 수 있습니다. 한 지점 보정은 모든 주파수·레벨의 정확도를 보장하지 않습니다.
+측정값은 휴대폰으로 계산한 대략적인 추정치예요. 기본 추정 방식으로 바로 사용할 수 있으며, 기준 소음계가 있다면 고급 설정에서 보정할 수 있어요. 원본 입력(dBFS)과 환산 기준도 고급 설정에서 확인할 수 있습니다.
 
 휴대폰 마이크의 특성과 입력 한계에 따라 결과가 달라질 수 있습니다. 공인 소음계, 의료기기 또는 법적 측정을 위한 도구를 대체하지 않습니다.
 
@@ -36,24 +36,25 @@ Bundle ID / applicationId: `com.izowooi.dm`. 가격: 무료. 광고·구독·앱
 
 ### 버전 1.0 출시 노트
 
-첫 출시입니다. 실시간 소리 레벨, A 가중·무가중, 측정 그래프, 수동 보정과 CSV 공유를 제공합니다.
+첫 출시입니다. 간단한 dB 측정 화면과 최소·평균·최대, 결과 공유를 제공합니다. 그래프와 보정은 고급 설정에서 사용할 수 있어요.
 
 ## English
 
 - Name: **Sori - Sound Level Meter**
 - Subtitle: **Sound, in focus.**
-- Google Play short description: **Live sound levels, clear graphs, reference calibration and CSV. No audio saved.**
+- Google Play short description: **Tap to see current, minimum, average and maximum decibels. No audio saved.**
 - Keywords draft: `sound,meter,decibel,noise,level,microphone,calibration,graph,measurement`
 
 ### Description
 
 A little clarity in the noise.
 
-Sori puts sound measurement first. Start a session and see a large, readable level, a live 60-second graph, and minimum, energy-average and maximum values.
+Tap Measure to see the sound around you in large, easy-to-read dB numbers. Minimum, average and maximum readings are right there, with no setup needed.
 
 • Readings refreshed about every 100 ms
-• A-weighted or unweighted input
-• Manual calibration profiles using a reference sound level meter
+• Simple current, minimum, average and maximum dB estimates
+• Graphs, raw input and weighting controls tucked inside Advanced
+• Optional calibration using a reference sound level meter
 • Session summaries and CSV sharing
 • Light and dark appearance
 • Ten interface languages
@@ -61,7 +62,7 @@ Sori puts sound measurement first. Start a session and see a large, readable lev
 
 Audio is processed on your device and is never saved or uploaded. Calibration profiles and your last completed session stay on the device. Measurement stops and the microphone is released when the app moves to the background.
 
-Without calibration, Sori displays digital input levels in dBFS, not physical sound pressure. A reference calibration provides an estimate for the same microphone and input settings. One-point calibration does not guarantee accuracy across all frequencies or levels.
+Readings are approximate phone-based estimates. Start with the default estimate, or use an optional reference calibration in Advanced. Original digital input levels (dBFS) and the conversion method are also available there.
 
 Results depend on your phone’s microphone and its limits. Sori is not a certified sound level meter or a medical device and is not intended for legal measurements or hearing assessments.
 
@@ -69,26 +70,26 @@ Optional crash diagnostics use Firebase Crashlytics. Diagnostic reports may incl
 
 ### What’s new
 
-Introducing Sori: live sound levels, A weighting and unweighted input, clear graphs, reference calibration and CSV sharing.
+Introducing Sori: simple dB estimates, minimum, average and maximum readings, and result sharing. Open Advanced for graphs and optional calibration.
 
 ## 추가 언어의 제목·짧은 설명
 
 | 언어 | 제목 | Google Play 짧은 설명 |
 | --- | --- | --- |
-| 日本語 | Sori - 騒音計 | 音レベルをひと目で。リアルタイムグラフ、基準校正、CSV共有。音声保存なし。 |
-| 简体中文 | Sori 声级计 | 实时声音电平、清晰图表、参考校准和CSV分享，不保存音频。 |
-| 繁體中文 | Sori 聲級計 | 即時聲音位準、清晰圖表、參考校準與CSV分享，不儲存音訊。 |
-| Deutsch | Sori - Schallpegelmesser | Schallpegel, Diagramme, Referenzkalibrierung und CSV. Ohne Audioaufnahme. |
-| Français | Sori - Sonomètre | Niveaux sonores, graphiques, étalonnage et CSV. Aucun son enregistré. |
-| Español | Sori - Sonómetro | Niveles sonoros, gráficos, calibración y CSV. Sin guardar audio. |
-| Português (Brasil) | Sori - Medidor de Som | Níveis sonoros, gráficos, calibração e CSV. Sem salvar áudio. |
-| Italiano | Sori - Fonometro | Livelli sonori, grafici, calibrazione e CSV. Nessun audio salvato. |
+| 日本語 | Sori - 騒音計 | タップするだけで周りの音をdBで推定。最小・平均・最大を表示。音声保存なし。 |
+| 简体中文 | Sori 声级计 | 一键估算周围的分贝，轻松查看最小、平均和最大值。不保存音频。 |
+| 繁體中文 | Sori 聲級計 | 一鍵估算周圍的分貝，輕鬆查看最小、平均和最大值。不儲存音訊。 |
+| Deutsch | Sori - Schallpegelmesser | Ein Tipp: dB-Schätzung, Minimum, Durchschnitt und Maximum. Ohne Audioaufnahme. |
+| Français | Sori - Sonomètre | Estimez les dB : minimum, moyenne et maximum. Aucun son enregistré. |
+| Español | Sori - Sonómetro | Estima los dB con un toque: mínimo, promedio y máximo. Sin guardar audio. |
+| Português (Brasil) | Sori - Medidor de Som | Estime os dB com um toque: mínimo, média e máximo. Sem salvar áudio. |
+| Italiano | Sori - Fonometro | Stima i dB con un tocco: minimo, media e massimo. Nessun audio salvato. |
 
 ## 심사 메모 / Review notes
 
 - 로그인과 서버 계정이 필요하지 않다. Start measuring을 누른 후 마이크 권한을 허용하면 측정할 수 있다.
 - 권한을 거부해도 앱 설정·설명은 볼 수 있고, 시스템 설정으로 이동해 권한을 변경할 수 있다.
-- 기본 단위는 dBFS다. 실측 음압처럼 보이도록 기종별 상수를 임의 적용하지 않는다.
+- 기본 화면은 dB 추정치이며 짧은 안내를 표시한다. 원본 dBFS·환산 기준·선택적 보정은 고급 설정에 있다. 기본 추정 모델을 실측 기종별 교정으로 주장하지 않는다. [환산 기준](estimation.md)을 참조한다.
 - 보정은 측정 중 3초 이상 안정된 입력과 동일 가중 방식의 참조 계측기를 요구한다. 프로필 저장 후 다음 세션에 적용된다.
 - 백그라운드 오디오 녹음이나 원음 파일 저장을 수행하지 않는다.
 - 보정값·측정 기록·CSV 공유는 무료다.

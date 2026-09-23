@@ -87,6 +87,20 @@ object TextResources {
         "microphone_usage" -> R.string.microphone_usage
         "stopping" -> R.string.stopping
         "licenses" -> R.string.licenses
+        "advanced" -> R.string.advanced
+        "sound_now" -> R.string.sound_now
+        "estimate_short" -> R.string.estimate_short
+        "start_hint" -> R.string.start_hint
+        "raw_input" -> R.string.raw_input
+        "estimate_method" -> R.string.estimate_method
+        "estimate_default" -> R.string.estimate_default
+        "estimate_calibrated" -> R.string.estimate_calibrated
+        "estimate_adjustment" -> R.string.estimate_adjustment
+        "estimate_explainer" -> R.string.estimate_explainer
+        "simple_about" -> R.string.simple_about
+        "share_result" -> R.string.share_result
+        "advanced_open" -> R.string.advanced_open
+        "advanced_closed" -> R.string.advanced_closed
         else -> error("Unknown UI string: $key")
     }
 }

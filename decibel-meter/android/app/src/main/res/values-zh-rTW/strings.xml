@@ -19,7 +19,7 @@
     <string name="relative_hint">這是輸入位準，不是實際聲壓。可使用參考聲級計校準。</string>
     <string name="estimated_hint">單點校準估算值。精度因裝置與聲音而異。</string>
     <string name="minimum">最小</string>
-    <string name="average">能量平均</string>
+    <string name="average">平均</string>
     <string name="maximum">最大</string>
     <string name="recent60">最近60秒</string>
     <string name="elapsed">測量時間</string>
@@ -51,7 +51,7 @@
     <string name="diagnostics">分享當機診斷</string>
     <string name="diagnostics_explainer">選用。Firebase Crashlytics會接收當機報告、應用程式與裝置資訊及安裝識別碼，用於修復問題。不包含音訊或測量值，可隨時關閉。</string>
     <string name="about">關於Sori</string>
-    <string name="accuracy_explainer">未校準時顯示的是數位輸入位準（dBFS），不是物理聲壓。參考校準只能估算對應麥克風、增益與條件下的聲壓。本應用程式不是認證儀器，不能判斷聽力、安全暴露時間或法律合規性。</string>
+    <string name="accuracy_explainer">預設讀數使用通用麥克風基準粗略估算，不同手機可能有差異，並非針對本機實測校正的結果。如有參考聲級計，可在此校正。</string>
     <string name="filter_explainer">A加權會減弱低頻輸入。數位濾波器已用31.5 Hz至8 kHz的訊號驗證，但麥克風響應和高頻仍有差異。無加權直接計算PCM。統計使用100 ms RMS和依樣本數加權的能量平均。顯示下限為−120 dBFS，每次測量最多4小時。</string>
     <string name="permission_title">麥克風權限</string>
     <string name="permission_message">請允許麥克風存取以測量聲音。音訊僅在裝置上處理，不會儲存。</string>
@@ -82,4 +82,18 @@
     <string name="microphone_usage">Sori使用麥克風在裝置上測量聲音位準。音訊不會被儲存或傳送。</string>
     <string name="stopping">正在結束…</string>
     <string name="licenses">開源授權</string>
+    <string name="advanced">進階設定</string>
+    <string name="sound_now">周圍的聲音</string>
+    <string name="estimate_short">由手機估算的數值。</string>
+    <string name="start_hint">點一下測量，了解周圍的聲音。</string>
+    <string name="raw_input">麥克風原始輸入</string>
+    <string name="estimate_method">估算方式</string>
+    <string name="estimate_default">預設估算</string>
+    <string name="estimate_calibrated">已套用使用者校正</string>
+    <string name="estimate_adjustment">輸入轉 dB 偏移量</string>
+    <string name="estimate_explainer">預設讀數使用通用麥克風基準粗略估算，不同手機可能有差異，並非針對本機實測校正的結果。如有參考聲級計，可在此校正。</string>
+    <string name="simple_about">輕鬆了解周圍聲音的大小與變化。手機讀數為估算值，會因裝置和環境而異。不儲存原始音訊。</string>
+    <string name="share_result">分享結果</string>
+    <string name="advanced_open">已展開</string>
+    <string name="advanced_closed">已收合</string>
 </resources>

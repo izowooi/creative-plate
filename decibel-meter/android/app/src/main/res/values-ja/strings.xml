@@ -19,7 +19,7 @@
     <string name="relative_hint">実際の音圧ではなく入力レベルです。基準騒音計で校正できます。</string>
     <string name="estimated_hint">一点校正の推定値です。機器や音によって誤差が生じます。</string>
     <string name="minimum">最小</string>
-    <string name="average">エネルギー平均</string>
+    <string name="average">平均</string>
     <string name="maximum">最大</string>
     <string name="recent60">直近60秒</string>
     <string name="elapsed">測定時間</string>
@@ -51,7 +51,7 @@
     <string name="diagnostics">クラッシュ診断を共有</string>
     <string name="diagnostics_explainer">任意です。問題改善のため、Firebase Crashlyticsへクラッシュ報告、アプリ・端末情報、インストール識別子を送ります。音声や測定値は含みません。いつでも無効にできます。</string>
     <string name="about">Soriについて</string>
-    <string name="accuracy_explainer">未校正の値はデジタル入力レベル（dBFS）であり、実際の音圧ではありません。基準校正による推定は、そのマイク・ゲイン・条件にのみ適用されます。本アプリは認証された計測器ではなく、聴力、安全な曝露時間、法的適合性を判定しません。</string>
+    <string name="accuracy_explainer">標準値は共通のマイク基準による大まかな推定で、機種によって異なります。この端末を実測して校正した値ではありません。基準騒音計があれば、ここで補正できます。</string>
     <string name="filter_explainer">A特性は低周波の入力を抑えます。デジタルフィルターは31.5 Hz〜8 kHzの信号で検証していますが、マイク特性や高周波の誤差は残ります。重み付けなしではPCMをそのまま計算します。統計は100 ms RMSとサンプル数に基づくエネルギー平均です。表示下限は−120 dBFS、測定上限は4時間です。</string>
     <string name="permission_title">マイクへのアクセス</string>
     <string name="permission_message">測定するにはマイクへのアクセスを許可してください。音声は端末内だけで処理され、保存されません。</string>
@@ -82,4 +82,18 @@
     <string name="microphone_usage">Soriは端末内で音レベルを測定するためにマイクを使用します。音声は保存・送信しません。</string>
     <string name="stopping">測定を終了中…</string>
     <string name="licenses">オープンソースライセンス</string>
+    <string name="advanced">詳細設定</string>
+    <string name="sound_now">いまの音</string>
+    <string name="estimate_short">スマートフォンによる推定値です。</string>
+    <string name="start_hint">測定を押して、周りの音を調べましょう。</string>
+    <string name="raw_input">マイクの元の入力</string>
+    <string name="estimate_method">推定方法</string>
+    <string name="estimate_default">標準の推定</string>
+    <string name="estimate_calibrated">ユーザー補正を適用</string>
+    <string name="estimate_adjustment">入力からdBへの補正値</string>
+    <string name="estimate_explainer">標準値は共通のマイク基準による大まかな推定で、機種によって異なります。この端末を実測して校正した値ではありません。基準騒音計があれば、ここで補正できます。</string>
+    <string name="simple_about">周りの音の大きさや変化を気軽に調べられます。測定値は機種や環境によって変わる推定値です。音声は保存しません。</string>
+    <string name="share_result">結果を共有</string>
+    <string name="advanced_open">展開中</string>
+    <string name="advanced_closed">折りたたみ</string>
 </resources>

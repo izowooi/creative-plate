@@ -19,7 +19,7 @@
     <string name="relative_hint">실제 음압(dB SPL)이 아닌 입력 레벨이에요. 기준 소음계로 보정할 수 있어요.</string>
     <string name="estimated_hint">한 지점 보정 추정치예요. 기기와 소리에 따라 오차가 있어요.</string>
     <string name="minimum">최소</string>
-    <string name="average">에너지 평균</string>
+    <string name="average">평균</string>
     <string name="maximum">최대</string>
     <string name="recent60">최근 60초</string>
     <string name="elapsed">측정 시간</string>
@@ -51,7 +51,7 @@
     <string name="diagnostics">오류 진단 공유</string>
     <string name="diagnostics_explainer">선택 사항입니다. 오류 개선을 위해 Firebase Crashlytics에 오류 보고서, 앱·기기 정보와 설치 식별자를 전송합니다. 원음과 측정값은 포함하지 않으며 언제든 끌 수 있어요.</string>
     <string name="about">소리결 안내</string>
-    <string name="accuracy_explainer">미보정 값은 디지털 입력 레벨(dBFS)이며 실제 음압이 아닙니다. 기준 보정은 해당 마이크·게인·조건에서의 추정치만 제공합니다. 공인 계측기가 아니며 청력, 안전 노출 시간, 법적 적합성을 판단하지 않습니다.</string>
+    <string name="accuracy_explainer">기본값은 공통 마이크 기준으로 계산한 대략적인 추정치라 기기마다 차이가 있어요. 내 기기를 실제로 교정한 값은 아니에요. 기준 소음계가 있다면 여기서 보정할 수 있어요.</string>
     <string name="filter_explainer">A 가중은 저주파 입력을 줄입니다. 디지털 필터는 31.5 Hz~8 kHz 신호로 검증하며 마이크 특성과 고주파에는 오차가 남습니다. 무가중은 PCM을 그대로 계산합니다. 통계는 100 ms RMS와 샘플 수 기반 에너지 평균이며 표시 하한은 −120 dBFS입니다. 측정은 4시간 후 종료됩니다.</string>
     <string name="permission_title">마이크 사용</string>
     <string name="permission_message">소리를 측정하려면 마이크 사용을 허용해주세요. 원음은 기기에서만 처리하며 저장하지 않아요.</string>
@@ -82,4 +82,18 @@
     <string name="microphone_usage">소리결이 기기에서 소리 레벨을 측정하기 위해 마이크를 사용합니다. 원음은 저장하거나 전송하지 않습니다.</string>
     <string name="stopping">측정 정리 중…</string>
     <string name="licenses">오픈소스 라이선스</string>
+    <string name="advanced">고급 설정</string>
+    <string name="sound_now">지금 소리</string>
+    <string name="estimate_short">휴대폰으로 추정한 값이에요.</string>
+    <string name="start_hint">측정을 누르면 주변 소리를 알려드려요.</string>
+    <string name="raw_input">마이크 원본 입력</string>
+    <string name="estimate_method">추정 방식</string>
+    <string name="estimate_default">기본 추정</string>
+    <string name="estimate_calibrated">사용자 보정 적용</string>
+    <string name="estimate_adjustment">입력→dB 환산값</string>
+    <string name="estimate_explainer">기본값은 공통 마이크 기준으로 계산한 대략적인 추정치라 기기마다 차이가 있어요. 내 기기를 실제로 교정한 값은 아니에요. 기준 소음계가 있다면 여기서 보정할 수 있어요.</string>
+    <string name="simple_about">내 주변의 소리 크기와 변화를 가볍게 살펴보세요. 휴대폰 측정값은 기기와 환경에 따라 달라지는 추정치예요. 원음은 저장하지 않아요.</string>
+    <string name="share_result">결과 공유</string>
+    <string name="advanced_open">펼쳐짐</string>
+    <string name="advanced_closed">접힘</string>
 </resources>

@@ -23,12 +23,16 @@ for language in languages:
     apple.mkdir(parents=True, exist_ok=True)
     entries = {"CFBundleDisplayName": messages["app_name"][language], "NSMicrophoneUsageDescription": messages["microphone_usage"][language]}
     (apple / "InfoPlist.strings").write_text('\n'.join(json.dumps(k) + ' = ' + json.dumps(v, ensure_ascii=False) + ';' for k, v in entries.items()) + '\n')
-catalog = {"sourceLanguage": "en", "strings": {}, "version": "1.0"}
+catalog_path = ROOT / "ios/dm/Localizable.xcstrings"
+existing_catalog = catalog_path.read_text() if catalog_path.exists() else ""
+catalog = json.loads(existing_catalog) if existing_catalog else {"sourceLanguage": "en", "strings": {}, "version": "1.0"}
 for key, translations in messages.items():
     catalog["strings"][key] = {"extractionState": "manual", "localizations": {
         lang: {"stringUnit": {"state": "translated", "value": value}} for lang, value in translations.items()
     }}
-(ROOT / "ios/dm/Localizable.xcstrings").write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + '\n')
+# Retain Xcode-extracted keys and the user's catalog formatting.
+separators = (",", " : ") if '" : ' in existing_catalog else (",", ": ")
+catalog_path.write_text(json.dumps(catalog, ensure_ascii=False, indent=2, separators=separators) + '\n')
 locale_xml = ['<?xml version="1.0" encoding="utf-8"?>', '<locale-config xmlns:android="http://schemas.android.com/apk/res/android">']
 locale_xml += [f'    <locale android:name="{lang}" />' for lang in languages]
 locale_xml.append('</locale-config>')

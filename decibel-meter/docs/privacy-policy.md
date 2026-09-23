@@ -10,7 +10,7 @@
 
 소리결은 사용자가 측정을 시작하고 마이크 사용을 허용하면 기기에서 입력을 처리해 소리 레벨을 계산합니다. 마이크 원음을 파일로 녹음하거나 서버에 전송하지 않습니다. 앱이 백그라운드로 전환되거나 측정을 종료하면 마이크 사용을 중단합니다.
 
-보정 전에는 디지털 입력 레벨(dBFS)을 표시합니다. 기준 계측기를 사용한 보정 후의 음압 수치는 추정치입니다. 앱은 의료기기나 공인 계측기가 아닙니다.
+기본 화면에는 휴대폰 마이크로 계산한 대략적인 dB 추정치를 표시합니다. 고급 설정에서 원본 입력 레벨(dBFS)을 확인하거나 기준 계측기로 보정할 수 있습니다. 기본값과 보정값 모두 추정치이며 앱은 의료기기나 공인 계측기가 아닙니다.
 
 ## 2. 기기에 보관하는 정보
 
@@ -58,7 +58,7 @@ Contact: [insert support email]
 
 When you start a measurement and grant microphone access, Sori processes audio on your device to calculate sound levels. Microphone audio is never saved as a recording or sent to a server. Measurement stops and microphone access is released when you stop or the app moves to the background.
 
-Uncalibrated readings are digital input levels (dBFS), not physical sound pressure. Reference-calibrated readings are estimates. Sori is not a medical device or a certified measuring instrument.
+The default screen shows approximate dB estimates calculated from the phone microphone. Advanced settings provide the original digital input levels (dBFS) and optional reference calibration. Both default and calibrated readings are estimates. Sori is not a medical device or a certified measuring instrument.
 
 ## On-device information
 

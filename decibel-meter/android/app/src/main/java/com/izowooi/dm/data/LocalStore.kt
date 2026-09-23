@@ -63,7 +63,9 @@ class LocalStore(context: Context) {
     private fun SessionReport.json() = JSONObject().put("startedAt", startedAt).put("endedAt", endedAt)
         .put("conditions", conditions.json()).put("calibration", calibration?.json() ?: JSONObject.NULL)
         .put("snapshot", snapshot.json()).put("readings", JSONArray(readings.map { it.json() })).put("stopReason", stopReason)
+        .put("estimate", JSONObject().put("offset", estimate.offset).put("basis", estimate.basis))
     private fun report(o: JSONObject) = SessionReport(o.getString("startedAt"), o.getString("endedAt"), input(o.getJSONObject("conditions")),
         if (o.isNull("calibration")) null else profile(o.getJSONObject("calibration")), snapshot(o.getJSONObject("snapshot")),
-        points(o.getJSONArray("readings")), o.getString("stopReason"))
+        points(o.getJSONArray("readings")), o.getString("stopReason"),
+        o.optJSONObject("estimate")?.let { LevelEstimate(it.getDouble("offset"), it.getString("basis")) })
 }

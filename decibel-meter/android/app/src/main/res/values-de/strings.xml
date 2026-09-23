@@ -19,7 +19,7 @@
     <string name="relative_hint">Digitaler Eingangspegel, kein Schalldruck. Mit einem Referenzgerät kalibrieren.</string>
     <string name="estimated_hint">Einpunkt-Schätzung. Die Genauigkeit hängt von Gerät und Schall ab.</string>
     <string name="minimum">Minimum</string>
-    <string name="average">Energiemittel</string>
+    <string name="average">Durchschnitt</string>
     <string name="maximum">Maximum</string>
     <string name="recent60">Letzte 60 Sekunden</string>
     <string name="elapsed">Dauer</string>
@@ -51,7 +51,7 @@
     <string name="diagnostics">Absturzdiagnosen teilen</string>
     <string name="diagnostics_explainer">Optional. Firebase Crashlytics erhält Absturzberichte, App- und Geräteinformationen sowie eine Installationskennung zur Fehlerbehebung. Audio und Schallpegel werden nie übermittelt. Jederzeit abschaltbar.</string>
     <string name="about">Über Sori</string>
-    <string name="accuracy_explainer">Ohne Kalibrierung sind die Werte digitale Eingangspegel (dBFS), kein physikalischer Schalldruck. Eine Referenzkalibrierung liefert nur für dieses Mikrofon, diesen Pegelverstärker und diese Bedingungen einen Schätzwert. Die App ist kein zertifiziertes Messgerät und bewertet weder Gehör noch sichere Expositionszeiten oder rechtliche Grenzwerte.</string>
+    <string name="accuracy_explainer">Die Standardwerte sind grobe Schätzungen anhand einer allgemeinen Mikrofonreferenz und können je nach Smartphone abweichen. Dein Gerät wurde dafür nicht individuell kalibriert. Mit einem Referenzmessgerät kannst du sie hier anpassen.</string>
     <string name="filter_explainer">A-Bewertung dämpft tiefe Frequenzen. Der digitale Filter wird mit Tönen von 31,5 Hz bis 8 kHz geprüft; Mikrofonantwort und sehr hohe Frequenzen können abweichen. Unbewertet wird PCM direkt berechnet. Statistik: 100-ms-RMS-Fenster und nach Abtastwerten gewichtetes Energiemittel. Anzeigeuntergrenze: −120 dBFS. Messungen enden nach 4 Stunden.</string>
     <string name="permission_title">Mikrofonzugriff</string>
     <string name="permission_message">Erlauben Sie den Mikrofonzugriff zur Schallmessung. Audio bleibt auf dem Gerät und wird nicht gespeichert.</string>
@@ -82,4 +82,18 @@
     <string name="microphone_usage">Sori verwendet das Mikrofon, um Schallpegel auf Ihrem Gerät zu messen. Audio wird nie gespeichert oder gesendet.</string>
     <string name="stopping">Messung wird beendet…</string>
     <string name="licenses">Open-Source-Lizenzen</string>
+    <string name="advanced">Erweitert</string>
+    <string name="sound_now">Geräusche um dich</string>
+    <string name="estimate_short">Mit deinem Smartphone geschätzt.</string>
+    <string name="start_hint">Tippe auf Messen und entdecke die Geräusche um dich.</string>
+    <string name="raw_input">Mikrofoneingang</string>
+    <string name="estimate_method">Schätzmethode</string>
+    <string name="estimate_default">Standardschätzung</string>
+    <string name="estimate_calibrated">Deine Kalibrierung</string>
+    <string name="estimate_adjustment">Offset für die dB-Umrechnung</string>
+    <string name="estimate_explainer">Die Standardwerte sind grobe Schätzungen anhand einer allgemeinen Mikrofonreferenz und können je nach Smartphone abweichen. Dein Gerät wurde dafür nicht individuell kalibriert. Mit einem Referenzmessgerät kannst du sie hier anpassen.</string>
+    <string name="simple_about">Entdecke die Lautstärke und Veränderungen der Geräusche um dich. Smartphone-Messwerte sind Schätzungen und hängen von Gerät und Umgebung ab. Audio wird nicht gespeichert.</string>
+    <string name="share_result">Ergebnisse teilen</string>
+    <string name="advanced_open">Ausgeklappt</string>
+    <string name="advanced_closed">Eingeklappt</string>
 </resources>

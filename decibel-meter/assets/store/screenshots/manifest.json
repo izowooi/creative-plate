@@ -197,5 +197,6 @@
       "source": "native simulator/emulator capture",
       "demo": false
     }
-  ]
+  ],
+  "interface": "simple estimated dB with collapsed Advanced details"
 }

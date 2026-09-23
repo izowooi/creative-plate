@@ -25,9 +25,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
@@ -121,43 +123,31 @@ fun MeterScreen(state: MeterState, model: MeterViewModel) {
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
                     MeterGauge(state)
-                    AssistChip(onClick = { sheet = "calibration" }, label = { Text(t(if (state.calibrated) "calibrated" else "uncalibrated")) },
-                        leadingIcon = { Icon(if (state.calibrated) Icons.Default.Check else Icons.Default.Edit, null, Modifier.size(16.dp)) },
-                        shape = RoundedCornerShape(24.dp), modifier = Modifier.testTag("calibration"))
-                    Text(t(if (state.calibrated) "estimated_hint" else "relative_hint"), style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
                 }
-                if (state.snapshot.currentClipped) Notice("clipping", true)
-                if (state.profileMismatch) Notice("calibration_mismatch", false)
+                Statistics(state.snapshot, state.estimate, state.hasMeasurement)
+                Text(t(if (state.hasMeasurement) "estimate_short" else "start_hint"), style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
                 state.notice?.let { message ->
                     Column {
                         Notice(message, message != "calibration_saved")
                         if (message == "permission_denied") TextButton(onClick = { openSettings(context) }) { Text(t("open_settings")) }
                     }
                 }
-                Statistics(state.snapshot, state.offset, state.hasMeasurement)
-                Surface(shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surface) {
-                    Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(t("recent60"), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
-                            Text(state.unit + if (state.conditions?.weighting == Weighting.A && !state.calibrated) " · A" else "", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        }
-                        LevelChart(state.snapshot.points, state.offset, state.calibrated, Modifier.fillMaxWidth().height(96.dp))
-                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text("−60 s", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            Text("0 s", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        }
+                AdvancedSection("advanced") {
+                    DetailRow("raw_input", if (state.hasMeasurement) level(state.snapshot.current, true) + " dBFS" else "—", "raw_input")
+                    DetailRow("estimate_method", t(if (state.calibrated) "estimate_calibrated" else "estimate_default"))
+                    DetailRow("estimate_adjustment", "+" + level(state.estimate.offset) + " dB")
+                    OutlinedButton(onClick = { sheet = "calibration" }, modifier = Modifier.testTag("calibration")) {
+                        Icon(Icons.Default.Edit, null, Modifier.size(16.dp)); Spacer(Modifier.width(8.dp)); Text(t("calibration"))
                     }
-                }
-                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Icon(Icons.Default.Info, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Column(Modifier.weight(1f)) {
-                        Text(state.conditions?.routeName ?: t("unknown_input"), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Spacer(Modifier.height(4.dp))
-                        Text(t("rms100"), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    }
-                    Text(if ((state.conditions?.weighting ?: state.weighting) == Weighting.A) "A" else t("flat"), style = MaterialTheme.typography.labelMedium,
-                        modifier = Modifier.background(MaterialTheme.colorScheme.surface, CircleShape).padding(horizontal = 12.dp, vertical = 8.dp))
+                    if (state.snapshot.currentClipped) Notice("clipping", true)
+                    if (state.profileMismatch) Notice("calibration_mismatch", false)
+                    Text(t("recent60") + " · dBFS", style = MaterialTheme.typography.titleSmall)
+                    LevelChart(state.snapshot.points, 0.0, false, Modifier.fillMaxWidth().height(96.dp))
+                    Text(state.conditions?.routeName ?: t("unknown_input"), style = MaterialTheme.typography.bodyMedium)
+                    Text(t("rms100") + " · " + if ((state.conditions?.weighting ?: state.weighting) == Weighting.A) "A" else t("flat"),
+                        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(t("estimate_explainer"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 if (state.demo) Text(t("sample_hint"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
@@ -187,13 +177,13 @@ fun MeterScreen(state: MeterState, model: MeterViewModel) {
 @Composable private fun MeterGauge(state: MeterState) {
     val accent = MaterialTheme.colorScheme.primary
     val track = MaterialTheme.colorScheme.outlineVariant
-    val value = state.snapshot.current + state.offset
-    val progress = ((value - if (state.calibrated) 0 else -120) / 120).coerceIn(0.0, 1.0)
-    val accessible = t("current_level") + ", " + if (state.hasMeasurement) level(value, !state.calibrated) + " " + state.unit + ", " + t(if (state.calibrated) "estimated_level" else "relative_level") else t("ready")
+    val value = state.estimate.decibels(state.snapshot.current)
+    val progress = (value / 120).coerceIn(0.0, 1.0)
+    val accessible = t("sound_now") + ", " + if (state.hasMeasurement) simpleLevel(value) + " dB, " + t("estimate_short") else t("ready")
     val density = LocalDensity.current
     val expanded = density.fontScale > 1.3f
     val measurer = rememberTextMeasurer()
-    BoxWithConstraints(Modifier.fillMaxWidth().height(if (expanded) 260.dp else 212.dp).clearAndSetSemantics { contentDescription = accessible }.testTag("level"), contentAlignment = Alignment.Center) {
+    BoxWithConstraints(Modifier.fillMaxWidth().height(if (expanded) 260.dp else 212.dp).clearAndSetSemantics { contentDescription = accessible; testTag = "level" }, contentAlignment = Alignment.Center) {
         if (!expanded) Canvas(Modifier.fillMaxSize()) {
             val radius = min(size.width * 0.44f, 103.dp.toPx())
             val center = Offset(size.width / 2, 121.dp.toPx())
@@ -206,31 +196,31 @@ fun MeterScreen(state: MeterState, model: MeterViewModel) {
                     strokeWidth = 3.dp.toPx(), cap = StrokeCap.Round)
             }
         }
-        val reading = if (state.hasMeasurement) level(value, !state.calibrated) else "—"
+        val reading = if (state.hasMeasurement) simpleLevel(value) else "—"
         val maximumWidth = with(density) { minOf(if (expanded) 290.dp else 185.dp, maxWidth - 64.dp).toPx() }
         val baseSize = (if (expanded) 104f / density.fontScale else 78f).sp
         val textStyle = TextStyle(fontSize = baseSize, fontWeight = FontWeight.Medium, fontFeatureSettings = "tnum")
         val measuredWidth = measurer.measure(AnnotatedString(reading), style = textStyle, softWrap = false, maxLines = 1).size.width
         val gaugeFontSize = (baseSize.value * min(1f, maximumWidth / max(1, measuredWidth))).sp
         Column(Modifier.padding(horizontal = 32.dp).offset(y = 14.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(t("current_level"), style = MaterialTheme.typography.labelSmall.copy(letterSpacing = 1.5.sp), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(t("sound_now"), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Text(reading,
                 fontSize = gaugeFontSize,
                 fontWeight = FontWeight.Medium, style = TextStyle(fontFeatureSettings = "tnum"), maxLines = 1)
-            Text(state.unit + " · " + t(if (state.calibrated) "estimated_level" else "relative_level"),
-                style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+            Text("dB", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }
 
-@Composable private fun Statistics(snapshot: MeterSnapshot, offset: Double, available: Boolean) {
+@Composable private fun Statistics(snapshot: MeterSnapshot, estimate: LevelEstimate, available: Boolean) {
     Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
         listOf("minimum" to snapshot.minimum, "average" to snapshot.average, "maximum" to snapshot.maximum).forEach { (key, value) ->
-            Surface(modifier = Modifier.weight(1f), shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surface) {
+            Surface(modifier = Modifier.weight(1f).testTag(key), shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surface) {
                 Column(Modifier.padding(horizontal = 6.dp, vertical = 16.dp).semantics(mergeDescendants = true) {},
                     horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(t(key), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
-                    Text(if (available) level(value + offset) else "—", style = MaterialTheme.typography.titleLarge.copy(fontFeatureSettings = "tnum"), fontWeight = FontWeight.SemiBold, maxLines = 1)
+                    Text(if (available) simpleLevel(estimate.decibels(value)) else "—", style = MaterialTheme.typography.headlineMedium.copy(fontFeatureSettings = "tnum"), fontWeight = FontWeight.SemiBold, maxLines = 1)
+                    Text("dB", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
         }
@@ -274,15 +264,31 @@ fun MeterScreen(state: MeterState, model: MeterViewModel) {
     }
 }
 
+@Composable private fun AdvancedSection(tag: String, content: @Composable ColumnScope.() -> Unit) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    val expansionState = t(if (expanded) "advanced_open" else "advanced_closed")
+    Surface(shape = RoundedCornerShape(22.dp), color = MaterialTheme.colorScheme.surface) {
+        Column(Modifier.fillMaxWidth()) {
+            TextButton(onClick = { expanded = !expanded }, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp).testTag(tag).semantics { stateDescription = expansionState }) {
+                Text(t("advanced"), Modifier.weight(1f).padding(start = 8.dp), textAlign = TextAlign.Start)
+                Icon(Icons.Default.ArrowDropDown, null, Modifier.rotate(if (expanded) 180f else 0f))
+            }
+            if (expanded) Column(Modifier.padding(horizontal = 18.dp).padding(bottom = 18.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp), content = content)
+        }
+    }
+}
+
+@Composable private fun DetailRow(key: String, value: String, tag: String = key) {
+    Row(Modifier.fillMaxWidth().testTag(tag), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        Text(t(key), Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
+        Text(value, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+}
+
 @Composable private fun SettingsContent(state: MeterState, model: MeterViewModel, openCalibration: () -> Unit) {
     val context = LocalContext.current
     var showLicenses by remember { mutableStateOf(false) }
-    Text(t("weighting"), style = MaterialTheme.typography.titleSmall)
-    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        FilterChip(selected = state.weighting == Weighting.A, onClick = { model.weighting(Weighting.A) }, label = { Text("A") }, enabled = state.phase == CapturePhase.IDLE)
-        FilterChip(selected = state.weighting == Weighting.FLAT, onClick = { model.weighting(Weighting.FLAT) }, label = { Text(t("flat")) }, enabled = state.phase == CapturePhase.IDLE)
-    }
-    TextButton(onClick = openCalibration) { Icon(Icons.Default.Edit, null); Spacer(Modifier.width(8.dp)); Text(t("calibration")) }
     SettingsToggle("keep_awake", "keep_awake_explainer", state.keepAwake, model::keepAwake)
     HorizontalDivider()
     SettingsToggle("diagnostics", "diagnostics_explainer", state.diagnostics, model::diagnostics)
@@ -290,8 +296,17 @@ fun MeterScreen(state: MeterState, model: MeterViewModel) {
     Text(t("privacy"), style = MaterialTheme.typography.titleMedium)
     Text(t("privacy_explainer"), style = MaterialTheme.typography.bodyMedium)
     Text(t("about"), style = MaterialTheme.typography.titleMedium)
-    Text(t("accuracy_explainer"), style = MaterialTheme.typography.bodyMedium)
-    Text(t("filter_explainer"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    Text(t("simple_about"), style = MaterialTheme.typography.bodyMedium)
+    AdvancedSection("settings_advanced") {
+        Text(t("weighting"), style = MaterialTheme.typography.titleSmall)
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            FilterChip(selected = state.weighting == Weighting.A, onClick = { model.weighting(Weighting.A) }, label = { Text("A") }, enabled = state.phase == CapturePhase.IDLE)
+            FilterChip(selected = state.weighting == Weighting.FLAT, onClick = { model.weighting(Weighting.FLAT) }, label = { Text(t("flat")) }, enabled = state.phase == CapturePhase.IDLE)
+        }
+        TextButton(onClick = openCalibration) { Icon(Icons.Default.Edit, null); Spacer(Modifier.width(8.dp)); Text(t("calibration")) }
+        Text(t("estimate_explainer"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(t("filter_explainer"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
     TextButton(onClick = { openSettings(context, language = true) }) { Text(t("locale")) }
     Text(t("locale_hint"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     TextButton(onClick = { showLicenses = true }) { Text(t("licenses")) }
@@ -371,12 +386,8 @@ fun MeterScreen(state: MeterState, model: MeterViewModel) {
     val date = runCatching { java.time.Instant.parse(report.startedAt).atZone(java.time.ZoneId.systemDefault())
         .format(java.time.format.DateTimeFormatter.ofLocalizedDateTime(java.time.format.FormatStyle.MEDIUM, java.time.format.FormatStyle.SHORT)) }.getOrDefault(report.startedAt)
     Text(date, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-    Text(t(if (report.calibrated) "estimated_level" else "relative_level") + " · " + report.unit, style = MaterialTheme.typography.bodyMedium)
-    Statistics(report.snapshot, report.offset, true)
-    LevelChart(report.snapshot.points, report.offset, report.calibrated, Modifier.fillMaxWidth().height(170.dp))
-    Text(t("input") + ": " + report.conditions.routeName)
-    Text(t("clipped_total") + ": " + report.snapshot.clipped)
-    Text(t("summary_hint"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    Statistics(report.snapshot, report.estimate, true)
+    Text(t("estimate_short"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     Button(onClick = {
         exporting = true
         scope.launch {
@@ -393,12 +404,22 @@ fun MeterScreen(state: MeterState, model: MeterViewModel) {
             exporting = false
         }
     }, enabled = !exporting, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp).testTag("share_csv")) {
-        Icon(Icons.Default.Share, null); Spacer(Modifier.width(8.dp)); Text(t("share"))
+        Icon(Icons.Default.Share, null); Spacer(Modifier.width(8.dp)); Text(t("share_result"))
+    }
+    AdvancedSection("summary_advanced") {
+        Text(t("recent60") + " · dBFS", style = MaterialTheme.typography.titleSmall)
+        LevelChart(report.snapshot.points, 0.0, false, Modifier.fillMaxWidth().height(140.dp))
+        DetailRow("input", report.conditions.routeName)
+        DetailRow("clipped_total", report.snapshot.clipped.toString())
+        DetailRow("estimate_method", t(if (report.calibrated) "estimate_calibrated" else "estimate_default"))
+        Text(t("estimate_explainer"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(t("summary_hint"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
     TextButton(onClick = { delete = true }, modifier = Modifier.fillMaxWidth()) { Text(t("clear_session"), color = MaterialTheme.colorScheme.error) }
     if (delete) AlertDialog(onDismissRequest = { delete = false }, title = { Text(t("delete_confirm")) }, confirmButton = { TextButton(onClick = { model.clearSession(); dismiss() }) { Text(t("clear_session")) } }, dismissButton = { TextButton(onClick = { delete = false }) { Text(t("cancel")) } })
 }
 
+private fun simpleLevel(value: Double): String = String.format(Locale.getDefault(), "%.0f", value)
 private fun level(value: Double, floor: Boolean = false): String = if (floor && value <= -119.95) "≤−120" else String.format(Locale.getDefault(), "%.1f", value).replace('-', '−')
 private fun duration(seconds: Double): String { val whole = max(0, seconds.toInt()); return String.format(Locale.ROOT, "%02d:%02d:%02d", whole / 3600, whole / 60 % 60, whole % 60) }
 private fun openSettings(context: Context, language: Boolean = false) {

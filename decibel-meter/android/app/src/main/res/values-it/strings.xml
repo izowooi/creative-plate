@@ -19,7 +19,7 @@
     <string name="relative_hint">Ingresso digitale, non pressione sonora. Calibra con un fonometro di riferimento.</string>
     <string name="estimated_hint">Stima a un punto. La precisione varia in base al dispositivo e al suono.</string>
     <string name="minimum">Minimo</string>
-    <string name="average">Media energetica</string>
+    <string name="average">Media</string>
     <string name="maximum">Massimo</string>
     <string name="recent60">Ultimi 60 secondi</string>
     <string name="elapsed">Durata</string>
@@ -51,7 +51,7 @@
     <string name="diagnostics">Condividi diagnostica arresti</string>
     <string name="diagnostics_explainer">Facoltativo. Firebase Crashlytics riceve rapporti sugli arresti, informazioni su app e dispositivo e un identificativo di installazione per correggere i problemi. Audio e livelli sonori non sono mai inclusi. Puoi disattivarlo in qualsiasi momento.</string>
     <string name="about">Informazioni su Sori</string>
-    <string name="accuracy_explainer">Senza calibrazione, i valori sono livelli di ingresso digitali (dBFS), non pressione sonora fisica. La calibrazione di riferimento fornisce una stima solo per quel microfono, guadagno e condizioni. L’app non è uno strumento certificato e non valuta udito, esposizione sicura o conformità legale.</string>
+    <string name="accuracy_explainer">I valori predefiniti sono stime basate su un riferimento comune del microfono e variano tra telefoni. Non sono una calibrazione misurata del tuo dispositivo. Puoi regolarli qui con un fonometro di riferimento.</string>
     <string name="filter_explainer">La ponderazione A attenua le basse frequenze. Il filtro digitale è testato da 31,5 Hz a 8 kHz; la risposta del microfono e le frequenze molto alte possono variare. Senza ponderazione si calcola direttamente il PCM. Statistiche: finestre RMS di 100 ms e media energetica ponderata per campioni. Limite inferiore: −120 dBFS. Durata massima: 4 ore.</string>
     <string name="permission_title">Accesso al microfono</string>
     <string name="permission_message">Consenti l’accesso al microfono per misurare il suono. L’audio resta sul dispositivo e non viene salvato.</string>
@@ -82,4 +82,18 @@
     <string name="microphone_usage">Sori usa il microfono per misurare il suono sul dispositivo. L’audio non viene salvato né inviato.</string>
     <string name="stopping">Conclusione…</string>
     <string name="licenses">Licenze open source</string>
+    <string name="advanced">Impostazioni avanzate</string>
+    <string name="sound_now">Il suono intorno a te</string>
+    <string name="estimate_short">Una stima con il tuo telefono.</string>
+    <string name="start_hint">Avvia la misurazione per scoprire i suoni intorno a te.</string>
+    <string name="raw_input">Ingresso del microfono</string>
+    <string name="estimate_method">Metodo di stima</string>
+    <string name="estimate_default">Stima predefinita</string>
+    <string name="estimate_calibrated">La tua calibrazione</string>
+    <string name="estimate_adjustment">Offset di conversione in dB</string>
+    <string name="estimate_explainer">I valori predefiniti sono stime basate su un riferimento comune del microfono e variano tra telefoni. Non sono una calibrazione misurata del tuo dispositivo. Puoi regolarli qui con un fonometro di riferimento.</string>
+    <string name="simple_about">Scopri il livello e le variazioni dei suoni intorno a te. I valori sono stime che dipendono dal telefono e dall’ambiente. L’audio non viene salvato.</string>
+    <string name="share_result">Condividi risultati</string>
+    <string name="advanced_open">Espanso</string>
+    <string name="advanced_closed">Compresso</string>
 </resources>

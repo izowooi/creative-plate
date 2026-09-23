@@ -36,6 +36,8 @@ data class MeterState(
     val offset get() = if (calibrated) sessionCalibration?.offset ?: 0.0 else 0.0
     val unit get() = if (calibrated) { if (conditions?.weighting == Weighting.A) "dBA" else "dB SPL" } else "dBFS"
     val hasMeasurement get() = snapshot.count > 0
+    val estimate get() = if (phase == CapturePhase.IDLE && hasMeasurement && lastReport != null) lastReport.estimate
+        else LevelEstimate.resolve(conditions, sessionCalibration)
     val profileMismatch get() = conditions?.let { input -> profiles.firstOrNull { it.id == selectedProfile }?.validFor(input) == false } ?: false
 }
 
@@ -94,7 +96,7 @@ class MeterViewModel(application: Application) : AndroidViewModel(application) {
         val current = mutable.value
         val report = if (current.conditions != null && current.hasMeasurement) {
             SessionReport(startedAt, Instant.now().toString(), current.conditions, current.sessionCalibration,
-                current.snapshot, accumulator?.finish() ?: emptyList(), reason)
+                current.snapshot, accumulator?.finish() ?: emptyList(), reason, current.estimate)
         } else null
         if (report != null) store.saveReport(report)
         mutable.update { it.copy(phase = CapturePhase.IDLE, lastReport = report ?: it.lastReport, notice = reason.takeUnless { it == "user" }) }

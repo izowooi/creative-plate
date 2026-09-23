@@ -74,6 +74,10 @@ final class MeterModel: ObservableObject {
     var running: Bool { phase == .running }
     var busy: Bool { phase == .starting || phase == .stopping }
     var hasMeasurement: Bool { snapshot.count > 0 }
+    var estimate: LevelEstimate {
+        if phase == .idle, let lastReport, hasMeasurement { return lastReport.estimate }
+        return LevelEstimate.resolve(input: conditions, calibration: sessionCalibration)
+    }
     var calibrated: Bool { conditions.map { sessionCalibration?.valid(for: $0) == true } ?? false }
     var offset: Double { calibrated ? (sessionCalibration?.offset ?? 0) : 0 }
     var unit: String {
@@ -144,7 +148,8 @@ final class MeterModel: ObservableObject {
         if let conditions, snapshot.count > 0 {
             let report = SessionReport(startedAt: startedAt, endedAt: ISO8601DateFormatter().string(from: Date()),
                 conditions: conditions, calibration: sessionCalibration, snapshot: snapshot,
-                readings: accumulator?.finish() ?? [], stopReason: reason)
+                readings: accumulator?.finish() ?? [], stopReason: reason,
+                savedEstimate: LevelEstimate.resolve(input: conditions, calibration: sessionCalibration))
             lastReport = report
             LocalFiles.saveReport(report)
         }

@@ -115,6 +115,53 @@ struct AppConfigurationTests {
     }
 }
 
+struct LevelEstimateTests {
+    private var input: InputConditions {
+        InputConditions(device: "phone", routeID: "mic", routeName: "Built-in", sampleRate: 48000,
+            channels: 1, source: "measurement", weighting: .a, gain: "1")
+    }
+
+    @Test func noSetupIsRequiredForAnExplicitlyEstimatedReading() {
+        let estimate = LevelEstimate.resolve(input: input, calibration: nil)
+        #expect(estimate.basis == "generic_estimate_v1")
+        #expect(estimate.decibels(-60) == 50)
+        #expect(estimate.decibels(-53.9794) - estimate.decibels(-60) > 6.02)
+        #expect(estimate.decibels(Acoustics.floorDB) == 0)
+        #expect(estimate.decibels(-115) == 0)
+        #expect(estimate.decibels(.nan) == 0)
+    }
+
+    @Test func referenceCalibrationWinsOnlyForTheSameInput() {
+        let profile = CalibrationProfile(id: "p", name: "Reference", createdAt: "today", referenceDB: 70,
+            measuredDBFS: -30, notes: "", conditions: input)
+        let matched = LevelEstimate.resolve(input: input, calibration: profile)
+        #expect(matched.basis == "reference_calibration")
+        #expect(matched.decibels(-30) == 70)
+        let different = InputConditions(device: "phone", routeID: "usb", routeName: "USB", sampleRate: 48000,
+            channels: 1, source: "measurement", weighting: .a, gain: "1")
+        let fallback = LevelEstimate.resolve(input: different, calibration: profile)
+        #expect(fallback.basis == "generic_estimate_v1")
+        #expect(fallback.offset != matched.offset)
+    }
+
+    @Test func savedEstimatesAndLegacyReportsExportTheSameValuesTheyDisplay() throws {
+        let report = SessionReport(startedAt: "start", endedAt: "end", conditions: input, calibration: nil,
+            snapshot: MeterSnapshot(current: -40, minimum: -50, average: -45, maximum: -30),
+            readings: [LevelPoint(seconds: 1, dbfs: -40, count: 48000)], stopReason: "user",
+            savedEstimate: LevelEstimate(offset: 113, basis: "saved_test_estimate"))
+        let data = try JSONEncoder().encode(report)
+        let decoded = try JSONDecoder().decode(SessionReport.self, from: data)
+        #expect(decoded.estimate.decibels(-40) == 73)
+        #expect(decoded.csv().contains("1.0000,73.0000,\"dB (estimated)\",-40.0000"))
+        #expect(!decoded.calibrated)
+        var legacy = try #require(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        legacy.removeValue(forKey: "savedEstimate")
+        let old = try JSONDecoder().decode(SessionReport.self, from: JSONSerialization.data(withJSONObject: legacy))
+        #expect(old.estimate.decibels(-40) == 70)
+        #expect(old.csv().contains("generic_estimate_v1"))
+    }
+}
+
 struct CaptureInputStateTests {
     private func input() -> CaptureInputState {
         CaptureInputState(portID: "built-in", dataSourceID: "bottom", polarPattern: nil,

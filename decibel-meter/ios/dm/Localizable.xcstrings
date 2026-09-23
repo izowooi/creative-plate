@@ -1242,61 +1242,61 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Energy avg."
+            "value": "Average"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "에너지 평균"
+            "value": "평균"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "エネルギー平均"
+            "value": "平均"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "能量平均"
+            "value": "平均"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "能量平均"
+            "value": "平均"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Energiemittel"
+            "value": "Durchschnitt"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Moy. énergétique"
+            "value": "Moyenne"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Media energética"
+            "value": "Promedio"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Média energética"
+            "value": "Média"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Media energetica"
+            "value": "Media"
           }
         }
       }
@@ -3322,61 +3322,61 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Without calibration, values are digital input levels (dBFS), not physical sound pressure. A reference calibration gives an estimate for that microphone, gain and setup only. This app is not a certified instrument and does not assess hearing, safe exposure time or legal compliance."
+            "value": "Default readings use a common microphone reference for a rough estimate and can vary between phones. They are not a measured calibration for your device. You can adjust them with a reference sound meter here."
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "미보정 값은 디지털 입력 레벨(dBFS)이며 실제 음압이 아닙니다. 기준 보정은 해당 마이크·게인·조건에서의 추정치만 제공합니다. 공인 계측기가 아니며 청력, 안전 노출 시간, 법적 적합성을 판단하지 않습니다."
+            "value": "기본값은 공통 마이크 기준으로 계산한 대략적인 추정치라 기기마다 차이가 있어요. 내 기기를 실제로 교정한 값은 아니에요. 기준 소음계가 있다면 여기서 보정할 수 있어요."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "未校正の値はデジタル入力レベル（dBFS）であり、実際の音圧ではありません。基準校正による推定は、そのマイク・ゲイン・条件にのみ適用されます。本アプリは認証された計測器ではなく、聴力、安全な曝露時間、法的適合性を判定しません。"
+            "value": "標準値は共通のマイク基準による大まかな推定で、機種によって異なります。この端末を実測して校正した値ではありません。基準騒音計があれば、ここで補正できます。"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "未校准时显示的是数字输入电平（dBFS），不是物理声压。参考校准只能估算对应麦克风、增益和条件下的声压。本应用不是认证仪器，不能判断听力、安全暴露时长或法律合规性。"
+            "value": "默认读数使用通用麦克风基准进行粗略估算，不同手机可能存在差异，并非针对本机实测校准的结果。如有参考声级计，可在此校准。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "未校準時顯示的是數位輸入位準（dBFS），不是物理聲壓。參考校準只能估算對應麥克風、增益與條件下的聲壓。本應用程式不是認證儀器，不能判斷聽力、安全暴露時間或法律合規性。"
+            "value": "預設讀數使用通用麥克風基準粗略估算，不同手機可能有差異，並非針對本機實測校正的結果。如有參考聲級計，可在此校正。"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ohne Kalibrierung sind die Werte digitale Eingangspegel (dBFS), kein physikalischer Schalldruck. Eine Referenzkalibrierung liefert nur für dieses Mikrofon, diesen Pegelverstärker und diese Bedingungen einen Schätzwert. Die App ist kein zertifiziertes Messgerät und bewertet weder Gehör noch sichere Expositionszeiten oder rechtliche Grenzwerte."
+            "value": "Die Standardwerte sind grobe Schätzungen anhand einer allgemeinen Mikrofonreferenz und können je nach Smartphone abweichen. Dein Gerät wurde dafür nicht individuell kalibriert. Mit einem Referenzmessgerät kannst du sie hier anpassen."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sans étalonnage, les valeurs sont des niveaux d’entrée numériques (dBFS), pas une pression acoustique physique. Un étalonnage de référence donne une estimation propre au micro, au gain et aux conditions utilisés. Cette app n’est pas un instrument certifié et n’évalue ni l’audition, ni la durée d’exposition sans risque, ni la conformité légale."
+            "value": "Les valeurs par défaut sont des estimations à partir d’une référence de microphone commune et varient selon le téléphone. Votre appareil n’a pas été étalonné individuellement. Vous pouvez les ajuster ici avec un sonomètre de référence."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sin calibración, los valores son niveles de entrada digitales (dBFS), no presión sonora física. La calibración de referencia ofrece una estimación solo para ese micrófono, ganancia y condiciones. Esta app no es un instrumento certificado ni evalúa la audición, el tiempo de exposición seguro o el cumplimiento legal."
+            "value": "Las lecturas predeterminadas son aproximaciones basadas en una referencia común de micrófono y varían según el teléfono. No son una calibración medida de tu dispositivo. Puedes ajustarlas aquí con un sonómetro de referencia."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sem calibração, os valores são níveis de entrada digitais (dBFS), não pressão sonora física. A calibração de referência fornece uma estimativa apenas para aquele microfone, ganho e condições. O app não é um instrumento certificado e não avalia audição, tempo seguro de exposição ou conformidade legal."
+            "value": "Os valores padrão são estimativas com uma referência comum de microfone e variam entre celulares. Não são uma calibração medida do seu aparelho. Você pode ajustá-los aqui com um medidor de referência."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Senza calibrazione, i valori sono livelli di ingresso digitali (dBFS), non pressione sonora fisica. La calibrazione di riferimento fornisce una stima solo per quel microfono, guadagno e condizioni. L’app non è uno strumento certificato e non valuta udito, esposizione sicura o conformità legale."
+            "value": "I valori predefiniti sono stime basate su un riferimento comune del microfono e variano tra telefoni. Non sono una calibrazione misurata del tuo dispositivo. Puoi regolarli qui con un fonometro di riferimento."
           }
         }
       }
@@ -5327,6 +5327,916 @@
           "stringUnit": {
             "state": "translated",
             "value": "Licenze open source"
+          }
+        }
+      }
+    },
+    "advanced": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Advanced"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "고급 설정"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "詳細設定"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高级设置"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "進階設定"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erweitert"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réglages avancés"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opciones avanzadas"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opções avançadas"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impostazioni avanzate"
+          }
+        }
+      }
+    },
+    "sound_now": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sound around you"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지금 소리"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "いまの音"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "周围的声音"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "周圍的聲音"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geräusche um dich"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le son autour de vous"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonido a tu alrededor"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Som ao seu redor"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il suono intorno a te"
+          }
+        }
+      }
+    },
+    "estimate_short": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimated with your phone."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "휴대폰으로 추정한 값이에요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "スマートフォンによる推定値です。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "由手机估算的数值。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "由手機估算的數值。"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit deinem Smartphone geschätzt."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une estimation avec votre téléphone."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una estimación con tu teléfono."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma estimativa com seu celular."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una stima con il tuo telefono."
+          }
+        }
+      }
+    },
+    "start_hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap Measure to hear your surroundings."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "측정을 누르면 주변 소리를 알려드려요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "測定を押して、周りの音を調べましょう。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "点击测量，了解周围的声音。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點一下測量，了解周圍的聲音。"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe auf Messen und entdecke die Geräusche um dich."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lancez la mesure pour découvrir les sons autour de vous."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inicia la medición para conocer el sonido a tu alrededor."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inicie a medição para conhecer o som ao seu redor."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avvia la misurazione per scoprire i suoni intorno a te."
+          }
+        }
+      }
+    },
+    "raw_input": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Microphone input"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "마이크 원본 입력"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "マイクの元の入力"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "麦克风原始输入"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "麥克風原始輸入"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mikrofoneingang"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Signal brut du micro"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrada del micrófono"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrada do microfone"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingresso del microfono"
+          }
+        }
+      }
+    },
+    "estimate_method": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimation method"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "추정 방식"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "推定方法"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "估算方式"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "估算方式"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schätzmethode"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Méthode d’estimation"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Método de estimación"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Método de estimativa"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metodo di stima"
+          }
+        }
+      }
+    },
+    "estimate_default": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Default estimate"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기본 추정"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "標準の推定"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "默认估算"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "預設估算"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Standardschätzung"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimation par défaut"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimación predeterminada"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimativa padrão"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stima predefinita"
+          }
+        }
+      }
+    },
+    "estimate_calibrated": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your calibration"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사용자 보정 적용"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ユーザー補正を適用"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已应用用户校准"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已套用使用者校正"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Kalibrierung"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre étalonnage"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu calibración"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sua calibração"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua calibrazione"
+          }
+        }
+      }
+    },
+    "estimate_adjustment": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Input-to-dB offset"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "입력→dB 환산값"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "入力からdBへの補正値"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "输入转 dB 偏移量"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "輸入轉 dB 偏移量"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offset für die dB-Umrechnung"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Décalage de conversion en dB"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajuste de conversión a dB"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajuste de conversão para dB"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offset di conversione in dB"
+          }
+        }
+      }
+    },
+    "estimate_explainer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Default readings use a common microphone reference for a rough estimate and can vary between phones. They are not a measured calibration for your device. You can adjust them with a reference sound meter here."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기본값은 공통 마이크 기준으로 계산한 대략적인 추정치라 기기마다 차이가 있어요. 내 기기를 실제로 교정한 값은 아니에요. 기준 소음계가 있다면 여기서 보정할 수 있어요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "標準値は共通のマイク基準による大まかな推定で、機種によって異なります。この端末を実測して校正した値ではありません。基準騒音計があれば、ここで補正できます。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "默认读数使用通用麦克风基准进行粗略估算，不同手机可能存在差异，并非针对本机实测校准的结果。如有参考声级计，可在此校准。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "預設讀數使用通用麥克風基準粗略估算，不同手機可能有差異，並非針對本機實測校正的結果。如有參考聲級計，可在此校正。"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Standardwerte sind grobe Schätzungen anhand einer allgemeinen Mikrofonreferenz und können je nach Smartphone abweichen. Dein Gerät wurde dafür nicht individuell kalibriert. Mit einem Referenzmessgerät kannst du sie hier anpassen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les valeurs par défaut sont des estimations à partir d’une référence de microphone commune et varient selon le téléphone. Votre appareil n’a pas été étalonné individuellement. Vous pouvez les ajuster ici avec un sonomètre de référence."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las lecturas predeterminadas son aproximaciones basadas en una referencia común de micrófono y varían según el teléfono. No son una calibración medida de tu dispositivo. Puedes ajustarlas aquí con un sonómetro de referencia."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os valores padrão são estimativas com uma referência comum de microfone e variam entre celulares. Não são uma calibração medida do seu aparelho. Você pode ajustá-los aqui com um medidor de referência."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I valori predefiniti sono stime basate su un riferimento comune del microfono e variano tra telefoni. Non sono una calibrazione misurata del tuo dispositivo. Puoi regolarli qui con un fonometro di riferimento."
+          }
+        }
+      }
+    },
+    "simple_about": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explore how loud your surroundings are and how sound changes. Phone readings are estimates and vary with the device and environment. Audio is never saved."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "내 주변의 소리 크기와 변화를 가볍게 살펴보세요. 휴대폰 측정값은 기기와 환경에 따라 달라지는 추정치예요. 원음은 저장하지 않아요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "周りの音の大きさや変化を気軽に調べられます。測定値は機種や環境によって変わる推定値です。音声は保存しません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轻松了解周围声音的大小和变化。手机读数为估算值，会因设备和环境而异。不保存原始音频。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "輕鬆了解周圍聲音的大小與變化。手機讀數為估算值，會因裝置和環境而異。不儲存原始音訊。"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entdecke die Lautstärke und Veränderungen der Geräusche um dich. Smartphone-Messwerte sind Schätzungen und hängen von Gerät und Umgebung ab. Audio wird nicht gespeichert."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Découvrez le niveau et les variations des sons autour de vous. Les valeurs sont des estimations qui dépendent du téléphone et de l’environnement. Aucun son n’est enregistré."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explora el nivel y los cambios del sonido a tu alrededor. Las lecturas son estimaciones que varían según el dispositivo y el entorno. No se guarda audio."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explore a intensidade e as mudanças dos sons ao seu redor. Os valores são estimativas que variam conforme o aparelho e o ambiente. Nenhum áudio é salvo."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scopri il livello e le variazioni dei suoni intorno a te. I valori sono stime che dipendono dal telefono e dall’ambiente. L’audio non viene salvato."
+          }
+        }
+      }
+    },
+    "share_result": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share results"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "결과 공유"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "結果を共有"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分享结果"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分享結果"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ergebnisse teilen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partager les résultats"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compartir resultados"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compartilhar resultados"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Condividi risultati"
+          }
+        }
+      }
+    },
+    "advanced_open": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expanded"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "펼쳐짐"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "展開中"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已展开"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已展開"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgeklappt"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Développé"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expandido"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expandido"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espanso"
+          }
+        }
+      }
+    },
+    "advanced_closed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collapsed"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "접힘"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "折りたたみ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已收起"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已收合"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eingeklappt"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réduit"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contraído"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recolhido"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compresso"
           }
         }
       }

@@ -19,9 +19,12 @@ for path in (ROOT / "android/app/src/main/res").glob("values*/strings.xml"):
     keys = {item.attrib["name"] for item in ET.parse(path).getroot().findall("string")}
     assert keys == set(messages), f"Android locale keys differ: {path}"
 catalog = json.loads((ROOT / "ios/dm/Localizable.xcstrings").read_text())
-assert set(catalog["strings"]) == set(messages)
-for key, entry in catalog["strings"].items():
+assert set(messages) <= set(catalog["strings"])
+for key in messages:
+    entry = catalog["strings"][key]
     assert set(entry["localizations"]) == EXPECTED_LANGUAGES, key
+    for language, value in messages[key].items():
+        assert entry["localizations"][language]["stringUnit"]["value"] == value, (key, language)
 
 namespace = {"android": "http://schemas.android.com/apk/res/android"}
 manifest = ET.parse(ROOT / "android/app/src/main/AndroidManifest.xml").getroot()
@@ -36,7 +39,9 @@ assert metadata["firebase_data_collection_default_enabled"] == "false"
 ios_info = plistlib.loads((ROOT / "ios/Config/Info.plist").read_bytes())
 assert ios_info["FirebaseCrashlyticsCollectionEnabled"] is False
 assert ios_info["FirebaseDataCollectionDefaultEnabled"] is False
-assert ios_info["NSMicrophoneUsageDescription"]
+# Xcode may move this generated Info key into target build settings when edited in the UI.
+project = (ROOT / "ios/dm.xcodeproj/project.pbxproj").read_text()
+assert ios_info.get("NSMicrophoneUsageDescription") or re.search(r'INFOPLIST_KEY_NSMicrophoneUsageDescription = "[^"\n]+";', project)
 privacy = plistlib.loads((ROOT / "ios/dm/PrivacyInfo.xcprivacy").read_bytes())
 assert privacy["NSPrivacyTracking"] is False
 assert privacy["NSPrivacyAccessedAPITypes"][0]["NSPrivacyAccessedAPITypeReasons"] == ["CA92.1"]

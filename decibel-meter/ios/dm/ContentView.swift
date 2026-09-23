@@ -31,24 +31,17 @@ struct ContentView: View {
                 HStack(spacing: 7) {
                     Circle().fill(model.running ? SoriStyle.accent : .secondary.opacity(0.5)).frame(width: 7, height: 7)
                     Text(tr(model.isDemo ? "sample_data" : model.phase == .starting ? "starting" : model.phase == .stopping ? "stopping" : model.running ? "live" : model.hasMeasurement ? "finished" : "ready"))
-                        .font(.subheadline.weight(.medium))
+                        .font(.subheadline.weight(.medium)).lineLimit(1).minimumScaleFactor(0.6)
                     Spacer()
                     Text(duration(model.snapshot.seconds)).monospacedDigit().font(.subheadline)
+                        .lineLimit(1).minimumScaleFactor(0.5)
                         .foregroundStyle(SoriStyle.secondary).accessibilityLabel(tr("elapsed") + ": " + duration(model.snapshot.seconds))
                 }
-                VStack(spacing: 12) {
-                    MeterGauge(snapshot: model.snapshot, offset: model.offset, calibrated: model.calibrated,
-                               unit: model.unit, hasMeasurement: model.hasMeasurement)
-                    Button { sheet = .calibration } label: {
-                        Label(tr(model.calibrated ? "calibrated" : "uncalibrated"), systemImage: model.calibrated ? "checkmark.seal" : "slider.horizontal.3")
-                            .font(.subheadline.weight(.medium)).padding(.horizontal, 15).padding(.vertical, 9)
-                            .background(SoriStyle.accent.opacity(0.09), in: Capsule())
-                    }.accessibilityIdentifier("calibration")
-                    Text(tr(model.calibrated ? "estimated_hint" : "relative_hint"))
-                        .font(.footnote).foregroundStyle(SoriStyle.secondary).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
-                }.padding(.bottom, 2)
-                if model.snapshot.currentClipped { notice("clipping", warning: true) }
-                if model.profileMismatch { notice("calibration_mismatch", warning: false) }
+                MeterGauge(snapshot: model.snapshot, estimate: model.estimate, hasMeasurement: model.hasMeasurement)
+                StatisticsRow(snapshot: model.snapshot, estimate: model.estimate, available: model.hasMeasurement)
+                Text(tr(model.hasMeasurement ? "estimate_short" : "start_hint"))
+                    .font(.footnote).foregroundStyle(SoriStyle.secondary).multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity).fixedSize(horizontal: false, vertical: true)
                 if let message = model.notice {
                     VStack(alignment: .leading, spacing: 12) {
                         notice(message, warning: message != "calibration_saved")
@@ -57,33 +50,25 @@ struct ContentView: View {
                         }
                     }.frame(maxWidth: .infinity, alignment: .leading)
                 }
-                StatisticsRow(snapshot: model.snapshot, offset: model.offset, available: model.hasMeasurement)
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack {
-                        Text(tr("recent60")).font(.headline)
-                        Spacer()
-                        Text(model.unit + (model.conditions?.weighting == .a && !model.calibrated ? " · A" : ""))
-                            .font(.caption).foregroundStyle(SoriStyle.secondary)
-                    }
-                    LevelChart(points: model.snapshot.points, offset: model.offset, calibrated: model.calibrated)
-                        .frame(height: 96)
-                    HStack {
-                        Text("−60 s")
-                        Spacer()
-                        Text("0 s")
-                    }.font(.caption.monospacedDigit()).foregroundStyle(SoriStyle.secondary)
-                }.padding(18).background(SoriStyle.card, in: RoundedRectangle(cornerRadius: 24))
-                HStack(alignment: .top, spacing: 10) {
-                    Image(systemName: "mic").font(.subheadline).padding(.top, 2)
-                    VStack(alignment: .leading, spacing: 4) {
+                AdvancedSection(identifier: "advanced") {
+                    VStack(alignment: .leading, spacing: 16) {
+                        LabeledContent(tr("raw_input"), value: model.hasMeasurement ? level(model.snapshot.current, floor: true) + " dBFS" : "—")
+                            .accessibilityIdentifier("raw_input")
+                        LabeledContent(tr("estimate_method"), value: tr(model.calibrated ? "estimate_calibrated" : "estimate_default"))
+                        LabeledContent(tr("estimate_adjustment"), value: "+" + level(model.estimate.offset) + " dB")
+                        Button { sheet = .calibration } label: {
+                            Label(tr("calibration"), systemImage: "slider.horizontal.3")
+                        }.buttonStyle(.bordered).accessibilityIdentifier("calibration")
+                        if model.profileMismatch { notice("calibration_mismatch", warning: false) }
+                        if model.snapshot.currentClipped { notice("clipping", warning: true) }
+                        Text(tr("recent60") + " · dBFS").font(.subheadline.weight(.medium))
+                        LevelChart(points: model.snapshot.points, offset: 0, calibrated: false).frame(height: 96)
                         Text(model.conditions?.routeName ?? tr("unknown_input")).font(.subheadline)
-                        Text(tr("rms100")).font(.caption).foregroundStyle(SoriStyle.secondary)
+                        Text(tr("rms100") + " · " + ((model.conditions?.weighting ?? model.weighting) == .a ? "A" : tr("flat")))
+                            .font(.caption).foregroundStyle(SoriStyle.secondary)
+                        Text(tr("estimate_explainer")).font(.footnote).foregroundStyle(SoriStyle.secondary)
                     }
-                    Spacer(minLength: 8)
-                    Text((model.conditions?.weighting ?? model.weighting) == .a ? "A" : tr("flat"))
-                        .font(.caption.weight(.semibold)).padding(.horizontal, 11).padding(.vertical, 7)
-                        .background(SoriStyle.card, in: Capsule())
-                }.foregroundStyle(SoriStyle.secondary).padding(.horizontal, 4)
+                }
                 if model.isDemo { Text(tr("sample_hint")).font(.caption).foregroundStyle(SoriStyle.secondary) }
             }.frame(maxWidth: 620).padding(.horizontal, 24).padding(.top, 12).padding(.bottom, 24).frame(maxWidth: .infinity)
         }
@@ -131,15 +116,13 @@ struct ContentView: View {
 
 private struct MeterGauge: View {
     let snapshot: MeterSnapshot
-    let offset: Double
-    let calibrated: Bool
-    let unit: String
+    let estimate: LevelEstimate
     let hasMeasurement: Bool
     @ScaledMetric(relativeTo: .largeTitle) private var numeralSize = 76.0
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     private var expanded: Bool { dynamicTypeSize >= .xxxLarge }
-    private var value: Double { snapshot.current + offset }
-    private var progress: Double { min(1, max(0, (value - (calibrated ? 0 : -120)) / 120)) }
+    private var value: Double { estimate.decibels(snapshot.current) }
+    private var progress: Double { min(1, max(0, value / 120)) }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -160,24 +143,23 @@ private struct MeterGauge: View {
                 }.accessibilityHidden(true)
                 }
                 VStack(spacing: 6) {
-                    Text(tr("current_level")).font(.caption2.weight(.semibold)).tracking(1.5).foregroundStyle(SoriStyle.secondary)
-                    Text(hasMeasurement ? level(value, floor: !calibrated) : "—")
+                    Text(tr("sound_now")).font(.subheadline).foregroundStyle(SoriStyle.secondary)
+                    Text(hasMeasurement ? simpleLevel(value) : "—")
                         .font(.system(size: min(numeralSize, 102), weight: .medium, design: .rounded)).monospacedDigit()
                         .minimumScaleFactor(0.55).lineLimit(1).frame(maxWidth: expanded ? 290 : 185)
-                    Text(unit + (calibrated ? " · " + tr("estimated_level") : " · " + tr("relative_level")))
-                        .font(.caption).foregroundStyle(SoriStyle.secondary).multilineTextAlignment(.center)
+                    Text(verbatim: "dB").font(.title3.weight(.medium)).foregroundStyle(SoriStyle.secondary)
                 }.padding(.horizontal, 37).offset(y: 14)
             }.frame(height: expanded ? 260 : 212)
         }.accessibilityElement(children: .ignore)
-            .accessibilityLabel(tr("current_level"))
-            .accessibilityValue(hasMeasurement ? level(value, floor: !calibrated) + " " + unit + ", " + tr(calibrated ? "estimated_level" : "relative_level") : tr("ready"))
+            .accessibilityLabel(tr("sound_now"))
+            .accessibilityValue(hasMeasurement ? simpleLevel(value) + " dB, " + tr("estimate_short") : tr("ready"))
             .accessibilityIdentifier("level")
     }
 }
 
 private struct StatisticsRow: View {
     let snapshot: MeterSnapshot
-    let offset: Double
+    let estimate: LevelEstimate
     let available: Bool
     var body: some View {
         HStack(spacing: 10) {
@@ -189,10 +171,12 @@ private struct StatisticsRow: View {
     private func statistic(_ key: String, _ value: Double) -> some View {
         VStack(spacing: 10) {
             Text(tr(key)).font(.caption).foregroundStyle(SoriStyle.secondary).lineLimit(2).minimumScaleFactor(0.75)
-            Text(available ? level(value + offset) : "—").font(.system(.title3, design: .rounded).weight(.semibold)).monospacedDigit().lineLimit(1).minimumScaleFactor(0.7)
+            Text(available ? simpleLevel(estimate.decibels(value)) : "—").font(.system(.title, design: .rounded).weight(.semibold)).monospacedDigit().lineLimit(1).minimumScaleFactor(0.7)
+            Text(verbatim: "dB").font(.caption).foregroundStyle(SoriStyle.secondary)
         }.frame(maxWidth: .infinity).padding(.vertical, 16).padding(.horizontal, 4)
             .background(SoriStyle.card, in: RoundedRectangle(cornerRadius: 20))
             .accessibilityElement(children: .combine)
+            .accessibilityIdentifier(key)
     }
 }
 
@@ -230,6 +214,26 @@ private struct LevelChart: View {
     }
 }
 
+private struct AdvancedSection<Content: View>: View {
+    let identifier: String
+    @ViewBuilder let content: Content
+    @State private var expanded = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Button { withAnimation(.easeInOut(duration: 0.2)) { expanded.toggle() } } label: {
+                HStack {
+                    Text(tr("advanced")).font(.subheadline.weight(.medium))
+                    Spacer()
+                    Image(systemName: expanded ? "chevron.up" : "chevron.down").font(.footnote.weight(.semibold))
+                }.frame(maxWidth: .infinity, minHeight: 44).contentShape(Rectangle())
+            }.buttonStyle(.plain).foregroundStyle(SoriStyle.accent)
+                .accessibilityIdentifier(identifier).accessibilityValue(tr(expanded ? "advanced_open" : "advanced_closed"))
+            if expanded { content.padding(.top, 16) }
+        }.padding(.horizontal, 18).padding(.vertical, 8).background(SoriStyle.card, in: RoundedRectangle(cornerRadius: 22))
+    }
+}
+
 private struct SettingsView: View {
     @ObservedObject var model: MeterModel
     @Environment(\.dismiss) private var dismiss
@@ -237,9 +241,6 @@ private struct SettingsView: View {
         NavigationStack {
             Form {
                 Section {
-                    Picker(tr("weighting"), selection: $model.weighting) { Text("A").tag(Weighting.a); Text(tr("flat")).tag(Weighting.flat) }
-                        .disabled(model.phase != .idle).accessibilityIdentifier("weighting")
-                    NavigationLink(tr("calibration")) { CalibrationForm(model: model) }
                     Toggle(tr("keep_awake"), isOn: $model.keepAwake)
                 } footer: { Text(tr("keep_awake_explainer")) }
                 Section {
@@ -248,7 +249,7 @@ private struct SettingsView: View {
                 } footer: { Text(tr("diagnostics_explainer")) }
                 Section {
                     NavigationLink(tr("privacy")) { InformationView(title: "privacy", paragraphs: ["privacy_explainer", "diagnostics_explainer"]) }
-                    NavigationLink(tr("about")) { InformationView(title: "about", paragraphs: ["accuracy_explainer", "filter_explainer"]) }
+                    NavigationLink(tr("about")) { InformationView(title: "about", paragraphs: ["simple_about"]) }
                     NavigationLink(tr("licenses")) {
                         ScrollView {
                             Text(licenseText()).font(.caption).textSelection(.enabled).padding(24)
@@ -257,10 +258,17 @@ private struct SettingsView: View {
                     Button(tr("locale")) { openSettings() }
                     LabeledContent(tr("version"), value: "1.0 (1)")
                 }
-                if let input = model.conditions {
-                    Section(tr("input")) {
-                        Text(input.routeName)
-                        Text("\(input.sampleRate) Hz · \(input.channels) ch").foregroundStyle(SoriStyle.secondary)
+                Section {
+                    AdvancedSection(identifier: "settings_advanced") {
+                        Picker(tr("weighting"), selection: $model.weighting) { Text("A").tag(Weighting.a); Text(tr("flat")).tag(Weighting.flat) }
+                            .disabled(model.phase != .idle).accessibilityIdentifier("weighting")
+                        NavigationLink(tr("calibration")) { CalibrationForm(model: model) }
+                        if let input = model.conditions {
+                            Text(input.routeName)
+                            Text("\(input.sampleRate) Hz · \(input.channels) ch").foregroundStyle(SoriStyle.secondary)
+                        }
+                        Text(tr("estimate_explainer")).font(.footnote).foregroundStyle(SoriStyle.secondary)
+                        Text(tr("filter_explainer")).font(.footnote).foregroundStyle(SoriStyle.secondary)
                     }
                 }
             }.navigationTitle(tr("settings")).navigationBarTitleDisplayMode(.inline)
@@ -364,12 +372,8 @@ private struct SummaryView: View {
                         if let date = ISO8601DateFormatter().date(from: report.startedAt) {
                             Text(date.formatted(date: .abbreviated, time: .shortened)).font(.subheadline).foregroundStyle(SoriStyle.secondary)
                         }
-                        Text(tr(report.calibrated ? "estimated_level" : "relative_level") + " · " + report.unit).font(.subheadline).foregroundStyle(SoriStyle.secondary)
-                        StatisticsRow(snapshot: report.snapshot, offset: report.offset, available: true)
-                        LevelChart(points: report.snapshot.points, offset: report.offset, calibrated: report.calibrated).frame(height: 170)
-                        LabeledContent(tr("input"), value: report.conditions.routeName)
-                        LabeledContent(tr("clipped_total"), value: String(report.snapshot.clipped))
-                        Text(tr("summary_hint")).font(.footnote).foregroundStyle(SoriStyle.secondary)
+                        StatisticsRow(snapshot: report.snapshot, estimate: report.estimate, available: true)
+                        Text(tr("estimate_short")).font(.footnote).foregroundStyle(SoriStyle.secondary)
                         Button {
                             exporting = true
                             Task {
@@ -377,8 +381,19 @@ private struct SummaryView: View {
                                 else { model.notice = "error_export" }
                                 exporting = false
                             }
-                        } label: { Label(tr("share"), systemImage: "square.and.arrow.up").frame(maxWidth: .infinity).padding(.vertical, 10) }
+                        } label: { Label(tr("share_result"), systemImage: "square.and.arrow.up").frame(maxWidth: .infinity).padding(.vertical, 10) }
                             .buttonStyle(.borderedProminent).disabled(exporting).accessibilityIdentifier("share_csv")
+                        AdvancedSection(identifier: "summary_advanced") {
+                            VStack(alignment: .leading, spacing: 16) {
+                                Text(tr("recent60") + " · dBFS").font(.subheadline)
+                                LevelChart(points: report.snapshot.points, offset: 0, calibrated: false).frame(height: 140)
+                                LabeledContent(tr("input"), value: report.conditions.routeName)
+                                LabeledContent(tr("clipped_total"), value: String(report.snapshot.clipped))
+                                LabeledContent(tr("estimate_method"), value: tr(report.calibrated ? "estimate_calibrated" : "estimate_default"))
+                                Text(tr("estimate_explainer")).font(.footnote).foregroundStyle(SoriStyle.secondary)
+                                Text(tr("summary_hint")).font(.footnote).foregroundStyle(SoriStyle.secondary)
+                            }
+                        }
                         Button(tr("clear_session"), role: .destructive) { confirmDelete = true }.frame(maxWidth: .infinity)
                     }.frame(maxWidth: 620).padding(24).frame(maxWidth: .infinity)
                 }
@@ -398,6 +413,7 @@ private struct ShareSheet: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
+private func simpleLevel(_ value: Double) -> String { String(format: "%.0f", locale: .current, value) }
 private func level(_ value: Double, floor: Bool = false) -> String {
     if floor && value <= -119.95 { return "≤−120" }
     return String(format: "%.1f", locale: .current, value).replacingOccurrences(of: "-", with: "−")

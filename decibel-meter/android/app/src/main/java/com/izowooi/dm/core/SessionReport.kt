@@ -10,12 +10,14 @@ data class SessionReport(
     val snapshot: MeterSnapshot,
     val readings: List<LevelPoint>,
     val stopReason: String,
+    val savedEstimate: LevelEstimate? = null,
 ) {
-    val offset: Double get() = calibration?.takeIf { it.validFor(conditions) }?.offset ?: 0.0
+    val estimate get() = savedEstimate ?: LevelEstimate.resolve(conditions, calibration)
+    val offset: Double get() = estimate.offset
     val calibrated: Boolean get() = calibration?.validFor(conditions) == true
     val unit: String get() = if (calibrated) {
         if (conditions.weighting == Weighting.A) "dBA (estimated)" else "dB SPL (estimated, unweighted)"
-    } else if (conditions.weighting == Weighting.A) "dBFS (A-weighted)" else "dBFS (unweighted)"
+    } else "dB (estimated)"
 
     fun csv(): String = buildString {
         fun cell(value: String): String {
@@ -29,6 +31,8 @@ data class SessionReport(
         metadata("app", "Sori 1.0")
         metadata("started_utc", startedAt); metadata("ended_utc", endedAt)
         metadata("unit", unit); metadata("calibrated", calibrated.toString())
+        metadata("estimate_basis", estimate.basis); metadata("raw_unit", "dBFS")
+        metadata("display_floor_db", "0")
         metadata("weighting", conditions.weighting.name)
         metadata("input_device", conditions.device); metadata("input_route", conditions.routeName)
         metadata("route_id", conditions.routeId); metadata("sample_rate_hz", conditions.sampleRate.toString())
@@ -40,14 +44,14 @@ data class SessionReport(
         metadata("reference_level", calibration?.referenceDb?.let(::number) ?: "none")
         metadata("calibration_notes", calibration?.notes ?: "none")
         metadata("offset_db", number(offset)); metadata("stop_reason", stopReason)
-        metadata("session_min", number(snapshot.minimum + offset))
-        metadata("session_energy_average", number(snapshot.average + offset))
-        metadata("session_max", number(snapshot.maximum + offset))
+        metadata("session_min", number(estimate.decibels(snapshot.minimum)))
+        metadata("session_energy_average", number(estimate.decibels(snapshot.average)))
+        metadata("session_max", number(estimate.decibels(snapshot.maximum)))
         metadata("clipped_samples", snapshot.clipped.toString())
         metadata("limitation", "Phone input estimate; not a certified sound level meter. Digital display floor -120 dBFS. No audio saved.")
         append("elapsed_seconds,level,unit,raw_dbfs,sample_count,clipped_samples\n")
         readings.forEach { row ->
-            append(number(row.seconds)).append(',').append(number(row.dbfs + offset)).append(',')
+            append(number(row.seconds)).append(',').append(number(estimate.decibels(row.dbfs))).append(',')
                 .append(cell(unit)).append(',').append(number(row.dbfs)).append(',')
                 .append(row.count).append(',').append(row.clipped).append('\n')
         }

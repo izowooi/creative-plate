@@ -19,7 +19,7 @@
     <string name="relative_hint">Niveau d’entrée numérique, pas une pression acoustique. Étalonnez avec un sonomètre.</string>
     <string name="estimated_hint">Estimation en un point. La précision varie selon l’appareil et le son.</string>
     <string name="minimum">Minimum</string>
-    <string name="average">Moy. énergétique</string>
+    <string name="average">Moyenne</string>
     <string name="maximum">Maximum</string>
     <string name="recent60">60 dernières secondes</string>
     <string name="elapsed">Durée</string>
@@ -51,7 +51,7 @@
     <string name="diagnostics">Partager les diagnostics</string>
     <string name="diagnostics_explainer">Facultatif. Firebase Crashlytics reçoit les rapports de plantage, des informations sur l’app et l’appareil, ainsi qu’un identifiant d’installation pour corriger les problèmes. Aucun audio ni niveau sonore n’est inclus. Désactivable à tout moment.</string>
     <string name="about">À propos de Sori</string>
-    <string name="accuracy_explainer">Sans étalonnage, les valeurs sont des niveaux d’entrée numériques (dBFS), pas une pression acoustique physique. Un étalonnage de référence donne une estimation propre au micro, au gain et aux conditions utilisés. Cette app n’est pas un instrument certifié et n’évalue ni l’audition, ni la durée d’exposition sans risque, ni la conformité légale.</string>
+    <string name="accuracy_explainer">Les valeurs par défaut sont des estimations à partir d’une référence de microphone commune et varient selon le téléphone. Votre appareil n’a pas été étalonné individuellement. Vous pouvez les ajuster ici avec un sonomètre de référence.</string>
     <string name="filter_explainer">La pondération A atténue les basses fréquences. Le filtre numérique est testé de 31,5 Hz à 8 kHz ; la réponse du micro et les très hautes fréquences peuvent varier. Sans pondération, le PCM est calculé directement. Statistiques : fenêtres RMS de 100 ms et moyenne énergétique pondérée par les échantillons. Plancher : −120 dBFS. Durée maximale : 4 heures.</string>
     <string name="permission_title">Accès au microphone</string>
     <string name="permission_message">Autorisez le micro pour mesurer le son. L’audio reste sur votre appareil et n’est jamais enregistré.</string>
@@ -82,4 +82,18 @@
     <string name="microphone_usage">Sori utilise le micro pour mesurer le niveau sonore sur votre appareil. L’audio n’est jamais enregistré ni envoyé.</string>
     <string name="stopping">Fin de la mesure…</string>
     <string name="licenses">Licences open source</string>
+    <string name="advanced">Réglages avancés</string>
+    <string name="sound_now">Le son autour de vous</string>
+    <string name="estimate_short">Une estimation avec votre téléphone.</string>
+    <string name="start_hint">Lancez la mesure pour découvrir les sons autour de vous.</string>
+    <string name="raw_input">Signal brut du micro</string>
+    <string name="estimate_method">Méthode d’estimation</string>
+    <string name="estimate_default">Estimation par défaut</string>
+    <string name="estimate_calibrated">Votre étalonnage</string>
+    <string name="estimate_adjustment">Décalage de conversion en dB</string>
+    <string name="estimate_explainer">Les valeurs par défaut sont des estimations à partir d’une référence de microphone commune et varient selon le téléphone. Votre appareil n’a pas été étalonné individuellement. Vous pouvez les ajuster ici avec un sonomètre de référence.</string>
+    <string name="simple_about">Découvrez le niveau et les variations des sons autour de vous. Les valeurs sont des estimations qui dépendent du téléphone et de l’environnement. Aucun son n’est enregistré.</string>
+    <string name="share_result">Partager les résultats</string>
+    <string name="advanced_open">Développé</string>
+    <string name="advanced_closed">Réduit</string>
 </resources>
