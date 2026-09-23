@@ -75,10 +75,7 @@ final class dmUITests: XCTestCase {
         XCTAssertTrue(app.buttons["summary"].waitForExistence(timeout: 5))
         app.buttons["measure"].tap()
         XCTAssertTrue(stop.waitForExistence(timeout: 10))
-        XCUIDevice.shared.press(.home)
-        app.activate()
-        XCTAssertTrue(app.staticTexts["Measurement stopped when Sori left the foreground."].waitForExistence(timeout: 6))
-        XCTAssertFalse(stop.exists)
+        assertBackgroundStopsMeasurement(app)
     }
 
     @MainActor
@@ -106,10 +103,37 @@ final class dmUITests: XCTestCase {
         }
         measure.tap()
         XCTAssertTrue(stop.waitForExistence(timeout: 10))
+        assertBackgroundStopsMeasurement(app)
+    }
+
+    @MainActor
+    func testBackgroundStopsLiveMicrophone() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
+        app.launch()
+        XCTAssertTrue(app.buttons["measure"].waitForExistence(timeout: 10))
+        app.buttons["measure"].tap()
+        let stop = app.buttons.matching(identifier: "measure")
+            .matching(NSPredicate(format: "label == %@", "Stop measuring")).firstMatch
+        XCTAssertTrue(stop.waitForExistence(timeout: 10))
+        assertBackgroundStopsMeasurement(app)
+    }
+
+    @MainActor
+    private func assertBackgroundStopsMeasurement(_ app: XCUIApplication) {
         XCUIDevice.shared.press(.home)
+        if !app.wait(for: .runningBackground, timeout: 1), app.state != .runningBackgroundSuspended {
+            // Some devices accept the Home event without leaving the app.
+            // Explicitly activate the system Home screen in that case.
+            XCUIApplication(bundleIdentifier: "com.apple.springboard").activate()
+        }
+        XCTAssertTrue(app.wait(for: .runningBackground, timeout: 5)
+                      || app.wait(for: .runningBackgroundSuspended, timeout: 5),
+                      "Home must background the app before it is reactivated (state: \(app.state.rawValue))")
         app.activate()
         XCTAssertTrue(app.staticTexts["Measurement stopped when Sori left the foreground."].waitForExistence(timeout: 6))
-        XCTAssertFalse(stop.exists)
+        XCTAssertFalse(app.buttons.matching(identifier: "measure")
+            .matching(NSPredicate(format: "label == %@", "Stop measuring")).firstMatch.exists)
     }
 
     @MainActor
