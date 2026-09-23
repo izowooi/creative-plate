@@ -29,7 +29,7 @@ Android lint의 남은 warning은 SDK/의존성 새 버전 알림, SharedPrefere
 - **실기기:** USB로 연결한 iPhone 15 Plus / iOS 26.6.1, 사용자가 준비한 development provisioning으로 빌드·설치했다.
 - **실제 마이크 통합 테스트:** 60초 연속 PCM 수신 후 3초 측정 3회 재시작, 매 세션 정상 종료와 invalid sample 0을 확인했다. 각 세션 중 입력을 바꾸지 않은 category/override/route-configuration 알림을 재현해도 수신이 유지됐다. 테스트 1개, 약 70.7초, 통과.
 - **단위 회귀 테스트:** 기존 계산·보정·앱 설정과 입력 변경 판단 4개를 합쳐 13개 정의 / parameterized case 포함 15개 경우가 실기기에서 통과했다. 동일한 입력의 별도 format 객체, 입력 소실, 마이크/data source/gain/mode/sample rate/channel/PCM layout 변경을 포함한다. iOS 27 simulator에서도 단위 테스트는 통과했다.
-- 실기기 XCTest UI runner는 automation mode 활성화 시간 초과로 실행하지 못했다. 위 실기기 결과는 앱의 `AudioCapture`를 직접 호출한 hosted integration test이며, 화면 버튼 자동 조작을 완료했다는 뜻은 아니다. 기존 권한·보정 프로필·저장된 측정은 초기화하지 않았다.
+- 실기기 XCTest UI runner는 automation mode 활성화 시간 초과로 실행하지 못했다. 잠금 해제 후 재시도에서 **‘XCTest’ 앱을 사용하려면 iPhone 암호 입력 / Enable UI Automation** 확인창을 확인했다. 일반 잠금 해제와 별도로 사용자가 기기에서 직접 이 인증을 마쳐야 하며, 암호를 개발 도구나 채팅에 전달할 필요는 없다. 위 실기기 통과 결과는 앱의 `AudioCapture`를 직접 호출한 hosted integration test이며, 화면 버튼 자동 조작을 완료했다는 뜻은 아니다. 기존 권한·보정 프로필·저장된 측정은 초기화하지 않았다.
 - **UI 회귀 테스트:** iPhone 18 Pro / iOS 27 simulator에서 60초 측정 시간 증가, 3회 재측정, 종료 후 요약 버튼 복귀, 홈 전환 시 자동 중단과 안내까지 확인했다. 1개 시나리오, 약 89.3초, 통과.
 - 로컬 원본 결과: `.verification/route-fix/device-audio.xcresult`, `.verification/route-fix/device-unit.xcresult`, `.verification/route-fix/ui.xcresult` (Git 제외).
 
