@@ -82,6 +82,37 @@ final class dmUITests: XCTestCase {
     }
 
     @MainActor
+    func testLiveMicrophoneSustainedCaptureAndRestart() throws {
+        let app = XCUIApplication()
+        // Keep the installed app's data and microphone authorization intact.
+        app.launchArguments = ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
+        app.launch()
+        let measure = app.buttons["measure"]
+        XCTAssertTrue(measure.waitForExistence(timeout: 10))
+        let stop = app.buttons.matching(identifier: "measure")
+            .matching(NSPredicate(format: "label == %@", "Stop measuring")).firstMatch
+        let duration = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "Duration: ")).firstMatch
+        for seconds in [60, 3, 3, 3] {
+            measure.tap()
+            XCTAssertTrue(stop.waitForExistence(timeout: 10), app.debugDescription)
+            let target = String(format: "Duration: 00:%02d:%02d", seconds / 60, seconds % 60)
+            let advanced = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label >= %@", target), object: duration)
+            XCTAssertEqual(XCTWaiter.wait(for: [advanced], timeout: Double(seconds) + 10), .completed,
+                           "Live PCM input must keep advancing. \(app.debugDescription)")
+            XCTAssertTrue(stop.exists)
+            if seconds == 60 { capture(app, name: "Sori-live-microphone-60-seconds") }
+            stop.tap()
+            XCTAssertTrue(app.buttons["summary"].waitForExistence(timeout: 5))
+        }
+        measure.tap()
+        XCTAssertTrue(stop.waitForExistence(timeout: 10))
+        XCUIDevice.shared.press(.home)
+        app.activate()
+        XCTAssertTrue(app.staticTexts["Measurement stopped when Sori left the foreground."].waitForExistence(timeout: 6))
+        XCTAssertFalse(stop.exists)
+    }
+
+    @MainActor
     func testPermissionDenialOffersRecoveryWithoutStarting() throws {
         let app = XCUIApplication()
         app.resetAuthorizationStatus(for: .microphone)

@@ -1,4 +1,5 @@
 import Foundation
+import AVFAudio
 import Testing
 @testable import dm
 
@@ -111,5 +112,60 @@ struct AppConfigurationTests {
         #expect(Bundle.main.object(forInfoDictionaryKey: "FirebaseCrashlyticsCollectionEnabled") as? Bool == false)
         #expect(Bundle.main.object(forInfoDictionaryKey: "FirebaseDataCollectionDefaultEnabled") as? Bool == false)
         #expect(Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") as? String != nil)
+    }
+}
+
+struct CaptureInputStateTests {
+    private func input() -> CaptureInputState {
+        CaptureInputState(portID: "built-in", dataSourceID: "bottom", polarPattern: nil,
+            sampleRate: 48000, channels: 1, gain: 1,
+            category: AVAudioSession.Category.record.rawValue, mode: AVAudioSession.Mode.measurement.rawValue,
+            format: AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 1)!)
+    }
+
+    @Test func identicalInputDoesNotStopForSetupOrOutputNotifications() {
+        // Separate AVAudioFormat instances must compare by format, not object identity.
+        #expect(input().action(current: input(), engineRunning: true) == .keepRunning)
+    }
+
+    @Test func engineRestartRequiresUnchangedInput() {
+        let original = input()
+        #expect(original.action(current: input(), engineRunning: false) == .restartEngine)
+        #expect(original.action(current: nil, engineRunning: false) == .stop)
+        var changed = input()
+        changed.sampleRate = 44100
+        #expect(original.action(current: changed, engineRunning: false) == .stop)
+    }
+
+    @Test func realInputChangesEndTheCalibratedSession() {
+        let original = input()
+        let changes: [(inout CaptureInputState) -> Void] = [
+            { $0.portID = "usb-mic" },
+            { $0.dataSourceID = "front" },
+            { $0.polarPattern = "cardioid" },
+            { $0.sampleRate = 44100 },
+            { $0.channels = 2 },
+            { $0.gain = 0.5 },
+            { $0.category = AVAudioSession.Category.playAndRecord.rawValue },
+            { $0.mode = AVAudioSession.Mode.voiceChat.rawValue },
+            { $0.format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 1)! },
+            { $0.format = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 2)! },
+            { $0.format = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 48000, channels: 1, interleaved: false)! }
+        ]
+        for change in changes {
+            var changed = input()
+            change(&changed)
+            #expect(original.action(current: changed, engineRunning: true) == .stop)
+        }
+        #expect(original.action(current: nil, engineRunning: true) == .stop)
+    }
+
+    @Test func stereoInterleavingChangesInvalidateTheTapStride() {
+        var original = input()
+        original.channels = 2
+        original.format = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 2)!
+        var changed = original
+        changed.format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 2, interleaved: true)!
+        #expect(original.action(current: changed, engineRunning: true) == .stop)
     }
 }

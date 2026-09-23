@@ -2,9 +2,29 @@ import AVFAudio
 import Foundation
 import UIKit
 
+struct CaptureInputState: Equatable {
+    var portID: String
+    var dataSourceID: String?
+    var polarPattern: String?
+    var sampleRate: Double
+    var channels: Int
+    var gain: Float
+    var category: String
+    var mode: String
+    var format: AVAudioFormat
+
+    enum ChangeAction { case keepRunning, restartEngine, stop }
+
+    func action(current: CaptureInputState?, engineRunning: Bool) -> ChangeAction {
+        guard self == current else { return .stop }
+        return engineRunning ? .keepRunning : .restartEngine
+    }
+}
+
 @MainActor
 final class AudioCapture {
     private var engine: AVAudioEngine?
+    private var inputState: CaptureInputState?
     private var processor: WindowProcessor?
     private var processorLock: NSLock?
     private var observers: [NSObjectProtocol] = []
@@ -84,6 +104,7 @@ final class AudioCapture {
             }
         }
         tapInstalled = true
+        inputState = currentInput(session: session, engine: audioEngine)
         ready(conditions)
         audioEngine.prepare()
         try audioEngine.start()
@@ -98,14 +119,48 @@ final class AudioCapture {
             Task { @MainActor [weak self] in if self?.token == request { self?.stop(reason: "interrupted") } }
         })
         observers.append(center.addObserver(forName: AVAudioSession.routeChangeNotification, object: session, queue: .main) { [weak self] _ in
-            Task { @MainActor [weak self] in if self?.token == request { self?.stop(reason: "route_changed") } }
+            Task { @MainActor [weak self] in self?.handleConfigurationChange(request: request) }
         })
         observers.append(center.addObserver(forName: AVAudioSession.mediaServicesWereResetNotification, object: session, queue: .main) { [weak self] _ in
             Task { @MainActor [weak self] in if self?.token == request { self?.stop(reason: "interrupted") } }
         })
         observers.append(center.addObserver(forName: .AVAudioEngineConfigurationChange, object: engine, queue: .main) { [weak self] _ in
-            Task { @MainActor [weak self] in if self?.token == request { self?.stop(reason: "route_changed") } }
+            Task { @MainActor [weak self] in self?.handleConfigurationChange(request: request) }
         })
+    }
+
+    private func currentInput(session: AVAudioSession, engine: AVAudioEngine) -> CaptureInputState? {
+        guard let route = session.currentRoute.inputs.first else { return nil }
+        return CaptureInputState(portID: route.uid,
+            dataSourceID: route.selectedDataSource?.dataSourceID.stringValue,
+            polarPattern: route.selectedDataSource?.selectedPolarPattern?.rawValue,
+            sampleRate: session.sampleRate, channels: session.inputNumberOfChannels,
+            gain: session.inputGain, category: session.category.rawValue, mode: session.mode.rawValue,
+            format: engine.inputNode.outputFormat(forBus: 0))
+    }
+
+    private func handleConfigurationChange(request: Int) {
+        guard accepting, token == request, let engine, let inputState else { return }
+        let session = AVAudioSession.sharedInstance()
+        // Category/preferred-input setup and output-only changes also post route notifications.
+        // Compare the capture conditions, rather than treating every notification as a new mic.
+        switch inputState.action(current: currentInput(session: session, engine: engine), engineRunning: engine.isRunning) {
+        case .keepRunning:
+            break
+        case .stop:
+            stop(reason: "route_changed")
+        case .restartEngine:
+            // A configuration change can stop the engine even when our input is unchanged.
+            // The existing tap/processor is safe to reuse only with the identical input format.
+            do {
+                try engine.start()
+                if currentInput(session: session, engine: engine) != inputState {
+                    stop(reason: "route_changed")
+                }
+            } catch {
+                stop(reason: "error_microphone")
+            }
+        }
     }
 
     func stop(reason: String = "user") {
@@ -116,6 +171,7 @@ final class AudioCapture {
         engine?.stop()
         if tapInstalled { engine?.inputNode.removeTap(onBus: 0); tapInstalled = false }
         engine = nil
+        inputState = nil
         processorLock?.lock()
         let remainder = processor?.flush()
         processorLock?.unlock()

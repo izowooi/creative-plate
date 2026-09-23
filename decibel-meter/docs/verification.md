@@ -22,6 +22,19 @@
 
 Android lint의 남은 warning은 SDK/의존성 새 버전 알림, SharedPreferences KTX 사용 제안, API 33 이상에서만 쓰이는 localeConfig 안내다. 실제 config는 compile/target 36·min 26이며 그 범위에 맞춘 의존성을 유지한다. Xcode의 AppIntents metadata 미추출 안내는 AppIntents 기능을 포함하지 않아서 발생한다.
 
+## iPhone 15 Plus 입력 변경 오탐 수정 (2026-09-23)
+
+오디오 초기화·출력 경로 알림까지 모두 `route_changed`로 중단하던 처리를 수정했다. 측정 시작 시의 입력 포트, data source, polar pattern, sample rate, channel count, gain, category/mode, PCM format을 비교한다. 입력이 동일하면 측정을 유지하고, 엔진만 멈춘 경우 동일 입력인지 확인한 뒤 재시작한다. 입력 소실이나 실제 조건 변경은 계속 측정을 중단한다.
+
+- **실기기:** USB로 연결한 iPhone 15 Plus / iOS 26.6.1, 사용자가 준비한 development provisioning으로 빌드·설치했다.
+- **실제 마이크 통합 테스트:** 60초 연속 PCM 수신 후 3초 측정 3회 재시작, 매 세션 정상 종료와 invalid sample 0을 확인했다. 각 세션 중 입력을 바꾸지 않은 category/override/route-configuration 알림을 재현해도 수신이 유지됐다. 테스트 1개, 약 70.7초, 통과.
+- **단위 회귀 테스트:** 기존 계산·보정·앱 설정과 입력 변경 판단 4개를 합쳐 13개 정의 / parameterized case 포함 15개 경우가 실기기에서 통과했다. 동일한 입력의 별도 format 객체, 입력 소실, 마이크/data source/gain/mode/sample rate/channel/PCM layout 변경을 포함한다. iOS 27 simulator에서도 단위 테스트는 통과했다.
+- 실기기 XCTest UI runner는 automation mode 활성화 시간 초과로 실행하지 못했다. 위 실기기 결과는 앱의 `AudioCapture`를 직접 호출한 hosted integration test이며, 화면 버튼 자동 조작을 완료했다는 뜻은 아니다. 기존 권한·보정 프로필·저장된 측정은 초기화하지 않았다.
+- **UI 회귀 테스트:** iPhone 18 Pro / iOS 27 simulator에서 60초 측정 시간 증가, 3회 재측정, 종료 후 요약 버튼 복귀, 홈 전환 시 자동 중단과 안내까지 확인했다. 1개 시나리오, 약 89.3초, 통과.
+- 로컬 원본 결과: `.verification/route-fix/device-audio.xcresult`, `.verification/route-fix/device-unit.xcresult`, `.verification/route-fix/ui.xcresult` (Git 제외).
+
+실기기 통합 테스트 재실행 시 Xcode destination을 연결된 iPhone으로 선택하고 `AudioCaptureDeviceTests`를 실행한다. 마이크 권한은 미리 허용되어 있어야 한다. 원음이나 측정 report를 저장하지 않으며, simulator에서는 해당 실기기 전용 suite를 빌드하지 않는다. 실제 외부 마이크 교체·통화 중단·참조 계측기 비교는 아래 별도 검증 계획에 남아 있다.
+
 ## 실행 환경과 명령
 
 - Xcode 27.0, SwiftUI, iOS 17 최소 타깃.
