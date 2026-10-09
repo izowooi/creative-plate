@@ -1,15 +1,39 @@
 {
   "manifest_version": 3,
   "name": "나무위키 크롤러",
-  "version": "0.1.0",
-  "description": "나무위키 문서를 여러 개 한꺼번에 수집해 원본 모양 그대로 보고 HTML · Markdown · JSON 으로 저장합니다.",
+  "version": "0.2.0",
+  "description": "나무위키 문서를 여러 개 한꺼번에 수집해 원본 모양 그대로 보고 HTML · Markdown · JSON 으로 저장합니다. namu.zowoo.uk 의 수집 에이전트로도 쓰입니다.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4FlEk3kCGtejkhf8FvXzGGtxQEjvVJIAbSRViI0FFi+OKMVe/zoal71wvG4XNb6RaHzgmyawsG+z1+JsA9XEqKNKRLtKeDK/LIVa0+iZnpyXH8GXH9mZRnKdT+SuXfSGHF6njqMGlF2QYb2d4APyHoovzSRuo8gMHi5+At80J5tpA+VNDcaRE4Lv9sHt2S0I8nOP8rMkYCgOWgG25ih9e5uTWtkaJvTt4ruiNHUOiR69JZkyTjMHccuPToNuscXq05WNPOXNBUnrklu7Qek5wWij8P+zvHoOA7/3JUx2Pm41dr1uVDrrb4vsI27u0NQqYsu1IEV5Mo+FWV+tXIBqTQIDAQAB",
   "minimum_chrome_version": "110",
   "action": {
     "default_title": "나무위키 크롤러",
     "default_popup": "popup.html",
-    "default_icon": {"16": "icons/icon16.png", "32": "icons/icon32.png"}
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
   },
-  "icons": {"16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png"},
-  "permissions": ["storage", "unlimitedStorage", "scripting"],
-  "host_permissions": ["https://namu.wiki/*"]
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "externally_connectable": {
+    "matches": [
+      "https://namu.zowoo.uk/*"
+    ]
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://namu.wiki/*"
+  ]
 }

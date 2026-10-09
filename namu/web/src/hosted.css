@@ -1,0 +1,17 @@
+/* 호스팅(namu.zowoo.uk) 전용 스타일. 확장 뷰어의 viewer.css 뒤에 이어 붙여 쓴다. */
+.top .spacer { flex: 1; }
+.agent { font-size: 12px; padding: 2px 10px; border-radius: 99px; border: 1px solid var(--line); }
+.agent.ok { color: var(--ok); border-color: var(--ok); }
+.agent.none { color: var(--warn); border-color: var(--warn); }
+#logout { padding: 3px 10px; font-size: 12px; }
+
+.login { position: fixed; inset: 0; display: grid; place-items: center; background: var(--bg); z-index: 10; }
+.login form { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 24px; width: min(360px, 90vw); display: grid; gap: 12px; }
+.login h2 { font-size: 18px; }
+.login p { margin: 0; }
+.login input, .filter { padding: 9px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--text); font: inherit; width: 100%; }
+.filter { margin: 8px 0; }
+
+.st-queued { color: var(--warn); }
+.job .detail.err { color: var(--danger); }
+.job button { padding: 2px 8px; font-size: 12px; }

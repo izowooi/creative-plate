@@ -286,3 +286,87 @@ def test_follow_targets_matches_python(page):
         got = js(page, "const m = await import('/lib/crawler.js'); return m.followTargets(arg.result, arg.scope);",
                  {"result": {"doc": asdict(doc)}, "scope": scope})
         assert [t["title"] for t in got] == [t.title for t in follow_targets(result, scope)]
+
+
+# ---------- 호스팅 페이지용 수집 에이전트 (extension/lib/agent-handler.js) ----------
+
+AGENT_SETUP = """
+const h = await import('/lib/agent-handler.js');
+const sender = {origin: 'https://namu.zowoo.uk'};
+const resp = (status, text, headers = {}) => ({status, url: 'https://namu.wiki/w/x', headers: {get: (k) => headers[k] ?? null}, text: async () => text});
+"""
+
+
+def run_agent(page, scenario, arg=None):
+    return js(page, AGENT_SETUP + scenario, arg)
+
+
+def test_agent_rejects_other_origins_and_unknown_requests(page):
+    got = run_agent(page, """
+        const opts = {version: '0.2.0'};
+        return {
+          ok: await h.handleMessage({type: 'ping'}, sender, opts),
+          evil: await h.handleMessage({type: 'ping'}, {origin: 'https://evil.example'}, opts),
+          lookalike: await h.handleMessage({type: 'ping'}, {origin: 'https://namu.zowoo.uk.evil.example'}, opts),
+          none: await h.handleMessage({type: 'ping'}, {}, opts),
+          viaUrl: await h.handleMessage({type: 'ping'}, {url: 'https://namu.zowoo.uk/x?y=1'}, opts),
+          unknown: await h.handleMessage({type: 'rm'}, sender, opts),
+          empty: await h.handleMessage(undefined, sender, opts),
+        };""")
+    assert got["ok"] == {"ok": True, "version": "0.2.0"}
+    assert got["viaUrl"]["ok"] is True
+    for name in ("evil", "lookalike", "none"):
+        assert "error" in got[name] and "ok" not in got[name], name
+    assert "error" in got["unknown"] and "error" in got["empty"]
+
+
+def test_agent_only_fetches_namu_document_urls(page):
+    got = run_agent(page, """
+        let calls = 0;
+        const fetchImpl = async () => { calls++; return resp(200, arg); };
+        const out = {};
+        for (const url of ['https://example.com/x', 'http://namu.wiki/w/x', 'https://namu.wiki.evil.com/w/x', 'https://namu.wiki/RecentChanges',
+                           'https://namu.wiki/w/x y', 'https://namu.wiki/w/', 'https://evil.example/?u=https://namu.wiki/w/x', '', null, 5]) {
+          out[String(url)] = await h.handleMessage({type: 'fetch', url}, sender, {fetchImpl});
+        }
+        return {out, calls};""", fixture("article_full.html"))
+    assert got["calls"] == 0
+    assert all("error" in v for v in got["out"].values()), got["out"]
+
+
+def test_agent_fetches_document_with_browser_credentials(page):
+    got = run_agent(page, """
+        let seen;
+        const fetchImpl = async (url, init) => { seen = {url, credentials: init.credentials, cache: init.cache}; return resp(200, arg); };
+        const r = await h.handleMessage({type: 'fetch', url: 'https://namu.wiki/w/%EC%A0%84%EC%83%9D%EA%B2%80%EC%8B%A0'}, sender, {fetchImpl});
+        return {status: r.status, via: r.via, size: r.html.length, seen};""", fixture("article_full.html"))
+    assert got["status"] == 200 and got["via"] == "확장 fetch" and got["size"] > 100000
+    assert got["seen"]["credentials"] == "include" and got["seen"]["cache"] == "no-store"
+
+
+def test_agent_passes_through_not_found_and_rate_limits(page):
+    got = run_agent(page, """
+        const message = {type: 'fetch', url: 'https://namu.wiki/w/x'};
+        const nf = await h.handleMessage(message, sender, {fetchImpl: async () => resp(404, arg.notFound)});
+        const limited = await h.handleMessage(message, sender, {fetchImpl: async () => resp(429, 'slow down', {'Retry-After': '30'}),
+                                                                 tabFetch: async () => { throw new Error('탭을 열면 안 된다'); }});
+        return {nf: {status: nf.status, hasHtml: nf.html.length > 0}, limited};""", {"notFound": fixture("not_found.html")})
+    assert got["nf"] == {"status": 404, "hasHtml": True}
+    assert got["limited"]["status"] == 429 and got["limited"]["retryAfter"] == 30 and got["limited"]["html"] == ""
+
+
+def test_agent_falls_back_to_a_real_tab_when_blocked(page):
+    got = run_agent(page, """
+        const message = {type: 'fetch', url: 'https://namu.wiki/w/x'};
+        const blocked = async () => resp(403, arg.blocked);
+        const tabs = [];
+        const tabFetch = async (url) => { tabs.push(url); return {status: 200, html: arg.article, url}; };
+        const viaTab = await h.handleMessage(message, sender, {fetchImpl: blocked, tabFetch});
+        const networkDown = await h.handleMessage(message, sender, {fetchImpl: async () => { throw new TypeError('Failed to fetch'); }, tabFetch});
+        const noTab = await h.handleMessage(message, sender, {fetchImpl: blocked});
+        const tabFails = await h.handleMessage(message, sender, {fetchImpl: blocked, tabFetch: async () => { throw new Error('시간 초과'); }});
+        return {viaTab: [viaTab.status, viaTab.via], networkDown: [networkDown.status, networkDown.via], tabs: tabs.length, noTab, tabFails};""",
+                    {"blocked": fixture("blocked_cloudflare.html"), "article": fixture("article_full.html")})
+    assert got["viaTab"] == [200, "확장 탭"] and got["networkDown"] == [200, "확장 탭"] and got["tabs"] == 2
+    assert "error" in got["noTab"] and "차단" in got["noTab"]["error"]
+    assert "error" in got["tabFails"] and "시간 초과" in got["tabFails"]["error"]

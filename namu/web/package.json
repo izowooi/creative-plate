@@ -1,0 +1,10 @@
+{
+  "name": "namu-web",
+  "private": true,
+  "type": "module",
+  "description": "namu.zowoo.uk - 나무위키 수집 결과 라이브러리 (Cloudflare Pages + Supabase)",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test"
+  }
+}
