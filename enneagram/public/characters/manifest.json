@@ -1,0 +1,95 @@
+{
+  "provider": "NovelAI",
+  "images": {
+    "1": {
+      "file": "type-1.webp",
+      "model": "nai-diffusion-4-5-full",
+      "seed": 180610101,
+      "width": 768,
+      "height": 768,
+      "generatedAt": "2026-10-09T12:21:13.985362+00:00",
+      "sha256": "d43eadd06137656f6727ea47e1c8c57cf39108d408e307317b7cdec212936096",
+      "promptSha256": "8f2f3ddd9aee742052a8c0e68e3085002dbf307cfc02e56d46526c046cfc0def"
+    },
+    "2": {
+      "file": "type-2.webp",
+      "model": "nai-diffusion-4-5-full",
+      "seed": 180610202,
+      "width": 768,
+      "height": 768,
+      "generatedAt": "2026-10-09T12:21:26.265819+00:00",
+      "sha256": "66226678ab3e1556dcc095c91cbae8af42baed63181a01e4ad28d548f92c9995",
+      "promptSha256": "ebe4e1887c8db204e7ffc4741925dd1757a29bd3301cd1865a2c8ac3c08c6143"
+    },
+    "3": {
+      "file": "type-3.webp",
+      "model": "nai-diffusion-4-5-full",
+      "seed": 180610303,
+      "width": 768,
+      "height": 768,
+      "generatedAt": "2026-10-09T12:21:37.340494+00:00",
+      "sha256": "3a44cbd31b02b5822b32ace5a9c10e9b43c8d68f1f3fb56c369031ed91de9f2d",
+      "promptSha256": "4e19a1cf9741e3281582dffaa8ed2a3eef192631d1fd7fd7977ca907b95280d9"
+    },
+    "4": {
+      "file": "type-4.webp",
+      "model": "nai-diffusion-4-5-full",
+      "seed": 180610404,
+      "width": 768,
+      "height": 768,
+      "generatedAt": "2026-10-09T12:21:47.974930+00:00",
+      "sha256": "9ceaf604e6ec43e773d710015a103b8ef789dba103d8e87fe81c31a6487b5579",
+      "promptSha256": "54752d226dff1befb26d9bc5243099d4e41be7b0cae9be8910febead6ae6dd37"
+    },
+    "5": {
+      "file": "type-5.webp",
+      "model": "nai-diffusion-4-5-full",
+      "seed": 180610505,
+      "width": 768,
+      "height": 768,
+      "generatedAt": "2026-10-09T12:22:00.717632+00:00",
+      "sha256": "3312ab989e52adbecef7295da9a28d4e87f7baf07d302cb8e9fec6e1e9618378",
+      "promptSha256": "0b9c4f64f0c40bf276c67b21a648a9dec588b3d740499350f26a3b116329efe6"
+    },
+    "6": {
+      "file": "type-6.webp",
+      "model": "nai-diffusion-4-5-full",
+      "seed": 180610606,
+      "width": 768,
+      "height": 768,
+      "generatedAt": "2026-10-09T12:22:11.474882+00:00",
+      "sha256": "f7add1719222358d614b6e67870680eb9f013fafe9f9206ce479960f4d610c96",
+      "promptSha256": "98be5f153d05c21e28f5fe2170f80271f942d0615310c7812538bc72370670d2"
+    },
+    "7": {
+      "file": "type-7.webp",
+      "model": "nai-diffusion-4-5-full",
+      "seed": 180610707,
+      "width": 768,
+      "height": 768,
+      "generatedAt": "2026-10-09T12:22:21.372588+00:00",
+      "sha256": "16a08281bcdce16f2ae093f1ce9e6731e8916055c5c87c722f6e8e137ca6f99b",
+      "promptSha256": "28e2fff59c7ef9c03dfe8442c959812d274acb25e73c8b8a7fa02f980ad59e44"
+    },
+    "8": {
+      "file": "type-8.webp",
+      "model": "nai-diffusion-4-5-full",
+      "seed": 180610808,
+      "width": 768,
+      "height": 768,
+      "generatedAt": "2026-10-09T12:22:30.328032+00:00",
+      "sha256": "4ce72fd09c2484729e933b589f92c047a5eddca0ba47f80a9c97ee5c4cd02eb5",
+      "promptSha256": "46fb246c1f852cfb33b9cc25d5e4f6a8aff10e3adc663563603a454958bd2ecd"
+    },
+    "9": {
+      "file": "type-9.webp",
+      "model": "nai-diffusion-4-5-full",
+      "seed": 180610909,
+      "width": 768,
+      "height": 768,
+      "generatedAt": "2026-10-09T12:22:42.392154+00:00",
+      "sha256": "12ac787e9165ebe8099806232e195db796ae48d75c5847868a16ca482f8f67fb",
+      "promptSha256": "122d570c82d36fc7b9e25b179b5b83a97c3845bdba50d5e884259a3415919d03"
+    }
+  }
+}
