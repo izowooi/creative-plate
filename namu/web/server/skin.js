@@ -1,7 +1,9 @@
 // 나무위키 스킨 CSS/폰트 프록시. 브라우저는 CORS 때문에 직접 못 받는다.
 // 문서 HTML 은 Cloudflare 에서 차단되지만 /skins/ 정적 파일은 통과한다(실측). 해시가 붙은 불변 파일이라 엣지에 오래 캐시한다.
 export const SKIN_PREFIX = "https://namu.wiki/skins/";
-const PATH_RE = /^[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\.(?:css|woff2|woff|ttf|otf|eot|svg)$/;
+// 파일명 안의 점(81.9957bf….css)은 허용하되 비어 있는 조각(.., 앞쪽 점)은 만들 수 없게 조각마다 영숫자로 시작한다
+const NAME = "[A-Za-z0-9_-]+";
+const PATH_RE = new RegExp(`^(?:${NAME}/)*${NAME}(?:\\.${NAME})*\\.(?:css|woff2|woff|ttf|otf|eot|svg)$`);
 const TYPES = { css: "text/css; charset=utf-8", woff2: "font/woff2", woff: "font/woff", ttf: "font/ttf", otf: "font/otf",
   eot: "application/vnd.ms-fontobject", svg: "image/svg+xml" };
 

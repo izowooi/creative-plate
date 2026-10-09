@@ -159,7 +159,9 @@ test("DB 중계: 본문을 그대로 전달하고 설정이 없으면 503", asyn
 test("skinUrl: 허용 확장자와 안전한 경로만", () => {
   assert.equal(skinUrl("espejo/abc.css"), "https://namu.wiki/skins/espejo/abc.css");
   assert.equal(skinUrl("espejo/abc.woff2"), "https://namu.wiki/skins/espejo/abc.woff2");
-  for (const bad of ["../x.css", "espejo/../../etc.css", "espejo/a.php", "/abs.css", "espejo/a.css?x=1", "https://evil/a.css", "", null, "a//b.css"]) {
+  assert.equal(skinUrl("espejo/81.9957bf2eeaa2e705c668.css"), "https://namu.wiki/skins/espejo/81.9957bf2eeaa2e705c668.css"); // 실제 파일명
+  assert.equal(skinUrl("espejo/vzblglzu.7b5c255a8b49a9fbd27b.css"), "https://namu.wiki/skins/espejo/vzblglzu.7b5c255a8b49a9fbd27b.css");
+  for (const bad of ["../x.css", "espejo/../../etc.css", "espejo/a.php", "/abs.css", "espejo/a.css?x=1", "https://evil/a.css", "", null, "a//b.css", "a..css", ".hidden.css", "espejo/.css", "espejo/a.b..css", "espejo/a/../b.css", "espejo\\a.css", "espejo/a.css/"]) {
     assert.equal(skinUrl(bad), null, String(bad));
   }
 });
