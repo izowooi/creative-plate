@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "나무위키 크롤러",
+  "version": "0.1.0",
+  "description": "나무위키 문서를 여러 개 한꺼번에 수집해 원본 모양 그대로 보고 HTML · Markdown · JSON 으로 저장합니다.",
+  "minimum_chrome_version": "110",
+  "action": {
+    "default_title": "나무위키 크롤러",
+    "default_popup": "popup.html",
+    "default_icon": {"16": "icons/icon16.png", "32": "icons/icon32.png"}
+  },
+  "icons": {"16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png"},
+  "permissions": ["storage", "unlimitedStorage", "scripting"],
+  "host_permissions": ["https://namu.wiki/*"]
+}

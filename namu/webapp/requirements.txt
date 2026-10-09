@@ -1,0 +1,9 @@
+flask>=2.2
+beautifulsoup4>=4.12
+curl_cffi>=0.7
+
+# 선택: 차단/챌린지 시 실제 Chrome 으로 수집 (시스템 Chrome 이 있으면 브라우저를 따로 받지 않아도 됨)
+# playwright>=1.48
+
+# 개발: 테스트
+# pytest>=8

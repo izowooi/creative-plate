@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>나무위키 크롤러</title>
+  <link rel="icon" href="icons/icon32.png">
+  <link rel="stylesheet" href="viewer.css">
+  <style>
+    body { width: 380px; display: block; padding: 14px; height: auto; }
+    h1 { margin: 0 0 10px; font-size: 16px; }
+    textarea { height: 120px; }
+    .actions { margin-top: 10px; }
+    .current { margin-top: 10px; }
+    .current button { width: 100%; }
+    .hint { margin: 10px 0 0; }
+  </style>
+</head>
+<body>
+  <h1>나무위키 크롤러</h1>
+  <textarea id="entries" spellcheck="false"
+            placeholder="URL 또는 문서명을 한 줄에 하나씩&#10;https://namu.wiki/w/%EC%A0%84%EC%83%9D%EA%B2%80%EC%8B%A0"></textarea>
+  <div class="actions"><button id="start" class="primary" type="button">크롤링 시작</button></div>
+  <div id="current" class="current" hidden>
+    <button id="grab" type="button">지금 보고 있는 문서 가져오기 — <span id="grab-title"></span></button>
+  </div>
+  <p id="notice" class="notice" hidden></p>
+  <p class="muted hint">결과는 새 탭에서 원본 모양 그대로 볼 수 있고 HTML · Markdown · JSON 으로 저장할 수 있습니다.</p>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

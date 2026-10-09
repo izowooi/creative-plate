@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나무위키 크롤러</title>
+  <link rel="icon" href="icons/icon32.png">
+  <link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+  <header class="top">
+    <h1>나무위키 크롤러</h1>
+    <span class="sub">URL 또는 문서명을 한 줄에 하나씩 · 내 브라우저로 직접 수집 · 요청 간격은 자동 조절</span>
+  </header>
+
+  <main class="layout">
+    <aside class="side">
+      <section class="card">
+        <label for="entries" class="label">크롤링할 문서</label>
+        <textarea id="entries" spellcheck="false"
+                  placeholder="https://namu.wiki/w/%EC%A0%84%EC%83%9D%EA%B2%80%EC%8B%A0&#10;https://namu.wiki/w/전생검신/등장인물&#10;리그 오브 레전드"></textarea>
+        <div class="opts">
+          <label class="check"><input type="checkbox" id="refresh"> 캐시 무시하고 새로 받기</label>
+          <label class="check"><input type="checkbox" id="use-tab" checked> 막히면 탭을 열어 읽기 (확인 절차는 직접)</label>
+          <label>요청 간격(초) <input type="number" id="interval" class="short" value="3" min="1" max="60"></label>
+          <label>링크 따라가기
+            <select id="follow">
+              <option value="">안 함</option>
+              <option value="subdocs">하위 문서만 (문서명/…)</option>
+              <option value="links">본문 링크 전체</option>
+            </select>
+          </label>
+          <div id="follow-opts" hidden>
+            <label>깊이 <input type="number" id="depth" value="1" min="1" max="3"></label>
+            <label>최대 문서 수 <input type="number" id="limit" value="20" min="1" max="200"></label>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="start" class="primary" type="button">크롤링 시작 <kbd>⌘/Ctrl+↵</kbd></button>
+          <button id="stop" type="button" disabled>중지</button>
+        </div>
+        <p id="notice" class="notice" hidden></p>
+      </section>
+
+      <section class="card">
+        <div class="row">
+          <h2>결과 <span id="count" class="muted"></span></h2>
+          <div class="bulk">
+            <select id="zip-format" aria-label="ZIP 형식">
+              <option value="html">HTML</option>
+              <option value="md">Markdown</option>
+              <option value="json">JSON</option>
+            </select>
+            <button id="zip" type="button" disabled>ZIP 받기</button>
+          </div>
+        </div>
+        <ul id="results" class="list"></ul>
+      </section>
+
+      <section class="card">
+        <details id="history-box">
+          <summary>이전에 수집한 문서 <span id="history-count" class="muted"></span></summary>
+          <ul id="history" class="list"></ul>
+        </details>
+      </section>
+    </aside>
+
+    <section class="view">
+      <div id="empty" class="empty">
+        <p>왼쪽에 나무위키 문서 URL을 넣고 <strong>크롤링 시작</strong>을 누르세요.</p>
+        <p class="muted">여러 개를 한꺼번에 넣어도 됩니다. 수집한 문서는 원본 모양 그대로 이 화면에서 볼 수 있고,
+          HTML · Markdown · JSON 으로 저장할 수 있습니다.</p>
+      </div>
+      <div id="viewer" hidden>
+        <div class="viewer-bar">
+          <div class="v-title">
+            <strong id="v-title"></strong>
+            <a id="v-origin" target="_blank" rel="noopener noreferrer">원문 ↗</a>
+            <span id="v-meta" class="muted"></span>
+          </div>
+          <div class="tabs" role="tablist">
+            <button type="button" data-tab="page" class="active">원본 보기</button>
+            <button type="button" data-tab="md">Markdown</button>
+            <button type="button" data-tab="json">JSON</button>
+          </div>
+          <div class="dl">
+            <a id="dl-html" role="button" tabindex="0">HTML</a><a id="dl-md" role="button" tabindex="0">MD</a><a id="dl-json" role="button" tabindex="0">JSON</a>
+          </div>
+        </div>
+        <iframe id="frame" title="수집한 문서" sandbox="allow-popups allow-popups-to-escape-sandbox"></iframe>
+        <pre id="text" hidden></pre>
+        <div id="message" class="message" hidden></div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>

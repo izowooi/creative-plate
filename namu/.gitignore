@@ -1,0 +1,15 @@
+# 수집 캐시(문서 원문 HTML, 스킨 CSS, 브라우저 프로필)와 CLI 산출물
+webapp/cache/
+webapp/output/
+output/
+
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+*.zip
+.env
+.env.*
+!.env.example
+*.pem
+*.key
