@@ -248,11 +248,11 @@ async function showTab(tab) {
 
 // ---------- 수집 ----------
 
-function applyResult(item, result) {
+function applyResult(item, result, show = true) {
   item.result = result;
   item.status = result.status;
   renderResults();
-  if (state.current === item || (!state.current && item.status === "ok")) select(item);
+  if (show && (state.current === item || (!state.current && item.status === "ok"))) select(item);
 }
 
 async function crawlItem(item) {
@@ -373,9 +373,8 @@ function describeJob(job) {
 async function openByTitle(title) {
   const item = addItem(title, 0);
   const result = await crawler.load(await sha1Hex(title));
-  if (result) applyResult(item, result);
-  else applyResult(item, { status: "error", error: "저장된 문서를 찾지 못했습니다", title });
-  select(item);
+  applyResult(item, result ?? { status: "error", error: "저장된 문서를 찾지 못했습니다", title }, false);
+  select(item); // 한 번만 그린다(두 번 그리면 첫 렌더링의 이미지 요청이 중단된다)
 }
 
 function renderJobs() {
