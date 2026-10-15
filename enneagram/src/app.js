@@ -1,4 +1,6 @@
 import "./style.css";
+import "./motion.css";
+import { mountMotion, motionEnabled, toggleMotion } from "./motion.js";
 import { QUESTIONS, TYPES, PROFILES, SOURCES } from "./content.js";
 import { scoreAnswers } from "./scoring.js";
 import { diagram, downloadCard } from "./diagram.js";
@@ -13,6 +15,7 @@ const state = {
   shared: false,
   saveStatus: "",
   conflict: null,
+  preview: 5,
 };
 let saveTimer,
   saving = false,
@@ -40,7 +43,7 @@ function persist() {
     toast("기기에 저장할 공간이 부족합니다. 보관 ID로 저장해 주세요.");
 }
 function header() {
-  return `<header class="header"><a href="#" class="brand" data-action="home"><span class="brand-symbol">✳</span> 마음지도<span class="brand-sub">ENNEAGRAM ATLAS</span></a><nav aria-label="주 메뉴"><button data-action="types" class="${state.view === "types" ? "active" : ""}">아홉 가지 유형</button><button data-action="about" class="${state.view === "about" ? "active" : ""}">지도 읽는 법</button><button data-action="storage" class="nav-save">이어 풀기 <span>↗</span></button></nav></header>`;
+  return `<header class="header"><a href="#" class="brand" data-action="home"><span class="brand-symbol">✳</span> 마음지도<span class="brand-sub">ENNEAGRAM ATLAS</span></a><nav aria-label="주 메뉴"><button class="motion-toggle" data-action="toggle-motion" aria-label="모션 끄기" aria-pressed="false"><span aria-hidden="true">Ⅱ</span><span class="motion-label">모션 켜짐</span></button><button data-action="types" class="${state.view === "types" ? "active" : ""}">아홉 가지 유형</button><button data-action="about" class="${state.view === "about" ? "active" : ""}">지도 읽는 법</button><button data-action="storage" class="nav-save">이어 풀기 <span>↗</span></button></nav></header>`;
 }
 function footer() {
   return `<footer><a href="#" data-action="home" class="footer-brand">✳ 마음지도</a><span>나를 이해하는 작은 시작.<br>성격을 규정하거나 진단하는 검사가 아닙니다.</span><button data-action="about">검사 안내 · 자료 · 저장 정책 ↗</button></footer>`;
@@ -54,11 +57,25 @@ function setView(view) {
   window.scrollTo({ top: 0, behavior: "smooth" });
   document.querySelector("#main")?.focus({ preventScroll: true });
 }
-function hero() {
-  return `<section class="hero"><div class="hero-copy"><div class="eyebrow"><span class="tiny-star">✳</span> 나를 알아가는 아홉 개의 길</div><h1>당신의 마음은<br>어떤 <em>모양</em>인가요?</h1><p class="hero-description">같은 순간에도, 우리는 다른 마음으로 움직입니다.<br>에니어그램으로 나의 동기와 관계의 패턴을<br class="desktop-br"> 천천히 들여다보세요.</p><div class="hero-actions"><button class="button primary" data-action="start">${answered() ? "검사 이어서 하기" : "나의 마음지도 만들기"} <span>↗</span></button><span class="test-meta">54개의 질문 · 약 8–12분<br>로그인 없이, 내 속도로</span></div>${answered() ? `<p class="resume-note">이 기기에 ${answered()} / 54문항이 저장되어 있어요. <button data-action="restart">새로 시작</button></p>` : ""}<div class="hero-footnote"><span class="status-dot"></span> 답변은 기기에 자동 저장됩니다.</div></div><div class="hero-art" aria-label="마음지도 예시"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><span class="art-spark spark-one">✧</span><span class="art-spark spark-two">✴</span><div class="map-paper"><div class="paper-heading"><span>MY INNER LANDSCAPE</span><span>01 — 09</span></div>${diagram(undefined, 5, "#738666", "hero")}<div class="paper-caption">서로 다른 마음, 하나의 나</div></div><div class="floating-label"><span>✳</span><div>나를 설명하는 번호보다<br><strong>나를 이해하는 지도.</strong></div></div><span class="art-caption">A LITTLE CLOSER TO YOURSELF</span></div></section>`;
+function previewScores(type) {
+  return TYPES.map((t) =>
+    t.id === type
+      ? 92
+      : t.id === (type === 1 ? 9 : type - 1)
+        ? 72
+        : 34 + ((t.id * 13 + type * 7) % 30),
+  );
 }
+function previewPaper(type) {
+  const t = typeById(type);
+  return `<div class="paper-heading"><span>YOUR INNER UNIVERSE</span><span>0${type} / 09</span></div>${diagram(previewScores(type), type, t.color, "hero")}<div class="preview-profile"><img src="/characters/type-${type}.webp" alt="" width="46" height="46"><div><span>TYPE ${type} · ${escape(t.name)}</span><p>${escape(t.tagline)}</p></div></div>`;
+}
+function hero() {
+  return `<section class="hero"><div class="hero-copy"><div class="eyebrow"><span class="tiny-star">✳</span> 나를 알아가는 아홉 개의 길</div><h1><span class="title-line"><span>당신의 마음은</span></span><span class="title-line"><span>어떤 <em>모양</em>인가요?</span></span></h1><p class="hero-description">같은 순간에도, 우리는 다른 마음으로 움직입니다.<br>에니어그램으로 나의 동기와 관계의 패턴을<br class="desktop-br"> 천천히 들여다보세요.</p><div class="hero-actions"><button class="button primary" data-action="start">${answered() ? "검사 이어서 하기" : "나의 마음지도 만들기"} <span>↗</span></button><span class="test-meta">54개의 질문 · 약 8–12분<br>로그인 없이, 내 속도로</span></div>${answered() ? `<p class="resume-note">이 기기에 ${answered()} / 54문항이 저장되어 있어요. <button data-action="restart">새로 시작</button></p>` : ""}<div class="hero-footnote"><span class="status-dot"></span> 답변은 기기에 자동 저장됩니다.</div><div class="hero-scroll-hint" aria-hidden="true"><span>SCROLL TO EXPLORE</span><i>↓</i></div></div><div class="hero-art" aria-label="아홉 유형의 예시 마음지도"><div class="art-atmosphere" aria-hidden="true"></div><div class="art-orbit orbit-one" aria-hidden="true"></div><div class="art-orbit orbit-two" aria-hidden="true"></div><div class="orbit-traveler" aria-hidden="true"><i></i></div><span class="art-spark spark-one" aria-hidden="true">✧</span><span class="art-spark spark-two" aria-hidden="true">✴</span><div class="map-paper" data-tilt>${previewPaper(state.preview)}</div><div class="floating-label"><span>✳</span><div>나를 설명하는 번호보다<br><strong>나를 이해하는 지도.</strong></div></div><div class="preview-selector" aria-label="유형 예시 선택">${TYPES.map((t) => `<button data-action="preview-type" data-type="${t.id}" aria-label="${t.id}번 ${escape(t.name)} 예시 보기" aria-pressed="${state.preview === t.id}" style="--preview-color:${escape(t.color)}"><span>${t.id}</span></button>`).join("")}</div><p class="art-caption" id="preview-caption" aria-live="polite">${state.preview}번 ${escape(typeById(state.preview).name)} 예시 · 실제 검사 결과가 아닙니다</p></div></section>`;
+}
+
 function typeCard(type) {
-  return `<button class="type-card" style="--type-color:${escape(type.color)}" data-action="type" data-type="${type.id}"><div class="character"><img src="/characters/type-${type.id}.webp" alt="${escape(type.name)}를 표현한 캐릭터" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="character-fallback" hidden>${["⚖", "♡", "✦", "❋", "⌕", "◇", "☀", "♜", "❀"][type.id - 1]}</span><span class="type-number">${String(type.id).padStart(2, "0")}</span></div><div class="type-card-copy"><span class="type-card-label">TYPE ${type.id}</span><h3>${escape(type.name)} <span>↗</span></h3><p>${escape(type.tagline)}</p></div></button>`;
+  return `<button class="type-card" data-tilt style="--type-color:${escape(type.color)}" data-action="type" data-type="${type.id}"><div class="character"><img src="/characters/type-${type.id}.webp" alt="${escape(type.name)}를 표현한 캐릭터" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="character-fallback" hidden>${["⚖", "♡", "✦", "❋", "⌕", "◇", "☀", "♜", "❀"][type.id - 1]}</span><span class="type-number">${String(type.id).padStart(2, "0")}</span></div><div class="type-card-copy"><span class="type-card-label">TYPE ${type.id}</span><h3>${escape(type.name)} <span>↗</span></h3><p>${escape(type.tagline)}</p></div></button>`;
 }
 function home() {
   return `${hero()}<section class="how-section"><div class="section-label">THE JOURNEY</div><div class="how-grid"><article><span>01</span><h3>있는 그대로 답하기</h3><p>좋은 모습보다, 평소의 나에 가까운 답을 골라요.</p></article><article><span>02</span><h3>나만의 모양 발견하기</h3><p>아홉 가지 경향과 날개를 하나의 도형으로 만나보세요.</p></article><article><span>03</span><h3>이해하고, 나누기</h3><p>나와 관계를 위한 조언을 읽고 마음지도를 공유해요.</p></article></div></section><section class="types-section"><div class="section-heading"><div><div class="eyebrow">NINE WAYS OF BEING</div><h2>우리 안의 아홉 가지 풍경</h2></div><p>어느 유형이 더 좋거나 나쁘지 않아요.<br>당신의 마음이 머무는 곳을 둘러보세요.</p></div><div class="types-grid">${TYPES.map(typeCard).join("")}</div></section><section class="quiet-note"><span>✧</span><p>당신은 하나의 번호보다 훨씬 넓은 사람입니다.</p><button data-action="about">에니어그램과 이 검사의 한계 알아보기 ↗</button></section>`;
@@ -85,6 +102,7 @@ function about() {
 }
 function render() {
   app.innerHTML = `${header()}<main id="main" tabindex="-1">${state.view === "home" ? home() : state.view === "quiz" ? quiz() : state.view === "result" ? resultPage() : state.view === "about" ? about() : `<section class="types-section full-types"><div class="eyebrow">NINE WAYS OF BEING</div><h1>아홉 가지 마음의 풍경</h1><p class="intro">행동의 모습보다, 그 뒤에 있는 마음의 동기에 귀 기울여보세요.</p><div class="types-grid">${TYPES.map(typeCard).join("")}</div></section>`}</main>${footer()}`;
+  mountMotion(app, `${state.view}:${state.page}`);
 }
 function openDialog(html) {
   document.querySelector("dialog")?.remove();
@@ -97,6 +115,14 @@ function openDialog(html) {
   });
   el.addEventListener("close", () => el.remove());
   el.showModal();
+  if (motionEnabled())
+    el.animate(
+      [
+        { opacity: 0, transform: "translateY(18px) scale(.97)" },
+        { opacity: 1, transform: "translateY(0) scale(1)" },
+      ],
+      { duration: 320, easing: "cubic-bezier(.16,1,.3,1)" },
+    );
   return el;
 }
 function storageDialog() {
@@ -273,7 +299,31 @@ document.addEventListener("click", async (e) => {
   if (!el) return;
   e.preventDefault();
   const action = el.dataset.action;
-  if (["home", "types", "about"].includes(action)) {
+  if (action === "toggle-motion") {
+    toggleMotion();
+  } else if (action === "preview-type") {
+    state.preview = Number(el.dataset.type);
+    const paper = document.querySelector(".map-paper");
+    paper.innerHTML = previewPaper(state.preview);
+    document
+      .querySelectorAll('[data-action="preview-type"]')
+      .forEach((button) =>
+        button.setAttribute(
+          "aria-pressed",
+          String(Number(button.dataset.type) === state.preview),
+        ),
+      );
+    document.querySelector("#preview-caption").textContent =
+      `${state.preview}번 ${typeById(state.preview).name} 예시 · 실제 검사 결과가 아닙니다`;
+    if (motionEnabled())
+      paper.animate(
+        [
+          { opacity: 0.5, translate: "0 12px", scale: ".96" },
+          { opacity: 1, translate: "0 0", scale: "1" },
+        ],
+        { duration: 480, easing: "cubic-bezier(.16,1,.3,1)" },
+      );
+  } else if (["home", "types", "about"].includes(action)) {
     sync();
     document.querySelector("dialog")?.close();
     setView(action);

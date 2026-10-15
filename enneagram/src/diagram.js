@@ -17,13 +17,13 @@ export function diagram(
   return `<svg viewBox="0 0 360 360" class="diagram" role="img" aria-labelledby="${id}-title"><title id="${id}-title">아홉 유형의 마음 지도${primary ? `, ${primary}번 유형 점수가 가장 높음` : ""}</title>
     ${[0.25, 0.5, 0.75, 1].map((r) => `<polygon points="${types.map((t) => coords(point(t, 126 * r))).join(" ")}" fill="none" stroke="#dadbd1" stroke-width="1"/>`).join("")}
     ${types.map((t) => `<line x1="180" y1="180" x2="${point(t, 126)[0]}" y2="${point(t, 126)[1]}" stroke="#dedfd7" stroke-width=".7"/>`).join("")}
-    <polyline points="${edge([9, 3, 6, 9])}" fill="none" stroke="#bac4b3" stroke-width="1" opacity=".6"/><polyline points="${edge([1, 4, 2, 8, 5, 7, 1])}" fill="none" stroke="#bac4b3" stroke-width="1" opacity=".6"/>
-    <polygon points="${polygon}" fill="${color}" fill-opacity=".18" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>
+    <polyline class="diagram-connection" pathLength="1" points="${edge([9, 3, 6, 9])}" fill="none" stroke="#bac4b3" stroke-width="1" opacity=".6"/><polyline class="diagram-connection" pathLength="1" points="${edge([1, 4, 2, 8, 5, 7, 1])}" fill="none" stroke="#bac4b3" stroke-width="1" opacity=".6"/>
+    <polygon class="diagram-shape" pathLength="1" points="${polygon}" fill="${color}" fill-opacity=".18" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>
     ${types
       .map((t) => {
         const p = point(t, (126 * scores[t - 1]) / 100),
           l = point(t, 153);
-        return `<circle cx="${p[0]}" cy="${p[1]}" r="${primary === t ? 5 : 3}" fill="${color}"/><text x="${l[0]}" y="${l[1] + 5}" text-anchor="middle" fill="${primary === t ? color : "#83877c"}" font-family="sans-serif" font-size="16" font-weight="${primary === t ? 700 : 400}">${t}</text>`;
+        return `<circle class="diagram-point" style="--point-order:${t}" cx="${p[0]}" cy="${p[1]}" r="${primary === t ? 5 : 3}" fill="${color}"/><text x="${l[0]}" y="${l[1] + 5}" text-anchor="middle" fill="${primary === t ? color : "#83877c"}" font-family="sans-serif" font-size="16" font-weight="${primary === t ? 700 : 400}">${t}</text>`;
       })
       .join("")}
     <circle cx="180" cy="180" r="3" fill="${color}"/></svg>`;
