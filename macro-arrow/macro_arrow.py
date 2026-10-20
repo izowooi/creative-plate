@@ -14,6 +14,9 @@ RIGHT_ARROW_KEY_CODE = 124
 LETTER_KEY_CODES = dict(zip("asdfhgzxcv", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]))
 LETTER_KEY_CODES.update(dict(zip("bqweryt", [11, 12, 13, 14, 15, 16, 17])))
 LETTER_KEY_CODES.update({"o": 31, "u": 32, "i": 34, "p": 35, "l": 37, "j": 38, "k": 40, "n": 45, "m": 46})
+DOUBLE_TAP_CHOICES = ("ctrl", "alt", "cmd", "shift", "off")
+TAP_MAX_HOLD = 0.3
+DOUBLE_TAP_GAP = 0.4
 
 
 def capture_screen(path: Path) -> None:
@@ -24,6 +27,43 @@ def capture_screen(path: Path) -> None:
 def press_right_arrow() -> None:
     script = f'tell application "System Events" to key code {RIGHT_ARROW_KEY_CODE}'
     subprocess.run(["osascript", "-e", script], check=True, capture_output=True, text=True)
+
+
+class DoubleTapDetector:
+    """수식키 하나만 짧게 두 번 눌렀다 뗐는지 판정한다. 중간에 다른 키가 끼면 무효."""
+
+    def __init__(self, max_hold=TAP_MAX_HOLD, gap=DOUBLE_TAP_GAP):
+        self.max_hold = max_hold
+        self.gap = gap
+        self.down_at = None
+        self.interrupted = False
+        self.last_tap = None
+
+    def on_modifiers(self, target_down, others_down, now):
+        if others_down:
+            self.down_at = None
+            self.last_tap = None
+            return False
+        if target_down and self.down_at is None:
+            self.down_at = now
+            self.interrupted = False
+            return False
+        if target_down or self.down_at is None:
+            return False
+        is_tap = not self.interrupted and now - self.down_at <= self.max_hold
+        self.down_at = None
+        if not is_tap:
+            self.last_tap = None
+            return False
+        if self.last_tap is not None and now - self.last_tap <= self.gap:
+            self.last_tap = None
+            return True
+        self.last_tap = now
+        return False
+
+    def on_key(self):
+        self.interrupted = True
+        self.last_tap = None
 
 
 def run_macro(count, interval, out_dir: Path, capture=capture_screen, press=press_right_arrow, stop=None):
@@ -52,6 +92,8 @@ def parse_args(argv=None):
     parser.add_argument("-d", "--delay", type=float, default=3.0, help="시작 전 대기 초. 대상 창으로 포커스를 옮길 시간 (기본 3)")
     parser.add_argument("--listen", action="store_true", help="상주하며 단축키(⌃⌥ + --key)로 시작/중단")
     parser.add_argument("--key", default="m", help="--listen 단축키 글자. ⌃⌥ 와 조합 (기본 m)")
+    parser.add_argument("--double-tap", choices=DOUBLE_TAP_CHOICES, default="ctrl",
+                        help="--listen 에서 이 수식키를 빠르게 두 번 누르면 시작/중단 (기본 ctrl, 끄기: off)")
     args = parser.parse_args(argv)
     args.key = args.key.lower()
     if args.key not in LETTER_KEY_CODES:
@@ -74,6 +116,15 @@ def listen(args) -> int:
     hotkey_vk = LETTER_KEY_CODES[args.key]
     hotkey_flags = Quartz.kCGEventFlagMaskControl | Quartz.kCGEventFlagMaskAlternate
     other_flags = Quartz.kCGEventFlagMaskCommand | Quartz.kCGEventFlagMaskShift
+    modifier_flags = {
+        "ctrl": Quartz.kCGEventFlagMaskControl,
+        "alt": Quartz.kCGEventFlagMaskAlternate,
+        "cmd": Quartz.kCGEventFlagMaskCommand,
+        "shift": Quartz.kCGEventFlagMaskShift,
+    }
+    tap_flag = modifier_flags.get(args.double_tap)
+    tap_others = sum(modifier_flags.values()) & ~(tap_flag or 0)
+    detector = DoubleTapDetector()
     stop = threading.Event()
     worker = None
 
@@ -94,7 +145,7 @@ def listen(args) -> int:
             print(f"완료: {len(saved)}장 -> {out_dir.resolve()}", flush=True)
         except subprocess.CalledProcessError as e:
             print(f"실패: {' '.join(e.cmd[:2])} -> {(e.stderr or '').strip()}", file=sys.stderr, flush=True)
-        print(f"대기 중: ⌃⌥{args.key.upper()} 로 다시 시작", flush=True)
+        print(f"대기 중 [{triggers}]", flush=True)
 
     def toggle():
         nonlocal worker
@@ -109,8 +160,16 @@ def listen(args) -> int:
 
     # 수식키를 별도 키 이벤트가 아닌 키 이벤트의 flags 로 판정한다. 한/영 상태와 무관하게 물리 키(vk)로 매칭.
     def intercept(event_type, event):
+        if event_type == Quartz.kCGEventFlagsChanged:
+            if tap_flag is not None:
+                flags = Quartz.CGEventGetFlags(event)
+                if detector.on_modifiers(bool(flags & tap_flag), bool(flags & tap_others), time.monotonic()):
+                    toggle()
+            return event
         if event_type not in (Quartz.kCGEventKeyDown, Quartz.kCGEventKeyUp):
             return event
+        if event_type == Quartz.kCGEventKeyDown:
+            detector.on_key()
         vk = Quartz.CGEventGetIntegerValueField(event, Quartz.kCGKeyboardEventKeycode)
         flags = Quartz.CGEventGetFlags(event)
         if vk != hotkey_vk or flags & hotkey_flags != hotkey_flags or flags & other_flags:
@@ -121,7 +180,9 @@ def listen(args) -> int:
             toggle()
         return None  # 단축키는 대상 앱에 전달하지 않는다
 
-    print(f"대기 중: 대상 창에서 ⌃⌥{args.key.upper()} 를 누르면 시작, 실행 중 다시 누르면 중단. 종료: Ctrl+C", flush=True)
+    symbols = {"ctrl": "⌃", "alt": "⌥", "cmd": "⌘", "shift": "⇧"}
+    triggers = f"⌃⌥{args.key.upper()}" + ("" if tap_flag is None else f" / {symbols[args.double_tap]} 두 번 탭")
+    print(f"대기 중 [{triggers}] 시작·중단. 종료: Ctrl+C", flush=True)
     with keyboard.Listener(darwin_intercept=intercept) as listener:
         try:
             listener.join()
