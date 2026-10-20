@@ -1,3 +1,6 @@
 .venv/
 shots/
 __pycache__/
+xcode-proj/build/
+xcuserdata/
+.DS_Store
