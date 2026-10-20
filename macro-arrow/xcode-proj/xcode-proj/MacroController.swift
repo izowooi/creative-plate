@@ -10,6 +10,7 @@ final class MacroController {
         static let count = "count"
         static let interval = "interval"
         static let captureTarget = "captureTarget"
+        static let saveFolder = "saveFolder"
     }
 
     private static let rightArrowKeyCode: CGKeyCode = 124
@@ -26,13 +27,17 @@ final class MacroController {
     var captureTarget: CaptureTarget {
         didSet { UserDefaults.standard.set(captureTarget.rawValue, forKey: DefaultsKey.captureTarget) }
     }
+    /// 실행할 때마다 이 폴더 아래에 시각 이름의 하위 폴더를 만들어 저장한다.
+    var saveFolder: URL {
+        didSet { UserDefaults.standard.set(saveFolder.path, forKey: DefaultsKey.saveFolder) }
+    }
 
     private(set) var isRunning = false
     private(set) var progress = 0
     private(set) var lastFolder: URL?
     private(set) var lastError: String?
 
-    let rootFolder = FileManager.default.homeDirectoryForCurrentUser
+    static let defaultSaveFolder = FileManager.default.homeDirectoryForCurrentUser
         .appending(path: "Pictures/MacroArrow", directoryHint: .isDirectory)
 
     private var detector = DoubleTapDetector()
@@ -48,6 +53,8 @@ final class MacroController {
         count = UserDefaults.standard.integer(forKey: DefaultsKey.count)
         interval = UserDefaults.standard.double(forKey: DefaultsKey.interval)
         captureTarget = CaptureTarget(rawValue: UserDefaults.standard.string(forKey: DefaultsKey.captureTarget) ?? "") ?? .activeWindow
+        saveFolder = UserDefaults.standard.string(forKey: DefaultsKey.saveFolder)
+            .map { URL(fileURLWithPath: $0, isDirectory: true) } ?? Self.defaultSaveFolder
         startListening()
     }
 
@@ -63,6 +70,22 @@ final class MacroController {
 
     func requestScreenRecording() {
         CGRequestScreenCaptureAccess()
+    }
+
+    // MARK: - 저장 폴더
+
+    /// 문서·데스크탑 등 보호된 폴더는 처음 쓸 때 macOS 가 접근 허용 창을 띄운다.
+    /// 실행 도중 그 창이 뜨면 앞 앱이 바뀌어 멈추므로, 폴더를 고를 때 미리 한 번 써 본다.
+    func chooseSaveFolder(_ url: URL) {
+        let probe = url.appending(path: ".macroarrow-write-test")
+        do {
+            try Data().write(to: probe)
+            try FileManager.default.removeItem(at: probe)
+            saveFolder = url
+            lastError = nil
+        } catch {
+            lastError = "이 폴더에 저장할 수 없습니다: \(error.localizedDescription)"
+        }
     }
 
     // MARK: - 실행
@@ -93,7 +116,7 @@ final class MacroController {
             Self.logger.notice("start refused: frontmost is self")
             return
         }
-        let folder = rootFolder.appending(path: Self.timestamp(), directoryHint: .isDirectory)
+        let folder = saveFolder.appending(path: Self.timestamp(), directoryHint: .isDirectory)
         isRunning = true
         progress = 0
         lastError = nil

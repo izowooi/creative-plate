@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4C9BFF"/>
+      <stop offset="1" stop-color="#2B55E6"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E4ECFA"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7DB6FF"/>
+      <stop offset="1" stop-color="#2D5BEA"/>
+    </linearGradient>
+  </defs>
+
+  <!-- macOS 아이콘 그리드: 1024 캔버스 안 824 정사각, 모서리 반경 약 185 -->
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#bg)"/>
+
+  <!-- 카메라 몸체 + 뷰파인더 돌출부 -->
+  <rect x="404" y="292" width="216" height="110" rx="34" fill="url(#body)"/>
+  <rect x="222" y="352" width="580" height="392" rx="84" fill="url(#body)"/>
+  <!-- 셔터 버튼 -->
+  <rect x="262" y="318" width="96" height="48" rx="18" fill="#E4ECFA"/>
+  <!-- 플래시 -->
+  <circle cx="724" cy="422" r="20" fill="#FFC542"/>
+
+  <!-- 렌즈 -->
+  <circle cx="512" cy="552" r="156" fill="#1B2B55"/>
+  <circle cx="512" cy="552" r="118" fill="url(#glass)"/>
+  <circle cx="512" cy="552" r="58" fill="#1B2B55" opacity="0.55"/>
+  <circle cx="466" cy="506" r="26" fill="#FFFFFF" opacity="0.85"/>
+</svg>
