@@ -9,6 +9,7 @@ final class MacroController {
     private enum DefaultsKey {
         static let count = "count"
         static let interval = "interval"
+        static let captureTarget = "captureTarget"
     }
 
     private static let rightArrowKeyCode: CGKeyCode = 124
@@ -21,6 +22,9 @@ final class MacroController {
     }
     var interval: Double {
         didSet { UserDefaults.standard.set(interval, forKey: DefaultsKey.interval) }
+    }
+    var captureTarget: CaptureTarget {
+        didSet { UserDefaults.standard.set(captureTarget.rawValue, forKey: DefaultsKey.captureTarget) }
     }
 
     private(set) var isRunning = false
@@ -36,9 +40,14 @@ final class MacroController {
     private var monitor: Any?
 
     init() {
-        UserDefaults.standard.register(defaults: [DefaultsKey.count: 80, DefaultsKey.interval: 0.1])
+        UserDefaults.standard.register(defaults: [
+            DefaultsKey.count: 86,
+            DefaultsKey.interval: 0.1,
+            DefaultsKey.captureTarget: CaptureTarget.activeWindow.rawValue,
+        ])
         count = UserDefaults.standard.integer(forKey: DefaultsKey.count)
         interval = UserDefaults.standard.double(forKey: DefaultsKey.interval)
+        captureTarget = CaptureTarget(rawValue: UserDefaults.standard.string(forKey: DefaultsKey.captureTarget) ?? "") ?? .activeWindow
         startListening()
     }
 
@@ -66,37 +75,68 @@ final class MacroController {
         }
     }
 
+    private enum RunError: LocalizedError {
+        case focusChanged(to: String)
+
+        var errorDescription: String? {
+            switch self {
+            case .focusChanged(let name): "앞에 있는 앱이 \(name)(으)로 바뀌어 멈췄습니다"
+            }
+        }
+    }
+
     private func start() {
+        // 시작 시점의 앞 앱을 대상으로 고정한다. 도중에 다른 앱이 앞으로 오면 → 키가 엉뚱한 앱에 들어가므로 멈춘다.
+        guard let targetApp = NSWorkspace.shared.frontmostApplication,
+              targetApp.processIdentifier != ProcessInfo.processInfo.processIdentifier else {
+            lastError = "캡처할 창을 먼저 클릭한 뒤 ⌃ 를 두 번 탭하세요"
+            Self.logger.notice("start refused: frontmost is self")
+            return
+        }
         let folder = rootFolder.appending(path: Self.timestamp(), directoryHint: .isDirectory)
         isRunning = true
         progress = 0
         lastError = nil
         lastFolder = folder
-        runTask = Task { await run(into: folder, count: count, interval: interval) }
+        runTask = Task { await run(into: folder, count: count, interval: interval, target: captureTarget, app: targetApp) }
     }
 
-    private func run(into folder: URL, count: Int, interval: Double) async {
-        defer { isRunning = false }
-        Self.logger.info("start count=\(count) interval=\(interval) folder=\(folder.path, privacy: .public)")
+    private func run(into folder: URL, count: Int, interval: Double, target: CaptureTarget, app: NSRunningApplication) async {
+        defer {
+            isRunning = false
+            NSApplication.shared.dockTile.badgeLabel = nil
+        }
+        let appName = app.bundleIdentifier ?? app.localizedName ?? "pid \(app.processIdentifier)"
+        Self.logger.notice("start count=\(count) interval=\(interval) target=\(target.rawValue, privacy: .public) app=\(appName, privacy: .public)")
         do {
             try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-            let capturer = try await ScreenCapturer.forMainDisplay()
             let width = max(3, String(count).count)
             for index in 1...count {
                 try Task.checkCancellation()
+                try ensureFrontmost(app)
                 let name = "shot_" + String(repeating: "0", count: width - String(index).count) + "\(index).png"
-                try await capturer.capture(to: folder.appending(path: name))
+                try await ScreenCapturer.capture(target, of: app.processIdentifier, to: folder.appending(path: name))
                 try await Task.sleep(for: .seconds(interval))
+                try ensureFrontmost(app)
                 postRightArrow()
                 try await Task.sleep(for: .seconds(interval))
                 progress = index
+                NSApplication.shared.dockTile.badgeLabel = "\(index)"
+                Self.logger.notice("step \(index)/\(count)")
             }
-            Self.logger.info("finished shots=\(self.progress)")
+            Self.logger.notice("finished shots=\(self.progress)")
         } catch is CancellationError {
-            Self.logger.info("stopped shots=\(self.progress)")
+            Self.logger.notice("stopped shots=\(self.progress)")
         } catch {
             lastError = error.localizedDescription
-            Self.logger.error("failed: \(error.localizedDescription, privacy: .public)")
+            Self.logger.error("failed after \(self.progress) shots: \(error.localizedDescription, privacy: .public)")
+        }
+    }
+
+    private func ensureFrontmost(_ app: NSRunningApplication) throws {
+        let front = NSWorkspace.shared.frontmostApplication
+        guard front?.processIdentifier == app.processIdentifier else {
+            throw RunError.focusChanged(to: front?.localizedName ?? "알 수 없음")
         }
     }
 
@@ -122,6 +162,9 @@ final class MacroController {
 
     private func handle(_ event: NSEvent) {
         if event.cgEvent?.getIntegerValueField(.eventSourceUserData) == Self.syntheticEventTag {
+            if event.type == .keyDown {
+                Self.logger.debug("skip synthetic arrow")
+            }
             return
         }
         switch event.type {
@@ -132,7 +175,7 @@ final class MacroController {
             let targetDown = flags.contains(.control)
             let othersDown = !flags.intersection([.option, .command, .shift, .function]).isEmpty
             if detector.modifiersChanged(targetDown: targetDown, othersDown: othersDown, at: event.timestamp) {
-                Self.logger.info("double tap")
+                Self.logger.notice("double tap (running=\(self.isRunning))")
                 toggle()
             }
         default:
