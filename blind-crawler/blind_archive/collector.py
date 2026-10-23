@@ -57,9 +57,12 @@ class Collector:
                     raise ValueError('목록에서 게시글을 찾지 못했습니다.')
                 # Recheck older entries independently; discovery must not reset backoff.
                 for p in found:
-                    known = self.db.rows('SELECT id FROM posts WHERE id=?',(p['id'],))
+                    known = self.db.rows('SELECT id,last_seen FROM posts WHERE id=?',(p['id'],))
+                    priority=8 if channel=='토픽 베스트' else 5
                     if not known:
-                        self.db.enqueue(p['url'],p['id'],5)
+                        self.db.enqueue(p['url'],p['id'],priority)
+                    elif known[0]['last_seen'] is None:
+                        self.db.execute('UPDATE jobs SET priority=max(priority,?) WHERE post_id=?',(priority,p['id']))
                 self.db.event('discovery',channel+': '+str(len(found))+'개 발견')
             except Exception as e:
                 self.db.event('discovery_error',channel+': '+str(e))
