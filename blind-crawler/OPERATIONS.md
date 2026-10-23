@@ -47,7 +47,7 @@ PATH=/opt/homebrew/bin:$PATH pm2 restart blind-archive
 
 ## 로그인 후 자동 복구
 
-`scripts/dev.blindarchive.pm2.plist`를 `~/Library/LaunchAgents/`에 설치하고 `launchctl bootstrap gui/$(id -u)`로 등록한다. 로그인 시 및 5분마다 `ensure-running.sh`가 PM2 프로세스를 확인하고 중지된 경우만 시작한다. SSD가 마운트되기 전 실패한 경우 다음 확인 때 재시도한다. OS 재부팅 후 사용자 로그인 전 실행은 보장하지 않으며 자동 로그인 설정을 변경하지 않는다.
+`scripts/ensure-running.sh`와 `ecosystem.config.cjs`를 `~/Library/Application Support/blind-archive/`에 복사한다. 외장 SSD의 시작 스크립트를 launchd가 직접 읽으면 macOS 접근 제한에 걸릴 수 있어 시작 파일만 홈 폴더에 둔다. `scripts/dev.blindarchive.pm2.plist`를 `~/Library/LaunchAgents/`에 설치하고 `launchctl bootstrap gui/$(id -u)`로 등록한다. 로그인 시 및 5분마다 `ensure-running.sh`가 PM2 프로세스를 확인하고 중지된 경우만 시작한다. SSD가 마운트되기 전 실패한 경우 다음 확인 때 재시도한다. OS 재부팅 후 사용자 로그인 전 실행은 보장하지 않으며 자동 로그인 설정을 변경하지 않는다.
 
 ## 백업
 

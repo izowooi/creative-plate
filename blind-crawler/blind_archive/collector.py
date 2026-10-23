@@ -136,6 +136,10 @@ class Collector:
                 except Exception as e:
                     self.browser_error=str(e)[:300]
                     self.db.event('comment_warning',job['post_id']+': '+str(e))
+                    if self.browser:
+                        self.browser.close();self.browser=None
+                    if self.pw:
+                        self.pw.stop();self.pw=None
                 finally:
                     self.db.execute('DELETE FROM comment_jobs WHERE post_id=?',(job['post_id'],))
                 stop.wait(5)

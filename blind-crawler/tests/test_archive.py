@@ -2,6 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from blind_archive.db import DB
+from scripts.backup import backup
 from blind_archive.parser import article,canonical,listing
 
 HTML='''<div class="contents"><a href="/kr/topics/블라블라">블라블라</a><h1>제목</h1><div class="article-view-contents"><div class="contents-txt">첫 원문<br>둘째 줄</div></div></div><div class="article-comments"><div class="comments_function"><h3>댓글 1</h3></div><div class="wrap-comment" id="1"><p class="name">작성자</p><p class="cmt-txt">댓글 원문</p></div></div>'''
@@ -18,6 +19,21 @@ class ArchiveTests(unittest.TestCase):
             self.assertEqual(versions[1]['data']['comments'][0]['body'],'댓글 원문')
             self.assertEqual(len(db.find('첫 원문')),1)
             self.assertEqual(len(db.find('댓글 원문')),1)
+    def test_consistent_backup_can_be_reopened(self):
+        import sqlite3
+        with tempfile.TemporaryDirectory() as d:
+            db=DB(Path(d)/'archive.sqlite');db.save(article(HTML,URL))
+            path=backup(d)
+            with sqlite3.connect(path) as c:
+                self.assertEqual(c.execute('SELECT count(*) FROM snapshots').fetchone()[0],1)
+                self.assertEqual(c.execute('PRAGMA integrity_check').fetchone()[0],'ok')
+    def test_notification_exact_title_links_without_url(self):
+        with tempfile.TemporaryDirectory() as d:
+            db=DB(Path(d)/'archive.sqlite');p=article(HTML,URL);p['title']='알림으로 찾을 제목';db.save(p)
+            db.execute('INSERT INTO notifications(received,event_key,title,body) VALUES(0,?,?,?)',('key','지금 주목글','알림으로 찾을 제목'))
+            db.match_notifications()
+            self.assertEqual(db.rows('SELECT post_id FROM notifications')[0]['post_id'],'abc123')
+
     def test_missing_body_is_not_empty_snapshot(self):
         with self.assertRaises(ValueError):article('<h1>로그인</h1>',URL)
     def test_only_blind_posts(self):

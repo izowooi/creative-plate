@@ -88,6 +88,7 @@ class DB:
         counts = {}
         for table in ['posts','snapshots','notifications','jobs']:
             counts[table] = self.rows('SELECT count(*) AS n FROM '+table)[0]['n']
+        counts['saved_posts'] = self.rows('SELECT count(*) AS n FROM posts WHERE last_seen IS NOT NULL')[0]['n']
         counts['last_success'] = self.rows('SELECT max(last_seen) AS t FROM posts')[0]['t']
         counts['events'] = self.rows('SELECT * FROM events ORDER BY id DESC LIMIT 12')
         counts['storage_bytes'] = sum(p.stat().st_size for p in self.path.parent.glob('archive.sqlite*'))
@@ -102,7 +103,7 @@ class DB:
         if channel:
             where.append('p.channel=?'); args.append(channel)
         clause = ' WHERE '+' AND '.join(where) if where else ''
-        return self.rows('SELECT p.*,(SELECT count(*) FROM snapshots s WHERE s.post_id=p.id) AS versions FROM posts p'+clause+' ORDER BY p.first_seen DESC LIMIT 50 OFFSET ?',args+[offset])
+        return self.rows('SELECT p.*,(SELECT count(*) FROM snapshots s WHERE s.post_id=p.id) AS versions FROM posts p'+clause+' ORDER BY (p.last_seen IS NOT NULL) DESC,p.last_seen DESC,p.first_seen DESC LIMIT 50 OFFSET ?',args+[offset])
 
     def detail(self, pid):
         posts = self.rows('SELECT * FROM posts WHERE id=?',(pid,))
