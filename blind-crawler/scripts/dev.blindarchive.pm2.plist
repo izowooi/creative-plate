@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>Label</key><string>dev.blindarchive.pm2</string>
+<key>ProgramArguments</key><array><string>/bin/sh</string><string>/Volumes/sn850x/git/creative-plate/blind-crawler/scripts/ensure-running.sh</string></array>
+<key>RunAtLoad</key><true/>
+<key>StartInterval</key><integer>300</integer>
+<key>StandardOutPath</key><string>/Users/izowooi/Library/Logs/blind-archive-launchd.log</string>
+<key>StandardErrorPath</key><string>/Users/izowooi/Library/Logs/blind-archive-launchd.log</string>
+</dict></plist>

@@ -1,0 +1,6 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'dev.blindarchive'
+    compileSdk 36
+    defaultConfig { applicationId 'dev.blindarchive'; minSdk 26; targetSdk 35; versionCode 1; versionName '1.0' }
+}

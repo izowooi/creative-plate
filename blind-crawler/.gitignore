@@ -1,0 +1,12 @@
+.env*
+!.env.example
+*.key
+*.pem
+.venv/
+__pycache__/
+data/
+*.sqlite*
+android/.gradle/
+android/local.properties
+android/**/build/
+artifacts/
